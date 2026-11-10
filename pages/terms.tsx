@@ -45,7 +45,7 @@ export default function TermsOfServicePage() {
           </section>
           <section>
             <h2 className="text-xl font-semibold text-slate-800 mb-3">7. Intellectual Property</h2>
-            <p>The source code for Birth Chart Library is open source under the AGPL-3.0 license. The interpretation text, written content, and site design are the property of Birth Chart Library and may not be reproduced without permission. Astrological calculation data is derived from the Swiss Ephemeris, used under its open source license. Celebrity photos belong to their authors and are used under the licenses listed on our <a href="/photo-credits" className="text-slate-600 hover:text-slate-800 underline transition-colors">photo credits page</a>.</p>
+            <p>The source code for Birth Chart Library is open source under the AGPL-3.0 license and is <a href="https://github.com/intensechase/birthchartlibrary-source" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-slate-800 underline transition-colors">published on GitHub</a>. The interpretation text, written content, and site design are the property of Birth Chart Library and may not be reproduced without permission, including where that text appears in the source code. Astrological calculation data is derived from the Swiss Ephemeris, used under its open source license. Celebrity photos belong to their authors and are used under the licenses listed on our <a href="/photo-credits" className="text-slate-600 hover:text-slate-800 underline transition-colors">photo credits page</a>.</p>
           </section>
           <section>
             <h2 className="text-xl font-semibold text-slate-800 mb-3">8. Advertising</h2>

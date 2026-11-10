@@ -57,7 +57,7 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="max-w-5xl mx-auto pt-6 border-t border-[#34467C] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#B4BEDA]">
-        <p>&copy; {new Date().getFullYear()} Birth Chart Library. Open source under AGPL-3.0. As an Amazon Associate we earn from qualifying purchases.</p>
+        <p>&copy; {new Date().getFullYear()} Birth Chart Library. <a href="https://github.com/intensechase/birthchartlibrary-source" target="_blank" rel="noopener noreferrer" className="underline hover:text-white">Source code</a> under AGPL-3.0. As an Amazon Associate we earn from qualifying purchases.</p>
         <div className="flex flex-wrap justify-center gap-x-4 gap-y-1">
           <Link href="/privacy" className="hover:text-white hover:underline">Privacy</Link>
           <Link href="/terms" className="hover:text-white hover:underline">Terms</Link>
