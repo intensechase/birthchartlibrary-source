@@ -1,0 +1,19 @@
+Birth Chart Library
+https://birthchartlibrary.com
+
+The software in this repository is licensed under the GNU Affero General
+Public License, version 3 (see LICENSE).
+
+The written content included in this repository is NOT licensed under the
+AGPL. This includes, among others, the interpretation texts in
+lib/interpretations/, the articles in lib/love-articles.ts, the glossary,
+and all other prose shown to readers of the site. That content is
+Copyright (c) Birth Chart Library, all rights reserved. It is included only
+so the program can run, and may not be reproduced without permission.
+
+Third-party components:
+- Swiss Ephemeris, Copyright (c) Astrodienst AG, used under the AGPL
+  through the sweph-wasm package.
+- Celebrity photos are not included in this repository. On the site they
+  come from Wikimedia Commons under the licenses listed at
+  https://birthchartlibrary.com/photo-credits

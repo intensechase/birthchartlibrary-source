@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Latin files only. This is a Japanese font, and loading it through next/font
+   pulled in about 240 files (2.8 MB) on every page. */
+@font-face {
+  font-family: 'Zen Kaku Gothic New';
+  src: url('/fonts/zen-kaku-gothic-new-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Zen Kaku Gothic New';
+  src: url('/fonts/zen-kaku-gothic-new-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Zen Kaku Gothic New';
+  src: url('/fonts/zen-kaku-gothic-new-900.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --background: #F6E8C6;
+  --foreground: #3A3440;
+  --surface: #FFF9EA;
+  --outline: #1A1622;
+  --accent: #B23A10;
+  --gold: #F2B632;
+  --prose-body: #3A3440;
+  --prose-heading: #1A1622;
+  --prose-muted: #5F5868;
+  --prose-rule: #C7B48C;
+  /* The site's grey scale, as RGB so opacity classes keep working. */
+  --s-50: 255 246 223; --s-100: 239 224 184; --s-150: 233 216 172; --s-200: 220 203 163;
+  --s-300: 199 180 140; --s-400: 110 102 114; --s-500: 95 88 104; --s-600: 74 68 80;
+  --s-700: 58 52 64; --s-800: 26 22 34; --s-900: 20 16 26; --s-950: 14 11 18;
+  --sign-aries: #A83A0A; --sign-taurus: #3F6200; --sign-gemini: #745300; --sign-cancer: #4F5D70; --sign-leo: #8F4E06; --sign-virgo: #136B33; --sign-libra: #7E22CE; --sign-scorpio: #9F1239; --sign-sagittarius: #6D28D9; --sign-capricorn: #475569; --sign-aquarius: #0A6780; --sign-pisces: #0B6570;
+}
+
+/* Birth chart wheel. The tokens sit on the root so badges and photo rings
+   beside the wheel use the same day and night colors. */
+:root {
+  --band: #FFF6DF;
+  --w-bg: #F6E8C6; --w-field: #FFF6DF; --w-line: #1A1622; --w-soft: #C7B48C; --w-text: #3A3440; --w-paper: #FFF9EA; --w-outline: #1A1622;
+  --w-tone-0: #E8591D; --w-tone-1: #3F9D4F; --w-tone-2: #F2B632; --w-tone-3: #2B8FD0;
+  --w-shade-0: #B23A10; --w-shade-1: #2A7138; --w-shade-2: #C98A12; --w-shade-3: #1C6699;
+}
+.chart-wheel { background: var(--w-bg); }
+.dark {
+  --band: #1D2C54;
+  --w-bg: #14203F; --w-field: #1D2C54; --w-line: #F2E6C8; --w-soft: #3B4C7D; --w-text: #D5DBEC; --w-outline: #0A0E1E;
+  --w-tone-0: #F0651F; --w-tone-1: #49AE5A; --w-tone-2: #F4BE3C; --w-tone-3: #3A9ADB;
+  --w-shade-0: #B9400F; --w-shade-1: #2B7A3B; --w-shade-2: #C98A12; --w-shade-3: #1F6CA6;
+}
+
+.dark {
+  --background: #14203F;
+  --foreground: #D5DBEC;
+  --surface: #26376A;
+  --outline: #0A0E1E;
+  --accent: #F4BE3C;
+  --gold: #F4BE3C;
+  --prose-body: #D5DBEC;
+  --prose-heading: #F2E6C8;
+  --prose-muted: #B4BEDA;
+  --prose-rule: #4A5C90;
+  --s-50: 255 249 234; --s-100: 242 230 200; --s-150: 234 220 188; --s-200: 227 220 203;
+  --s-300: 213 219 236; --s-400: 180 190 218; --s-500: 152 164 200; --s-600: 74 92 144;
+  --s-700: 52 70 124; --s-800: 38 55 106; --s-900: 29 44 84; --s-950: 20 32 63;
+  --sign-aries: #FF9A6B; --sign-taurus: #A8D65C; --sign-gemini: #F4C542; --sign-cancer: #B8C7DE; --sign-leo: #FFB347; --sign-virgo: #6FD08C; --sign-libra: #D3A6FF; --sign-scorpio: #FF8FA8; --sign-sagittarius: #BFA6FF; --sign-capricorn: #C3CCD9; --sign-aquarius: #5CD3EE; --sign-pisces: #6FD6D6;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  min-height: 100vh;
+  font-family: 'Zen Kaku Gothic New', 'Segoe UI', Arial, sans-serif;
+  font-weight: 500;
+  line-height: 1.625;
+}
+
+h1, h2 {
+  font-family: 'Bricolage Grotesque', 'Arial Black', sans-serif;
+  font-weight: 800;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+/* Older headings were sized and spaced for a narrow all-caps font. */
+.font-display.font-display {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+/* Article text */
+.prose.prose {
+  --tw-prose-body: var(--prose-body);
+  --tw-prose-headings: var(--prose-heading);
+  --tw-prose-lead: var(--prose-body);
+  --tw-prose-links: var(--accent);
+  --tw-prose-bold: var(--prose-heading);
+  --tw-prose-counters: var(--prose-muted);
+  --tw-prose-bullets: var(--prose-muted);
+  --tw-prose-hr: var(--prose-rule);
+  --tw-prose-quotes: var(--prose-heading);
+  --tw-prose-quote-borders: var(--prose-rule);
+  --tw-prose-captions: var(--prose-muted);
+  --tw-prose-th-borders: var(--prose-rule);
+  --tw-prose-td-borders: var(--prose-rule);
+}
+
+.bg-white {
+  background-color: var(--surface);
+}
+
+/* Anchor links land below the 52px sticky header instead of behind it.
+   Applies to all in-content headings — covers in-page TOCs, blog
+   article hashes, and the browser's auto-scroll on focus. */
+h1, h2, h3, h4 {
+  scroll-margin-top: 5rem;
+}
+
+@layer components {
+  /* min-h-[44px] meets Apple HIG tap target floor; text-base (16px) on
+     inputs prevents iOS Safari's zoom-on-focus. */
+  .btn-primary, .btn-outline {
+    @apply inline-flex items-center justify-center px-5 py-2.5 min-h-[44px] rounded-xl font-black text-base transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-amber-500 dark:focus-visible:ring-amber-300;
+    border: 3px solid var(--outline);
+    box-shadow: 0 4px 0 var(--outline);
+  }
+  .btn-primary:hover, .btn-outline:hover {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--outline);
+  }
+  .btn-primary:active, .btn-outline:active {
+    transform: translateY(4px);
+    box-shadow: none;
+  }
+  .btn-primary {
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+    background-color: var(--gold);
+    color: #1A1622;
+  }
+  .btn-outline {
+    background-color: var(--surface);
+    color: rgb(var(--s-800));
+  }
+  .input {
+    @apply w-full px-4 py-2.5 min-h-[44px] text-base border-2 border-slate-300 rounded-lg text-slate-800 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-700 dark:focus:ring-amber-300;
+    background-color: var(--surface);
+  }
+  .card {
+    @apply border border-slate-200 rounded-2xl p-5 sm:p-7;
+    background-color: var(--surface);
+  }
+}
+
+.dark .btn-outline {
+  color: #F2E6C8;
+}
+.dark .input {
+  border-color: #4A5C90;
+  color: #F2E6C8;
+}
+.dark .input::placeholder {
+  color: #B4BEDA;
+}
+.dark .card {
+  border-color: #34467C;
+}
+
+/* Centralized dark mode contrast — text inside dark cards.
+   Specificity (0,3,0) beats Tailwind utilities (0,1,0) so these win without !important. */
+.dark .card .text-slate-800 { color: #F2E6C8; }
+.dark .card .text-slate-700 { color: #D5DBEC; }
+.dark .card .text-slate-600 { color: #B4BEDA; }
+.dark .card .text-slate-500 { color: #B4BEDA; }
+.dark .card table { border-color: #4A5C90; }
+.dark .card th, .dark .card td { border-color: #4A5C90; }
+/* Summary/description text that sits outside of cards but uses dark foreground colors */
+.dark p.text-slate-800, .dark span.text-slate-800, .dark h1.text-slate-800,
+.dark h2.text-slate-800, .dark h3.text-slate-800 { color: #F2E6C8; }
+.dark p.text-slate-700, .dark span.text-slate-700 { color: #D5DBEC; }
+.dark p.text-slate-600, .dark span.text-slate-600 { color: #B4BEDA; }
+
+/* Many older classes name one color for both modes. These give them a readable value in
+   the other mode. :where() keeps the weight low, so an explicit dark: class still wins. */
+:where(html:not(.dark)) .text-slate-300 { color: rgb(var(--s-400)); }
+:where(html:not(.dark)) .text-amber-500, :where(html:not(.dark)) .text-amber-600 { color: #8F4E06; }
+:where(html:not(.dark)) .text-emerald-600 { color: #1F6B33; }
+:where(html:not(.dark)) .text-rose-500, :where(html:not(.dark)) .text-rose-600 { color: #9F1239; }
+:where(.dark) .text-slate-600, :where(.dark) .text-slate-700 { color: #D5DBEC; }
+:where(.dark) .text-slate-800 { color: #F2E6C8; }
+:where(.dark) .bg-white.text-slate-900 { color: #F2E6C8; }
+:where(.dark) .bg-slate-50 { background-color: rgb(var(--s-900)); }
+:where(.dark) .bg-slate-100 { background-color: rgb(var(--s-800)); }
+:where(.dark) .bg-slate-200 { background-color: rgb(var(--s-700)); }
+:where(.dark) .text-amber-500, :where(.dark) .text-amber-600 { color: #F4BE3C; }
+:where(.dark) .text-emerald-600 { color: #6EE7B7; }
+:where(.dark) .text-rose-500, :where(.dark) .text-rose-600 { color: #FDA4AF; }
