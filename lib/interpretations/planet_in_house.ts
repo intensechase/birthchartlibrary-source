@@ -1,313 +1,859 @@
 export const PLANET_IN_HOUSE: Record<string, string> = {
   // ── SUN ──
-  'SUN_H1': `Here identity sits right on the surface, broadcast through presence itself ... the self is the first thing the world meets, before a word is spoken. Vitality is visible, the walk into a room already an announcement. There is little gap between who the person is and who they appear to be, which is its own kind of honesty. The work is remembering that a presence this strong can fill a room so completely it forgets to leave space for anyone else in it.`,
+  'SUN_H1': `Being seen is the easy part with the Sun in the 1st house. The hard part is being anything other than what was seen first. People take one look and decide... the confident one, the bright one, the one who walks in like the room was expecting them... and that first read tends to stick around for decades, sometimes long after the person has outgrown it.
 
-  'SUN_H2': `Here identity fuses with worth ... the self is built and measured through what it values, earns, and holds in its own hands. Vitality comes from building something solid and standing behind its value without apology. Security and self respect tend to rise and fall together. The work is keeping the sense of self from collapsing entirely into the bank balance ... learning that the core identity was always worth more than the things it manages to accumulate around itself.`,
+None of it is fake. With this Sun there really is very little distance between the inside and the outside, and the honesty of that is the best thing about it. But a presence this immediate rarely gets the benefit of a second impression, so a lot of the life gets spent either living up to the early verdict or quietly arguing with it, and the later chapters belong to whoever learns to let people be surprised by them.`,
 
-  'SUN_H3': `Here identity lives in the mind and the daily exchange ... the self is expressed through words, ideas, and the constant traffic of the immediate world. Vitality comes from learning, talking, connecting, making sense of things out loud. The presence is curious and quick, most alive mid conversation. The work is letting some of that mental motion settle ... trusting there is a self underneath the running commentary, one that does not have to keep talking to know it is there.`,
+  'SUN_H2': `What is a person worth? Most charts get to leave that question in the abstract. This one doesn't. The Sun in the 2nd house ties the sense of self to something that can be counted... a paycheck, a savings balance, a toolbox, a well built thing with the person's name scratched on the bottom.
 
-  'SUN_H4': `Here identity roots downward, into home, family, and the private ground ... the self is built on where it came from and where it returns when the day is done. Vitality comes from belonging, from the inner foundation rather than the public stage. The truest version of the person often shows only behind closed doors. The work is letting that rooted self out into the light ... trusting it is solid enough to stand somewhere more exposed than the kitchen table.`,
+In practice it looks like steadiness. These are often people who liked earning their own money from an early age, who would rather own one good coat than four cheap ones, and who feel most like themselves when something they made or bought with their own effort is sitting right there. Generosity comes easier once the floor is solid.
 
-  'SUN_H5': `Here identity is fully at home, in play, romance, and creation ... this is the Sun's own natural ground, the house it warms most easily. The self shines through what it makes and who it loves, generous with its light and meant to be seen. Vitality runs on joy taken seriously. The work is the line between creating because it is the nature to create and performing because the gaze is what the self has come to need ... letting the light be a gift rather than a request.`,
+The risk is obvious enough. A bad year at work can feel like a verdict on the person rather than the account, and a layoff can land like an identity crisis. What tends to arrive with age is a worth that doesn't move when the numbers do.
 
-  'SUN_H6': `Here identity is built through work and care ... the self takes shape in the daily craft, the tended body, the quiet service of doing a thing well. Vitality comes from being genuinely useful and visibly competent at something concrete. The presence proves itself in the doing rather than the declaring. The work is not letting the self disappear into the function ... remembering the person is worth more than their output, and was whole before the to do list ever got started.`,
+Earned, then owned, then no longer the point.`,
 
-  'SUN_H7': `Here identity forms in the mirror of the other ... the self comes into focus through partnership, through the close one to one bond that reflects it back. Vitality comes from genuine meeting, from being truly seen by one person. The presence is most itself in relationship. The work is holding onto a self that does not need the partner to exist ... learning to be a whole person standing next to another, rather than half of something that only feels real when paired.`,
+  'SUN_H3': `In the old Hellenistic scheme, the 3rd house belonged to the Moon. It was called the house of the Goddess, and the Moon had its joy there. The Sun's joy sits across the chart in the 9th, the house of God, out where the long journeys and the big ideas live. So a Sun in the 3rd is the far light parked in the near place. The neighborhood instead of the pilgrimage.
 
-  'SUN_H8': `Here identity is forged in the depths ... the self takes shape through intimacy, shared power, crisis, and the long work of transformation. Vitality comes from facing what others avoid and surviving the changes that remake a person. The presence runs deep and gives little away. The work is surrender ... learning that a self this guarded grows by letting another all the way in, and that some versions of who it is have to be allowed to die so a truer one can live.`,
+And it often works beautifully. Identity runs through talk, errands, the local paper, the sibling who was the first rival and the first audience. These are people who think out loud, who learn by explaining, who know which café has the good bread and which neighbor is going through a divorce. A curious mind keeps them young.
 
-  'SUN_H9': `Here identity reaches for meaning ... the self is built through the search for truth, through travel, belief, and the bigger picture that gives a life its shape. Vitality comes from learning, expanding, and the conviction that there is always more horizon. The presence is open, frank, philosophically restless. The work is bringing the search home ... letting conviction become something lived rather than forever chased, and staying somewhere long enough to be more than passing through.`,
+What they sometimes miss is the 9th house version of themselves, the one that would go deep on a single subject for ten years. When that shows up, usually in middle age, it surprises everyone, including them.`,
 
-  'SUN_H10': `Here identity climbs into public view ... the self takes shape through career, reputation, and the standing built across a working life. Vitality comes from contribution that is seen, from a role with the person's own name on it. This is the most visible point in the chart, and the self tends to fill it. The work is making sure there is a private person underneath the public one ... that the title is something the self carries, not the only place the self exists.`,
+  'SUN_H4': `Born in the late evening, most likely, in the couple of hours before midnight. The Sun was near the bottom of the sky, as far below the person's feet as it ever gets, and the 4th is the house of that underground... home, family, ancestry, the private floor everything else is built on.
 
-  'SUN_H11': `Here identity belongs to the group ... the self takes shape through friendship, community, and the shared cause larger than any one person. Vitality comes from contributing to the collective and finding its own face among many. The presence is most alive inside a circle that means something. The work is staying a distinct individual within the group ... bringing a real self to the cause rather than dissolving into it, present as someone particular and not only as one more member.`,
+So the light points inward. Who this person really is tends to show up at the kitchen table rather than the office, and the parent who ran the household, or the family story itself, usually sits closer to the center of the identity than anyone outside would guess. Some spend decades making peace with the home they were handed. Some build, late, the home they always meant to have. Either way, the strength is real; it just doesn't advertise. People find out what they're made of in a crisis, when the foundation holds and the flashier people in the room are the ones who wobble.`,
 
-  'SUN_H12': `Here identity runs underground ... the self takes shape in the unseen, the unconscious, the quiet hours away from any audience. Vitality comes from solitude, imagination, and a connection to something larger that the daylight self barely registers. The presence is diffuse, felt more than displayed. The work is trusting a self that does not need to be witnessed to be real ... letting the hidden light exist on its own terms, and not mistaking being unseen for being no one.`,
+  'SUN_H5': `A kid's birthday party. Somebody has to run the games, keep the music going, make the shy kid laugh. The person with the Sun in the 5th is usually already doing it.
+
+This is the Sun's own territory. Leo rules the 5th by the natural order of the signs, and the house covers play, romance, children, and anything made purely for the joy of making it. Identity gets organized around delight. The garage band that never got signed matters. The garden matters. A love affair conducted with real style matters a great deal.
+
+There's one quiet question underneath all of it. Is the joy for the making, or for the applause? From across the room those look identical. Only the person can tell them apart, and it can take years to be honest about the answer.
+
+Light given away. Light asked for. The good years run on the first one.`,
+
+  'SUN_H6': `Hellenistic astrologers called the 6th house Bad Fortune. It's one of the places in the chart that can't see the Ascendant, and they read it as the house of illness, servitude, and labor done for someone else. Rough neighborhood for the planet of the self.
+
+Modern astrology turned that around, and the Sun in the 6th is a good example of why. Identity gets built through craft rather than spotlight. This is the person who actually understands how the system runs, who fixes the thing nobody else noticed was broken, whose name comes up when someone asks who really keeps the place going. Health and mood tend to track the work closely; a bad stretch on the job shows up in the body first.
+
+The old reading still has a point, though. A self defined entirely by usefulness can wear itself thin, and burnout here isn't laziness catching up, it's devotion with no off switch. Rest has to be treated as part of the job.`,
+
+  'SUN_H7': `Late afternoon, in all likelihood. The Sun was in the last couple of hours before setting, sliding toward the western horizon, the point in the chart that marks the other person. Partners, spouses, collaborators, open rivals... the 7th is the house of whoever stands across the table.
+
+Identity here comes into focus in company. The presence warms up in conversation, sharpens in negotiation, and frequently figures out what it believes by hearing what someone else believes first. Partners tend to be strong personalities, bright, sometimes a little larger than life, which can feel like a gift in one decade and like standing in someone else's light in the next.
+
+It's not just that relationships matter. It's that the self gets assembled inside them. A partner's name tends to come up within the first five minutes of any conversation with them.`,
+
+  'SUN_H8': `Some people get through a crisis and some people get built by one. The Sun in the 8th usually belongs to the second kind.
+
+The 8th house holds what polite conversation steps around: death, debt, inheritance, sex, other people's money, the shared stuff that gets fought over when a family falls apart. Identity forms in exactly that territory. These are often the ones others call when something terrible has happened, because they don't flinch and they don't need it explained. They give away very little about themselves. Trust is slow, and once it's broken it rarely comes back. Power interests them, and so do secrets, and both for the same reason: they want to know what's actually running the room. The danger is control mistaken for safety. They're usually the last to leave the hospital and the first to know where the important papers are kept.`,
+
+  'SUN_H9': `I think this is the most natural place in the chart for the Sun, at least by the old count. The Hellenistic astrologers gave the Sun its joy in the 9th and called the house God, and it covers exactly the things a solar life tends to reach for: meaning, faith, long journeys, higher learning, law, books.
+
+People with the Sun here build an identity around a search. A degree that turned into a vocation. A religion joined, or left, or argued with for forty years. A year abroad that rearranged everything. They tend to be frank, a little restless, and usually holding a book they want to lend someone. Teachers changed their lives, and often they end up teaching.
+
+The trap is the horizon that keeps moving. The next idea, the next country, the next certainty. A belief can harden into a sermon if nobody pushes back. There's usually one old friend who still does, and gets invited to every dinner anyway.`,
+
+  'SUN_H10': `Late morning. Somewhere in the two or so hours before noon, the Sun was climbing toward the top of the sky, the Midheaven, the most visible point a chart has. The 10th is the house of career, reputation, and public standing, and it's hard to put the Sun anywhere more on display.
+
+Ambition is usually plain to see. Less about money, often, than about mattering... a title with the person's own name on it, a body of work people can point to. The drive frequently traces back to a parent, often the more demanding one, whose approval was either hard to win or never quite won at all.
+
+The cost shows up when the role becomes the only room in the house. Retirement, a firing, a career that peaked at thirty five... any of these can feel less like a job change than a death. The retirement party is often the hardest day of the whole career, and plenty of them are back as consultants within the year.`,
+
+  'SUN_H11': `In the group photo they're never in the middle, and somehow everyone is turned a little toward them anyway. That's the Sun in the 11th, the house the Hellenistic astrologers called Good Spirit, where Jupiter had its joy: friends, networks, alliances, the causes and hopes a person shares with other people.
+
+Identity takes shape among many. The team, the band, the congregation, the group chat that has been running since 2009. These are the organizers and connectors, the ones who know everybody and introduce the right two people at the right party, and friendship often carries the weight that family carries in other charts. The pitfall runs the opposite way from the 10th house. Instead of the self swallowing the role, the self dissolves into the group, agreeing, belonging, fading by degrees. The fix is unglamorous: a real opinion, said out loud, at the meeting where it costs something.`,
+
+  'SUN_H12': `Here's the odd thing about the Sun in the 12th. At birth it had usually just risen. It was already above the horizon, in the first couple of hours after sunrise, and yet the house it occupied is the one tradition called Bad Spirit... the hidden house, the house of retreat, confinement, and the things done out of sight.
+
+So the light is up, and nobody's looking. Many people with this Sun have a full inner life that very few ever see. They do their best work behind the scenes, in research, in caregiving, in art made at 2 a.m. for no audience at all. Recognition tends to come late, or sideways, or not in the form they expected.
+
+Some are completely at peace with that. Some aren't, and spend years confusing being unseen with being nobody. Those are not the same thing. Their name is often in the acknowledgments rather than on the cover, and some of them prefer it there.`,
 
 
   // ── MOON ──
-  'MOON_H1': `Here the inner life sits right on the surface ... feeling shows in the face, the mood readable before a word is spoken. Emotional security comes from being met as the sensitive, responsive person the placement actually is. The presence shifts with the tide of what it feels. The work is not letting every passing mood run the whole show ... learning there is a steadier self underneath the weather, one that can feel deeply without being swept off by each gust of it.`,
+  'MOON_H1': `Ancient astrologers made the Moon the planet of the body. Put it in the 1st house, the house of the body and the face, and the two significations land on top of each other. Whatever is happening inside shows up on the outside, usually before the person has decided whether to share it.
 
-  'MOON_H2': `Here emotional security is tied to the material ... safety is felt through comfort, stability, and the reassurance of resources actually in place. Feelings and finances tend to move together, money standing in for the deeper need to feel held. The instinct is to build a soft, secure nest. The work is finding the security inside rather than in the balance ... learning the calm it is reaching for through things was always meant to come from somewhere steadier than the things.`,
+So these are readable people. The mood is in the eyes, the shoulders, the way they come through a door. Strangers tell them things on buses. Babies stare at them. They're responsive to whoever is in front of them, which makes them warm company and also leaves them a little at the mercy of the room. A tense meeting gets into them and follows them home. A good dinner party lifts them for days. Their friends can usually tell how the week went before they've taken their coat off.`,
 
-  'MOON_H3': `Here the inner life lives in words and the daily round ... feelings get processed by talking them through, and emotional safety comes from staying connected to the people close at hand. The instinct is curious, chatty, tuned to the moods of siblings and neighbors. Comfort is a good conversation. The work is letting feeling sink below the commentary ... trusting that some emotions need to be sat with quietly rather than narrated, named, and tidied away mid sentence.`,
+  'MOON_H2': `The pantry is full. Not because anyone is hungry, but because a full pantry means things are going to be okay. That's the Moon in the 2nd house in one image.
 
-  'MOON_H4': `Here the Moon is on its own natural ground ... home, family, and roots are where the inner life lives, and emotional security comes from having a place that genuinely holds. The instinct is nurturing, protective, with a deep pull toward belonging. The private self runs deep and tender. The work is letting that rootedness become a base rather than a hiding place ... a home to come back to, not a shell to disappear into when the wider world asks something harder.`,
+Emotional safety gets stored in resources here: money in the bank, food in the cupboard, the good sheets, the coat that has been with them since college. Possessions carry memory. The grandmother's ring isn't jewelry, it's her. Spending tends to move with mood, a little loose in a hard week, very tight after a scare, and income often comes through work that feeds, houses, or comforts other people.
 
-  'MOON_H5': `Here emotional security comes through the open heart ... safety is felt in play, romance, creativity, and the joy of expressing what is inside. The instinct pours feeling into what it makes and who it loves, warm and a little theatrical. Children and creative work often carry the deepest tenderness. The work is letting the heart play without needing the response to land perfectly ... feeling for the joy of feeling, rather than to win the warmth back from the room.`,
+It's a sensible way to live until the balance starts standing in for the feeling it was meant to protect. Then no amount is enough, and the spare room fills up with backups of backups. Ask what's in the freezer and they can usually list it from memory.`,
 
-  'MOON_H6': `Here the inner life seeks safety in routine ... emotional steadiness comes from order, useful work, and the body being well tended. The instinct soothes itself by being helpful, by having the day in hand. Care for others is how much of the feeling gets expressed. The work is not burying emotion in busyness ... learning that the to do list is not the same as the inner life, and that a feeling ignored in favor of usefulness tends to wait, patiently, until it is felt.`,
+  'MOON_H3': `The Moon had its joy in the 3rd. The Hellenistic astrologers called this the house of the Goddess, and it's one of the places the Moon was thought to feel most at ease. Short trips, siblings, neighbors, letters, daily talk... the Moon moves fast, and this is the house of moving around.
 
-  'MOON_H7': `Here emotional security is sought in the other ... safety is felt through partnership, through being close to someone who reflects the inner life back. The instinct is to nurture and be nurtured inside a bond. Moods often track the state of the relationship. The work is carrying a security that does not depend on the partner ... learning to be an emotionally whole person beside another, rather than someone who only feels steady when the bond is perfectly intact.`,
+I think that's why the feelings here want to travel too. They get processed in conversation. A call on the drive home, a long text thread with a sister, twenty minutes at the mailbox with a neighbor who started out as a stranger. A brother or sister often carries real emotional weight, sometimes more than either parent, and school days stay vivid well into middle age, good or bad.
 
-  'MOON_H8': `Here the inner life runs to the depths ... emotional security is bound up with intimacy, trust, and the intense merging that most people keep at arm's length. The instinct feels everything powerfully and shows little of it. Crisis and transformation are where the feeling lives. The work is letting another all the way in ... learning that a heart this deep grows by surrendering the control it uses to stay safe, and that real closeness is the risk worth taking.`,
+The one thing this Moon can skip is sitting still with a feeling before talking about it. Naming an emotion and feeling it aren't the same thing. The sister on the other end of the phone has usually figured that out first.`,
 
-  'MOON_H9': `Here emotional security comes through meaning ... safety is felt in belief, learning, travel, and the sense that life adds up to something. The instinct is restless and hopeful, soothed by a wider horizon. Comfort can be found far from where the person started. The work is rooting the feeling somewhere ... learning that meaning lived close to home steadies the heart as much as the next journey, and that not every restlessness is solved by leaving.`,
+  'MOON_H4': `The smell of one particular kitchen. That's usually somewhere near the center of a life with the Moon in the 4th, because this is the Moon's own house by the natural order of the signs... Cancer is the 4th sign, the Moon rules Cancer, and the 4th house is home, family, roots, and the ground under everything.
 
-  'MOON_H10': `Here the inner life is unusually public ... emotional security gets tied to reputation, role, and how the wider world receives the person. The instinct is to be needed by the public the way others are needed at home. Moods can ride on standing and recognition. The work is keeping a private heart that the career cannot touch ... a place to feel that has nothing to do with the audience, so the inner life is not only as steady as the latest review of it.`,
+The inner life is built out of where the person came from. The mother, or whoever did the mothering, sits right in the middle of the story. Family recipes, old photographs, the house that got sold and still shows up in dreams. When the early home was good, it's an anchor for life. When it wasn't, the long project is building one from scratch, and they often do, with real care, and then fill it with people who needed one too. Home tends to be where they're most themselves and least willing to compromise.`,
 
-  'MOON_H11': `Here emotional security comes through belonging ... safety is felt inside a community, a circle of friends, a cause that gathers people together. The instinct nurtures the group and is nurtured by it, most at ease as part of something. Friendships can run as deep as family. The work is staying a distinct feeling person within the collective ... bringing a real inner life to the circle rather than dissolving into its mood, present as someone, not only as one of the many.`,
+  'MOON_H5': `What does joy feel like when it's emotional rather than just fun? The Moon in the 5th house mostly knows the answer.
 
-  'MOON_H12': `Here the inner life runs underground ... emotional security is found in solitude, retreat, and a quiet connection to something larger than the visible self. Feeling is vast and mostly hidden, often sensed before it is understood. The instinct soothes itself away from any audience. The work is trusting an inner life that does not need to be witnessed ... learning to feel what is buried there without fear, and not mistaking the privacy of all that feeling for its absence.`,
+Feelings pour into play, romance, children, and anything made by hand. A crush becomes an event. A creative project becomes a relationship, with good days and sulking days. These are often the adults kids gravitate toward at a family gathering, because some part of them never stopped playing and kids can smell it. Their own children, when they have them, tend to be the deepest attachment of all.
+
+The tender spot is the response. A heart this open wants the feeling to land, and when the room doesn't pour back, the joy can sour into something closer to an audition. Love gets theatrical. Hurt gets theatrical too. Somewhere in a closet there's a box of their old drawings, and they still can't throw any of it away.`,
+
+  'MOON_H6': `Stress goes to the stomach first. With the Moon in the 6th house, the body tends to register emotion before the mind does, and the mind tends to deal with emotion by cleaning something.
+
+Routine is the soother. A good day is a day that went according to plan, with the kitchen wiped and the email answered and the squeaky hinge finally oiled. Care often comes out as service... the coworker who remembers birthdays, the friend who shows up with soup and doesn't ask if it's wanted. A lot of these people work in health, food, or caretaking jobs, and are very good at them.
+
+That's the gift. The cost is that a to do list makes a convenient hiding place, and a feeling filed under "later" usually waits for a sick day to collect. The healthier versions put the inner life on the schedule like anything else, not just whatever's left at 11 p.m.`,
+
+  'MOON_H7': `Watch them in a conversation and their face starts to match the other person's. That mirroring is the Moon in the 7th house, the house of the partner, the other, whoever is on the far side of the table.
+
+Emotional security is looked for in a bond. When the relationship is good, everything is good; when it wobbles, the whole inner weather changes. Partners are often nurturing, or need nurturing, and the roles can swap back and forth over a long marriage. The public side gets some of this too, since the 7th covers meeting the world one person at a time. These are natural counselors, hosts, and negotiators. Marriage often matters to them more than they'd admit on a first date, and the trick of a lifetime is keeping enough steadiness of their own that the other person's mood stops deciding theirs.`,
+
+  'MOON_H8': `Feels everything. Shows almost none of it.
+
+The 8th house is where the chart keeps intimacy, trust, death, debt, inheritance, and the money that gets tangled up with love. The Moon here puts the emotional life down in that basement. Feelings run deep and private, and trust is extended slowly and withdrawn fast. These are often the people others call when something terrible has happened, because grief doesn't frighten them. They've usually been close to it.
+
+Family history can be heavy. A secret, an early loss, a fight over an estate that nobody talks about at holidays. Control becomes the way of staying safe: read the room, hold the cards, never need anyone too much. It works until intimacy asks for the cards. Real closeness here is a decision, and the depth that kept them guarded turns out to be what makes them extraordinary partners once they let someone in.`,
+
+  'MOON_H9': `Some people feel homesick abroad. People with the Moon in the 9th house often feel more at home there.
+
+The 9th is the house of long journeys, foreign places, belief, higher learning, and the search for a meaning that holds. Emotional safety comes from the sense that life adds up. A faith, a philosophy, a field of study, a teacher whose voice still shows up in their head decades later. Restlessness is soothed by a wider horizon, which is why so many of them end up living far from where they started, or marrying into a family very different from their own.
+
+The pitfall is mistaking motion for peace. Not every restlessness is solved by leaving, and a belief system can become a lovely place to avoid feelings that need dealing with closer to home. Their passport tends to run out of pages before it runs out of time.`,
+
+  'MOON_H10': `In mundane astrology, the branch that reads charts for nations and events, the Moon stands for the people... the crowd, the public mood. Put it at the top of a personal chart, in the 10th house of career and reputation, and the person's working life tends to involve exactly that.
+
+These are often jobs with the public in them: hospitality, food, nursing, real estate, teaching, retail, any work with a following that feels personal. They become known for how they make people feel. A mother's hopes, spoken or not, frequently shaped the ambition. Reputation can wax and wane, the way the Moon does, and the person can feel each phase.
+
+The cost is an inner life with a public rating. A good review lifts the week; a bad one sinks it. Most of them have read the comments section. Most of them wish they hadn't.`,
+
+  'MOON_H11': `The friend who remembers that someone's dog had surgery last week and texts to ask how it went. The one who organizes the reunion. With the Moon in the 11th, friendship is where the heart lives.
+
+The 11th house covers friends, groups, alliances, and hopes, and the Moon here makes all of it emotional. The circle can carry the weight family carries in other charts, and sometimes it replaces family outright. Feeling safe means belonging somewhere: a team, a congregation, a crew that still meets every year. Hopes for the future usually have specific faces in them, and a goal pursued alone tends to stall where the same goal shared with friends gets finished. The difficult part is that the group's mood can become their mood, so when the circle fractures, the floor goes with it. The group photo from twenty years ago still hangs in the hallway, and they can name everyone in it.`,
+
+  'MOON_H12': `Tradition didn't like the Moon in the 12th. The house of hidden things, confinement, and secret sorrows was hard on any planet, and harder on the one that signified the body and the mother. Many of the old readings are grim.
+
+The modern experience is gentler and stranger. The feelings are vast and mostly offstage, sensed before they're understood. They show up in dreams, in music, in sudden tears at a commercial that had no business doing that. Solitude restores. So does water. The family story may include something unspoken, a grief nobody named, and the person often picks up on it long before anyone explains.
+
+From the outside it can look like calm. Sometimes it's calm. Sometimes it's loneliness nobody noticed, not even the person feeling it. Either way, people tell them things they've never told anyone else, and the secrets stay kept.`,
 
 
   // ── MERCURY ──
-  'MERCURY_H1': `Here the mind sits on the surface ... thinking and talking are the first things the world meets, and identity runs through how the person reasons and speaks. The instinct is quick, communicative, visibly curious. People register a sharp intelligence early. The work is letting some of that mental motion settle ... trusting there is a self underneath the running commentary, one that does not have to keep talking to prove it is paying attention.`,
+  'MERCURY_H1': `The Hellenistic astrologers called the 1st house the Helm, the steering oar of the chart, and they gave Mercury its joy there. The planet of the mind, sitting at the helm. It fits better than most of the old pairings.
 
-  'MERCURY_H2': `Here the mind turns to worth ... thinking sharpens around money, value, and the practical question of what is actually worth the time. The instinct is shrewd, resourceful, good at the deal. Ideas tend to get measured by whether they pay. The work is a round of real research before the gut commits ... the financial instincts are good, and a short investigative pause is what turns a quick read into a genuinely sound call.`,
+These are people who are read as quick before they've said a word. The eyes move. The face works things out in public. They tend to look and sound younger than their age, and they often got labeled the smart one early, which came with its own pressure. Thinking and talking are part of the identity rather than tools it uses, so silence can feel strangely like disappearing. Nervous energy shows in the hands, the foot tapping under the table, the half finished sentence. Ask them a simple question and the answer arrives before the question finishes, sometimes to a different question.`,
 
-  'MERCURY_H3': `Here Mercury is on its own natural ground ... the mind lives in communication, learning, and the constant traffic of the immediate world. Thinking is quick, curious, endlessly verbal, at home among siblings, neighbors, and the next interesting fact. The instinct is to connect and exchange. The work is depth to match the range ... letting the restless mind go all the way into something now and then, rather than knowing a little about a great many things and the whole of none.`,
+  'MERCURY_H2': `Mercury was the god of merchants. Also of thieves, which says something about how the ancient world viewed commerce. Put the planet in the 2nd house, the house of money and possessions, and that old job description comes right back.
 
-  'MERCURY_H4': `Here the mind turns toward home ... thinking is shaped by family, roots, and the long pull of the past, often most active in private. The instinct is reflective, tied to memory and the inner world. Conversations with family run deep or run sore. The work is letting the mind out of the house ... trusting that ideas formed in the quiet are worth carrying into the open, and not only turned over endlessly where no one else can weigh in.`,
+The mind turns toward value. What's this worth, what will it be worth, who's overpaying. These are often good negotiators, good with numbers, and good at noticing the angle nobody else priced in. Income frequently comes through words or information: sales, writing, teaching, trading, consulting, anything where knowing more than the next person pays. More than one stream of money is common, and so is a side hustle that started as a joke.
 
-  'MERCURY_H5': `Here the mind plays ... thinking is creative, expressive, and happiest when it is making something or charming someone. The instinct is dramatic, romantic, quick with a clever line. Ideas come out with personality attached. The work is following the play into real craft ... letting the creative mind finish what it dreams up, so the wit becomes a body of work and not just a stream of bright, unbuilt sparks.`,
+The weak spot is measuring ideas by whether they monetize. Some of the best ones don't. There's also a habit of checking the account more often than the account needs checking.`,
 
-  'MERCURY_H6': `Here Mercury works its other natural ground ... the mind focuses on craft, detail, health, and the daily mechanics of getting things right. Thinking is precise, practical, alert to what needs fixing. The instinct is useful and exacting. The work is keeping the precision from curdling into worry ... letting the analytical gift serve the task without turning on the body or the self, and trusting that not every detail is a crisis in waiting.`,
+  'MERCURY_H3': `Who calls three people during a ten minute drive? Very often, someone with Mercury in the 3rd.
 
-  'MERCURY_H7': `Here the mind meets the other ... thinking sharpens in dialogue, and the best ideas often arrive in the back and forth with a partner. The instinct is to reason alongside someone, to test a thought by saying it to another mind. Communication is central to every close bond. The work is holding a view of one's own ... staying able to think independently inside a partnership, rather than only knowing what one believes once someone else has weighed in.`,
+This is Mercury's natural house. Gemini is the 3rd sign and Mercury rules Gemini, so the planet of communication lands in the house of communication: siblings, neighbors, short trips, school, the endless traffic of a normal day. Fluency comes easily. They know the neighborhood shortcuts, which store has the better produce, and what the guy at the hardware store said about the new zoning. A brother or sister was often the first debate partner, and the dinner table may have been loud.
 
-  'MERCURY_H8': `Here the mind goes deep ... thinking turns toward the hidden, the shared, the psychologically charged, and refuses the easy surface answer. The instinct is investigative, drawn to research, secrets, and what others will not examine. Few minds dig as far. The work is knowing when to stop digging ... trusting that not everything has a buried motive, and that some things really are what they appear to be on the surface.`,
+Range is never the problem. Depth sometimes is. A mind this quick can know a little about everything and finish very little, so the moments that change their lives tend to be the ones where they pick one thing and stay with it long past the point of novelty.`,
 
-  'MERCURY_H9': `Here the mind reaches wide ... thinking turns toward meaning, travel, belief, and the largest questions a person can hold. The instinct is philosophical, hungry for the broad view and the foreign perspective. Ideas want a horizon. The work is grounding the big picture in the particular ... letting the love of the grand idea coexist with the patience for the small fact, so conviction rests on something checked rather than merely felt.`,
+  'MERCURY_H4': `At the family funeral, they're the one who knows which cousin married whom and why two of the uncles stopped speaking in 1987. Mercury in the 4th house brings the mind home, and home tends to be where it does its best and strangest work.
 
-  'MERCURY_H10': `Here the mind goes public ... thinking and communication become the career, the reputation built on what the person says and how clearly they say it. The instinct is to be known for a way of reasoning, a voice, a useful clarity. Words carry professional weight. The work is meaning under the message ... making sure the public articulacy is in service of something real, not polish for its own sake, so the standing rests on substance.`,
+Family conversation shaped how they think, either because the household talked about everything or because the important things went unsaid and had to be pieced together. Memory is strong, especially for the past. Plenty of them work from home, or keep a house full of books, papers, and half finished projects on the dining table. Some become the keeper of the family records, the photo albums, the recipes in a grandmother's handwriting. The long task is sorting which opinions were inherited and which were actually chosen, because a mind rooted this deep in family can carry a parent's arguments for decades without noticing they aren't its own.`,
 
-  'MERCURY_H11': `Here the mind belongs to the group ... thinking is shaped by community, shared causes, and the exchange of ideas across a wide circle. The instinct is collaborative, drawn to the conversation larger than any one person. Friendships often form around how people think. The work is staying an independent voice in the chorus ... contributing a real mind to the collective rather than absorbing its consensus, present as someone who thinks for himself among the many.`,
+  'MERCURY_H5': `Puns. Board games that run past midnight. A love letter that's mostly jokes.
 
-  'MERCURY_H12': `Here the mind runs beneath the surface ... thinking is intuitive, associative, and often working on problems below conscious reach, arriving at answers without a visible trail. The instinct is imaginative, private, easily lost in its own depths. The work is trusting that hidden process ... learning to honor the intuition while building enough structure to carry what it finds back into the daylight, where it can be said, used, and shared.`,
+Mercury in the 5th house makes the mind playful. Ideas are toys first and tools second, and the house of romance, children, creativity and fun gives them plenty of room to play. Flirting happens through conversation, and a quick mind is often the most attractive thing about them. Creative work tends to run on language: writing, comedy, songwriting, improv, teaching kids, any job where cleverness is allowed to show off a little.
+
+They're usually great with children, partly because they still think a bit like one.
+
+The trap is cleverness for its own sake. The joke lands, the room laughs, and the point quietly drowns. Feelings can get talked about more than felt. The best line at the funeral usually comes from them, and somehow it's the one that makes everyone cry.`,
+
+  'MERCURY_H6': `Virgo is the 6th sign, and Mercury rules Virgo, so the 6th house is one of Mercury's natural homes. Work, routine, health, and the craft of doing a job right... the planet of analysis ends up in charge of the details.
+
+I'd guess these are the people who actually read the manual. They understand how the system works, where it breaks, and what the checklist is missing. Work often involves information, analysis, editing, troubleshooting, or communication, and they're good at it in a way that tends to go unnoticed until they're on vacation and everything falls apart.
+
+Nerves and health run close together. Worry goes to the stomach, the sleep, the jaw. The mind doesn't clock out when the shift ends, and every small flaw gets noticed at work, at home, and in the mirror. What helps is pointing that analytical eye at rest itself and treating downtime as part of the system rather than a bug in it.`,
+
+  'MERCURY_H7': `Contracts. The 7th house covers partnership, marriage, agreements, and open disputes, and Mercury here tends to put the paperwork at the center of every relationship. Not coldly. They just want to know what was agreed.
+
+A good marriage, for them, is a long conversation, and a good business partner is someone who argues back. They're often skilled negotiators, mediators, and translators between people who can't hear each other, and their own thinking frequently sharpens in dialogue. They find out what they believe by saying it to someone across the table. The flip side is that decisions can stall until someone else weighs in, and an opinion can drift toward whoever spoke last. It's not a lack of mind. It's a mind that grew up in conversation and occasionally forgets it can work alone, and the healthiest partnerships here are the ones where both people keep their own voice.`,
+
+  'MERCURY_H8': `They read the last page first. Then the footnotes. Then the thing the author was clearly avoiding.
+
+Mercury in the 8th house sends the mind into the territory of secrets, debt, inheritance, sex, death, and other people's money. These are natural investigators. Small talk can feel almost painful; they want the real story, the motive under the motive. Research comes easily, and so do psychology, forensic work, tax law, insurance, anything that involves digging. People tell them things they've never told anyone, often without quite knowing why.
+
+The cost is suspicion. A mind trained to look underneath starts finding hidden motives everywhere, including in people who have none. Thoughts can loop around an old fear or an old grudge for years. At its best, this Mercury becomes the person who can sit with a hard truth and say it plainly, kindly, to someone who needs to hear it.`,
+
+  'MERCURY_H9': `The 9th is Sagittarius's natural house, and Sagittarius is where Mercury is in detriment. Not that a house carries a planet's dignity the way a sign does, but the tension echoes. The planet of facts and details lands in the house of big pictures and big beliefs.
+
+It often makes a lifelong student. These people read widely, argue about philosophy at parties, pick up languages, and want to know how the whole thing fits together. Travel feeds the mind directly. Many end up teaching, writing, publishing, practicing law, or translating between cultures.
+
+The tension shows up as missing details. A mind tuned to the grand theory can skip the small fact that would have changed the conclusion, and an opinion can harden into doctrine once there's a podium involved. Somewhere in the house there's a shelf of books in a language they meant to finish learning.`,
+
+  'MERCURY_H10': `The work they're known for is the thinking. Mercury in the 10th, the house of career and reputation, puts the mind on public display.
+
+Careers tend to run on communication: media, teaching, writing, sales, public speaking, law, anything with information at its center. Plenty of them change careers more than once, or run several at the same time, and they're usually comfortable explaining what they do to a stranger at a wedding. Reputation rides on the quality of their ideas and the way they phrase them. A boss or mentor who taught them how to write, speak, or sell often turns out to be the turning point of the whole career. The risk is a mind that never clocks out, where every idea becomes a pitch and every party becomes networking. What steadies a career like this is a single thread the varied work keeps returning to, so the name ends up meaning something specific.`,
+
+  'MERCURY_H11': `Everyone has a friend who says "oh, you have to meet my friend." Often that's Mercury in the 11th house.
+
+The 11th covers friends, networks, groups, and hopes for the future, and Mercury here puts the mind in the middle of the crowd. These are connectors. They know a lot of people, remember who does what, and enjoy introducing the right two people at the right moment. Friendships often begin with a conversation that never really stopped, and many of them live in group chats, clubs, online communities, and long running arguments about the same topic every holiday. They're drawn to ideas about the future: technology, social change, plans a group makes together.
+
+The pitfall is thinking only in the group's terms, testing ideas for whether the circle will like them. Their phone has more contacts than anyone they know, and they actually remember most of them.`,
+
+  'MERCURY_H12': `Mercury never gets far from the Sun, about 28 degrees at most, so a 12th house Mercury often comes with a Sun in the 12th or the 1st... a birth somewhere around sunrise. The mind was up early, and it learned to work quietly.
+
+These are people with a large private mind. Thoughts arrive as hunches, images, half dreams, a sense of knowing that's hard to explain. Writing alone usually comes easier than talking in a group. Many do their best thinking late at night, in the shower, on long drives, in the hours when nobody else is awake to interrupt. They keep secrets well, their own and other people's.
+
+The shadow is a voice that never quite comes out. Ideas stay locked up because saying them feels risky, and worry loops in the dark with nobody to check it against. The best idea in the meeting is often the one they mentioned afterward, quietly, in the hallway.`,
 
 
   // ── VENUS ──
-  'VENUS_H1': `Here charm sits right on the surface ... attractiveness and grace are the first things the world meets, and relating comes naturally as a way of being. The presence is warm, pleasing, easy to like. Beauty matters and shows. The work is letting the appeal rest on something real ... trusting that the person underneath the pleasant surface is worth meeting, so the charm becomes an opening rather than the whole of what gets offered.`,
+  'VENUS_H1': `Strangers hold the door for them. Waiters remember their order. Venus in the 1st house puts something pleasing right on the surface, in the face, the voice, the way the person arrives, and people respond to it before they could say why.
 
-  'VENUS_H2': `Here Venus settles on its own natural ground ... love attaches to comfort, beauty, and the pleasure of fine, tangible things, and value is felt through what can be touched and kept. The instinct is to surround the self with quality. Money and affection can intertwine. The work is not confusing being valued with being loved ... remembering the worth it is reaching for through beautiful things was always meant to be felt from the inside.`,
+It's often more manner than looks, though looks can come into it. These are people who make an awkward moment easier without seeming to try, who dress with some care, and who are told all their lives that they're easy to be around. That's a real gift. It's also a quiet job, because being liked can turn into a role, and the role can start making decisions... the yes said to keep things smooth, the honest sentence swallowed. A lot of them spend their twenties finding out whether people like them or like the ease. The answer usually turns out to be both, and the later version of this Venus is just as warm, only on purpose.`,
 
-  'VENUS_H3': `Here love lives in words ... attraction runs through conversation, wit, and the daily exchange, and affection is spoken, written, made of a thousand small contacts. The instinct charms the people close at hand. Beauty is found in ideas and language. The work is letting feeling go past the clever surface ... trusting that some affection has to be shown rather than narrated, and that the deepest bonds need more than good talk to hold.`,
+  'VENUS_H2': `Why buy the cheap one twice? Venus in the 2nd house tends to know better.
 
-  'VENUS_H4': `Here love roots at home ... affection attaches to family, the past, and the warmth of a place that genuinely holds, with beauty poured into the private world. The instinct is to make a sanctuary. The deepest tenderness often shows only behind closed doors. The work is letting that love out into the open ... trusting it is solid enough to be offered somewhere more exposed than the family table, where it began.`,
+Taurus is the 2nd sign and Venus rules Taurus, so this is Venus at home, in the house of money, possessions, and what a person values. Taste is usually good and usually expensive. Good fabric, good food, the well made chair that will outlive its owner. Money often comes through beauty or pleasure: design, art, food, hospitality, retail, or simply being pleasant to do business with. And they actually enjoy what they have, which is rarer than it sounds. A gift chosen by them tends to get used for years.
 
-  'VENUS_H5': `Here Venus is in its joy ... love is romance, play, creativity, and pleasure taken openly, the house where the planet most loves to live. Affection is generous, expressive, a little theatrical. Beauty gets made and delight gets chased. The work is letting the heart stay open past the thrill ... allowing romance and creation to deepen into something lasting rather than ending each time the first sparkle wears off.`,
+The soft spot is comfort used as medicine. Shopping after a bad day, holding onto things because letting go feels like loss, confusing what something costs with what it's worth. With age, the beautiful things get enjoyed without needing to prove anything.`,
 
-  'VENUS_H6': `Here love shows through care ... affection is expressed in service, in the small daily acts that tend to a person, and beauty is brought into the routine and the work. The instinct loves by being useful. Standards for the loved one run high. The work is not turning devotion into a checklist ... letting care be warmth rather than duty, and trusting that love does not have to be earned through usefulness to count.`,
+  'VENUS_H3': `I've noticed that people with Venus here are often the ones still sending handwritten thank you notes. The 3rd house is the near world of talk, letters, siblings, neighbors, and short trips, and Venus makes all of it a little more gracious.
 
-  'VENUS_H7': `Here Venus rules its own natural ground ... partnership is the central art, and love comes into focus through the close one to one bond, sought with real grace. The instinct is to meet, to pair, to harmonize. Relationship is where the person feels most themselves. The work is staying whole inside the union ... loving from a self that does not need the partner to exist, rather than completing itself only when paired.`,
+They're easy to talk to. They can phrase a hard thing kindly, make small talk feel like it matters, and write a note that gets kept in a drawer for years. Sibling relationships are often affectionate, or at least important, and neighbors tend to like them. Teaching, writing, sales, and anything else that runs on friendly communication suits them.
 
-  'VENUS_H8': `Here love goes to the depths ... affection is bound up with intimacy, trust, and the intense merging of two lives and their resources. Attraction is total and a little consuming. The instinct gives all or nothing. The work is the surrender that does not become control ... learning to share the deep places and the shared accounts without gripping, so closeness stays a meeting rather than a hold.`,
+The catch is the pleasant answer standing in for the true one. When a conversation turns tense, the instinct is to smooth it over, and charm can talk its way around the actual problem. They're usually the one who writes the sympathy card everyone else signs.`,
 
-  'VENUS_H9': `Here love reaches for horizons ... attraction is drawn to the foreign, the distant, the person who arrives carrying a wider world or a deeper meaning. Affection is adventurous and a little restless. Romance and travel intertwine. The work is letting love be a home as well as a journey ... trusting that staying with one person can open as much as the next far country, and that meaning is found close up too.`,
+  'VENUS_H4': `Peace at home matters more to this person than almost anything. Venus in the 4th house, the house of home, family, and roots, wants a home that's beautiful and calm and full of people who love each other... and will spend a lifetime building it, if it didn't come with the birth certificate.
 
-  'VENUS_H10': `Here love and value go public ... affection, beauty, and worth get tied to reputation and the standing the person builds, and charm becomes a professional asset. The instinct seeks recognition for what it offers. Relationships can carry public weight. The work is keeping a private heart the career cannot reach ... a place to love that has nothing to do with the audience or the standing it confers.`,
+So the house gets attention: the paint color, the table set properly, the garden, the guest room that's always ready. Home is where they recharge and where they're most loving. Often there's a parent who made home feel safe, and a lifelong soft spot for the place they grew up. Late life frequently brings the home they always pictured. The risk is peace at any price. Keeping things nice can mean never saying what's wrong, and family harmony can quietly turn into family silence. The best homes they build can hold a real argument and still feel like home.`,
 
-  'VENUS_H11': `Here love lives among friends ... affection flows through community, shared causes, and a wide circle, and many of the deepest bonds begin as friendships. The instinct relates warmly across the group. Attraction often grows from common ideals. The work is letting one bond go deeper than the crowd ... allowing a particular closeness to form without dissolving it into the general goodwill of the many.`,
+  'VENUS_H5': `The Hellenistic astrologers named the 5th house Good Fortune and gave Venus its joy there. Romance, pleasure, play, creativity, children. If any planet was ever going to be happy in a house, it was this one in this one.
 
-  'VENUS_H12': `Here love runs hidden ... affection is private, quiet, sometimes secret or sacrificial, and the deepest feelings are felt away from any audience. The instinct loves in the unseen, drawn to the compassionate and the transcendent. The work is letting hidden love come into the light ... trusting it enough to be shown and received, rather than kept where it cannot be hurt and cannot quite be returned.`,
+Romance tends to be an art form. Flowers, good restaurants, conversations that run past midnight. Creative talent is common, especially anything with beauty or performance in it, and these are often the people whose parties people remember. Kids adore them. There's a generosity of spirit here that has more to do with delight than with looks.
+
+The question is what happens when the fun part ends. The chase can get more attention than the relationship, and commitment can feel, at first, like the party winding down. It's not that this Venus can't go deep. It has to want to, and the wanting can take a while. The anniversary parties, when they come, are spectacular.`,
+
+  'VENUS_H6': `Virgo is the 6th sign, and Virgo is where Venus falls. A house doesn't carry the same dignity as a sign, but the echo is there. The planet of pleasure lands in the house of chores, routine, illness, and work done for someone else.
+
+What it often produces is someone who makes the workplace bearable. They remember the birthday cake, smooth over the fight between departments, and bring a plant for the desk nobody else bothered with. Work frequently involves beauty, care, or comfort: design, wellness, hospitality, nursing, grooming, anything that helps people feel better. Romance sometimes starts at work. The body responds to small pleasures, and health tends to improve with good food, good sleep, and a pleasant routine.
+
+The fall shows up as putting up with too much. Unpaid extra hours, a bad boss who's nice in person, a schedule that suits everyone except them. The kindness is real; the boundaries have to be learned.`,
+
+  'VENUS_H7': `At weddings they give the best toasts. Venus in the 7th house is Venus in its own territory: Libra is the 7th sign, Venus rules Libra, and the 7th is the house of partnership, marriage, and the art of getting along with one other person.
+
+These are relationship people. Good at compromise, good at reading what a partner needs, often good at choosing a partner who brings grace, money, or social ease into the picture. Business partnerships tend to go well, and so do negotiations, because they can calm a room and close a deal with the same smile. The hazard is losing track of their own wants. The yes said to keep the peace, the partner who looks right on paper, the relationship kept going because ending it would be unpleasant. The marriages that work best usually come after they've learned to be a whole person on their own.`,
+
+  'VENUS_H8': `Surface affection doesn't count.
+
+The 8th house is the deep end of the chart: intimacy, sex, shared money, debt, inheritance, and the changes that remake a person. Venus here wants love that goes all the way down. Relationships tend to be all or nothing, intensely private, and sometimes a little dangerous in their pull. Money often arrives through other people... a partner's income, an inheritance, investments, a business built on shared resources.
+
+They tend to see beauty where others look away, in grief, in mystery, in the parts of people that are usually kept hidden.
+
+The shadow is love as control. Jealousy, possessiveness, keeping score over who needs whom more. Money and love can get knotted together in ways that take years to untie. Trust is the turning point, and when it comes, they're among the most loyal partners there are.`,
+
+  'VENUS_H9': `They fall in love with cities. Venus in the 9th house, the house of long journeys, foreign places, philosophy, and belief, falls for the wider world.
+
+A partner from another culture, an affair that started on a trip, a religion or philosophy that feels beautiful as much as true. Travel lights them up, especially the slow kind with no fixed return date, and so does learning, especially art, literature, and languages. They tend to be open minded, generous about other people's beliefs, and good company in a debate because they actually enjoy the other side's argument.
+
+The tension is the grass on the other side of the ocean. The next country, the next teacher, the ideal version of love waiting somewhere else... the real thing can get passed over for the dream of it. Their kitchen usually has spices from four countries and a story about each one.`,
+
+  'VENUS_H10': `Likability is a career asset, and Venus at the top of the chart tends to have plenty of it. The 10th is the house of career and reputation, and people generally enjoy working with this person, from the boss to the client to the public.
+
+Careers often run through beauty, art, fashion, design, diplomacy, or hospitality, though it's just as common to see this Venus in an ordinary job where the personal touch made the difference. Relationships and career can overlap: a business started with a spouse, a partner who opened the right door. The public image is usually polished. The trap is image management becoming the whole job, where staying liked means dodging the hard decisions every career eventually demands. Midcareer often brings a choice between being liked and being respected, and the ones who pick respect usually end up with both. Their holiday cards go out to more clients than relatives.`,
+
+  'VENUS_H11': `Friends who became lovers, and lovers who stayed friends. Venus in the 11th house makes friendship the main language of love.
+
+The 11th covers friends, groups, alliances, and the hopes a person shares with others. These are people who are well liked in groups and good at gathering them. Their house is the one everybody ends up at. They host, they introduce, they remember who's feuding with whom and seat them at opposite ends of the table. Groups devoted to art, beauty, social causes, or simply good times tend to find them.
+
+The risk is a wide circle standing in for closeness. Lots of friends, not many who really know them, and a hard week can reveal the difference. The richer version keeps both: the party, and the two or three people who stay afterward to help with the dishes.`,
+
+  'VENUS_H12': `Venus never gets far from the Sun. When the Sun was still below the eastern horizon at birth, a Venus in the 12th was the morning star, already up and shining in the dawn sky before anyone else was awake. That's a decent picture of this placement: a love that's real and bright and mostly unwitnessed.
+
+The 12th is the house of hidden things, solitude, retreat, and sacrifice. Feeling runs deep and private here. Secret crushes, quiet devotions, a love never fully talked about. Compassion is strong, and they're often drawn to helping people in hard places: hospitals, shelters, prisons, anyone the world overlooked. Art and music can feel almost sacred.
+
+The danger is love as sacrifice. Giving too much, loving someone unavailable, keeping a relationship hidden because hidden feels safer. There's often a love letter in a drawer somewhere, never sent, kept anyway.`,
 
 
   // ── MARS ──
-  'MARS_H1': `Here Mars sits on its own natural ground ... energy and assertion are the first things the world meets, and the presence carries a visible drive. The instinct is to act, to lead with force, to meet life head on. Courage shows early. The work is aiming all that forward motion ... learning that a presence this charged can run people over without meaning to, and that the strongest action sometimes waits for the right moment to land.`,
+  'MARS_H1': `There's usually a scar with a story. A chin split open on a bike ramp at nine, a knuckle that healed crooked, a knee that still predicts rain. Mars in the 1st house lives in the body first, and the body tends to keep the receipts.
 
-  'MARS_H2': `Here drive turns toward security ... energy goes into earning, building, and defending what is owned, with desire aimed at the tangible. The instinct fights for resources and pursues them hard. Money becomes a field of effort. The work is keeping the drive from turning to grasping ... letting ambition for security stay in service of a life, rather than becoming a fight over the pile for its own sake.`,
+Aries is the 1st sign and Mars rules Aries, so this is the planet of drive standing at the front door of the chart. The walk is quick. The handshake means it. Opinions arrive before anyone asked for them, and the temper, when it flares, usually burns out within the hour. These are starters. They begin the project, the business, the argument, and they'd rather apologize later than wait for permission now.
 
-  'MARS_H3': `Here drive runs through the mind and the daily ... energy goes into words, debate, learning, and the immediate world, often expressed as a quick or combative tongue. The instinct argues and acts fast. Siblings and neighbors can feel the heat. The work is aiming the mental force ... letting the quickness build something rather than just win exchanges, and choosing which battles in the daily round are actually worth the spark.`,
+What gets them in trouble is speed. The body gets driven like a rental car, and fights get picked because standing still felt worse. Most of them have been told to calm down since kindergarten. Very few ever did, and the people who love them mostly stopped asking.`,
 
-  'MARS_H4': `Here drive turns toward home ... energy and friction often live in the family and the private world, and the fight, when it comes, is over roots and belonging. The instinct defends its own fiercely. Home can be a base or a battleground. The work is making peace with the foundation ... letting the energy build and protect the home rather than war within it, so the private ground steadies rather than drains the drive.`,
+  'MARS_H2': `How much is enough? Mars in the 2nd house rarely stops to ask, because earning feels like a fight and the fight feels good.
 
-  'MARS_H5': `Here drive plays and competes ... energy pours into romance, creativity, sport, and the pursuit of pleasure, bold and a little reckless. The instinct chases what it wants and loves the contest. Passion runs high. The work is letting the play stay generous ... keeping competition and desire from turning everything into a conquest, so the joy is in the doing and not only in the winning.`,
+The 2nd is the house of money, possessions, and what a person values, and Mars brings appetite to it. These are often people who worked early: the paper route, the summer on a roofing crew, the first car bought with cash they counted twice. Income tends to come through effort that can be seen, in physical work, sales, trades, commission, anything where pushing harder pays more. Values get defended out loud, sometimes at a volume the dinner party didn't need.
 
-  'MARS_H6': `Here drive runs through the daily work ... energy goes into the job, the routine, the body, expressed as sheer capacity for effort. The instinct is industrious, relentless, happiest with a task to attack. The work is pacing the engine ... keeping the drive from grinding the body or the patience down, and learning that steady effort outlasts the kind that burns hot and flames out.`,
+So spending runs hot, too. The impulse purchase, the bet on a hunch, the argument over a bill that cost more than the bill. Their best financial years tend to start when the drive gets pointed at building something rather than winning something.`,
 
-  'MARS_H7': `Here drive meets the partner ... energy and friction both run through close relationships, and the fight tends to happen with the other rather than alone. The instinct is drawn to strong, assertive people and can clash with them. The work is turning conflict into honest engagement ... learning to assert inside a bond without making the partner the opponent, so the heat fuels the relationship rather than burning it.`,
+  'MARS_H3': `They drive like they're late. Usually they are, because they said yes to three errands on the way.
 
-  'MARS_H8': `Here Mars works its other natural ground ... drive turns toward intimacy, shared power, and transformation, intense and strategic in the deep places. The instinct is relentless, drawn to crisis and the hidden. Desire runs powerful and controlled. The work is the surrender that strength resists ... learning that real depth asks the force to let go as much as to push, and that some battles are won by yielding.`,
+Mars in the 3rd house brings heat to the near world: siblings, neighbors, school, short trips, and the constant traffic of daily talk. The mind is quick and the mouth is quicker. These are people who debate for sport, who won't let a bad point slide in a meeting, and who send the reply before the other person has finished typing. A brother or sister was often the first rival, and the old competition can still flare at Thanksgiving forty years later. Writing tends to be punchy. Teaching, reporting, sales, and advocacy suit them.
 
-  'MARS_H9': `Here drive reaches for meaning ... energy goes into belief, travel, and the campaign for a bigger truth, fighting for conviction and the freedom to seek. The instinct is restless and crusading. The fight is fought for ideas. The work is grounding the crusade ... letting the drive for meaning stay open rather than dogmatic, and aiming the energy at one real quest instead of every passing cause.`,
+The cost is collateral. A sharp sentence wins the argument and loses the neighbor, and the family group text goes very quiet for a week. Somewhere there's a cousin who still hasn't forgotten what got said in 2011, word for word.`,
 
-  'MARS_H10': `Here drive climbs toward achievement ... energy goes into career, ambition, and the will to reach the top, aimed squarely at the public goal. The instinct competes hard and leads from the front. Reputation is worth fighting for. The work is keeping the ambition clean ... letting the drive build something worth having rather than just winning the position, so the standing rests on real work and not only on the climb.`,
+  'MARS_H4': `Somebody in the house had a temper. Not always, but often enough that a person with Mars in the 4th remembers the sound of doors.
 
-  'MARS_H11': `Here drive serves the group ... energy goes into causes, community, and the fight for a shared future, asserting alongside others toward a common aim. The instinct rallies and leads collective effort. The work is sharing the command ... keeping the drive from bending the group to one will, and learning to fight for the cause as one of many rather than as the one in charge of all of them.`,
+The 4th is the house of home, family, roots, and the private ground under a life. Cancer is the 4th sign, and Cancer is where Mars falls. Houses don't inherit dignities from signs, strictly speaking, but the image fits: a fighting planet set down in the nursery. In practice it can mean a loud household, a parent who ran hot, or simply a family that did everything at full volume.
 
-  'MARS_H12': `Here drive runs underground ... energy is indirect, hidden, sometimes turned against the self, hardest to see and to aim. The instinct acts from behind the scenes and can struggle to assert openly. Anger goes unspoken. The work is bringing the drive into the light ... learning to name and channel the buried energy directly, so it builds something rather than leaking out as self sabotage or quiet exhaustion.`,
+As adults they tend to throw energy at the home itself. They tear out walls, rebuild the deck, move more often than planned, and do the renovation themselves because the contractor was too slow. They defend family fiercely. The difficulty is that anger swallowed at work tends to come out at the kitchen table, and a home that can hold heat without burning is the long project.`,
+
+  'MARS_H5': `Pickup basketball, Sunday morning, and one guy is playing like it's game seven. That's Mars in the 5th house in a single picture.
+
+The 5th is play, romance, children, and creative risk, and Mars turns all of it into a contest worth winning. Romance runs fast and physical, with a real taste for the chase. Creative work tends to be bold, loud, and willing to fail in public. With children they're often the parent who wrestles on the carpet, coaches the team, and gets a little too invested in the science fair. Risk is part of the fun, whether that's a motorcycle, a poker table, or a startup.
+
+The trouble starts when play stops being play. A board game ends with someone leaving the table. A love affair becomes a conquest, and the conquest loses interest once it's won. Still competitive later in life, usually, but by then a good loss can make them laugh.`,
+
+  'MARS_H6': `Of all the places to give the war planet its joy, the old astrologers picked the house of chores. The 6th was called Bad Fortune, the house of labor, illness, and toil, and Mars was the planet of cutting, burning, and hard effort. One way to read it: put the worker in the workshop and it stops wrecking the rest of the house.
+
+Modern readings land in a similar spot. These are people who attack a task rather than start it, who hate idle afternoons, and who often end up in demanding jobs: trades, surgery, emergency work, kitchens, the military, coaching. Exercise isn't optional for them. Without it, the energy turns into irritability, insomnia, or a fight with a coworker who works at half the pace.
+
+The body takes the bill eventually. Strains, burns, inflammation, the back that went out lifting something they should have asked for help with, an hour after the shift should have ended.`,
+
+  'MARS_H7': `They argue hardest with the people they love most, and they'd say that's a sign of respect. Mars in the 7th house puts the planet of conflict right in the house of partnership.
+
+The 7th covers marriage, close partnerships, contracts, and the open opponent, the one who announces themselves. Libra is the 7th sign, and Mars has long been called in detriment there, out of place in the sign of balance and manners. The house only borrows that image from the sign, but it's a fair picture. Partners tend to be strong, sometimes combative, and relationships stay lively because the friction never quite goes away. Many make good litigators, negotiators, agents, and advocates, since fighting on someone else's behalf comes naturally.
+
+Then there's the projection. A person who never raises their voice can keep marrying people who do. Owning the anger instead of outsourcing it is usually the turning point, and after that the fights get fought side by side.`,
+
+  'MARS_H8': `Before Pluto was discovered, Mars ruled Scorpio, and Scorpio is the 8th sign. Traditional astrologers still use that rulership. So Mars in the 8th house is, by the older count, a planet working in its own basement.
+
+The 8th holds intimacy, sex, debt, inheritance, other people's money, crisis, and death. Drive goes underground here. These are often people who seem calm on the surface and run very hot underneath, and they tend to come alive in an emergency.
+
+The ER nurse who gets quieter as things get worse, the investor who buys when everyone else is selling, the person who handles the funeral arrangements while the rest of the family falls apart.
+
+Fights over shared money show up more than they'd like: an estate, a divorce settlement, a business partner's debt. Grudges can run for decades. The hard part is power in intimacy, who needs whom and who controls what. Trust comes slowly, and once given, it's total.`,
+
+  'MARS_H9': `What's worth fighting for? For Mars in the 9th house, the answer is usually an idea.
+
+The 9th is belief, philosophy, religion, law, higher learning, and long journeys. Mars here makes a crusader. Convictions come out loud and get defended with real heat, whether the subject is theology, politics, or the correct way to smoke a brisket. Travel tends toward the rough version: the hard trek, the overland route, the country the guidebook warned about. Many learn better by doing than by sitting in a lecture hall, and some turn the fight into a career in law, activism, missionary work, or coaching.
+
+At its worst this Mars sits at a holiday table, where certainty meets a cousin with a different certainty. At its best it's the person who goes and actually does the thing everyone else only believes in. The humility usually arrives late, and it makes the conviction a lot easier to live with, for everyone.`,
+
+  'MARS_H10': `Ambition with its sleeves rolled up. Mars at the top of the chart, in the 10th house of career and reputation, rarely hides what it wants.
+
+Capricorn, the 10th sign, is where Mars is exalted, and the 10th house carries some of that flavor: a planet that does its best work with a mountain in front of it. These people tend to go after a career directly. They thrive where toughness gets rewarded, in business, construction, surgery, the military, sports, politics, anything with a clear ladder. Authority and they usually clash, right up until they become the authority, and occasionally after.
+
+Reputation can take public hits. A burned bridge, a feud that made the trade papers, a name for being hard to work for. Fear gets results quickly and respect gets them for longer, and the careers that last here belong to people who figured out the difference before the second act.`,
+
+  'MARS_H11': `Every group chat has one person who eventually types "ok, are we actually doing this or not." With Mars in the 11th house, it's usually them.
+
+The 11th covers friends, alliances, groups, causes, and hopes for the future, and Mars here brings motion. These are organizers, team captains, the campaign volunteer who ends up running the campaign. Friendships often form around a shared mission, whether that's the team, the band, the union local, or the cause, and they tend to push friends harder than the friends asked to be pushed. Hopes get turned into plans with deadlines.
+
+That drive has a price inside groups. Power struggles at the club, a falling out with a cofounder, the friend who drifted off after one argument too many. And still, when the basement floods or the fundraiser is three days out and nothing is booked, they're the first number anyone calls.`,
+
+  'MARS_H12': `Traditional astrology gave the 12th house secret enemies, along with prisons, exile, and losses that come from out of sight. Put Mars, the planet of open conflict, in the house of hidden ones, and the anger tends to go underground with it.
+
+Many people with this Mars find direct confrontation strangely hard. The irritation gets swallowed, then shows up later as sarcasm, a headache, a sleepless night, or a sudden blowup over a dish left in the sink. Some turn the energy inward and become their own toughest opponent. Others put it to work behind closed doors, in hospitals, prisons, labs, shelters, night shifts, places that need stamina and give very little credit.
+
+There's often real courage here, just quiet. They turn out to be steady in a crisis nobody expected them to handle. What helps most is a physical outlet, a run, a heavy bag, a garden that needs digging, and the habit of saying the angry sentence out loud while it's still small.`,
 
 
   // ── JUPITER ──
-  'JUPITER_H1': `Here growth runs through the self ... optimism and a generous presence are the first things the world meets, and the person tends to expand into whatever room they enter. Luck seems to follow the open posture. The shadow is the expansion that overfills the room ... a confidence that can tip into too much, promising more than it delivers, and grows by letting the warmth make space for others rather than filling all of it.`,
+  'JUPITER_H1': `The big laugh at the back of the restaurant usually belongs to someone like this. Jupiter in the 1st house makes a person larger than life, sometimes in spirit, sometimes in build, often both.
 
-  'JUPITER_H2': `Here growth flows toward resources ... abundance comes through earning, and faith rests in the sense that there will always be enough. The instinct is generous, sometimes lucky, with money and material life. The shadow is the appetite that outruns the means ... an optimism that can overspend and overextend on the assumption it will all work out, and grows by letting genuine generosity coexist with a clear eyed sense of what is actually there.`,
+Jupiter was the greater benefic in the old texts, the planet of growth, generosity, and good luck, and in the 1st house it sits right on the person. They tend to come across as warm, optimistic, a little expansive. People trust them quickly. Doors open. A job turns up through someone they met in line at the bank, and they talk about it later as if that's just how jobs happen. For them, often, it is.
 
-  'JUPITER_H3': `Here growth runs through the mind ... learning, teaching, and communication are where the life expands, with a wide ranging curiosity and a gift for the big idea. Luck flows through words and connections. The shadow is the breadth that skips the depth ... a mind that can graze widely and commit nowhere, and grows by following the curiosity all the way into something rather than sampling endlessly across the surface.`,
+The excess is the catch. Promises outrun the calendar, portions outrun the appetite, and confidence sometimes runs a few steps ahead of the facts. None of it seems to dent the good mood for long, which is either the best thing about them or the most maddening, depending on who's asked.`,
 
-  'JUPITER_H4': `Here growth roots at home ... the family, the past, and the private foundation are where abundance gathers, and faith rests in belonging. The instinct is to build a warm, expansive base. Luck flows through roots and heritage. The shadow is the comfort that becomes excess ... a home that can grow indulgent or insular, and learns to let the warmth open outward rather than turning the sanctuary into a place to hide.`,
+  'JUPITER_H2': `Money tends to show up. Not always a lot of it, and not always on time, but people with Jupiter in the 2nd house have a way of landing on their feet financially that their friends find slightly unfair.
 
-  'JUPITER_H5': `Here growth pours through the heart ... creativity, romance, children, and play are where the life expands most joyfully and generously. Luck favors the bold and the warm. The shadow is the pleasure that overreaches ... an appetite for delight that can tip into excess and risk for its own sake, and grows by letting the joy deepen into something made and kept rather than only chased.`,
+The 2nd is the house of income, possessions, and values, and Jupiter is the planet of more. Earning often comes through teaching, publishing, law, travel, sales, or anything that grows by word of mouth. They tend to be generous with what they have, quick to pick up the check, quick to lend, slow to ask for it back. Values run broad and hopeful: a belief that there's enough to go around, and the behavior that follows from believing it.
 
-  'JUPITER_H6': `Here growth runs through the daily work ... service, craft, and the care of the body are where the life expands, often through opportunity that arrives via diligence. Luck favors the useful. The shadow is the meaning lost in the routine ... an instinct that can pour its faith into busywork and overdo the helping, and grows by keeping sight of the larger purpose the daily effort was meant to serve.`,
+The weak spot is the assumption that more is coming. Spending rises to meet the income and then politely passes it. A garage full of things bought on a good day. A credit card that has heard every reason. They'll usually be fine. That's the frustrating part.`,
 
-  'JUPITER_H7': `Here growth comes through partnership ... the close bond is where the life expands, and others often arrive as a source of luck, opportunity, and faith. The instinct relates generously. The shadow is the expansion handed to the other ... a tendency to look for growth entirely through a partner, and learns to bring its own abundance to the union rather than expecting the union to supply it.`,
+  'JUPITER_H3': `Some people can turn a trip to the post office into a twenty minute story with a moral at the end. Jupiter in the 3rd house tends to produce them.
 
-  'JUPITER_H8': `Here growth runs through the depths ... shared resources, intimacy, and transformation are where the life expands, often through what is merged or inherited. Faith is hard won and rests in renewal. The shadow is the reach for too much in the deep places ... an appetite that can overgrasp for shared power or wealth, and grows by trusting that the real abundance there comes through surrender and trust.`,
+The 3rd covers daily talk, siblings, neighbors, school, writing, and short trips, and Jupiter enlarges all of it. These are generous talkers and eager learners. They read three books at once and quote all of them. A sibling is often a source of real luck, the brother who found them the first job, the sister who's still the best friend. Neighbors know their name. Teaching, writing, broadcasting, and sales come naturally, because explaining things is a pleasure rather than a chore.
 
-  'JUPITER_H9': `Here Jupiter is on its own natural ground ... meaning, travel, and higher learning are where the life expands most fully, with a restless hunger for the wider world. Luck favors the seeker and the student. The shadow is the conviction that stops listening ... a faith that can harden into the sense of already knowing, and grows by keeping the search open rather than mistaking the first sweeping answer for the truth.`,
+Gemini, the 3rd sign, is a sign of Jupiter's detriment, and there's a hint of that in the way a big mind can get spread thin across a small territory. Lots of opinions, not all of them checked. The anecdote improves every time it's told, and nobody at the table minds.`,
 
-  'JUPITER_H10': `Here growth climbs into public view ... career, reputation, and standing are where the life expands, often through visible opportunity and good timing. Luck favors the ambitious. The shadow is the reach that overpromises ... a public optimism that can claim more than it can build, and grows by letting the standing rest on what is genuinely delivered rather than on the size of the promise.`,
+  'JUPITER_H4': `The house is usually bigger than it needs to be. An extra bedroom, a long table, a fridge stocked for guests who haven't been invited yet. Jupiter in the 4th house wants home to be generous.
 
-  'JUPITER_H11': `Here growth flows through community ... friends, networks, and shared causes are where the life expands, and luck arrives through the group and its goals. The instinct gives generously to the collective. The shadow is the cause that swallows the person ... a faith in the many that can lose the particular self, and grows by bringing a distinct vision to the group rather than dissolving into its ideals.`,
+Cancer is the 4th sign and the sign where Jupiter is exalted, and this is one of the places where the benefic is easiest to see at work. Families tend to be large or loud or warm, or all three. Often there's a parent, a grandparent, or a hometown that gave them a sense that the world was basically safe. Many end up owning property, sometimes more than one place, and the family home often stays in the picture for decades.
 
-  'JUPITER_H12': `Here Jupiter works its other natural ground ... spirituality, retreat, and compassion are where the life quietly expands, with faith found in solitude and the unseen. Luck flows through letting go. The shadow is the hope that floats free of the ground ... an expansiveness that can drift into escape and wishful dissolving, and grows by anchoring the boundless faith in something real enough to live by.`,
+The risk is a nest that's a little too comfortable. Leaving it can take longer than it should, and the urge to take everyone in can fill the house with people who never quite leave either. Thanksgiving at their place runs to three tables.`,
+
+  'JUPITER_H5': `My bet is that this person has the most godchildren in the family. Jupiter in the 5th house is generous toward anything young, playful, or newly made.
+
+The 5th covers children, romance, pleasure, creativity, and risk taken for fun. Jupiter here turns the volume up. Love affairs tend to be big and memorable. A first date might be a hot air balloon ride, a little much and completely sincere. Creative work is expansive, sometimes sprawling: the novel that grew to nine hundred pages, the garden that took over the side yard. Children are often a real source of pride, their own or other people's, and they're the adult every kid wants at the party.
+
+Luck at games and gambling is a common modern reading, and some of them do have it. Some only think they do. The difference tends to become clear somewhere around the third trip to Reno.`,
+
+  'JUPITER_H6': `There's always one more project on the desk. Jupiter in the 6th house says yes to work, and then says yes again.
+
+The 6th covers jobs, daily routine, health, and service, and Jupiter brings growth, sometimes in the good sense and sometimes in the overloaded one. Work tends to come easily and keep coming. Coworkers like them, bosses lean on them, and many find a job where helping people is the actual job description: medicine, social work, teaching, counseling, any field with care at the center. Good luck at work is common. So are offers that come because someone remembered how cheerful they were on a bad Tuesday.
+
+The body is where the excess shows. Rich food at the office party, a routine that keeps expanding, a calendar with no white space left in it. Traditional medical astrology gave Jupiter the liver, and plenty of these people have heard about theirs from a doctor.`,
+
+  'JUPITER_H7': `Partners tend to arrive bearing gifts. Money, connections, a sense of humor, a family that took them in. Jupiter in the 7th house is often read as a sign of marrying well.
+
+The 7th covers marriage, partnership, contracts, and open opponents, and Jupiter makes all of them a little kinder. Business partners tend to be generous, disputes often settle, and enemies are rare or at least reasonable. These people believe in partnership the way some people believe in church. They expect the best of the person across the table, and they often get it.
+
+The trouble is expecting too much. A partner gets cast as the answer to everything, or the yard next door keeps looking greener, and a second or third marriage isn't unusual. It isn't that they love lightly. They just keep believing the next one will be even better, and sometimes, annoyingly, it is.`,
+
+  'JUPITER_H8': `Other people's money has a way of finding them. An inheritance, a partner's income, a settlement, an investment someone else set up years ago and forgot to mention.
+
+The 8th is the house of shared resources, debt, sex, death, and the hard changes that remake a life. Jupiter, the planet of abundance, does surprisingly well here. Help tends to arrive through other people, and there's often a gift for meeting crisis with a calm faith that things will turn out. Many work in finance, insurance, estate law, psychology, or hospice, places where big loss and big money meet. Intimacy runs generous and deep.
+
+Debt is the other side of the same coin, since a planet that expands things expands what's owed as easily as what's owned. Curiosity about death and what comes after is common too, a stack of books on the afterlife sitting next to the tax forms. They're usually the calmest person at the reading of the will.`,
+
+  'JUPITER_H9': `Sagittarius is the 9th sign and Jupiter rules it. So Jupiter in the 9th house is home, in the house of long journeys, religion, philosophy, law, and higher learning, and it behaves like a planet with nothing to prove.
+
+These people tend to collect passport stamps and degrees and opinions about the meaning of life, in roughly that order. Faith often matters to them, whether it's a religion, a philosophy, or a stubborn belief that people are mostly decent. Teaching, publishing, law, academia, and anything that crosses cultures suit them. People from other countries often turn out to be lucky for them. So do mentors, and they usually end up mentoring someone themselves.
+
+The flaw is the sermon. A mind this sure of the big picture can start preaching it over dinner, and the open question becomes a closed answer. There's also a habit of booking the next trip before unpacking from the last one. The suitcase, more or less, never goes back in the closet.`,
+
+  'JUPITER_H10': `Some careers seem to have a tailwind. Jupiter in the 10th house, the house of career and public standing, tends to supply one, and it's often visible from the outside long before the person feels it. Promotions come, and so do public roles, a reputation for fairness and good humor, a name people trust. They're drawn to work that's larger than a paycheck: law, teaching, politics, religion, publishing, running something with a mission. Mentors appear at the right moment, often a parent or an early boss who believed in them out loud. Later, they tend to be remembered as the generous boss, the one who wrote the recommendation letters without being asked twice.
+
+The risk is overreach. Taking the bigger job before the smaller one was finished, promising the board more than the year could deliver, coasting on a reputation once it's established. Public success can also make private doubt very hard to admit. They rarely admit it.`,
+
+  'JUPITER_H11': `Good Spirit. That was the Hellenistic name for the 11th house, and Jupiter had its joy there. Friends, allies, patrons, hopes for the future... the house of the people who help, given to the planet of help.
+
+It's one of the most comfortable spots Jupiter has. These are people with friends in many places, including some surprisingly useful ones: the college roommate who became a judge, the neighbor who knows someone at the hospital. Groups welcome them. They join causes, clubs, boards, and congregations, and they're often the one who keeps the group hopeful when the numbers look bad. Hopes tend to be big and, more often than seems fair, they come true.
+
+The risk is joining too much. Six boards, four committees, a calendar that belongs to everyone else, and a generosity that the less scrupulous members of the club figure out fast. Their address book, all the same, is the envy of everyone they know.`,
+
+  'JUPITER_H12': `Things work out at the last minute. Not always, but often enough that people with Jupiter in the 12th house sometimes describe a sense of being looked after by something they can't name.
+
+The 12th is the hidden house: solitude, retreat, hospitals, prisons, the unconscious, and losses that happen out of sight. Before Neptune was found, Jupiter ruled Pisces, the 12th sign, and traditional astrologers still use that rulership. So the planet of faith lands in the house of the unseen, and it tends to bring a quiet, private kind of generosity. Anonymous donations. Volunteering nobody posts about. Spiritual or contemplative interests, mostly kept to themselves.
+
+The shadow is escape. Faith can slide into avoidance, the problem left for the universe to handle, and comfort can come from a bottle as easily as from a prayer. At its best this Jupiter shows up in a hospital waiting room at three in the morning, as the stranger who stayed.`,
 
 
   // ── SATURN ──
-  'SATURN_H1': `Here identity is built slowly ... the self arrives reserved, serious, often weighed down early by a sense of not being enough, and mastery of the self comes only over years. The presence carries a quiet gravity. The shadow is the self doubt worn as armor ... a caution that can keep the person small to stay safe, and grows into a hard won, genuine authority that the easier starters rarely reach.`,
+  'SATURN_H1': `Old at twelve, young at sixty. That's the arc that tends to show up with Saturn in the 1st house.
 
-  'SATURN_H2': `Here worth is earned the hard way ... security comes slowly, through discipline and work, with an early sense of lack that takes years to ease. The instinct is careful, frugal, serious about money. The shadow is the scarcity that never quite lifts ... a fear that can hoard and withhold even once there is enough, and grows into a deep, durable security built entirely by the person's own hands.`,
+The 1st is the house of the body, the face, and the first impression, and Saturn here adds weight. The presence reads as serious, reserved, a little watchful. Kids with this placement often got called mature, or were handed responsibility early: a younger sibling to watch, a parent who leaned on them. Aries, the 1st sign, is where Saturn falls, and the old picture of a slow planet in a fast place fits how this one tends to feel, like a brake on at the start of things.
 
-  'SATURN_H3': `Here the mind is built serious ... thinking and communication are disciplined, careful, slow to speak until sure, sometimes shadowed by an early fear of not being clever enough. The instinct is rigorous and deep rather than quick. The shadow is the voice held back ... a mind that can doubt its right to speak, and grows into a thinker whose words carry weight precisely because they were so carefully earned.`,
+Shyness is common, and so is a self consciousness that takes decades to wear off. The upside shows up in the long run. Life often gets noticeably easier somewhere in their thirties, and by the fiftieth reunion they're the ones who look better than most of the class.`,
 
-  'SATURN_H4': `Here the foundation is heavy ... home and family carry early weight, duty, or scarcity, and the inner base must be built rather than inherited. The instinct guards the private self closely. The shadow is the roots that feel cold or burdened ... a foundation that can ache with old obligation, and grows, over time, into a genuine inner ground the person constructs deliberately and finally gets to rest on.`,
+  'SATURN_H2': `Every receipt is in a folder. The folder is labeled, and the label has the year on it.
 
-  'SATURN_H5': `Here joy is disciplined ... creativity, romance, and play meet a serious hand, often shadowed by a fear of being seen or of not being good enough to bother. The instinct holds the heart back. The shadow is the spontaneity kept on a leash ... a self that can treat even pleasure as a test, and grows by letting the play out before it feels earned, discovering that delight does not have to be deserved first.`,
+Saturn in the 2nd house brings caution to money, possessions, and self worth, and the caution usually starts early. Many grew up with scarcity, or with a parent who worried about money out loud, and it stuck. They save before they spend. They buy the used car, keep it for fifteen years, and do the oil changes themselves. Income tends to build slowly through steady work, and often ends up larger than anyone would have guessed from the early years.
 
-  'SATURN_H6': `Here work is the teacher ... discipline runs through the daily routine, the craft, and the body, with a serious, diligent, sometimes overburdened relationship to labor. The instinct is responsible to a fault. The shadow is the grind that defines the self ... a tendency to overwork and tie worth to output, and grows into real, patient mastery of a craft built one disciplined day at a time.`,
+Self worth runs the same way, earned in small deposits. A compliment gets checked for hidden conditions. Generosity is real but private, and money spent on themselves can bring a pang that money spent on others doesn't. Retirement accounts are usually in good shape. Whether the person ever felt secure enough to enjoy them is a separate question.`,
 
-  'SATURN_H7': `Here commitment is serious ... partnership is approached slowly, carefully, often later or with a heavy sense of duty, drawn to the stable and the lasting over the easy. The instinct fears being bound and being abandoned at once. The shadow is the wall inside the bond ... a caution that can keep a partner at a correct distance, and grows into a loyal, durable union that the person genuinely builds rather than falls into.`,
+  'SATURN_H3': `They rewrite the email four times before sending it. Then they check it again after it's sent.
 
-  'SATURN_H8': `Here the depths are guarded ... intimacy, shared resources, and surrender meet a strong need for control, shadowed by a fear of being exposed or dependent. The instinct holds the deep places tightly. The shadow is the trust that will not come easily ... a self that can armor against ever merging, and grows by learning that the control it clings to is exactly what real depth asks it to release.`,
+Saturn in the 3rd house puts weight on words, learning, siblings, and the everyday traffic of the near world. School may have been hard at first, or simply serious: a strict teacher, a learning difficulty, a sense of being slower than the quick kids. What tends to come out of it is a careful, thorough mind that doesn't trust a fact until it's been checked. Writing is precise. Speech can be slow, dry, and funnier than it first appears.
 
-  'SATURN_H9': `Here belief is built carefully ... meaning, travel, and faith are approached soberly, tested rather than taken on trust, sometimes shadowed by early doubt or rigidity. The instinct wants a worldview that can bear weight. The shadow is the search fenced in by caution ... a mind that can mistake safety for truth, and grows into a hard earned philosophy the person can actually stand on and live by.`,
+Siblings are often a responsibility rather than playmates, the older child raising the younger ones, or a brother whose troubles took up a lot of the family's attention. Distance from a sibling is common too. Short trips get planned to the minute. Their grocery lists are organized by aisle.`,
 
-  'SATURN_H10': `Here Saturn is on its own natural ground ... career, authority, and public mastery are the central work of the life, built through patient, ambitious, often slow climbing. The instinct is responsible and driven. The shadow is the climb that becomes the whole self ... an ambition that can sacrifice everything to the summit, and grows into genuine, earned authority and a standing that lasts because it was built honestly.`,
+  'SATURN_H4': `Childhood had rules. Sometimes they were fair, sometimes they weren't, and sometimes the main rule was not to talk about the rules.
 
-  'SATURN_H11': `Here Saturn works its other natural ground ... community, friendship, and shared goals are approached seriously, with real responsibility to the collective and its long future. The instinct commits to the cause for the long haul. The shadow is the distance kept from the group ... a reserve that can stand apart even while serving, and grows into a steady, trusted role at the center of something built to outlast the person.`,
+Saturn in the 4th house brings weight to home, family, and roots. The early home was often stable but not soft, or run by a parent who was strict, absent, or carrying too much to be fully present. Responsibility for family tends to come early and stay late, and plenty of these people end up caring for an aging parent while their siblings send cards.
 
-  'SATURN_H12': `Here the unseen is structured ... discipline turns toward the unconscious, the hidden, and the solitary, often carrying old, buried fears that surface in the quiet. The instinct works alone and inward. The shadow is the fear that has no clear face ... an anxiety that can haunt from below awareness, and grows by bringing the buried weight into the light, where it can finally be faced, shaped, and set down.`,
+And yet they often build the most solid homes of anyone they know. They buy property carefully and hold it. The mortgage gets paid off early. The furnace gets serviced every October. The roof gets replaced before it leaks, the smoke detectors have fresh batteries, and the spare key is exactly where it's supposed to be.`,
+
+  'SATURN_H5': `Fun is something this person has to learn. Once they learn it, they take it seriously.
+
+The 5th house covers play, romance, children, creativity, and pleasure, and Saturn here is the chaperone. Childhood play may have been cut short, or a creative streak may have been waved off as impractical. Romance tends to start slowly, with long caution and a fear of looking foolish, and a lot of them married or had kids later than their friends. Some decided not to, and gave the energy to students, nieces and nephews, or a craft instead.
+
+Creativity, when it comes, is the disciplined kind. The pianist who practices scales for thirty years. The woodworker whose joints are invisible. The comedian who has rewritten the same bit ninety times.
+
+It looks effortless to an audience and is the opposite. Their children, if they have them, tend to be raised with clear rules and a surprising amount of devotion.`,
+
+  'SATURN_H6': `The work gets done, usually by them, usually after everyone else has gone home.
+
+Saturn in the 6th house brings duty and endurance to the job, the routine, and the body. These are the reliable ones, the employee who has never missed a deadline, the nurse who has worked the same unit for twenty two years. Systems and procedures make sense to them. They notice when the safety check gets skipped. Bosses trust them, though they're not always the ones who get promoted, since reliability is easy to take for granted.
+
+The body tends to carry the strain. Stiff joints, sore knees, a back that tightens up in a stressful month. Traditional medical astrology gave Saturn the bones and the teeth, and the dentist usually knows them well. Health improves with routine, and they're good at routine. The trouble is a habit of working sick, and a quiet resentment toward coworkers who don't.`,
+
+  'SATURN_H7': `The wedding often comes later than the family expected, and when it comes, it tends to be for keeps.
+
+Libra, the 7th sign, is where Saturn is exalted. It's one of the planet's best signs in the old system, the slow, serious planet doing well in the sign of fairness and contracts, and something of that carries into the 7th house of marriage and partnership. These people take commitment seriously. They want the vows to mean something. Partners are often older, more established, or simply steadier, and some relationships start as working partnerships before they become anything else.
+
+The hard part is the fear of getting it wrong. A first marriage can feel like a job, and an engagement can stretch for years. Loneliness inside a relationship shows up too, the sense of carrying it alone. By the fortieth anniversary, though, they're often the couple everyone else is quietly measuring against.`,
+
+  'SATURN_H8': `Somebody has to be the executor. In a lot of families it ends up being the person with Saturn in the 8th house.
+
+The 8th covers death, debt, inheritance, taxes, shared money, and intimacy, and Saturn brings seriousness to all of it. Loss may come early, a death in childhood or a family that went through a hard financial stretch, and it leaves a lasting respect for how fragile things are. Debt makes them uneasy. They read the fine print, keep the insurance current, and tend to have a will before most of their friends have thought about one.
+
+Intimacy comes slowly. Trust is extended in installments, and letting someone see the soft parts can feel like a risk not worth taking. Shared money with a partner can be a sore subject. What grows instead is a steady competence in the places other people avoid: grief, estates, the conversation nobody wants to have at the hospital. They're good in that room. They've been in it before.`,
+
+  'SATURN_H9': `What does a skeptic believe in? With Saturn in the 9th house, that question can take a lifetime to answer.
+
+The 9th covers religion, philosophy, higher education, law, and long journeys. Saturn here makes belief something earned rather than inherited. Some grew up in a strict faith and spent years arguing with it. Others came to belief late, carefully, after reading everything. Higher education often matters a great deal and comes with obstacles: money, timing, a degree finished at forty. Travel tends to be purposeful rather than restless, the research trip or the posting abroad.
+
+These are good teachers, especially of hard subjects, and often good at law, academia, or anything that needs rigor. The risk is a worldview that hardens into the only acceptable one. At their best they're the professor who still says "I don't know" in front of a full lecture hall, and means it.`,
+
+  'SATURN_H10': `Capricorn is the 10th sign and Saturn rules it, so in the house of career and public standing Saturn is on home ground. It builds slowly. The planet takes about twenty nine and a half years to circle the zodiac, and careers with Saturn here often seem to run on that clock.
+
+The early years are a climb, sometimes a hard one: a difficult boss, a demanding parent whose standards became the job description, a start that went nowhere. But the reputation that builds is solid, based on competence rather than flash. These are people who end up in charge, often of something old and serious, a firm, an institution, a department nobody else could run.
+
+The weak spot is that work becomes the only thing people know them for, and sometimes the only thing they know themselves for. Retirement is hard. Many simply don't retire, and keep a desk somewhere well into their eighties.`,
+
+  'SATURN_H11': `Three friends, maybe four. That's usually the list, and every one of them has been on it for thirty years.
+
+The 11th house covers friends, groups, alliances, and hopes for the future, and Saturn brings caution to all of it. Fitting in may have been hard when they were young. The lunch table didn't have a seat, or they felt older than their friends. Friendships form slowly as a result, often with older people or through work, and they last. These are usually the ones who keep the club's books, chair the committee, and show up to the February meeting when it's ten degrees out and only six people came. Hopes run realistic, sometimes too realistic. Dreams get scaled back before they're tried, because disappointment feels worse than not hoping. The goals that do get set are usually reached, on a schedule they built themselves.`,
+
+  'SATURN_H12': `Saturn had its joy in the 12th house. The Hellenistic astrologers called the house Bad Spirit, a place of confinement, sorrow, and hidden enemies, and they gave it to the planet of limits and isolation. A joy meant a planet was glad to be there. Saturn, apparently, liked the dark.
+
+People with this placement often carry a private load that never quite shows. Fears that arrived early and stayed. A family sorrow nobody explained. A sense of responsibility for something that wasn't theirs. Solitude doesn't frighten them, and many do serious work alone, in archives, labs, monasteries, hospitals, night shifts, anywhere quiet and disciplined.
+
+They tend to be their own harshest judge, and old guilt can loop for years. The strength is real, though, and it's the kind built out of sight: patience, endurance, the ability to sit with a hard thing for as long as it takes. Many of them keep journals for decades. Almost nobody gets to read them.`,
 
 
   // ── URANUS ──
-  'URANUS_H1': `Here the disruptive current sits right on the self ... the presence is original, unpredictable, allergic to being told who to be, marked early as different. Freedom is non negotiable. The work is letting the originality connect rather than only set apart ... using the difference to open a door for others, instead of breaking from everyone simply to prove the self cannot be held.`,
+  'URANUS_H1': `Uranus spins on its side, its axis tipped so far over that it more or less rolls around the Sun. People with it in the 1st house tend to give a similar impression. Something about them is set at an angle to everyone else.
 
-  'URANUS_H2': `Here disruption strikes worth and resources ... money and values come and go in sudden shifts, and security is found in freedom rather than in holding tight. The instinct rejects the conventional measure of worth. The work is steadiness without cages ... building enough ground to stand on while keeping the independence the placement cannot live without.`,
+The 1st is the house of the body, the face, and the way a person comes into a room, and Uranus puts the unexpected right there. The haircut changes every year. The clothes don't quite match the occasion, on purpose. They say the thing nobody else at the table was going to say, and they get bored of any version of themselves right around the time other people get used to it.
 
-  'URANUS_H3': `Here the mind runs original ... thinking is quick, inventive, and impatient with received ideas, prone to sudden insight and restless leaps. The instinct questions everything close at hand. The work is following the spark to something solid ... letting the brilliant, jumpy mind land long enough to build on its own best flashes.`,
+Childhood often included being called weird, and a fair number of them decided early to take it as a compliment. Restlessness is the cost. Plans get dropped mid stride, and the people closest to them learn to expect the sudden change of direction. They do expect it. They still get surprised.`,
 
-  'URANUS_H4': `Here disruption reaches home ... roots are unconventional, the family unusual or unsettled, and the foundation itself can shift without warning. The instinct resists the traditional domestic mold. The work is building a base that holds while staying free ... a home that does not require sameness to feel like home.`,
+  'URANUS_H2': `The income chart looks like a heart monitor. Big months, flat months, a windfall, a surprise bill, a job that ended without warning and a better one that turned up three weeks later.
 
-  'URANUS_H5': `Here the creative and romantic life runs unconventional ... passions arrive suddenly, love resists the usual scripts, and self expression breaks form on purpose. The instinct plays by its own rules. The work is letting the freedom deepen ... allowing the sudden sparks of romance and creation to become something lasting rather than only electric.`,
+Uranus in the 2nd house brings the unexpected to money, possessions, and values. Earning often happens in unusual ways: freelancing, technology, inventions, side businesses, a career that didn't exist when they were in school. A steady paycheck can feel like a cage. Values run independent, and what they own often says so, whether it's a vintage synthesizer, a camper van, or a firm lack of interest in owning much of anything.
 
-  'URANUS_H6': `Here the daily life resists routine ... work and health follow erratic, original rhythms, and the instinct rebels against the nine to five mold. Innovation in method comes naturally. The work is enough structure to function ... letting the originality improve the routine instead of simply refusing to keep one.`,
+Security is the tricky part. A temperament that thrives on change has a hard time with savings plans and thirty year mortgages, and some of them never quite build the cushion. Others find out that their best investment was the strange one everyone told them to skip.`,
 
-  'URANUS_H7': `Here partnership needs freedom ... relationships are unconventional, drawn to the unusual, and bristle at anything that feels like a cage. The instinct needs space inside the bond. The work is closeness that does not confine ... building a union with room enough that the independence and the intimacy can both survive.`,
+  'URANUS_H3': `Who teaches themselves a programming language at fourteen, mostly to prove a teacher wrong? Uranus in the 3rd house would be a reasonable guess. The mind runs fast, sideways, and in bursts, and the 3rd is the house of thinking, talking, learning, siblings, and the neighborhood.
 
-  'URANUS_H8': `Here the deep places run electric ... intimacy, shared resources, and transformation arrive in sudden upheavals, and the instinct breaks the buried open. Change comes fast and total. The work is riding the upheaval without courting it ... letting transformation do its work rather than chasing the shock of it for its own sake.`,
+School was often complicated, either boring or behind them, and a lot of their real education came from the library and the internet. Ideas arrive as flashes, often mid conversation, and the conversation can jump three topics before anyone else catches up. Siblings may be unusual, distant, or suddenly absent: a brother who moved across the world, a half sister they didn't meet until adulthood. Short trips tend to be spontaneous. Writing is original and sometimes hard to follow. They change their minds often and say so cheerfully, which drives the people who quoted them last week a little crazy.`,
 
-  'URANUS_H9': `Here belief runs radical ... the worldview is original, unconventional, impatient with inherited doctrine, drawn to the new and the future facing. The instinct rejects received truth. The work is keeping the search open ... holding the radical vision without hardening it into just another fixed creed.`,
+  'URANUS_H4': `Moving boxes. Lots of them, across a childhood that may have included several addresses, a sudden divorce, or a household that ran on rules no other family on the street used.
 
-  'URANUS_H10': `Here the public path runs unconventional ... the career resists the usual ladder, marked by sudden turns and original work, and the instinct refuses to climb on anyone else's terms. The work is a standing built on the difference ... letting the unconventional path become a real contribution rather than only a refusal to conform.`,
+Uranus in the 4th house brings disruption to home, family, and roots. The early home was often unusual in some way: an unconventional parent, a commune, a military family, a house where the furniture got rearranged every season. As adults they want freedom at home more than comfort. They might live in a converted bus, a renovated church, a different city every few years, or a normal looking house with a very strange basement.
 
-  'URANUS_H11': `Here Uranus is on its own natural ground ... community, networks, and the shared future are where the originality comes most alive, and the instinct gathers people around new ideas. Belonging is found among the unconventional. The work is staying a distinct voice in the collective ... bringing real innovation to the group rather than dissolving into its consensus.`,
+Roots are complicated. Some cut ties with family early and build a chosen one. Others keep going back, trying to make sense of where they came from. A permanent address sounds better in theory than it turns out in practice, and the moving company usually has them in its records.`,
 
-  'URANUS_H12': `Here disruption rises from the unconscious ... sudden insights and a hidden, restless need for freedom move below awareness, breaking through in ways hard to trace. The instinct rebels in private. The work is bringing the buried current into the light ... letting the unconscious awakenings be understood and used, rather than erupting unseen.`,
+  'URANUS_H5': `Love at first sight, then gone by spring.
+
+Uranus in the 5th house brings surprise to romance, creativity, pleasure, and children. Attraction tends to arrive suddenly and often toward someone unexpected: a different age, a different background, a person nobody in the family would have guessed. Relationships that run on freedom suit them better than relationships that run on routine.
+
+Creativity is where this placement shines. The art is original, sometimes experimental, often ahead of its audience. Electronic music, odd sculpture, a comedy act that only half the room understands. Children, if they come, may arrive unexpectedly, and the parenting is unconventional, more friend than drill sergeant.
+
+The difficulty is a short attention span for pleasure. The thrill of the new thing fades, and they're already looking for the next one. Some never settle. Some find one person interesting enough to keep surprising them for forty years.`,
+
+  'URANUS_H6': `The nine to five was invented by someone else, and they've been trying to get out of it since the first week.
+
+Uranus in the 6th house brings restlessness to work, routine, and health. Repetitive jobs drain them fast. They do best with flexible hours, remote work, contract gigs, or jobs built around technology and problem solving, places where finding a better way gets rewarded instead of punished. Coworkers find them refreshing or exhausting, sometimes in the same afternoon. They're often the one who automated half the department, then got bored and started on the parking schedule.
+
+Health tends to run through the nerves. Stress shows up as jittery energy, irregular sleep, sudden symptoms that leave as fast as they came. Alternative medicine interests a lot of them, and so does whatever sleep gadget came out this year. Routine helps, and they resist it the way a cat resists a bath.`,
+
+  'URANUS_H7': `The wedding was at the courthouse on a Tuesday, or in a forest, or not at all. Uranus in the 7th house tends to handle partnership on its own terms.
+
+The 7th covers marriage, partnership, contracts, and open opponents, and Uranus brings independence and surprise to all of it. Partners are often unusual: brilliant, eccentric, much older or younger, from a very different world. Attraction is sudden. Relationships need room to breathe, and arrangements that look odd to outsiders, separate houses, long distance, unusual agreements, may work fine for them.
+
+Stability is the hard part. Partnerships can begin or end abruptly, and the urge for freedom can arrive in the middle of a perfectly good marriage. Some go through several. Others find a partner just as independent as they are, and those couples tend to be the most interesting people at any dinner party.`,
+
+  'URANUS_H8': `Sudden money, sudden loss, sudden change of heart. Uranus in the 8th house puts the unpredictable planet in the house of shared resources, inheritance, debt, intimacy, and death, which means the deepest parts of life tend to arrive without warning.
+
+An inheritance from a relative they barely knew. A partner's business that collapsed overnight. A crisis that rearranged everything in one phone call. These people often develop a strange calm about upheaval, because they've lived through plenty of it. Intimacy tends to be experimental and frank, with a need for freedom even in the closest bonds. Curiosity about taboo subjects runs strong, the kind of thing other people only whisper about at funerals, and so does interest in psychology, astrology, the occult, or what happens after death. Investments can swing wildly, and a sensible emergency fund may be the most rebellious thing some of them ever do.`,
+
+  'URANUS_H9': `Uranus was discovered in 1781, the first planet ever found with a telescope, and astrologers came to link it with revolution, invention, and sudden insight. In the 9th house, the house of belief, philosophy, higher learning, and long journeys, those associations land on the big questions.
+
+Whatever they were taught gets questioned. A religious upbringing gets examined and often discarded. Unusual philosophies, fringe science, and radical politics attract them. Education is often unconventional: dropped out, went back, self taught, three degrees in unrelated fields. Travel tends to be spontaneous, a one way ticket, a plan changed at the airport, a month in a country they couldn't have found on a map the year before.
+
+They can be visionary teachers or exhausting dinner guests, depending on the evening. A belief held today may be gone next year, replaced by something stranger. They'll explain the new one with exactly the same confidence.`,
+
+  'URANUS_H10': `Career changes, plural. Uranus in the 10th house rarely follows one ladder all the way up.
+
+The 10th is career, reputation, and public standing, and Uranus brings the unexpected to it. Jobs end suddenly and new ones appear just as fast. Many end up in fields that didn't exist when they started working, or invent a role nobody had thought of. Technology, science, media, activism, and self employment suit them. Authority is a sore point, and it usually has been since a particular gym teacher in seventh grade. Bosses who demand obedience rarely last long in their lives, and they often become the boss who lets people work however they want.
+
+Reputation can be a wild ride, known for something unusual, controversial, or early. Some of their best career moves look like mistakes for about five years. The résumé, when they bother to update it, reads like three different people.`,
+
+  'URANUS_H11': `Aquarius is the 11th sign, and modern astrology made Uranus its ruler. So Uranus in the 11th house, the house of friends, groups, and hopes for the future, is on its own modern ground.
+
+Friendships tend to be wide, eclectic, and a little unusual. The circle might include a physicist, a tattoo artist, and someone they met in an online forum about obscure synthesizers. Groups devoted to reform, technology, science, or causes ahead of their time attract them. They're often the one with the strange idea that turns out, ten years later, to be the obvious one.
+
+Closeness can be harder than friendliness. They'll show up for the group while keeping a certain distance from any one person, and friendships can end as suddenly as they began. Hopes for the future tend to involve the whole world rather than one house with a fence. Some of those hopes even come true.`,
+
+  'URANUS_H12': `Ideas arrive at three in the morning, fully formed, from somewhere they can't quite locate. Uranus in the 12th house puts the planet of sudden insight in the house of the unconscious, solitude, and the hidden.
+
+Rebellion here tends to be private. On the outside these people can look entirely conventional, with a quiet job and a tidy yard, while the inner life runs on strange dreams, intuitions, and radical opinions they rarely share. Breakthroughs come through solitude, meditation, therapy, or a long walk alone. Some have a sudden experience that rearranges their life, in a hospital, on a retreat, or during a dark stretch they don't talk about much.
+
+Anxiety can come without an obvious source, a jolt of nerves in an empty room. Writing it down helps. So does finding the one or two people who can hear the strange ideas without flinching. Those people get kept for life.`,
 
 
   // ── NEPTUNE ──
-  'NEPTUNE_H1': `Here the dissolving current sits on the self ... the presence is dreamy, permeable, hard to pin, often mirroring whatever surrounds it. Identity itself can feel uncertain. The work is keeping enough of an edge to be there ... letting the receptivity be a gift without losing the distinct person behind all that lovely fog.`,
+  'NEPTUNE_H1': `Photographs never quite catch them. Friends say the person in the picture looks like someone else, and in a sense they're right. Neptune in the 1st house blurs the edges of the self.
 
-  'NEPTUNE_H2': `Here Neptune blurs worth and resources ... money and values run foggy, idealized, or quietly confused, and security is hard to measure. The instinct distrusts the material yardstick. The work is grounding the dream ... bringing enough clarity to the practical so the compassion and imagination are not undone by avoidable confusion.`,
+The 1st is the house of the body, the face, and the first impression, and Neptune gives it a soft focus. They tend to come across as gentle, dreamy, a little hard to pin down. People project onto them. A stranger decides they're an artist, a healer, a mystic, a kindred spirit, and they often play along without meaning to. The body can be sensitive too, quick to react to alcohol, medication, crowded rooms, and other people's moods.
 
-  'NEPTUNE_H3': `Here the mind runs intuitive ... thinking is imaginative, associative, and impressionistic, gifted with images and vague on the facts. The instinct knows without quite knowing how. The work is anchoring the intuition ... letting the dreamy mind keep its gifts while building enough structure to carry them into the daylight.`,
+Knowing where they end and someone else begins can take years. Acting, music, photography, and any work built on imagination suit them. Most of them have, at some point, been asked by a total stranger whether they've met before.`,
 
-  'NEPTUNE_H4': `Here home runs idealized or uncertain ... roots are dreamy, blurred, sometimes confusing or quietly sorrowful, and the foundation can feel hard to locate. The instinct longs for a home it can barely name. The work is building a real ground ... letting the compassion settle into an actual place rather than a remembered or wished for one.`,
+  'NEPTUNE_H2': `Where did the money go? With Neptune in the 2nd house, it's a sincere question, asked often.
 
-  'NEPTUNE_H5': `Here love and creation run romantic ... imagination pours into art and romance, idealizing the beloved and the made thing. The instinct dreams beautifully. The work is loving and creating the real ... letting the dream deepen into something true rather than dissolving each time the ideal meets the actual.`,
+The 2nd covers income, possessions, and values, and Neptune dissolves the hard edges. Money tends to slip through the fingers, lent to a friend in trouble, given to a cause, spent on something beautiful that seemed essential at the time. Budgets get made and then quietly ignored. Income often comes through imagination or care: art, music, film, healing work, ministry, anything where the value is hard to put on a spreadsheet.
 
-  'NEPTUNE_H6': `Here the daily life runs sensitive ... work and health are permeable, easily overwhelmed, sometimes foggy or quietly depleting, and the body registers what the mind ignores. The instinct serves with compassion. The work is boundaries in the routine ... protecting the sensitive system so the care offered does not drain the one giving it.`,
+Values are idealistic, sometimes to the point of not wanting to think about money at all, as if caring about it would spoil something. That leaves them open to a bad deal, a charming investor, a partner who handles the accounts a little too eagerly. A good bookkeeper is worth more to them than a good stockbroker. Most figure that out eventually, usually the expensive way.`,
 
-  'NEPTUNE_H7': `Here partners arrive idealized ... relationship is a screen for the dream, drawn to the soulful and the rescuer or the rescued. The instinct projects the ideal. The work is seeing the actual person ... loving who is really there rather than the fantasy laid over them.`,
+  'NEPTUNE_H3': `They remember the dream better than the meeting. Neptune in the 3rd house puts the planet of imagination in the house of daily thinking, talk, siblings, neighbors, and school, and the everyday mind ends up with a fog over it.
 
-  'NEPTUNE_H8': `Here intimacy runs mystical ... the deep places, shared resources, and merging carry a dissolving, transcendent quality, hard to see clearly. The instinct surrenders easily. The work is clarity in the depths ... keeping enough sight in the intense and shared places that the surrender is genuine and not simply lost.`,
+School could go either way: daydreaming through math, then writing a poem the English teacher still remembers. Thinking runs on images and hunches more than lists. They pick up what people mean rather than what they say, which makes them good listeners and unreliable note takers. A sibling may be someone they idealized, worried about, or rescued, sometimes all three. Directions are a problem, and the phone's map app has heard every apology. They'll take the scenic route by accident and find a café they talk about for years. Writing, poetry, songwriting, and storytelling come naturally. Appointments, details, and the exact wording of what was promised do not.`,
 
-  'NEPTUNE_H9': `Here belief runs spiritual ... the worldview is mystical, compassionate, drawn to faith beyond the provable. The instinct senses the sacred everywhere. The work is faith with footing ... holding the spiritual openness without drifting into belief that cannot bear any weight.`,
+  'NEPTUNE_H4': `The childhood home sounds different every time they describe it. Some details are sharp, some are fog, and a few may never have happened quite the way they remember.
 
-  'NEPTUNE_H10': `Here the public image runs like a screen ... the career carries glamour, idealism, or confusion, and the world projects its dreams onto the person. The instinct serves through the imaginative or the compassionate. The work is substance under the image ... letting the public role rest on something real rather than only on the screen others see.`,
+Neptune in the 4th house brings mist to home, family, and roots. Often there was something unclear about the early home: a parent who was absent, ill, addicted, or simply mysterious, a family secret, a move that left the past blurry. Sometimes it was the opposite, a home so idealized that real life could never measure up. As adults they tend to want a home that feels like a sanctuary, near water if possible, with soft light and room to drift.
 
-  'NEPTUNE_H11': `Here the dream reaches the group ... community and the future are idealized, drawn to causes and utopias and the wish for a kinder collective. The instinct gives to the many. The work is the dream made workable ... letting idealism serve a real community rather than dissolving into a vision that never lands.`,
+Family can bring confusion and deep loyalty at the same time. They may spend years caring for a relative nobody else would. The house tends to fill with art, plants, cats, or rescued furniture, and guests often say it's the most peaceful room they've sat in all year.`,
 
-  'NEPTUNE_H12': `Here Neptune is on its own natural ground ... the spiritual, the unconscious, and the boundless are fully at home, opening the person to mysticism, deep compassion, and a thin veil between self and all. The work is form for the formless ... finding a vessel for the vast inner life so it nourishes rather than drowns the one who carries it.`,
+  'NEPTUNE_H5': `Romance, for this person, is a movie. The lighting is perfect and the score swells.
+
+Neptune in the 5th house brings longing and imagination to love, pleasure, creativity, and children. Falling in love tends to happen fast and completely, often with someone who's half real and half invented. Unavailable people have a strange appeal. So do artists, wanderers, and anyone who seems to need saving.
+
+The creative gift can be extraordinary. Music, painting, film, dance, fiction, anything where a feeling becomes something other people can step inside. Children often get the same tenderness, and these parents tend to be gentle, imaginative, and a little vague about bedtimes.
+
+The trouble comes when the movie ends and an actual person is standing there. Disappointment in love is common, and pleasure can slide into escape through drink, gambling, or fantasy. Their art usually knows more about love than their dating history does.`,
+
+  'NEPTUNE_H6': `The vitamin shelf is long, and half the bottles were recommended by a friend of a friend.
+
+Neptune in the 6th house brings sensitivity to work, routine, and health. The body tends to react to everything: foods, medications, moods, the fluorescent lights in the break room. Symptoms can be hard to diagnose, and they often try every kind of medicine, conventional and otherwise, before something sticks. Routine slips away from them easily, and the planner gets abandoned by February.
+
+At work they're drawn to service: nursing, therapy, chaplaincy, care work, animal rescue, the arts. They give generously and often get taken advantage of, staying late for a boss who never noticed or covering for a coworker's mistakes. Job descriptions blur, and they end up doing three people's work under one title. A clear contract helps. So does a doctor who listens.`,
+
+  'NEPTUNE_H7': `They fell in love with who the person could be. That's often the story with Neptune in the 7th house, and it can take years to see the difference between the partner and the picture.
+
+The 7th covers marriage, partnership, and open opponents, and Neptune brings idealism and fog to all of it. Partners may be artists, healers, spiritual seekers, or people in some kind of trouble: an addiction, a crisis, a sorrow that seemed to ask for rescue. The connection can feel almost mystical. Business partnerships carry the same risk, a vague contract, a trust nobody wrote down.
+
+When it goes badly there's disillusion, sometimes deception, and a lot of quiet sacrifice the other person never asked for. When it goes well it's one of the most tender partnerships there is, two people who see the best in each other and occasionally even live up to it.`,
+
+  'NEPTUNE_H8': `Money from a partner, an estate, or a settlement arrives, and then nobody's quite sure where it went. Neptune in the 8th house puts fog over shared resources, debt, inheritance, intimacy, and death.
+
+Financial entanglements need extra care. Joint accounts, vague loans to family, an inheritance with unclear terms... these are the places where confusion or deception tends to creep in. A good lawyer and clear paperwork save a lot of grief here, and so does reading the whole document before signing, even the boring middle pages.
+
+Intimacy runs toward merging, the wish to dissolve completely into another person, which can be beautiful and can also be overwhelming. Spiritual interests are common, especially around death and what comes after. Many are a deeply comforting presence at a deathbed. They're unafraid of the quiet room, and families often remember them long after they've forgotten the doctor's name.`,
+
+  'NEPTUNE_H9': `Neptune was found on paper before anyone saw it. In 1846, mathematicians worked out where an unseen planet had to be from the way Uranus was being tugged off course, and astronomers pointed a telescope there and found it. Faith in something not yet visible, confirmed. It's a fitting history for Neptune in the 9th house.
+
+The 9th covers religion, philosophy, higher learning, and long journeys, and Neptune makes all of it mystical. These people tend to be seekers. Pilgrimages, retreats, a guru or two, a long fascination with mysticism or poetry. Travel to sacred places draws them, and so does life near the sea.
+
+The risk is a teacher who promises more than any teacher can deliver, or a belief held because it's beautiful rather than because it's true. Their bookshelves hold both kinds, usually side by side, with a few pressed flowers marking the pages that mattered.`,
+
+  'NEPTUNE_H10': `The public sees whatever it wants to see in them. Neptune in the 10th house turns the reputation into a screen, and other people project onto it.
+
+The 10th covers career, reputation, and public standing. Careers here tend toward the arts, film, music, photography, fashion, ministry, healing, or charity, fields where image and inspiration matter. Some find a calling more than a career. Others drift for years, unsure what they're supposed to be doing, then fall into the right thing almost by accident. A parent may have been idealized, absent, or hard to read, and that can color how they relate to authority.
+
+The risk is scandal, rumor, or a public image that slips out of their control. A reputation built on glamour can dissolve fast, sometimes over a single photograph or one bad interview. Their best work is usually the work they'd have done for free.`,
+
+  'NEPTUNE_H11': `The friend group includes strays. A musician between apartments, someone just out of rehab, a neighbor's kid who needed somewhere to be on Thursday nights.
+
+Neptune in the 11th house brings compassion and idealism to friendship, groups, and hopes. These people tend to collect friends from every walk of life, and they see the best in all of them, sometimes more than is warranted. Groups devoted to spirituality, the arts, recovery, or charity draw them in. Hopes run large and soft: world peace, a community that takes care of everyone, a cause that changes things.
+
+Disappointment comes when a friend turns out to be using them, or a group they believed in turns out to be ordinary. They tend to give the group more than it gives back. Even so, the potluck they organize every winter keeps growing, and nobody can remember how it started.`,
+
+  'NEPTUNE_H12': `Pisces is the 12th sign, and modern astrology gave it to Neptune. So in the 12th house, the house of solitude, the unconscious, hidden things, and retreat, Neptune is in home water.
+
+The inner life is enormous. Dreams are vivid and sometimes seem to know things. Intuition runs deep, and a crowded room can feel like standing in surf, all those moods washing in at once. Solitude isn't a luxury for these people. It's maintenance. Many are drawn to spiritual practice, music, art, or quiet service in hospitals, hospices, and prisons, places most people would rather not look.
+
+Escape is the shadow, whether through drink, sleep, screens, or simply disappearing for a while. Some disappear for a weekend. Some for a year. They usually come back with something to show for it: a song, a sketchbook, a calm nobody can explain.`,
 
 
   // ── PLUTO ──
-  'PLUTO_H1': `Here the transformative power sits on the self ... the presence is intense, magnetic, and quietly formidable, marked by deep change across a lifetime. People sense a force under the surface. The work is power without domination ... letting the intensity transform the self and empower others, rather than using it to control the room.`,
+  'PLUTO_H1': `Rooms go a little quiet when they walk in. Not because they're loud, usually the opposite, but because there's a sense of weight, of someone paying very close attention.
 
-  'PLUTO_H2': `Here power gathers around worth ... money, values, and security become a field of intensity, obsession, and total loss and renewal. The instinct grips what it owns. The work is transforming the relationship to having ... learning that real security comes through what cannot be seized, not through the white knuckled hold on what can.`,
+Pluto in the 1st house concentrates itself in the body, the face, and the first impression. The gaze is direct, sometimes uncomfortably so. Other people feel seen through, and they react with trust or with wariness, rarely anything in between. Many of these people went through something early that changed them for good: an illness, a family upheaval, a moment when childhood ended ahead of schedule.
 
-  'PLUTO_H3': `Here the mind runs deep and relentless ... thinking is penetrating, investigative, and drawn to the hidden, with words that carry real power. The instinct probes beneath every surface. The work is using that power cleanly ... letting the penetrating mind reveal truth rather than manipulate, and knowing when the digging has gone far enough.`,
+Reinvention happens more than once. The person at forty may look and sound almost nothing like the one at twenty, and there's often a clean break in between, a divorce, a move, a sobriety date, a new name. Old acquaintances run into them and need a second to place the face.`,
 
-  'PLUTO_H4': `Here transformation reaches the roots ... home and family carry buried intensity, old power, and the deep work of remaking the foundation. The instinct guards a private depth. The work is facing the family ghosts ... letting the buried be brought up and transformed, so the foundation is rebuilt rather than haunted.`,
+  'PLUTO_H2': `Money is never just money for them. It's safety, power, proof, and occasionally a weapon.
 
-  'PLUTO_H5': `Here power runs through the heart ... creativity, romance, and self expression carry intensity, obsession, and the capacity to be utterly remade by passion. The instinct loves and creates totally. The work is letting the depth create rather than consume ... pouring the intensity into what is made, without letting it turn romance into a struggle for control.`,
+With Pluto in the 2nd house, the house of income, possessions, and self worth, financial life goes through dramatic cycles, built up, lost, rebuilt, sometimes several times. They can be shrewd with resources, good at spotting value where others see junk, and careers in finance, investment, salvage, or turning around failing businesses suit them. Some hold on to money tightly because they remember exactly what it felt like not to have it.
 
-  'PLUTO_H6': `Here transformation runs through the daily work ... labor and health become arenas of intensity, obsession, and deep regeneration, the body itself a site of change. The instinct works with relentless focus. The work is not letting the drive devour ... letting the intensity heal and rebuild rather than grind the self down in the name of the task.`,
+Possessions carry an emotional charge. A thing they own can be very hard to let go of, or they'll purge everything in one weekend and start over. Self worth gets tested through loss: a bankruptcy, a theft, a job that disappeared. Most of them, asked privately, can name the balance in their checking account to the dollar.`,
 
-  'PLUTO_H7': `Here partnership runs intense ... close relationships carry power, depth, and the potential for total transformation or total struggle. The instinct merges completely or not at all. The work is sharing power as equals ... letting the bond transform both rather than becoming a contest over who holds the upper hand.`,
+  'PLUTO_H3': `Every word is chosen. Some of them are loaded.
 
-  'PLUTO_H8': `Here Pluto is on its own natural ground ... intimacy, shared resources, death, and transformation are fully at home, and the life is remade through the deep places others avoid. The instinct lives where things end and begin again. The work is surrender ... learning that the control it clings to is exactly what the depths ask it to release, so the descent becomes rebirth.`,
+Pluto in the 3rd house brings depth and force to thinking, talking, siblings, neighbors, and early education. The mind is penetrating. They want to know what's really being said, what's being hidden, what the other person meant by that pause. Research, investigation, psychology, and journalism come naturally, and so does a gift for the one sentence that ends an argument.
 
-  'PLUTO_H9': `Here belief runs to the depths ... meaning, faith, and the search for truth carry intensity and the power to be utterly transformed by what is found. The instinct holds its convictions totally. The work is keeping the search open ... letting the worldview be remade by experience rather than defended like territory.`,
+Siblings can be the setting for early power struggles, a rivalry that ran deep or a family secret one sibling carried for the rest. School may have included a dramatic episode: a teacher who changed everything, a move in the middle of the year, a long stretch of silence. Conversations with them rarely stay on the surface. Small talk at a party can turn, within ten minutes, into someone's whole life story, and they never quite know how it happened.`,
 
-  'PLUTO_H10': `Here power climbs into public view ... career and reputation become a field of intensity, ambition, and total reinvention, often through cycles of fall and rise. The instinct reaches for real influence. The work is power that serves ... letting the public force rebuild something worth having rather than chasing control for its own sake.`,
+  'PLUTO_H4': `What happened in that house mostly stays in that house. Pluto in the 4th house puts the planet of power, secrets, and transformation in the house of home, family, and roots, and the early home often carried something intense under the surface: a powerful parent, a hidden crisis, a family story told one way in public and another way at the kitchen table.
 
-  'PLUTO_H11': `Here transformation runs through the collective ... community, causes, and the shared future carry intensity and the power to remake the group. The instinct drives deep change among others. The work is empowering the many ... letting the force transform the collective rather than bending it to a single will.`,
+The relationship with the past is fierce. Some spend years digging through it in therapy, in genealogy, in long conversations with an aging relative who finally starts telling the truth. Others cut ties and build something entirely new. The adult home often goes through dramatic renovation, sometimes literally down to the studs. Real estate can be a source of power. And there's usually one room, a basement, a workshop, a closet, that nobody else is allowed to rearrange.`,
 
-  'PLUTO_H12': `Here power runs buried ... obsession, intensity, and the drive to transform work below awareness, surfacing in ways hard to trace. The instinct holds deep, hidden power. The work is bringing the buried into the light ... facing the unconscious depths so the transformative force heals from within rather than erupting unseen.`,
+  'PLUTO_H5': `Pluto got its name from an eleven year old schoolgirl in Oxford, in 1930. That's a nice irony for a planet astrologers tie to power and the underworld, and in the 5th house, the house of children, play, and creativity, the irony continues. The playground gets intense.
+
+Love affairs tend to be all consuming. Attraction is magnetic, sometimes obsessive, and breakups can feel like small deaths. Creative work is driven, often dark or deeply personal, the kind of art made because not making it isn't an option. Hobbies turn into obsessions. A casual interest in birds becomes a life list of six hundred species.
+
+Children, their own or other people's, can bring some of the most transformative experiences of the life, through joy or through hardship. Gambling and risk can grab hold harder than expected. When they love something, they love it completely, and everyone around them hears about it.`,
+
+  'PLUTO_H6': `They'll rebuild the whole system rather than patch it. Pluto in the 6th house brings depth and force to work, routine, and health.
+
+On the job they're relentless. They see what's broken in a process and won't rest until it's fixed, which makes them invaluable and, to some coworkers, a little frightening. Power struggles at work are common, especially with a boss who doesn't like being questioned. Medicine, research, and crisis work fit well, along with anything that demands total focus.
+
+Health can take dramatic turns: a serious illness that changed everything, a recovery that became a new way of life, a total overhaul of diet and habits after a scare. The body responds to stress intensely, and to healing just as intensely. The person who once couldn't climb a flight of stairs is sometimes, ten years later, running marathons.`,
+
+  'PLUTO_H7': `Their relationships change them, completely, more than once.
+
+The 7th covers marriage, partnership, contracts, and open enemies, and with Pluto there the partners are often powerful people, magnetic, strong willed, sometimes controlling. The relationships are rarely casual. Attraction runs deep and quickly turns into something with real stakes.
+
+Power is the central question. Who leads, who follows, who needs whom more. Some relationships become battles, and divorces can be bitter. Others become the most transformative bond of a life, two people who strip each other down to the truth and stay. Business partnerships can be intense in the same way, and legal disputes, when they happen, tend to be serious.
+
+Plenty of them make excellent therapists, negotiators, and mediators, since they can sense what sits under any agreement. They know what the other side really wants. They usually knew it before the other side did.`,
+
+  'PLUTO_H8': `Scorpio is the 8th sign, and modern astrology made Pluto its ruler. So Pluto in the 8th house, the house of death, sex, debt, inheritance, and other people's money, is on its own ground, and it tends to go all the way down.
+
+The dark parts of life rarely scare them. Crisis, loss, and taboo subjects interest them more than they frighten them. Many have faced death up close, their own or someone else's, and come out changed. Surgery, psychology, forensics, hospice, and investigation all draw from this placement. Sexuality runs strong and private.
+
+Shared money can be the site of serious power struggles: inheritances, divorce settlements, business debts. They play those fights well, sometimes too well. Trust is rare and never casual. When they're the one sitting with someone at the end, the room tends to feel calmer for it.`,
+
+  'PLUTO_H9': `A conversion, in one direction or another. Pluto in the 9th house tends to produce at least one moment when a belief system breaks open and gets replaced.
+
+The 9th covers religion, philosophy, higher learning, law, and long journeys. Faith here is never lukewarm. Belief comes in full strength or gets thrown out in full strength, and some do both over a lifetime. They dig into philosophy and theology the way others dig into crime novels, looking for what's really going on underneath. Travel can be transformative, the trip that changed everything or the country they ended up living in for a decade.
+
+The risk is fanaticism of either kind, the believer who can't tolerate doubt or the skeptic who can't tolerate faith. At their best they're powerful teachers who make students rethink everything. A lot of them change their minds about the same big question three times before they're fifty.`,
+
+  'PLUTO_H10': `Astronomers demoted Pluto to a dwarf planet in 2006. Astrologers kept using it anyway, and in the 10th house, the house of career, reputation, and public standing, it's hard to call it minor.
+
+Ambition here runs deep and quiet. What's wanted is real power, not just a title, and it usually comes slowly, through strategy and endurance. Politics, finance, law, and running large institutions are familiar territory. A parent may have been powerful, controlling, or the center of some family drama, and authority stays a charged subject for life.
+
+Reputation can go through dramatic rises and falls. A career may end completely and restart in a different field. Public scandals, when they happen, tend to be big, the kind that follow a name into every news search for years. So do the comebacks, and the second career is often the one people remember.`,
+
+  'PLUTO_H11': `Friendships are either for life or over, rarely anything in between.
+
+Pluto in the 11th house, the house of friends, groups, alliances, and hopes, usually comes with a small, fiercely loyal circle and a sharp sense of who is and isn't trustworthy. Groups can be a place of power for them: the person who quietly runs the board without holding the title, or who reforms an organization from the inside. Political movements, activism, and causes that aim to change society at the root attract them.
+
+Power struggles inside groups are common, and betrayal by a friend can be a defining wound. A friendship can end abruptly and completely, with no second conversation. Their hopes tend to be big and transformative, the kind that take decades, and they're willing to put in the decades. Some of them even live to see it.`,
+
+  'PLUTO_H12': `Some secrets get kept so well that even the person keeping them loses track. Pluto in the 12th house puts the planet of power and depth in the house of hidden things, solitude, and the unconscious.
+
+There's often a private intensity that rarely shows. Fears, compulsions, or family history they don't talk about. A sense of something powerful moving under the surface of their own mind. Many are drawn to psychology, therapy, research, or work in prisons, hospitals, and other places most people avoid. Solitude can be where the real change happens, sometimes after a long stretch of isolation or crisis.
+
+They're uncannily good at sensing hidden motives in others. Their own, less so. A friend can read them faster than they can read themselves, which they find either a relief or deeply annoying. Therapy, journaling, dreamwork, or a long spiritual practice is usually where they finally meet themselves, and it's rarely a quick introduction.`,
 
 
   // ── NORTH_NODE ──
-  'NORTH_NODE_H1': `The growth here runs toward the self ... toward a clear identity, presence, and the courage to take up space on one's own terms. The South Node in the seventh holds the old ease of living through partners and defining the self in the mirror of others. The pull is toward standing alone, which can feel exposed. The work is becoming a whole person first, so relationship is a meeting of two rather than a place to find a self.`,
+  'NORTH_NODE_H1': `Medieval astrologers called the North Node the Dragon's Head and the South Node the Dragon's Tail. They aren't planets. They're the two points where the Moon's path crosses the Sun's, always exactly opposite each other, and modern astrology reads them as a direction of travel: toward the head, away from the tail.
 
-  'NORTH_NODE_H2': `The growth here runs toward self reliance ... toward building worth, resources, and security through the person's own effort and values. The South Node in the eighth holds the old ease of merging finances, leaning on others' resources, and entanglement. The pull is toward standing on one's own ground. The work is establishing a stable, self made foundation before merging it with anyone else's.`,
+With the head in the 1st house, the direction is toward the self. The tail sits in the 7th, the house of partners, and that's where the old ease lives. These are people who find it natural to accommodate, to read what someone else wants and become it. Asking for something for themselves can feel almost rude.
 
-  'NORTH_NODE_H3': `The growth here runs toward the immediate ... toward curiosity, listening, and learning from the people and ideas close at hand. The South Node in the ninth holds the old ease of the grand worldview and the sense of already knowing. The pull is toward the humble, particular fact. The work is staying open to the everyday exchange rather than retreating into sweeping belief.`,
+So the stretch is toward a self that exists without an audience. Ordering first at the restaurant. Picking the movie. Moving to a city because they want to, with nobody's career to follow. It feels selfish the first few times. It usually isn't.`,
 
-  'NORTH_NODE_H4': `The growth here runs toward the inner foundation ... toward home, feeling, and an emotional base that is genuinely the person's own. The South Node in the tenth holds the old ease of public role and achievement as the whole identity. The pull is inward, toward roots, which can feel less rewarded than the climb. The work is building a private ground to stand on, not only a public one.`,
+  'NORTH_NODE_H2': `Living on someone else's money is comfortable. It's also the thing the North Node in the 2nd house tends to steer away from.
 
-  'NORTH_NODE_H5': `The growth here runs toward the heart ... toward personal creativity, romance, and the joy of self expression offered as an individual. The South Node in the eleventh holds the old ease of dissolving into the group and its causes. The pull is toward stepping out of the collective and into one's own creative light. The work is daring to be a particular, expressive self rather than only one of the many.`,
+The South Node falls opposite in the 8th, the house of shared resources, intimacy, and other people's money, and the familiar pattern runs through merging: a partner's income, family money, joint everything, or an intensity in relationships that swallows the ordinary business of life. The 2nd points the other way, toward money earned with their own hands, possessions chosen with their own taste, and a sense of worth that doesn't depend on anyone else's crisis.
 
-  'NORTH_NODE_H6': `The growth here runs toward the practical ... toward order, useful work, health, and the daily discipline of showing up. The South Node in the twelfth holds the old ease of retreat, escape, and drifting from the concrete. The pull is toward the grounded and the routine, which can feel mundane. The work is bringing form to the daily life rather than dissolving away from it.`,
+It can look modest from outside. A first paycheck that matters more than the inheritance. A savings account in one name. A garden, a set of tools, a slow and steady week. The surprise, for many of them, is the calm. Nothing had to be dramatic to be real.`,
 
-  'NORTH_NODE_H7': `The growth here runs toward the other ... toward partnership, cooperation, and the real work of sharing a life with someone. The South Node in the first holds the old ease of going it alone and keeping the focus on the self. The pull is toward genuine relationship. The work is letting another person in as an equal, and finding the self partly through the bond rather than only apart from it.`,
+  'NORTH_NODE_H3': `The big theory can wait. The North Node in the 3rd house points toward the small, the local, and the specific, and that's a harder turn than it sounds.
 
-  'NORTH_NODE_H8': `The growth here runs toward depth and sharing ... toward intimacy, merged resources, and the transformation that comes from letting go. The South Node in the second holds the old ease of clinging to one's own possessions, values, and comfort. The pull is toward the deep and the shared, which can feel like a loss of control. The work is surrendering the solitary grip and letting real merging change the person.`,
+Across the chart, in the 9th, is the South Node and everything comfortable about philosophy, belief, and far horizons: the grand worldview, the faraway place, the certainty that already knows the answer. What the 3rd house wants is curiosity. Questions. Conversations with neighbors who disagree. The sibling they've been meaning to call. A skill learned one lesson at a time rather than read about.
 
-  'NORTH_NODE_H9': `The growth here runs toward meaning ... toward the big picture, belief, and the wider horizon beyond the familiar. The South Node in the third holds the old ease of scattered facts and the busy, immediate mind. The pull is toward synthesis and conviction. The work is letting the details add up to a worldview worth living by, rather than endless information that never resolves.`,
+There's often a pull to leave, to go somewhere bigger, and the growth keeps turning up close to home. A local newsletter. Volunteering at the library. Learning the names of the people on the block. Listening, it turns out, is a skill like any other, and they get noticeably better at it every year.`,
 
-  'NORTH_NODE_H10': `The growth here runs toward public contribution ... toward responsibility, standing, and a real role in the wider world. The South Node in the fourth holds the old ease of staying home, private, and safely unseen. The pull is toward stepping out and being counted, which can feel exposed. The work is building something public the person can be accountable for, rather than hiding in the familiar.`,
+  'NORTH_NODE_H4': `Career comes easily. Home is the hard part. That's the usual shape of the North Node in the 4th house, with the South Node opposite in the 10th.
 
-  'NORTH_NODE_H11': `The growth here runs toward the collective ... toward community, friendship, and shared goals larger than the personal. The South Node in the fifth holds the old ease of the personal spotlight and the individual performance. The pull is toward belonging to something wider. The work is bringing the gifts to the group and finding a place among equals rather than always center stage.`,
+The 10th is reputation, status, and the public role, and these people often know exactly how to perform it. Achievement feels familiar. Titles feel safe. The 4th points down and inward instead, toward family, roots, emotional life, and a home that's actually lived in rather than slept in between flights.
 
-  'NORTH_NODE_H12': `The growth here runs toward surrender ... toward the inner life, compassion, and trust in something larger than the visible self. The South Node in the sixth holds the old ease of control, routine, and losing the self in busywork. The pull is toward letting go, which can feel like dissolving the very structure that kept things safe. The work is trusting the unseen and releasing the grip on managing everything.`,
+It can be uncomfortable. Turning down the promotion that would mean moving again. Leaving the office at five. Learning to cook. Finding out what they feel, not what they've accomplished, and saying it out loud to the people they live with. Plenty of them get there in midlife, after a health scare or a child's question, and the kitchen table ends up being the most important room in the house.`,
+
+  'NORTH_NODE_H5': `Somebody has to stand up and sing. With the North Node in the 5th house, it's supposed to be them, and they'd almost always rather hand out the lyric sheets.
+
+Its partner, the South Node, is in the 11th, the house of groups, friends, and causes. Belonging comes naturally. So does blending in, organizing, cheering for other people's talent. The 5th asks for the opposite: personal joy, creative risk, romance, play, children, the willingness to be the one on stage.
+
+That's a real stretch for someone used to the group. Taking the solo. Painting something that isn't for anyone. Falling in love without polling the friends first. Having a kid, or coaching one, or simply playing like a kid again on a Saturday. The group doesn't disappear. It just becomes the audience for a while, and it turns out to be a generous one.`,
+
+  'NORTH_NODE_H6': `Daydreaming is easy. Showing up at eight on Monday is harder, and the North Node in the 6th house points right at Monday.
+
+Opposite it, the South Node sits in the 12th, the house of retreat, solitude, the unconscious, and escape. The old comfort is drifting: sleep, fantasy, spirituality without a schedule, a vague sense that things will work out on their own. The 6th is about structure. Routines, health habits, a craft practiced daily, work that serves someone in a concrete way.
+
+It can feel like a loss of magic at first. It isn't. A morning walk, a filled pill organizer, a job done carefully every day for years... these turn out to be a spiritual practice of their own. For a lot of people with this node, the calendar, of all things, is what finally quiets the mind.`,
+
+  'NORTH_NODE_H7': `Doing it alone is the default.
+
+The South Node in the 1st house knows how, and the North Node opposite it, in the 7th, keeps sending a different invitation: do it with someone. The 7th is the house of partnership, marriage, contracts, and the person across the table. People with this node often grew up self reliant to a fault. They make decisions alone, fix things alone, and carry problems alone because asking felt weak. The direction here is toward cooperation, compromise, and real partnership.
+
+That means consulting someone before booking the trip, sharing credit on the project, letting a partner's opinion actually change the plan. It can feel like losing a piece of themselves. Usually it adds one. The marriages and business partnerships that work for them often come later in life, after the stubbornness has softened a few degrees.`,
+
+  'NORTH_NODE_H8': `Eclipses only happen near the nodes. A new or full Moon has to fall close to one of these two points for the Sun or Moon to go dark, which is why astrologers have long treated the nodes as places of sudden change. In the 8th house, change is the subject.
+
+The South Node falls opposite in the 2nd, the house of possessions, earned money, and personal comfort. The familiar pattern is holding on: to things, to routines, to a self sufficiency that keeps everyone at arm's length. The 8th is the house of merging, shared money, deep intimacy, and the willingness to let something end so something else can start.
+
+So the stretch is toward trust. Joint accounts. A partner who sees the whole picture. Grief allowed to happen. Therapy that goes past the comfortable parts. None of it is easy, and very little of it can be planned, which is more or less the point.`,
+
+  'NORTH_NODE_H9': `In Indian astrology the nodes are Rahu and Ketu, the head and body of a demon cut in two, and they carry more weight there than most Western astrologers give them. Rahu, the head, hungers for what it hasn't had. In the 9th house, what it hasn't had is the big picture.
+
+Ketu, the South Node, lands in the 3rd, the house of daily talk, facts, errands, and the near world. Busy minds live there, gathering information without ever stepping back far enough to see what it adds up to. The 9th asks for meaning: philosophy, faith, higher learning, travel far enough to unsettle something.
+
+That can mean the semester abroad finally taken at forty, a degree finished late, a pilgrimage, a religion or philosophy studied seriously rather than skimmed. It means trusting a conviction before every fact is in. The phone goes in the drawer for a week, and something larger comes into focus.`,
+
+  'NORTH_NODE_H10': `The family needed them, and they were there. With the South Node in the 4th house and the North Node opposite in the 10th, that's often the story so far.
+
+Home, family, and private life feel natural. Caretaking feels natural. The public world feels exposed and a little presumptuous, as if wanting a career were a kind of betrayal. The 10th points toward exactly that: a public role, a reputation, responsibility outside the house, and a contribution with their own name on it.
+
+It can come late. The business started after the kids leave. The run for school board. The book that finally gets submitted after twenty years in a drawer, to an agent they found on their own. The warmth they learned at home doesn't get left behind, though. It shows up in the way they lead, and the people who work for them notice it on the first day.`,
+
+  'NORTH_NODE_H11': `Being the center of attention is easy. Being one name on a sign up sheet is harder, and the North Node in the 11th house keeps pointing at the sheet.
+
+Where they're coming from is the 5th, where the South Node sits, the house of personal creativity, romance, and the spotlight. They often come with natural flair and a familiar pull toward their own drama, their own projects, their own love story. Growth here runs through friendship, community, collaboration, and hopes that belong to more than one person.
+
+Coaching instead of playing. Volunteering for a cause where nobody knows their name and nobody asks. Showing up to the meeting just to listen. Building a friendship that isn't organized around them. It can feel like dimming the lights at first. The friends made this way, though, are the ones still around long after the applause, helping stack the chairs.`,
+
+  'NORTH_NODE_H12': `The nodes move backward. They slide through the zodiac in reverse, taking about eighteen and a half years to go all the way around. There's something of that in the North Node in the 12th house, a direction that asks a busy person to stop pushing forward.
+
+Behind it, in the 6th, the South Node keeps the old habits of work, routine, health, and service. Being useful is the comfort zone. The checklist is safe. The 12th wants rest, solitude, spiritual practice, and trust in something they can't control or schedule. An empty afternoon can feel like a real stretch. So can a retreat with no phone, a meditation practice, a long illness that forces stillness, or forgiving themselves for decades of overwork. Not everything can be fixed. Some things only get accepted, and that, oddly, is when the sleep gets better.`,
 
 
   // ── CHIRON ──
-  'CHIRON_H1': `The wound lives in the self ... in identity, the body, the basic sense of one's right to be fully present, often visible to others before it is named. It can show as a hesitation in how the person enters the world. The gift is the same place turned outward ... a presence that, having known what it is to feel unsure of its own welcome, helps others feel allowed to exist as they are.`,
+  'CHIRON_H1': `In the myth, Chiron was the wise centaur, a healer and a teacher of heroes, who was struck by a poisoned arrow and couldn't cure himself. Astrologers borrowed the story whole. In the 1st house, the sore spot sits right where everyone can see it.
 
-  'CHIRON_H2': `The wound lives in self worth ... in money, resources, and the felt sense of deserving, an ache around value that runs deep. It can show as insecurity about what the person is worth. The gift grows there too ... a hard won understanding of worth that helps others find a steadier, kinder relationship to their own.`,
+That might be literal: a scar, a stammer, an illness, a body that didn't match what other kids had. Or it might be subtler, a feeling of being too much or not enough that colors every first meeting. Many spent their early years hyperaware of how they came across, rehearsing entrances, apologizing for taking up room.
 
-  'CHIRON_H3': `The wound lives in the mind and the voice ... in learning, speaking, and the early sense of not being heard or quick enough. It can show as doubt about one's own thinking. The gift is the healing of that ... a real ability to help others find words for what they could not say, having known the ache of the unspoken.`,
+What comes out of it, often, is an unusual gentleness toward anyone who's new, awkward, or out of place. They notice the person standing alone at the edge of the party. Usually they go over and stand there too.`,
 
-  'CHIRON_H4': `The wound lives in home and roots ... in the family, the foundation, the early ground that was tender or unstable. It can show as a deep need for belonging or a guarding of the private self. The gift is built from the lack ... a capacity to offer others the rootedness and emotional safety once so hard to come by.`,
+  'CHIRON_H2': `Some people never feel like they've earned their keep, no matter what the paycheck says. With Chiron in the 2nd house, the house of money, possessions, and self worth, that feeling can follow a person through every raise.
 
-  'CHIRON_H5': `The wound lives in the creative heart ... in romance, play, and self expression, an early sense that joy or being seen was unsafe. It can show as a held back creativity or a fear of the spotlight. The gift is the warmth that survived ... a gift for freeing others to create and to shine in the way that once felt forbidden.`,
+Often there was scarcity early, or a family where worth was tied to usefulness, or a moment of real financial shame that never quite faded. As adults the feeling can linger whatever the income: underpricing their work, hoarding against a disaster that never comes, giving things away because keeping them feels undeserved. Comparisons hurt. A friend's new house can sting for a week.
 
-  'CHIRON_H6': `The wound lives in the daily and the body ... in work, health, and the sense of being useful, an ache around competence or wellbeing. It can show as overwork or a fragile relationship to the body. The gift comes from the struggle ... a healer's care for the everyday and a gift for helping others tend themselves with compassion.`,
+The flip side is real wisdom about value. They know, better than most, what money can and can't fix. Many end up as the friend people call before a big purchase, or the financial counselor who never judges, because they remember exactly what the overdraft notice felt like.`,
 
-  'CHIRON_H7': `The wound lives in partnership ... in close relationship, an early sense of being unworthy of love or repeatedly left. It can show as fear of rejection or a pattern of over giving. The gift is born of that ... a deep understanding of relationship that helps others find the closeness and balance once felt to be out of reach.`,
+  'CHIRON_H3': `The kid who stuttered through every oral report sometimes grows up to give the best toast at the wedding. That's one version of Chiron in the 3rd house, the house of speech, learning, siblings, and the everyday mind.
 
-  'CHIRON_H8': `The wound lives in the depths ... in intimacy, power, and shared resources, an early experience of betrayal, loss, or being overpowered. It can show as a guardedness around merging or control. The gift is the depth it opened ... a fearless ability to guide others through transformation, having survived a descent of one's own.`,
+Early learning often came with a snag: a learning difference, a teacher who said they weren't smart, a family where the wrong words got punished, a sibling relationship that hurt. Saying things out loud can feel risky as a result. Some over prepare every conversation, with notes for phone calls. Some go quiet for years and then, one day, don't.
 
-  'CHIRON_H9': `The wound lives in meaning ... in belief, faith, and the search for truth, an early loss of the worldview meant to hold a life. It can show as cynicism or restless seeking. The gift comes from the loss ... a hard won wisdom and a capacity to help others find a meaning they can genuinely stand on.`,
+But a mind that had to work hard to be understood tends to understand others. Plenty become gifted teachers, tutors, speech therapists, translators, and writers, especially for readers who struggle. They explain things slowly and without condescension, because they remember being on the other side of the desk.`,
 
-  'CHIRON_H10': `The wound lives in the public role ... in career, reputation, and standing, an early sense that the self mattered only for its achievements or was somehow not enough in the world's eyes. It can show as driven ambition or a fear of visibility. The gift is built there ... a capacity to mentor others toward a standing that rests on who they are, not only what they produce.`,
+  'CHIRON_H4': `Home was the sore spot. Chiron in the 4th house puts the hurt at the root of things: family, childhood, the place where a person was supposed to feel safe.
 
-  'CHIRON_H11': `The wound lives in belonging ... in friendship and community, an early sense of being the outsider who never quite fit the group. It can show as alienation or a wary distance. The gift grows from the margin ... a deep empathy for the excluded and a gift for helping others find the circle that once felt closed.`,
+The early home might have been unstable, cold, chaotic, or just not quite a fit, the kid who felt adopted even though they weren't. A parent may have been wounded too, and passed along what they couldn't heal. As adults, the idea of belonging somewhere can feel both precious and unreliable.
 
-  'CHIRON_H12': `The wound lives in the hidden ... in the unconscious and the spiritual, an ache hard to name, often felt as a free floating sorrow or a porousness to the world's pain. It can show as escapism or a sense of being lost. The gift is the compassion it refined ... a profound capacity for quiet, spiritual healing, having known so personally what it is to suffer without a name for it.`,
+Often they're the ones who build home for others. The foster parent. The friend with the couch everyone has slept on. The family therapist. The grandparent who becomes the safe house for three generations. Their own sense of home tends to arrive late and on purpose, a house bought at fifty, a front porch, a door that's never locked during the day.`,
+
+  'CHIRON_H5': `What happens to a kid who was told to stop showing off? Chiron in the 5th house often knows. The house covers play, creativity, romance, and children, and the hurt here tends to sit in the simple right to enjoy something and be seen enjoying it.
+
+Creative confidence can be fragile. Many have real talent and hide it, or make art in private and never show it. Romance can carry an old fear of not being chosen. Children can be a tender subject too, whether through difficulty having them, a hard pregnancy, or a complicated bond with a child. And yet these people are often wonderful with kids, especially shy or struggling ones, and the art they finally share tends to be the honest kind. A late first gallery show, a children's book written at sixty, a band they joined after retirement: that's the shape it often takes.`,
+
+  'CHIRON_H6': `In the myth, Chiron taught medicine to Asclepius, who became the Greek god of healing. It's a fitting backstory for Chiron in the 6th house, the house of health, daily work, and service.
+
+The body is often where the trouble lives: a chronic condition, an illness that took years to diagnose, a long stretch of feeling unwell that doctors couldn't explain. Work can hurt too, through jobs that went badly, a sense of never being useful enough, or burnout from trying too hard to prove they were.
+
+Out of that comes a knack for care. Plenty end up in health work, therapy, nutrition, physical rehab, or caregiving, and they're good at it because they listen like patients. They know what it's like to be the one on the table. They also keep a meticulous file of their own test results, sorted by year.`,
+
+  'CHIRON_H7': `The friend who gives the best relationship advice has often had the hardest relationships. Chiron in the 7th house, the house of partnership and marriage, is one way that story starts.
+
+There may have been an early betrayal, a painful divorce in the family, a pattern of choosing partners who needed rescuing, or a deep fear of being left. Relationships can feel like the place where they're most exposed. Some avoid commitment for years. Others commit fast and then wait for the floor to give way.
+
+What they end up with is an unusual understanding of how people fit together, and how they break. Many become counselors, mediators, or simply the person everyone calls after a breakup. Their own partnerships, when they find a good one, are honest in a way that took effort to learn. They've usually said the hardest thing out loud by the second year.`,
+
+  'CHIRON_H8': `They've usually been through something they don't talk about at dinner. Chiron in the 8th house sits in the territory of loss, intimacy, trust, debt, and death, the parts of life most people would rather skip in conversation.
+
+There might have been an early death in the family, a betrayal, a financial crisis, a trauma that changed how safe the world felt. Intimacy can be complicated afterward. Trust comes slowly, and closeness can feel like handing someone a knife.
+
+And yet they're extraordinary people to have nearby when things go wrong. They sit with grief without flinching. Hospice work, crisis counseling, trauma therapy, and grief support draw many of them, along with anyone else who needs a steady voice in a terrible hour. They know the territory. They don't pretend it's anything other than what it is, and people trust them for exactly that.`,
+
+  'CHIRON_H9': `Chiron the centaur taught heroes, Achilles and Jason among them, which makes the 9th house, the house of teaching, belief, philosophy, and long journeys, a natural place to find it.
+
+What aches here is meaning. A faith that broke, a religious upbringing that did harm, an education that got interrupted, a sense of being shut out from the big questions because nobody thought they were smart enough. Some spend years distrusting any teacher or system. Others keep searching, one belief after another, hoping the next one fits.
+
+The teaching gift, when it arrives, is a humble one. They're good with students who've been failed before. They can explain a hard idea without making anyone feel stupid, and they're comfortable saying they don't know. A lot of them become the professor students remember twenty years later, mostly for what happened in office hours.`,
+
+  'CHIRON_H10': `Chiron was spotted in 1977, an odd small body circling between Saturn and Uranus, and astrologers took it up quickly. In the 10th house, the house of career, reputation, and public standing, it often shows up as a sore spot about being seen succeeding.
+
+Impostor feelings are common. Praise doesn't quite land. A parent may have had high expectations, or none, or may have struggled publicly in a way that left a mark. Career paths often bend sharply, through a failure, a public embarrassment, or a calling that arrived late.
+
+Many end up in careers that help others with exactly what hurt them: the recovering addict who runs the treatment center, the former dropout who becomes a principal, the burned out executive who starts coaching. The diploma on the wall is real. They still glance at it sometimes, as if to check.`,
+
+  'CHIRON_H11': `Always a little outside the circle. That's the feeling that runs through Chiron in the 11th house, even for people who are well liked.
+
+The 11th covers friends, groups, alliances, and hopes. It often goes back to being left out: the playground clique, the team that didn't pick them, a friend group that turned on them in eighth grade. As adults they can join groups and still feel like visitors. Hopes for the future may have been dashed early, which makes hoping again feel risky.
+
+Out of that comes a gift for including people. They notice who's on the edge of the group, and who left the party early without saying goodbye. They start the support group, the club for misfits, the online community for people with the same rare condition. Friendships are few and deep, and they're the one who remembers to invite the new person.`,
+
+  'CHIRON_H12': `Chiron is hard to classify. It was found as a minor planet, then caught showing a faint comet's haze, and it now sits on both lists. Something similar happens with Chiron in the 12th house, the house of hidden things, solitude, and the unconscious. The hurt here is hard to name.
+
+There may be something they can't quite put words to: an inherited grief, a vague sense of guilt, a family sorrow that happened before they were born. It can show up as anxiety, as loneliness in a crowd, or as a feeling of absorbing everyone else's pain.
+
+The quiet gift is compassion for anyone suffering out of sight. Hospital chaplains, prison volunteers, hospice nurses, and night shift caregivers often carry this kind of sensitivity. Meditation, prayer, art, and long solitary walks help. Few people ever find out how much they carry, and most of the people they help never learn their names.`,
 
 };
