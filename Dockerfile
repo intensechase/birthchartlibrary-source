@@ -17,13 +17,14 @@ RUN npm ci
 # layer — `docker history` will not reveal it.
 #
 # All other runtime secrets (JWT_SECRET, RESEND_API_KEY,
-# TURNSTILE_SECRET_KEY, CRON_SECRET, S3_*) are injected at container
-# start via --env-file in run-birthchartlibrary.sh.
+# TURNSTILE_SECRET_KEY, CRON_SECRET, S3_*) are loaded at container start
+# by compose (env_file /root/secrets/bcl.env). The build secret is that same
+# file (deploy/deploy.sh); only DATABASE_URL is read from it here.
 COPY . .
 ARG NEXT_PUBLIC_TURNSTILE_SITE_KEY
 ARG NEXT_PUBLIC_APP_URL
-RUN --mount=type=secret,id=database_url,required=true \
-    DATABASE_URL="$(cat /run/secrets/database_url)" \
+RUN --mount=type=secret,id=bcl_env,required=true \
+    DATABASE_URL="$(sed -n 's/^DATABASE_URL=//p' /run/secrets/bcl_env)" \
     npm run build
 
 # Production
