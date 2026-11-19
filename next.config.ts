@@ -1,6 +1,24 @@
 import type { NextConfig } from 'next'
 import { withSentryConfig } from '@sentry/nextjs/config'
 
+// One CSP for the whole site; only frame-ancestors differs between the
+// widget (/embed/*) and every other page.
+function csp(frameAncestors: string): string {
+  return [
+    "default-src 'self'",
+    "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com https://challenges.cloudflare.com https://pagead2.googlesyndication.com https://adservice.google.com https://www.googleadservices.com https://tpc.googlesyndication.com https://*.adtrafficquality.google",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "font-src 'self' https://fonts.gstatic.com",
+    "img-src 'self' data: https://upload.wikimedia.org https://www.google-analytics.com https://covers.openlibrary.org https://*.archive.org https://m.media-amazon.com https://images-na.ssl-images-amazon.com https://pagead2.googlesyndication.com https://www.google.com https://googleads.g.doubleclick.net https://*.adtrafficquality.google",
+    "connect-src 'self' https://nominatim.openstreetmap.org https://www.google-analytics.com https://analytics.google.com https://cloudflareinsights.com https://challenges.cloudflare.com https://pagead2.googlesyndication.com https://adservice.google.com https://*.adtrafficquality.google https://*.sentry.io",
+    "worker-src blob:",
+    "frame-src 'self' https://challenges.cloudflare.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://*.adtrafficquality.google",
+    `frame-ancestors ${frameAncestors}`,
+    "base-uri 'self'",
+    "form-action 'self'",
+  ].join('; ')
+}
+
 const nextConfig: NextConfig = {
   output: 'standalone',
   experimental: {
@@ -66,23 +84,22 @@ const nextConfig: NextConfig = {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
-          {
-            key: 'Content-Security-Policy',
-            value: [
-              "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com https://challenges.cloudflare.com https://pagead2.googlesyndication.com https://adservice.google.com https://www.googleadservices.com https://tpc.googlesyndication.com https://*.adtrafficquality.google",
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-              "font-src 'self' https://fonts.gstatic.com",
-              "img-src 'self' data: https://upload.wikimedia.org https://www.google-analytics.com https://covers.openlibrary.org https://*.archive.org https://m.media-amazon.com https://images-na.ssl-images-amazon.com https://pagead2.googlesyndication.com https://www.google.com https://googleads.g.doubleclick.net https://*.adtrafficquality.google",
-              "connect-src 'self' https://nominatim.openstreetmap.org https://www.google-analytics.com https://analytics.google.com https://cloudflareinsights.com https://challenges.cloudflare.com https://pagead2.googlesyndication.com https://adservice.google.com https://*.adtrafficquality.google https://*.sentry.io",
-              "worker-src blob:",
-              "frame-src 'self' https://challenges.cloudflare.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://*.adtrafficquality.google",
-              "frame-ancestors 'self' https:",
-              "base-uri 'self'",
-              "form-action 'self'",
-            ].join('; '),
-          },
+          { key: 'Content-Security-Policy', value: csp("'self'") },
         ],
+      },
+      // Only the embeddable widget may be framed by other sites (the
+      // YouTube/Spotify pattern). Everything else, login and account pages
+      // included, is same-origin only. Later rules override earlier ones for
+      // the same header key, so this replaces the CSP above on /embed/*.
+      {
+        source: '/embed/:path+',
+        headers: [{ key: 'Content-Security-Policy', value: csp("'self' https:") }],
+      },
+      // Legacy browsers ignore frame-ancestors; X-Frame-Options covers them.
+      // Excluded from /embed/ so it can't block the widget anywhere.
+      {
+        source: '/:path((?!embed/).*)',
+        headers: [{ key: 'X-Frame-Options', value: 'SAMEORIGIN' }],
       },
     ]
   },

@@ -51,3 +51,6 @@ scripts/out/
 
 # per-machine geocode cache
 data/geocode-cache.json
+
+# Owner-pasted Astro-Databank pages (reference for bio writing; ADB terms: non-commercial, no reuse of text)
+data/adb-pages/
