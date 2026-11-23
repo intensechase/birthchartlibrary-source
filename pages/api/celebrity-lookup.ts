@@ -20,7 +20,7 @@ export default apiHandler(async function handler(req: NextApiRequest, res: NextA
   try {
     const geo = await fetch(
       `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(celeb.birth_city)}&format=json&limit=1`,
-      { headers: { 'User-Agent': 'birthchartlibrary.com contact@birthchartlibrary.com' } }
+      { headers: { 'User-Agent': 'birthchartlibrary.com librarian@birthchartlibrary.com' } }
     )
     const results = await geo.json()
     if (results[0]) {

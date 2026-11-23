@@ -10,7 +10,7 @@ import BlogCTA from '@/components/BlogCTA'
 import Scallop from '@/components/Scallop'
 import { isNoindexBlogSlug } from '@/lib/thin-pages'
 import { redesignOn } from '@/lib/redesign'
-import { LearnHero, NextLinks } from '@/components/redesign/Learn'
+import { LearnHero, NextLinks, RealCharts } from '@/components/redesign/Learn'
 
 interface RelatedPost {
   title: string
@@ -149,6 +149,7 @@ export default function ArticlePage({ title, content, category, readTime, publis
               })()}
             </article>
           )}
+          <RealCharts path={`/blog/${slug}`} />
           <BlogCTA slug={slug} rd />
           <NextLinks title={`More in ${category}`} links={related.map(r => ({ href: `/blog/${r.slug}`, title: r.title, sub: r.read_time }))} />
         </div></main>

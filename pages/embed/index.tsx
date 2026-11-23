@@ -99,7 +99,7 @@ export default function EmbedIndex() {
         </div>
 
         <div className="card text-sm text-slate-500 dark:text-slate-400">
-          <p>Questions? <a href="mailto:chase@birthchartlibrary.com" className="underline hover:text-slate-700 dark:hover:text-slate-200">chase@birthchartlibrary.com</a></p>
+          <p>Questions? <a href="mailto:librarian@birthchartlibrary.com" className="underline hover:text-slate-700 dark:hover:text-slate-200">librarian@birthchartlibrary.com</a></p>
         </div>
       </main>
     </>

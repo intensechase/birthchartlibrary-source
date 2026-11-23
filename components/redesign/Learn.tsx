@@ -3,7 +3,8 @@ import Link from 'next/link'
 import type { VDisc } from '@/lib/redesign/celeb-view'
 import type { HomePerson } from '@/lib/redesign/home-view'
 import { Disc } from './Disc'
-import { PersonCard } from './HomePage'
+import { Face, PersonCard } from './HomePage'
+import { REAL_CHARTS } from '@/lib/real-charts'
 import { redesignOn } from '@/lib/redesign'
 
 // Shared pieces for the rebuilt learn pages (Chinese zodiac, compatibility,
@@ -71,6 +72,40 @@ export function People({ title, lede, people, more }: { title: string; lede?: st
       <div className="bandhead"><h2>{title}</h2>{more ? <Link className="more" href={more.href}>{more.label}</Link> : null}</div>
       {lede ? <p className="lede">{lede}</p> : null}
       <div className="pgrid">{people.map(p => <PersonCard key={p.slug} p={p} />)}</div>
+    </section>
+  )
+}
+
+// Real people as examples on a teaching page, then the reader's own chart.
+// Shows nothing on a page that has no set (lib/real-charts.ts).
+export function RealCharts({ path }: { path: string }) {
+  const set = REAL_CHARTS[path]
+  if (!set) return null
+  return (
+    <section className="lsec" aria-labelledby="real-h">
+      <h2 id="real-h">In real charts</h2>
+      <p className="lede">{set.lede}</p>
+      <ul className="reals">
+        {set.people.map(p => (
+          <li key={p.slug} className={p.other ? 'duo' : undefined}>
+            <span className="rfaces">
+              <Face name={p.name} slug={p.slug} sign={p.sign} size={p.other ? 48 : 56} />
+              {p.other ? <Face name={p.other.name} slug={p.other.slug} sign={p.other.sign} size={48} /> : null}
+            </span>
+            <div>
+              <h3>{p.other
+                ? <Link href={`/celebrity-birth-charts/compare/${p.other.compare}`}>{p.name} and {p.other.name}</Link>
+                : <Link href={`/celebrity-birth-charts/${p.slug}`}>{p.name}</Link>}</h3>
+              <small>{p.what}</small>
+              <p>{p.text}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <div className="realgo">
+        <Link className="btn" href={set.href ?? '/birth-chart?ref=real-charts'}>{set.button}</Link>
+        <Link className="more" href="/celebrity-match">Find who shares your signs</Link>
+      </div>
     </section>
   )
 }

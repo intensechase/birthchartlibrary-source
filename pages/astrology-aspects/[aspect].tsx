@@ -7,7 +7,7 @@ import { breadcrumbSchema, faqSchema, jsonLd } from '@/lib/schema'
 import { redesignOn } from '@/lib/redesign'
 import { DISC } from '@/lib/redesign/astro'
 import type { IconName } from '@/lib/icons/paths'
-import { Facts, Fold, LearnHero, NextLinks, PrevNext, Prose } from '@/components/redesign/Learn'
+import { Facts, Fold, LearnHero, NextLinks, PrevNext, Prose, RealCharts } from '@/components/redesign/Learn'
 
 const NATURE_COLORS: Record<string, { bg: string; text: string; border: string }> = {
   harmonious: { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-300' },
@@ -97,6 +97,7 @@ export default function AspectDetailPage({ slug, prevSlug, prevName, nextSlug, n
           ]} />
 
           <Prose title={`What a ${info.name.toLowerCase()} means`} text={info.description} />
+          <RealCharts path={`/astrology-aspects/${slug}`} />
           <Prose title="In your chart" text={info.inYourChart} />
           <Prose title="Working with it" text={info.workingWithIt} />
 

@@ -11,7 +11,7 @@ import { SIGN_LIST, PLANET_KEYS } from '@/lib/constants'
 import { SIGNS } from '@/lib/interpretations/signs'
 import { redesignOn } from '@/lib/redesign'
 import { BODY_ICON, DISC, HOUSE_KEYS } from '@/lib/redesign/astro'
-import { Facts, Fold, LearnHero, NextLinks, PrevNext, Prose } from '@/components/redesign/Learn'
+import { Facts, Fold, LearnHero, NextLinks, PrevNext, Prose, RealCharts } from '@/components/redesign/Learn'
 
 const naturalSigns = SIGN_LIST
 
@@ -117,6 +117,7 @@ export default function HouseDetailPage({ house, num, houseName, title, descript
             ]} />
 
             <Prose title={`About the ${ord} house`} text={info.description} />
+            <RealCharts path={`/astrology-houses/${num}`} />
             <Prose title="In depth" text={info.inDepth} />
             <Prose title={`The ${ord} and ${ordinal(opp)} house axis`} text={info.oppositeAxis} />
             <Prose title={`An empty ${ord} house`} text={info.emptyHouse} />

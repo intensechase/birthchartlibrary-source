@@ -765,6 +765,17 @@ html.rd body:has(.rdp) { background: rgb(var(--rd-sky)); }
 .rdp .lsec .lede { color: var(--sub); }
 .rdp .lrn .bandhead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .rdp .lrn .more { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; font-size: 15px; color: var(--link); }
+.rdp .reals { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 22px; }
+.rdp .reals li { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 14px; align-items: start; }
+.rdp .reals .duo { grid-template-columns: 84px minmax(0, 1fr); }
+.rdp .reals .rfaces { display: flex; }
+.rdp .reals .rfaces .face + .face { margin-left: -12px; box-shadow: 0 0 0 3px var(--base); }
+.rdp .lsec .reals h3 { margin: 0; font-size: 18px; font-weight: 650; line-height: 1.25; }
+.rdp .reals h3 a { display: inline-flex; align-items: center; min-height: 32px; color: var(--fg); }
+.rdp .reals h3 a:hover { color: var(--link); text-decoration: underline; }
+.rdp .reals small { display: block; color: var(--sub); font-size: 14px; }
+.rdp .lsec .reals p { margin: 6px 0 0; }
+.rdp .realgo { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; margin-top: 22px; }
 .rdp .pnav { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--rule); }
 .rdp .pnav a { display: block; padding: 12px 14px; border-radius: 16px; background: var(--panel); border: 1px solid var(--rule); color: var(--fg); font-weight: 600; font-size: 15px; }
 .rdp .pnav a:hover { border-color: var(--link); }
