@@ -291,7 +291,7 @@ export default function BornOnDatePage({ month, day, monthName, dateLabel, sunSi
             Everyone born on {dateLabel} shares a {sunSign} Sun... but your Moon sign, Rising sign, and the rest of your chart make you unique. Create a free birth chart to see the full picture.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link href="/birth-chart" className="btn-primary text-sm px-5 py-2">Create Your Chart</Link>
+            <Link href="/birth-chart" className="btn-primary text-sm px-5 py-2">Create your chart</Link>
             <Link href={`/interpretations/sun-in-${sunSign.toLowerCase()}`} className="btn-outline text-sm px-5 py-2">Sun in {sunSign} Interpretation</Link>
           </div>
         </section>
@@ -365,11 +365,11 @@ export default function BornOnDatePage({ month, day, monthName, dateLabel, sunSi
             <p className="text-xs text-slate-400 mt-0.5">How {sunSign} connects with other signs</p>
           </Link>
           <Link href="/celebrity-match" className="card hover:border-slate-400 transition-colors group">
-            <p className="font-medium text-sm group-hover:text-slate-600">Celebrity Match</p>
+            <p className="font-medium text-sm group-hover:text-slate-600">Celebrity match</p>
             <p className="text-xs text-slate-400 mt-0.5">Which celebrity shares your chart?</p>
           </Link>
           <Link href="/astrology-aspects" className="card hover:border-slate-400 transition-colors group">
-            <p className="font-medium text-sm group-hover:text-slate-600">Aspects Guide</p>
+            <p className="font-medium text-sm group-hover:text-slate-600">Aspects guide</p>
             <p className="text-xs text-slate-400 mt-0.5">How planets interact in your chart</p>
           </Link>
           <Link href="/reading-room" className="card hover:border-slate-400 transition-colors group">

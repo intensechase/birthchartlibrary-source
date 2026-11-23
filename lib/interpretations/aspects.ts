@@ -17,6 +17,19 @@ export interface AspectInfo {
 
 export const ASPECT_ORDER = ['conjunction', 'sextile', 'square', 'trine', 'opposition'] as const
 
+// Natal orbs (owner decision 11/20): fixed modern orbs per aspect type, but the
+// Sun and Moon reach farther, so a major aspect involving either gets 10°.
+// Sources: Lilly, Christian Astrology p. 107 (Sun 15-17°, Moon 12° against 7-12°
+// for the rest; docs/reference/lilly/abstracts/aspects.md); astro.com's web
+// default style uses 10° orbs; Astrograph widens Sun/Moon orbs by 50%.
+// Sextiles keep their own orb. Transits and synastry use their own rules.
+const LIGHTS = new Set(['SUN', 'MOON'])
+export const LIGHTS_MAJOR_ORB = 10
+export function natalOrb(type: string, a: string, b: string): number {
+  const base = ASPECTS[type]?.orb ?? 0
+  return type !== 'sextile' && (LIGHTS.has(a) || LIGHTS.has(b)) ? Math.max(base, LIGHTS_MAJOR_ORB) : base
+}
+
 export const ASPECTS: Record<string, AspectInfo> = {
   conjunction: {
     name: 'Conjunction',

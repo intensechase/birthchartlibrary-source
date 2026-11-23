@@ -24,6 +24,10 @@ import { coupleNameToSlug, coupleHref } from '@/lib/couple-slugs'
 import { getBirthTimeSource, type BirthTimeSource } from '@/lib/birth-time-source'
 import { PHOTO_CREDIT_COLUMNS, toPhotoCredit, type PhotoCredit as PhotoCreditData } from '@/lib/photo-credit'
 import PhotoCredit from '@/components/PhotoCredit'
+import { redesignOn } from '@/lib/redesign'
+import type { CelebView } from '@/lib/redesign/celeb-view'
+import CelebPage, { type CelebBirths } from '@/components/redesign/CelebPage'
+import { readAltBirths } from '@/lib/redesign/alt-births'
 
 interface PlanetData {
   planet: string
@@ -73,6 +77,10 @@ interface Props {
   couplePairs: { href: string; otherName: string; otherSign: string | null }[]
   glance: Glance | null
   shouldNoindex: boolean
+  // Redesign (stage celeb): everything the new page shows, built on the server.
+  view: CelebView | null
+  // Disputed births: one tab per other credible account (metadata.alt_births).
+  births?: CelebBirths | null
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -373,6 +381,44 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
     // by AdSense standards — identical structure, no unique narrative.
     const shouldNoindex = !chartData || !hasQualityBio(celeb.bio_source)
 
+    // Redesign: only built when the stage is on, so the live build is unchanged.
+    // Dynamic import keeps the builder (and the interpretation library it reads)
+    // out of the live build's server bundle work.
+    let view: CelebView | null = null
+    let births: CelebBirths | null = null
+    if (redesignOn('celeb') && chartData) {
+      const { buildCelebView } = await import('@/lib/redesign/celeb-view')
+      const meta = (() => { try { return parseJsonb<Record<string, unknown> | null>(celeb.metadata) ?? {} } catch { return {} } })()
+      view = await buildCelebView({
+        name: celeb.name, slug: celeb.slug, birthDate: String(celeb.birth_date), birthTime: celeb.birth_time,
+        birthCity: celeb.birth_city, birthName: celeb.birth_name, chart: chartData,
+        tierSource: getBirthTimeSource(celeb.birth_time, celeb.metadata),
+        frontPageSkip: meta.front_page_skip === true,
+        lat: celeb.birth_lat == null ? null : Number(celeb.birth_lat), lng: celeb.birth_lng == null ? null : Number(celeb.birth_lng),
+      })
+      // Other accounts of the birth: same place, their own date and time.
+      const ab = readAltBirths(meta)
+      if (ab && celeb.birth_lat != null && celeb.birth_lng != null) {
+        const lat = Number(celeb.birth_lat), lng = Number(celeb.birth_lng)
+        const { buildChart } = await import('@/lib/swisseph/buildChart')
+        const alts: CelebBirths['alts'] = []
+        for (const a of ab.alts) {
+          try {
+            const { chartData: altChart } = await buildChart(a.date, a.time, lat, lng)
+            const altView = await buildCelebView({
+              name: celeb.name, slug: celeb.slug, birthDate: a.date, birthTime: a.time,
+              birthCity: celeb.birth_city, birthName: celeb.birth_name, chart: altChart,
+              tierSource: null, frontPageSkip: meta.front_page_skip === true, lat, lng,
+            })
+            alts.push({ ...a, view: altView })
+          } catch (err) {
+            console.error('[celeb] alt birth chart failed', celeb.slug, a.key, err)
+          }
+        }
+        if (alts.length) births = { mainLabel: ab.mainLabel, alts }
+      }
+    }
+
     return {
       props: JSON.parse(JSON.stringify({
         celeb: {
@@ -404,6 +450,8 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
         couplePairs,
         glance: chartData ? buildGlance(chartData, !!celeb.birth_time) : null,
         shouldNoindex,
+        view,
+        births,
       })),
       revalidate: 604800, // 7 days
     }
@@ -471,6 +519,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
         // Always noindex broken renders rather than feed Google a low-quality
         // page; will retry hourly via revalidate.
         shouldNoindex: true,
+        view: null,
       })),
       revalidate: 3600, // retry in 1 hour
     }
@@ -520,7 +569,7 @@ function PersonLink({ href, slug, name, note, tone }: { href: string; slug?: str
   )
 }
 
-export default function CelebrityChartPage({ celeb, birthTimeSource, chartData, bio, sunSign, moonSign, risingSign, placements, planetInfos, schemaJson, faqSchemaJson, breadcrumbSchemaJson, bornSameDay, chartTwins, couplePairs, glance, shouldNoindex }: Props) {
+export default function CelebrityChartPage({ celeb, birthTimeSource, chartData, bio, sunSign, moonSign, risingSign, placements, planetInfos, schemaJson, faqSchemaJson, breadcrumbSchemaJson, bornSameDay, chartTwins, couplePairs, glance, shouldNoindex, view, births }: Props) {
   // Titles and share cards only name a Rising sign that comes from a real birth time.
   const knownRisingSign = celeb.birth_time ? risingSign : null
   const bigThree = [sunSign, moonSign, knownRisingSign].filter(Boolean)
@@ -589,7 +638,7 @@ export default function CelebrityChartPage({ celeb, birthTimeSource, chartData, 
         <p>Free natal chart: every planet, every placement, 1,700+ interpretations.</p>
       </div>
       <Link href="/birth-chart?ref=celeb-mid" className="inline-flex items-center min-h-[50px] px-6 rounded-xl font-black whitespace-nowrap bg-[#1A1622] text-[#FFF9EA] hover:translate-y-0.5 transition-transform">
-        Get Mine Free
+        Get mine free
       </Link>
     </section>
   )
@@ -655,7 +704,8 @@ export default function CelebrityChartPage({ celeb, birthTimeSource, chartData, 
     </div>
   )
 
-  return (
+  // Title, meta and structured data: the same for the old and new layouts.
+  const seo = (
     <>
       <Head>
         <title>{`${celeb.name} Birth Chart & Natal Chart — ${titleBigThree}`}</title>
@@ -682,6 +732,21 @@ export default function CelebrityChartPage({ celeb, birthTimeSource, chartData, 
           {faqSchemaJson && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchemaJson) }} />}
         </>
       )}
+    </>
+  )
+
+  if (view) {
+    return (
+      <main className="rdp">
+        {seo}
+        <CelebPage view={view} celeb={celeb} bio={bio} bornSameDay={bornSameDay} chartTwins={chartTwins} couplePairs={couplePairs} births={births} />
+      </main>
+    )
+  }
+
+  return (
+    <>
+      {seo}
 
       {/* Hero band */}
       <section className="bg-[var(--band)]">
@@ -803,8 +868,8 @@ export default function CelebrityChartPage({ celeb, birthTimeSource, chartData, 
               ))}
             </div>
             <div className="mt-5 flex flex-wrap gap-x-8 gap-y-2">
-              <Link href={`/love/${sunSign.toLowerCase()}-in-love`} className={ACCENT_LINK}>
-                {sunSign} in love →
+              <Link href={`/compatibility/${sunSign.toLowerCase()}`} className={ACCENT_LINK}>
+                {sunSign} compatibility →
               </Link>
               <Link href="/astrology-interpretations" className={ACCENT_LINK}>
                 The full interpretation library →

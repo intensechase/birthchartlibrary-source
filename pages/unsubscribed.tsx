@@ -15,7 +15,7 @@ export default function UnsubscribedPage() {
           You won&apos;t receive any more daily horoscope emails from us. If you change your mind, you can sign up again any time.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Link href="/zodiac-signs" className="btn-outline text-sm px-6 py-2.5">Browse Zodiac Signs</Link>
+          <Link href="/zodiac-signs" className="btn-outline text-sm px-6 py-2.5">Browse zodiac signs</Link>
           <Link href="/" className="btn-primary text-sm px-6 py-2.5">Back to Home</Link>
         </div>
       </main>

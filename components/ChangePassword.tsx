@@ -65,7 +65,7 @@ export default function ChangePassword() {
   return (
     <div className="card space-y-2">
       <div>
-        <p className="text-xs text-slate-400 mb-1">Current Password</p>
+        <p className="text-xs text-slate-400 mb-1">Current password</p>
         <input
           type="password"
           value={oldPassword}
@@ -76,7 +76,7 @@ export default function ChangePassword() {
         />
       </div>
       <div>
-        <p className="text-xs text-slate-400 mb-1">New Password</p>
+        <p className="text-xs text-slate-400 mb-1">New password</p>
         <div className="flex items-center gap-2">
           <input
             type="password"

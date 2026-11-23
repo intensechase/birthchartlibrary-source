@@ -14,9 +14,9 @@ export default function RatedChartsContent({ celebs }: { celebs: RatedCeleb[] })
   return (
     <main className="max-w-5xl mx-auto px-4 py-12">
       <nav className="text-xs text-slate-400 mb-6">
-        <Link href="/celebrity-birth-charts" className="hover:text-slate-800 dark:hover:text-slate-200 transition-colors">Celebrity Charts</Link>
+        <Link href="/celebrity-birth-charts" className="hover:text-slate-800 dark:hover:text-slate-200 transition-colors">Celebrity charts</Link>
         <span className="mx-2">›</span>
-        <span className="text-slate-800 dark:text-slate-200">Rated Birth Times</span>
+        <span className="text-slate-800 dark:text-slate-200">Rated birth times</span>
       </nav>
 
       <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-3">Celebrity Charts With a Rated Birth Time</h1>

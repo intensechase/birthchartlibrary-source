@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { GetStaticProps } from 'next'
 import { useState } from 'react'
+import { useTabState } from '@/lib/use-tab-state'
 import fs from 'fs'
 import path from 'path'
 import { query } from '@/lib/db'
@@ -10,8 +11,15 @@ import { getElementCombo } from '@/lib/interpretations/compatibility-helpers'
 import { SIGN_ELEMENTS, getElementColor } from '@/lib/zodiac-colors'
 import { breadcrumbSchema, jsonLd } from '@/lib/schema'
 import { SignGlyph } from '@/components/Glyph'
+import { tierLabel } from '@/lib/tier'
 import { coupleNameToSlug, COUPLE_LOVE_ARTICLES } from '@/lib/couple-slugs'
 import { getServedCelebritySlugs } from '@/lib/celebrities'
+import type { BirthChartData } from '@/lib/swisseph/calculate'
+import { scoreSynastry, type SynTier } from '@/lib/swisseph/synastry-score'
+import { redesignOn } from '@/lib/redesign'
+import { LearnHero, NextLinks } from '@/components/redesign/Learn'
+import { Face } from '@/components/redesign/HomePage'
+import { ToolDoors } from '@/components/redesign/ChartTool'
 
 
 interface Couple {
@@ -21,14 +29,15 @@ interface Couple {
   compareSlug: string; loveSlug: string | null
   score: number; scoreLabel: string
   element1: string; element2: string
+  // Stage 'tools': the real synastry tier (same as the compare page), or null
+  // when a chart is missing.
+  tier: SynTier | null; ease: number | null
 }
 
 interface Props { current: Couple[]; past: Couple[] }
 
 
-function sl(s: number) {
-  return s >= 80 ? 'Excellent' : s >= 70 ? 'High' : s >= 55 ? 'Good' : s >= 45 ? 'Moderate' : 'Challenging'
-}
+const sl = tierLabel
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const { ELEMENT_COMPAT } = await import('@/lib/interpretations/compatibility')
@@ -56,6 +65,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       compareSlug: cSlug, loveSlug: COUPLE_LOVE_ARTICLES[cSlug] ?? null,
       score, scoreLabel: sl(score),
       element1: el1, element2: el2,
+      tier: null, ease: null,
     }
   }
 
@@ -64,9 +74,28 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const served = await getServedCelebritySlugs()
   const all = lines.map(parse).filter((c): c is Couple => c !== null)
     .filter(c => !!c.loveSlug || (served.has(c.slug1) && served.has(c.slug2)))
+  if (redesignOn('tools')) await addTiers(all, served)
   return {
     props: { current: all.filter(c => c.status === 'current'), past: all.filter(c => c.status === 'past') },
     revalidate: 2592000,
+  }
+}
+
+// The synastry tier for every couple whose two charts are public, scored the
+// way the compare page scores them (birth time trusted only at AA, A or B).
+async function addTiers(couples: Couple[], served: Set<string>) {
+  const slugs = Array.from(new Set(couples.flatMap(c => [c.slug1, c.slug2]).filter(x => served.has(x))))
+  const rows = await query<{ slug: string; chart_data: unknown; timed: boolean }>(
+    `SELECT slug, chart_data,
+            (birth_time IS NOT NULL AND metadata->>'rodden_rating' IN ('AA','A','B')) AS timed
+     FROM celebrities WHERE slug = ANY($1) AND chart_data IS NOT NULL`, [slugs])
+  const by = new Map(rows.map(r => [r.slug, { chart: (typeof r.chart_data === 'string' ? JSON.parse(r.chart_data) : r.chart_data) as BirthChartData, timed: !!r.timed }]))
+  for (const c of couples) {
+    const a = by.get(c.slug1), b = by.get(c.slug2)
+    if (!a || !b) continue
+    const sc = scoreSynastry(a.chart, b.chart, { timeKnownA: a.timed, timeKnownB: b.timed })
+    c.tier = sc.tier
+    c.ease = sc.ease
   }
 }
 
@@ -148,7 +177,11 @@ function CoupleCard({ c }: { c: Couple }) {
 const ELEMENTS = ['All', 'Fire', 'Earth', 'Air', 'Water'] as const
 type ElementFilter = typeof ELEMENTS[number]
 
-export default function CelebrityCouplesPage({ current, past }: Props) {
+export default function CelebrityCouplesPage(props: Props) {
+  return redesignOn('tools') ? <CouplesTool {...props} /> : <LegacyCouplesPage {...props} />
+}
+
+function LegacyCouplesPage({ current, past }: Props) {
   const [tab, setTab] = useState<'current' | 'past'>('current')
   const [elFilter, setElFilter] = useState<ElementFilter>('All')
   const couples = tab === 'current' ? current : past
@@ -183,11 +216,11 @@ export default function CelebrityCouplesPage({ current, past }: Props) {
         <nav className="text-sm text-slate-400 mb-8">
           <Link href="/love" className="hover:text-slate-600 dark:hover:text-slate-300">Love &amp; Astrology</Link>
           <span className="mx-2">›</span>
-          <span className="text-slate-600 dark:text-slate-300">Celebrity Couples</span>
+          <span className="text-slate-600 dark:text-slate-300">Celebrity couples</span>
         </nav>
 
         <div className="mb-8">
-          <h1 className="font-display text-4xl md:text-5xl tracking-wide text-slate-800 dark:text-slate-100 mb-3">Celebrity Couples</h1>
+          <h1 className="font-display text-4xl md:text-5xl tracking-wide text-slate-800 dark:text-slate-100 mb-3">Celebrity couples</h1>
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl leading-relaxed">
             {current.length + past.length} couples with element compatibility scores. {articleCount} have full astrological deep-dives — click any couple to read the analysis or compare birth charts.
           </p>
@@ -250,11 +283,108 @@ export default function CelebrityCouplesPage({ current, past }: Props) {
             Element compatibility is the starting point. A full synastry reading compares every planet in both charts.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/calculators/synastry" className="btn-primary text-sm px-6 py-2.5">Run Your Own Synastry Reading</Link>
+            <Link href="/calculators/synastry" className="btn-primary text-sm px-6 py-2.5">Run your own synastry reading</Link>
             <Link href="/love" className="btn-outline text-sm px-6 py-2.5">← Love &amp; Astrology</Link>
           </div>
         </div>
       </main>
+    </>
+  )
+}
+
+// ---------------------------------------------------------------------
+// Stage 'tools': famous couples ranked by their real synastry tier, the same
+// score the compare page shows. Smoothest first; a couple with a missing
+// chart still links to its write-up.
+// ---------------------------------------------------------------------
+
+// "together 2021-present" -> "Together since 2021"; "dated 2021-2022" -> "Dated 2021 to 2022"
+function noteText(n: string): string {
+  const t = n.replace(/(\d{4})-present/g, 'since $1').replace(/(\d{4})-(\d{4})/g, '$1 to $2')
+  return t ? t[0].toUpperCase() + t.slice(1) : ''
+}
+
+const byEase = (a: Couple, b: Couple) => (b.ease ?? -1) - (a.ease ?? -1)
+
+function CoupleRow({ c }: { c: Couple }) {
+  const href = c.loveSlug ? `/love/${c.loveSlug}` : `/celebrity-birth-charts/compare/${c.compareSlug}`
+  return (
+    <li>
+      <Link href={href}>
+        <span className="cfaces" aria-hidden="true">
+          <Face name={c.name1} slug={c.slug1} sign={c.sign1} size={44} />
+          <Face name={c.name2} slug={c.slug2} sign={c.sign2} size={44} />
+        </span>
+        <span className="rt"><b>{c.name1} and {c.name2}</b><small>{[noteText(c.notes), c.loveSlug ? 'Read their story' : 'Compare their charts'].filter(Boolean).join('. ')}</small></span>
+        {c.tier && c.ease !== null
+          ? <span className={`mt t-${c.tier}`} title={`Smoother than ${c.ease}% of pairs of charts`}><b>{c.tier}</b><small>match</small></span>
+          : null}
+      </Link>
+    </li>
+  )
+}
+
+// Tier bands, smoothest first. Couples missing a chart go last, unscored.
+const BANDS: { id: string; title: string; lede: string; tiers: (SynTier | null)[] }[] = [
+  { id: 'smooth', title: 'S and A: the smoothest', lede: 'Charts that meet more easily than at least 80% of pairs.', tiers: ['S', 'A'] },
+  { id: 'middle', title: 'B: the middle', lede: 'The common case: some contacts help, some strain.', tiers: ['B'] },
+  { id: 'friction', title: 'C and D: the most friction', lede: 'More strain than most pairs. Friction is work, not a verdict.', tiers: ['C', 'D'] },
+  { id: 'unscored', title: 'Not scored yet', lede: 'One of the two charts is not public yet, so there is no match letter.', tiers: [null] },
+]
+
+function CouplesTool({ current, past }: Props) {
+  const [show, setShow] = useTabState<'current' | 'past'>('couples', 'current', v => v === 'current' || v === 'past')
+  const total = current.length + past.length
+  return (
+    <>
+      <Head>
+        <title>Celebrity Couples Astrology: real charts compared | Birth Chart Library</title>
+        <meta name="description" content={`${total} celebrity couples, each given a match letter from S to D for how their two birth charts meet, worked out from both whole charts, not just Sun signs.`} />
+        <link rel="canonical" href="https://birthchartlibrary.com/love/celebrity-couples" />
+        <meta property="og:title" content="Celebrity Couples Astrology: real charts compared" />
+        <meta property="og:description" content={`${total} celebrity couples ranked by how their two birth charts meet.`} />
+        <meta property="og:url" content="https://birthchartlibrary.com/love/celebrity-couples" />
+        <meta property="og:image" content="https://birthchartlibrary.com/api/og/topic?title=Celebrity+Couples&subtitle=Real+charts+compared&symbol=%E2%99%A5&label=Birth+Chart+Library" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema([
+        { name: 'Home', url: 'https://birthchartlibrary.com' },
+        { name: 'Compatibility', url: 'https://birthchartlibrary.com/compatibility' },
+        { name: 'Celebrity Couples', url: 'https://birthchartlibrary.com/love/celebrity-couples' },
+      ])) }} />
+      <main className="rdp"><div className="lrn">
+        <LearnHero crumbs={[{ label: 'Compatibility', href: '/compatibility' }, { label: 'Famous couples' }]} title="Famous couples">
+          <p>{total} real couples, each with a match letter from S to D for how their two birth charts meet. It comes from both whole charts, not just Sun signs, and is the same score as every chart comparison on the site.</p>
+          <p>A low letter is not a forecast. Tap a couple to see which contacts help and which strain.</p>
+        </LearnHero>
+        <div className="chips filt" role="group" aria-label="Which couples">
+          <button type="button" className="chip" aria-pressed={show === 'current'} onClick={() => setShow('current')}>Together <small>{current.length}</small></button>
+          <button type="button" className="chip" aria-pressed={show === 'past'} onClick={() => setShow('past')}>Past couples <small>{past.length}</small></button>
+        </div>
+        {/* Both lists are in the HTML (every couple link crawlable); the chips only show one. */}
+        {(['current', 'past'] as const).map(which => (
+          <div key={which} hidden={show !== which}>
+            {BANDS.map(band => {
+              const rows = (which === 'current' ? current : past).filter(c => band.tiers.includes(c.tier)).sort(byEase)
+              if (!rows.length) return null
+              return (
+                <section className="lsec" id={which === 'current' ? band.id : `past-${band.id}`} key={band.id}>
+                  <h2>{band.title}</h2>
+                  <p className="lede">{band.lede}</p>
+                  <ul className="rank cpl">{rows.map(c => <CoupleRow key={c.compareSlug} c={c} />)}</ul>
+                </section>
+              )
+            })}
+          </div>
+        ))}
+        <ToolDoors title="Compare your own" only={['/calculators/synastry']} />
+        <NextLinks links={[
+          { href: '/compatibility', title: 'Sign compatibility', sub: 'Every pair of Sun signs' },
+          { href: '/celebrity-birth-charts', title: 'Celebrity birth charts', sub: 'Every chart in the library' },
+        ]} />
+      </div></main>
     </>
   )
 }

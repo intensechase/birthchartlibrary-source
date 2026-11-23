@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { safeSessionGet, safeSessionSet } from '@/lib/safe-storage'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -83,15 +84,24 @@ export default function CelebrityMatchPage({ initialSun, initialMoon, initialRis
 
   // Auto-search for logged-in users with a chart
   useEffect(() => {
-    if (hasChart && initialSun && initialMoon && initialRising && !autoSearched) {
+    if (autoSearched) return
+    // The last signs searched in this tab, else the reader's own chart.
+    let last: { sun: string; moon: string; rising: string } | null = null
+    try { last = JSON.parse(safeSessionGet('bcl-f:match') ?? 'null') } catch { /* ignore */ }
+    if (last && [last.sun, last.moon, last.rising].every(x => (SIGN_LIST as readonly string[]).includes(x))) {
       setAutoSearched(true)
-      doSearch()
+      setSun(last.sun); setMoon(last.moon); setRising(last.rising)
+      doSearch(last.sun, last.moon, last.rising)
+    } else if (hasChart && initialSun && initialMoon && initialRising) {
+      setAutoSearched(true)
+      doSearch(initialSun, initialMoon, initialRising)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  async function doSearch() {
+  async function doSearch(sun: string, moon: string, rising: string) {
     if (!sun || !moon || !rising) return
+    safeSessionSet('bcl-f:match', JSON.stringify({ sun, moon, rising }))
     setLoading(true)
     try {
       const body: Record<string, string> = { sun, moon, rising }
@@ -127,7 +137,7 @@ export default function CelebrityMatchPage({ initialSun, initialMoon, initialRis
           { name: 'Celebrity Match', url: 'https://birthchartlibrary.com/celebrity-match' },
         ])) }} />
 
-        <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-2">Which Celebrity Shares Your Chart?</h1>
+        <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-2">Which celebrity shares your chart?</h1>
         <p className="text-slate-500 mb-8 max-w-2xl">
           {hasChart
             ? 'We matched your birth chart against 550+ researched celebrity charts. Here are your closest cosmic twins.'
@@ -138,7 +148,7 @@ export default function CelebrityMatchPage({ initialSun, initialMoon, initialRis
         <div className="card mb-8">
           <div className="grid grid-cols-3 gap-3 mb-4">
             <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1">Sun Sign</label>
+              <label className="block text-xs font-medium text-slate-500 mb-1">Sun sign</label>
               <select
                 value={sun}
                 onChange={e => { setSun(e.target.value); setResults(null) }}
@@ -149,7 +159,7 @@ export default function CelebrityMatchPage({ initialSun, initialMoon, initialRis
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1">Moon Sign</label>
+              <label className="block text-xs font-medium text-slate-500 mb-1">Moon sign</label>
               <select
                 value={moon}
                 onChange={e => { setMoon(e.target.value); setResults(null) }}
@@ -160,7 +170,7 @@ export default function CelebrityMatchPage({ initialSun, initialMoon, initialRis
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1">Rising Sign</label>
+              <label className="block text-xs font-medium text-slate-500 mb-1">Rising sign</label>
               <select
                 value={rising}
                 onChange={e => { setRising(e.target.value); setResults(null) }}
@@ -179,7 +189,7 @@ export default function CelebrityMatchPage({ initialSun, initialMoon, initialRis
           )}
 
           <button
-            onClick={doSearch}
+            onClick={() => doSearch(sun, moon, rising)}
             disabled={!sun || !moon || !rising || loading}
             className="btn-primary w-full text-sm"
           >
@@ -216,7 +226,7 @@ export default function CelebrityMatchPage({ initialSun, initialMoon, initialRis
         {/* Results */}
         {results && results.length > 0 && (
           <div>
-            <h2 className="text-xl font-semibold mb-4">Your Celebrity Chart Twins</h2>
+            <h2 className="text-xl font-semibold mb-4">Your celebrity chart twins</h2>
             <div className="space-y-3">
               {results.map((r, i) => (
                 <Link
@@ -276,7 +286,7 @@ export default function CelebrityMatchPage({ initialSun, initialMoon, initialRis
         {/* How it works */}
         {!results && !loading && (
           <div className="mt-4">
-            <h2 className="text-xl font-semibold mb-4">How It Works</h2>
+            <h2 className="text-xl font-semibold mb-4">How it works</h2>
             <div className="card">
               <div className="space-y-3 text-sm text-slate-600 leading-relaxed">
                 <p>

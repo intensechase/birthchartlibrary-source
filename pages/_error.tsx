@@ -23,7 +23,7 @@ function ErrorPage({ statusCode }: ErrorProps) {
         </p>
         <div className="flex gap-3">
           <button onClick={() => window.location.reload()} className="btn-primary">Try again</button>
-          <Link href="/" className="btn-outline">Go Home</Link>
+          <Link href="/" className="btn-outline">Go home</Link>
         </div>
       </main>
     </>

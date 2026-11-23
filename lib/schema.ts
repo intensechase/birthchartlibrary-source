@@ -15,6 +15,20 @@ export function websiteSchema() {
   }
 }
 
+// The logo Google may show for the site (search results, knowledge panel).
+// Google wants a square image at least 112px; the 512px brand icon fits.
+export const LOGO_URL = 'https://birthchartlibrary.com/brand/icon-512.png'
+
+export function organizationSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Birth Chart Library',
+    url: 'https://birthchartlibrary.com',
+    logo: LOGO_URL,
+  }
+}
+
 export function articleSchema(article: {
   title: string
   description: string
@@ -41,7 +55,7 @@ export function articleSchema(article: {
       url: 'https://birthchartlibrary.com',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://birthchartlibrary.com/favicon.ico',
+        url: LOGO_URL,
       },
     },
     mainEntityOfPage: {

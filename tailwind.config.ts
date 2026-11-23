@@ -38,6 +38,15 @@ const config: Config = {
         earth: '#228B22',
         air:   '#00BFFF',
         water: '#1F75FE',
+        // Redesign palette (Planisphere, 11/19/2026). Separate names so current
+        // pages don't change until each one is rebuilt. Day and night values
+        // live in styles/globals.css (--rd-*). Element colours (rd-fire etc.)
+        // mark signs only.
+        rd: Object.fromEntries(
+          ['sky', 'base', 'dome', 'panel', 'panel2', 'rule', 'dark', 'fg', 'ink', 'sub',
+           'link', 'linkhi', 'fire', 'earth', 'air', 'water']
+            .map((k) => [k, `rgb(var(--rd-${k}) / <alpha-value>)`]),
+        ),
       },
       fontFamily: {
         display: ['Bricolage Grotesque', 'Arial Black', 'sans-serif'],

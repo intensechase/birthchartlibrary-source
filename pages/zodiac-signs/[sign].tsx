@@ -16,6 +16,11 @@ import { SignGlyph } from '@/components/Glyph'
 import { PLANET_PATHS, toneOf } from '@/components/NatalChartWheel'
 import { CelebFace, cleanCelebName } from '@/components/FeaturedCelebs'
 import Scallop from '@/components/Scallop'
+import SectionStrip from '@/components/redesign/SectionStrip'
+import { redesignOn } from '@/lib/redesign'
+import { BODY_ICON, DISC, GROUP_COLOR, signIcon } from '@/lib/redesign/astro'
+import type { HomePerson } from '@/lib/redesign/home-view'
+import { Facts, Fold, LearnHero, NextLinks, People, PrevNext, Prose, TileGrid } from '@/components/redesign/Learn'
 
 function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1)
@@ -34,6 +39,7 @@ interface SignPageProps {
   title: string
   description: string
   famousCelebs: FamousCeleb[]
+  people?: HomePerson[]
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -48,6 +54,20 @@ export const getStaticProps: GetStaticProps<SignPageProps> = async (context) => 
   const name = capitalize(sign)
   const info = SIGNS[name]
   if (!info) return { notFound: true }
+
+  if (redesignOn('hubs')) {
+    const { peopleWhere } = await import('@/lib/redesign/people')
+    let people: HomePerson[] = []
+    try { people = await peopleWhere('sun_sign = $1', [name]) } catch { people = [] }
+    return {
+      props: {
+        sign, name, people, famousCelebs: [],
+        title: `${name} Zodiac Sign — Traits, Element, Ruling Planet | Birth Chart Library`,
+        description: `Everything about ${name}: a ${info.element} sign ruled by ${info.ruledBy}. Explore ${name}'s personality traits, strengths, challenges, and what each planet means in ${name}.`,
+      },
+      revalidate: 604800,
+    }
+  }
 
   const famousCelebs = await getListableCelebrities<FamousCeleb>({
     columns: 'name, slug, image_url, category',
@@ -96,7 +116,7 @@ function PlanetIcon({ planet }: { planet: string }) {
   )
 }
 
-export default function SignDetailPage({ sign, name, title, description, famousCelebs }: SignPageProps) {
+export default function SignDetailPage({ sign, name, title, description, famousCelebs, people }: SignPageProps) {
   useEffect(() => {
     if (typeof window !== 'undefined' && (window as any).pintrk) {
       (window as any).pintrk('track', 'viewcategory', {
@@ -140,8 +160,6 @@ export default function SignDetailPage({ sign, name, title, description, famousC
   ].filter(Boolean) as { slug: string; title: string }[]
 
   const explore = [
-    { href: `/horoscope/${sign}`, label: `${name} horoscope` },
-    { href: `/love/${sign}-in-love`, label: `${name} in love` },
     { href: `/compatibility/${sign}`, label: `${name} compatibility guide` },
     { href: `/astrology-planets/${ruler.toLowerCase()}`, label: `${ruler}, ${name}'s ruling planet` },
     { href: `/astrology-houses/${idx + 1}`, label: `The ${ordinal(idx + 1)} house, ${name}'s natural home` },
@@ -172,6 +190,78 @@ export default function SignDetailPage({ sign, name, title, description, famousC
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema([{ name: 'Home', url: 'https://birthchartlibrary.com' }, { name: 'Zodiac Signs', url: 'https://birthchartlibrary.com/zodiac-signs' }, { name, url: `https://birthchartlibrary.com/zodiac-signs/${sign}` }])) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(faqs)) }} />
 
+      {people ? (
+        <main className="rdp"><div className="lrn">
+          <LearnHero crumbs={[{ label: 'Signs', href: '/zodiac-signs' }, { label: name }]} disc={{ color: GROUP_COLOR[info.element], icon: signIcon(name) }} kicker="Zodiac sign" title={name}>
+            <p>A {info.modality} {info.element} sign, known for {info.keywords.slice(0, 3).join(', ')} and {info.keywords[3]}.</p>
+          </LearnHero>
+
+          <Facts items={[
+            { label: 'Dates', value: SIGN_DATES[name].replace(' \u2013 ', ' to ') },
+            { label: 'Element', value: info.element },
+            { label: 'Modality', value: info.modality },
+            { label: 'Ruled by', value: info.ruledBy.replace(' (traditional), ', ' and ').replace(' (modern)', ''), href: `/astrology-planets/${ruler.toLowerCase()}` },
+            { label: 'Natural house', value: `The ${ordinal(idx + 1)} house`, href: `/astrology-houses/${idx + 1}` },
+            { label: 'Opposite sign', value: SIGN_LIST[(idx + 6) % 12], href: `/zodiac-signs/${SIGN_LIST[(idx + 6) % 12].toLowerCase()}` },
+          ]} />
+
+          <Prose title={`About ${name}`} text={info.description} />
+
+          <Prose title={`${name} in mythology`} text={info.mythology} />
+          <Prose title={`${name} in love`} text={info.inLove}>
+            <Link className="go" href={`/compatibility/${sign}`}>{name} with every sign</Link>
+          </Prose>
+          <Prose title="Shadow and growth" text={info.shadow} />
+
+          <section className="lsec">
+            <h2>Planets in {name}</h2>
+            <p className="lede">How each planet acts when it sits in {name}. Open one to read it.</p>
+            {PLANET_KEYS.map(planet => {
+              const text = PLANET_IN_SIGN[`${planet}_${name}`]
+              if (!text) return null
+              return (
+                <Fold key={planet} title={`${PLANET_LABELS[planet]} in ${name}`} disc={{ color: DISC[planet] ?? DISC.RISING, icon: BODY_ICON[planet] }}>
+                  {text.split(/\n\s*\n/).map((t, i) => <p key={i}>{t.trim()}</p>)}
+                </Fold>
+              )
+            })}
+          </section>
+
+          <People title={`Famous ${name} Suns`} people={people} more={{ href: `/celebrity-birth-charts/sign/${sign}`, label: `All ${name} charts` }} />
+
+          <section className="lsec">
+            <div className="bandhead"><h2>{name} compatibility</h2><Link className="more" href={`/compatibility/${sign}`}>Ranked guide</Link></div>
+            <TileGrid items={SIGN_LIST.map(p => ({ href: `/compatibility/${getPairSlug(name, p)}`, label: p, sub: SIGNS[p]?.element, dot: GROUP_COLOR[SIGNS[p]?.element ?? 'Fire'] }))} />
+          </section>
+
+          {books.length > 0 ? (
+            <section className="lsec">
+              <h2>Books for {name}</h2>
+              <div className="books">
+                {books.map(book => (
+                  <a key={book.amazonUrl} className="bk" href={book.amazonUrl} target="_blank" rel="noopener noreferrer nofollow">
+                    {bookCoverUrl(book.amazonUrl) ? <img src={bookCoverUrl(book.amazonUrl)!} alt="" loading="lazy" onError={e => { e.currentTarget.style.display = 'none' }} /> : null}
+                    <span><b>{book.title}</b><small>by {book.author}</small><span className="bl">{book.blurb}</span></span>
+                  </a>
+                ))}
+              </div>
+              <p className="disclose">As an Amazon Associate, Birth Chart Library earns from qualifying purchases.</p>
+            </section>
+          ) : null}
+
+          <NextLinks title="From the blog" links={articles.map(a => ({ href: `/blog/${a.slug}`, title: a.title.replace(' \u2014 ', ': ') }))} />
+
+          <NextLinks links={[
+            { href: `/compatibility/${sign}`, title: `${name} compatibility`, sub: `How ${name} gets along with every sign.` },
+            { href: '/birth-chart?ref=sign-page', title: 'Your free birth chart', sub: 'Your Sun sign is where your chart starts, not where it ends.' },
+            { href: `/astrology-planets/${ruler.toLowerCase()}`, title: ruler, sub: `The planet that rules ${name}.` },
+            { href: '/celebrity-match', title: 'Celebrity match', sub: 'Famous people whose charts look like yours.' },
+          ]} />
+
+          <PrevNext prev={{ href: `/zodiac-signs/${prevSign.toLowerCase()}`, label: prevSign }} next={{ href: `/zodiac-signs/${nextSign.toLowerCase()}`, label: nextSign }} />
+        </div></main>
+      ) : (
+      <>
       {/* Hero band */}
       <section className="bg-[var(--band)]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-5 pb-9">
@@ -206,29 +296,38 @@ export default function SignDetailPage({ sign, name, title, description, famousC
       <Scallop id="hero-scallops" top="var(--band)" className="bg-[var(--background)]" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-14">
+        <SectionStrip label={`${name} on this page`} sections={[
+          { id: 'mythology', label: 'Mythology' },
+          { id: 'love', label: 'Love' },
+          { id: 'shadow', label: 'Shadow and growth' },
+          { id: 'planets', label: `Planets in ${name}` },
+          ...(famousCelebs.length > 0 ? [{ id: 'famous', label: `Famous ${name} Suns`, narrowOnly: true }] : []),
+          { id: 'compatibility', label: 'Compatibility', narrowOnly: true },
+          ...(books.length > 0 ? [{ id: 'reading', label: 'Reading' }] : []),
+        ]} />
         <div className="flex flex-wrap gap-x-14 gap-y-12">
           {/* Reading column */}
           <article className={`flex-[1_1_520px] min-w-0 max-w-[42em] ${INK}`}>
             <p className="text-[20px] sm:text-[22px] leading-[1.55] mb-10">{info.description}</p>
 
             <section className="mb-10">
-              <h2 className={H2}>{name} in mythology</h2>
+              <h2 id="mythology" className={H2}>{name} in mythology</h2>
               <p className="text-[17px] leading-relaxed">{info.mythology}</p>
             </section>
 
             <section className="mb-10">
-              <h2 className={H2}>{name} in love and relationships</h2>
+              <h2 id="love" className={H2}>{name} in love and relationships</h2>
               <p className="text-[17px] leading-relaxed mb-3">{info.inLove}</p>
-              <Link href={`/love/${sign}-in-love`} className={ACCENT_LINK}>Read the full {name} in love guide →</Link>
+              <Link href={`/compatibility/${sign}`} className={ACCENT_LINK}>{name} with every sign →</Link>
             </section>
 
             <section className="mb-12">
-              <h2 className={H2}>{name} shadow and growth</h2>
+              <h2 id="shadow" className={H2}>{name} shadow and growth</h2>
               <p className="text-[17px] leading-relaxed">{info.shadow}</p>
             </section>
 
             <section>
-              <h2 className={H2}>Planets in {name}</h2>
+              <h2 id="planets" className={H2}>Planets in {name}</h2>
               <p className={`mb-4 ${MUTED}`}>How each planet expresses itself when placed in {name}.</p>
               <ul className={`border-t-2 ${RULE}`}>
                 {PLANET_KEYS.map(planet => {
@@ -252,7 +351,7 @@ export default function SignDetailPage({ sign, name, title, description, famousC
           <aside className="flex-[1_1_280px] min-w-0 flex flex-col gap-10">
             {famousCelebs.length > 0 && (
               <section>
-                <h2 className={ASIDE_H}>Famous {name} Suns</h2>
+                <h2 id="famous" className={ASIDE_H}>Famous {name} Suns</h2>
                 <ul className="flex flex-col gap-4">
                   {famousCelebs.map(c => (
                     <li key={c.slug}>
@@ -271,7 +370,7 @@ export default function SignDetailPage({ sign, name, title, description, famousC
             )}
 
             <section>
-              <h2 className={ASIDE_H}>{name} compatibility</h2>
+              <h2 id="compatibility" className={ASIDE_H}>{name} compatibility</h2>
               <ul className="grid grid-cols-2 gap-x-4">
                 {SIGN_LIST.filter(s => s !== name).map(partner => (
                   <li key={partner}>
@@ -297,7 +396,7 @@ export default function SignDetailPage({ sign, name, title, description, famousC
 
         {books.length > 0 && (
           <section className="mt-16">
-            <h2 className={H2}>Recommended reading for {name}</h2>
+            <h2 id="reading" className={H2}>Recommended reading for {name}</h2>
             <p className={`mb-5 ${MUTED}`}>Books that resonate with {name} energy and help you explore this sign more deeply.</p>
             <div className="grid grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))] gap-x-8">
               {books.map((book, i) => (
@@ -359,6 +458,8 @@ export default function SignDetailPage({ sign, name, title, description, famousC
           </div>
         </div>
       </section>
+      </>
+      )}
     </>
   )
 }

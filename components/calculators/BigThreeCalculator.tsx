@@ -70,7 +70,7 @@ export default function BigThreeCalculator() {
             <input type="date" name="birthDate" required value={form.birthDate} onChange={handleChange} className="input" />
           </div>
           <div>
-            <label className="block text-sm mb-1 text-slate-500">Birth Time</label>
+            <label className="block text-sm mb-1 text-slate-500">Birth time</label>
             <input type="time" name="birthTime" value={form.birthTime} onChange={handleChange} className="input" />
             {!form.birthTime && <p className="text-xs text-slate-400 mt-1">Without birth time, your Rising sign and houses will be approximate (defaults to noon).</p>}
           </div>
@@ -118,7 +118,7 @@ export default function BigThreeCalculator() {
 
           <div className="flex gap-3 mb-8">
             <button onClick={() => { setResult(null); setTurnstileToken(null) }} className="btn-outline flex-1">
-              Calculate Another
+              Calculate another
             </button>
           </div>
 
@@ -126,7 +126,7 @@ export default function BigThreeCalculator() {
           <div className="p-6 bg-slate-50 border border-slate-200 rounded-xl text-center">
             <p className="font-display text-xl tracking-wide mb-2">Discover what the rest of your chart reveals</p>
             <p className="text-slate-500 text-sm mb-4">Your results won&apos;t last forever... create a free account to save your chart and unlock your personalized daily horoscope.</p>
-            <Link href="/signup?ref=calc-sun-moon-rising" className="btn-primary">Create Your Free Chart</Link>
+            <Link href="/signup?ref=calc-sun-moon-rising" className="btn-primary">Create your free chart</Link>
           </div>
         </div>
       )}

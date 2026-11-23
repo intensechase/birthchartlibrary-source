@@ -107,7 +107,7 @@ export default function RichTextEditor({ content, onChange }: Props) {
             onClick={() => editor.chain().focus().unsetLink().run()}
             className="px-2 py-1 rounded text-xs hover:bg-slate-200 text-red-500"
           >
-            Remove Link
+            Remove link
           </button>
         )}
       </div>

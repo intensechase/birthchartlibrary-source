@@ -1,8 +1,10 @@
 import { Html, Head, Main, NextScript } from 'next/document'
+import { REDESIGN_ANY } from '@/lib/redesign'
+import { COOKIE_CHOICE_SCRIPT } from '@/lib/cookie-choice'
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="en" className={REDESIGN_ANY ? 'rd dark' : undefined}>
       <Head>
         <meta charSet="utf-8" />
         <link rel="preload" href="/fonts/zen-kaku-gothic-new-500.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
@@ -17,6 +19,7 @@ export default function Document() {
             comment there was aspirational; this file kept its own copy the
             whole time, which is why it kept shipping after the first fix. */}
         <meta name="p:domain_verify" content="1cf83f790a224968cb7cf7271e152b6e" />
+        <script dangerouslySetInnerHTML={{ __html: COOKIE_CHOICE_SCRIPT }} />
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3785592967844957"

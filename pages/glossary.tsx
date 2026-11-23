@@ -4,6 +4,8 @@ import { GetStaticProps } from 'next'
 import { dbGetGlossary, type GlossaryTermDB } from '@/lib/interpretations/db'
 import { glossary as staticGlossary } from '@/lib/glossary'
 import { faqSchema, jsonLd } from '@/lib/schema'
+import { redesignOn } from '@/lib/redesign'
+import { LearnHero, NextLinks } from '@/components/redesign/Learn'
 
 interface GlossaryItem { term: string; definition: string; link: string | null }
 interface Props { glossary: GlossaryItem[] }
@@ -35,9 +37,44 @@ export default function GlossaryPage({ glossary }: Props) {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
       </Head>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(glossary.slice(0, 10).map(t => ({ question: `What is ${t.term}?`, answer: t.definition })))) }} />
+      {redesignOn('hubs') ? (
+        <main className="rdp"><div className="lrn">
+          <LearnHero kicker="Learn" title="Glossary">
+            <p>Every term you need to read a birth chart, in plain English.</p>
+          </LearnHero>
+
+          <nav className="letters" aria-label="Jump to a letter">
+            {letters.map(l => <a key={l} href={`#${l}`}>{l}</a>)}
+          </nav>
+
+          {letters.map(letter => (
+            <section key={letter} id={letter} className="lsec gl">
+              <h2>{letter}</h2>
+              <dl>
+                {grouped.get(letter)!.map(entry => (
+                  <div key={entry.term} id={entry.term.toLowerCase().replace(/\s+/g, '-')}>
+                    <dt>{entry.term}</dt>
+                    <dd>
+                      {entry.definition}
+                      {entry.link ? <> <Link className="go" href={entry.link}>More about {entry.term.toLowerCase()}</Link></> : null}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          ))}
+
+          <NextLinks links={[
+            { href: '/birth-chart?ref=glossary', title: 'Your free birth chart', sub: 'See every one of these terms in your own chart.' },
+            { href: '/zodiac-signs', title: 'The signs', sub: 'All twelve, one page each.' },
+            { href: '/astrology-planets', title: 'The planets', sub: 'What each planet governs.' },
+            { href: '/astrology-houses', title: 'The houses', sub: 'The twelve areas of life.' },
+          ]} />
+        </div></main>
+      ) : (
       <main className="max-w-3xl mx-auto px-4 py-12">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(glossary.slice(0, 10).map(t => ({ question: `What is ${t.term}?`, answer: t.definition })))) }} />
-        <h1 className="font-display text-4xl tracking-wide mb-2">Astrology Glossary</h1>
+        <h1 className="font-display text-4xl tracking-wide mb-2">Astrology glossary</h1>
         <p className="text-slate-500 dark:text-slate-400 mb-8">Every term you need to read a birth chart... defined in plain English.</p>
 
         <div className="flex flex-wrap gap-2 mb-10">
@@ -75,9 +112,10 @@ export default function GlossaryPage({ glossary }: Props) {
         <div className="mt-12 p-6 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-center">
           <p className="font-display text-xl tracking-wide mb-2">Ready to see these concepts in action?</p>
           <p className="text-slate-500 dark:text-slate-400 text-sm mb-4">Generate your free birth chart and see how every term applies to you personally.</p>
-          <Link href="/signup?ref=glossary" className="btn-primary">Create Your Free Chart</Link>
+          <Link href="/signup?ref=glossary" className="btn-primary">Create your free chart</Link>
         </div>
       </main>
+      )}
     </>
   )
 }

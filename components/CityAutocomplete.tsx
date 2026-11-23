@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useId, useRef } from 'react'
 
 interface GeoOption {
   displayName: string
@@ -22,6 +22,18 @@ export default function CityAutocomplete({ value, onChange }: Props) {
   const [searchError, setSearchError] = useState(false)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  // The text that stands for a place already picked (or handed in): not searched
+  // again, or the list would reopen over whatever sits below the field.
+  const picked = useRef(value)
+  const asked = useRef(0)
+  const listboxId = useId()
+
+  // The form changed the place itself (cleared it, or filled in a saved chart).
+  useEffect(() => {
+    if (value === picked.current) return
+    picked.current = value
+    setQuery(value); setOptions([]); setOpen(false)
+  }, [value])
 
   // Close on outside click
   useEffect(() => {
@@ -35,9 +47,11 @@ export default function CityAutocomplete({ value, onChange }: Props) {
   }, [])
 
   useEffect(() => {
-    if (query.length < 2) { setOptions([]); return }
-
     if (debounceRef.current) clearTimeout(debounceRef.current)
+    const ask = ++asked.current // a slower, older answer never replaces a newer one
+    setLoading(false)
+    if (query.length < 2 || query === picked.current) { setOptions([]); return }
+
     debounceRef.current = setTimeout(async () => {
       setLoading(true)
       setSearchError(false)
@@ -48,6 +62,7 @@ export default function CityAutocomplete({ value, onChange }: Props) {
         })
         if (!res.ok) throw new Error('Search unavailable')
         const results = await res.json()
+        if (ask !== asked.current) return
         setOptions(results.map((r: { display_name: string; address: { city?: string; town?: string; village?: string; county?: string; state?: string; country?: string }; lat: string; lon: string }) => {
           const a = r.address
           const city = a.city ?? a.town ?? a.village ?? a.county ?? ''
@@ -61,28 +76,43 @@ export default function CityAutocomplete({ value, onChange }: Props) {
         }))
         setOpen(true)
       } catch {
+        if (ask !== asked.current) return
         setOptions([])
         setSearchError(true)
       } finally {
-        setLoading(false)
+        if (ask === asked.current) setLoading(false)
       }
     }, 350)
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
   }, [query])
 
   function select(opt: GeoOption) {
+    picked.current = opt.shortName
     setQuery(opt.shortName)
+    setOptions([])
     setOpen(false)
     onChange(opt.shortName, opt.lat, opt.lng)
   }
 
-  const listboxId = 'city-autocomplete-list'
+  // Typing after a place was picked unpicks it, so the old place is never used
+  // under a new name.
+  function type(text: string) {
+    setQuery(text)
+    setSearchError(false)
+    setOpen(true)
+    if (picked.current && text !== picked.current) {
+      picked.current = ''
+      onChange('', 0, 0)
+    }
+  }
+
   return (
     <div ref={containerRef} className="relative">
       <input
         type="text"
         required
         value={query}
-        onChange={e => { setQuery(e.target.value); setOpen(true) }}
+        onChange={e => type(e.target.value)}
         className="input"
         placeholder="e.g. Honolulu, New York, London"
         // Mobile keyboard hints: inputMode=search shows the magnifying-glass
@@ -106,7 +136,7 @@ export default function CityAutocomplete({ value, onChange }: Props) {
       )}
       {searchError && !loading && (
         <p className="absolute z-50 w-full mt-1 px-4 py-2.5 text-xs text-slate-500 bg-white border border-slate-200 rounded-lg shadow-xl">
-          Location search unavailable. Try again or enter your city manually.
+          Place search is not answering. Wait a moment and type it again.
         </p>
       )}
       {open && options.length > 0 && (

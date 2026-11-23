@@ -682,7 +682,7 @@ A suppressed anger running quiet under the pleasantness, slowly learning that ow
 
 
   // ───── SCORPIO ─────
-  'Scorpio_H1': `Scorpio is a Fixed Water sign and Mars rules it ... the planet at home in one of the two signs it governs, its drive at full strength but turned inward, deep, and controlled. In the 1st, the placement puts the intense, magnetic, relentless drive directly on the surface.
+  'Scorpio_H1': `Scorpio is a Fixed Water sign and Mars is its traditional ruler ... the planet at home in one of the two signs it governs, its drive at full strength but turned inward, deep, and controlled. In the 1st, the placement puts the intense, magnetic, relentless drive directly on the surface.
 
 Lives with this placement carry a still, dangerous power ... the energy controlled and deep rather than loud, the will enormous and patient, a force that does not flare and fade like fire but pressures like the deep sea, an intensity people feel before they can name. It does not need to raise its voice to be the most forceful thing in the room. Being intense is the easy read. The structural one is a drive that runs deep, controlled, and absolute. The shadow is the placement whose will turns to the need to control, that holds its power coiled and strikes with devastating focus, that never forgets a wound, and can turn its formidable drive toward domination, vengeance, and the destruction of whatever crosses it.
 

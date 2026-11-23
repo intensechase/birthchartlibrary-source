@@ -22,22 +22,22 @@ export default function Footer() {
         <div>
           <p className={headingClass}>Explore</p>
           <nav className="flex flex-col gap-2.5">
-            <Link href="/horoscope" className={linkClass}>Horoscope</Link>
-            <Link href="/celebrity-birth-charts" className={linkClass}>Celebrity Charts</Link>
-            <Link href="/love" className={linkClass}>Love &amp; Astrology</Link>
+            <Link href="/daily-horoscope" className={linkClass}>Horoscope</Link>
+            <Link href="/celebrity-birth-charts" className={linkClass}>Celebrity charts</Link>
+            <Link href="/love/celebrity-couples" className={linkClass}>Famous couples</Link>
             <Link href="/compatibility" className={linkClass}>Compatibility</Link>
             <Link href="/calculators" className={linkClass}>Calculators</Link>
-            <Link href="/born-today" className={linkClass}>Born Today</Link>
+            <Link href="/born-today" className={linkClass}>Born today</Link>
           </nav>
         </div>
         <div>
           <p className={headingClass}>Learn</p>
           <nav className="flex flex-col gap-2.5">
-            <Link href="/zodiac-signs" className={linkClass}>Zodiac Signs</Link>
+            <Link href="/zodiac-signs" className={linkClass}>Zodiac signs</Link>
             <Link href="/astrology-planets" className={linkClass}>Planets</Link>
-            <Link href="/astrology-interpretations" className={linkClass}>Interpretation Library</Link>
+            <Link href="/astrology-interpretations" className={linkClass}>Interpretation library</Link>
             <Link href="/glossary" className={linkClass}>Glossary</Link>
-            <Link href="/chinese-zodiac" className={linkClass}>Chinese Zodiac</Link>
+            <Link href="/chinese-zodiac" className={linkClass}>Chinese zodiac</Link>
             <Link href="/start" className={linkClass}>New Here? Start &rarr;</Link>
           </nav>
         </div>
@@ -48,9 +48,9 @@ export default function Footer() {
             <Link href="/reading-room" className={linkClass}>Reading Room</Link>
             <a href="https://www.reddit.com/r/CelebBirthCharts/" target="_blank" rel="noopener noreferrer" className={linkClass}>Reddit</a>
             <Link href="/about" className={linkClass}>About</Link>
-            <Link href="/method" className={linkClass}>How We Check Charts</Link>
+            <Link href="/method" className={linkClass}>How we check charts</Link>
             <Link href="/contact" className={linkClass}>Contact</Link>
-            <Link href="/embed" className={linkClass}>For Publishers</Link>
+            <Link href="/embed" className={linkClass}>For publishers</Link>
           </nav>
         </div>
       </div>

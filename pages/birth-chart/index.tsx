@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -6,11 +6,19 @@ import { Turnstile } from '@marsidev/react-turnstile'
 import CityAutocomplete from '@/components/CityAutocomplete'
 import DashboardLayout from '@/components/DashboardLayout'
 import ChartDetail from '@/components/ChartDetail'
-import { getUser } from '@/lib/auth'
+import { getUser, clearAuthCookie, COOKIE_NAME } from '@/lib/auth'
+import { queryOne } from '@/lib/db'
+import { decryptBirthFields } from '@/lib/crypto'
 import type { BirthChartData } from '@/lib/swisseph/calculate'
 import type { Interpretations } from '@/components/chart/PlanetCard'
+import { redesignOn } from '@/lib/redesign'
+import MineForm, { type MineFormValues } from '@/components/redesign/MineForm'
+import ChartTool from '@/components/redesign/ChartTool'
+import SaveWaiting from '@/components/redesign/SaveWaiting'
+import { KEPT_KEY, KEPT_UNTIL_KEY, PENDING_KEY, clearWaiting, waitingChart, type PendingChart } from '@/lib/kept-chart'
+import { safeNext } from '@/lib/safe-next'
+import { track } from '@/lib/track'
 
-const PENDING_KEY = 'bcl_pending_chart'
 
 interface FormState {
   label: string
@@ -22,12 +30,11 @@ interface FormState {
   birthLng: number
 }
 
-interface PendingChart extends FormState {
-  isForSelf: boolean
-}
-
 interface Props {
   isLoggedIn: boolean
+  hasMain: boolean
+  // ?save=1 only: the main chart's own details, so the same chart is not offered twice.
+  mainBirth: { date: string; time: string | null; lat: number | null; lng: number | null } | null
 }
 
 // Auth is no longer edge-gated for this route (see middleware.ts) — a
@@ -36,44 +43,67 @@ interface Props {
 // original save-immediately-and-redirect behavior unchanged.
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   const user = await getUser(context)
-  return { props: { isLoggedIn: !!user } }
-}
-
-// Reads any chart stashed by the guest flow's "Save This Chart" button
-// synchronously during the first client render (not in a useEffect) so
-// there's no flash of the wrong view before we know whether one exists.
-function readPending(): PendingChart | null {
-  if (typeof window === 'undefined') return null
-  const raw = sessionStorage.getItem(PENDING_KEY)
-  if (!raw) return null
-  try {
-    return JSON.parse(raw)
-  } catch {
-    sessionStorage.removeItem(PENDING_KEY)
-    return null
+  if (!user) {
+    // A token for a deleted account: clear it, or /login would keep sending
+    // the reader back here.
+    if (context.req.cookies[COOKIE_NAME]) clearAuthCookie(context.res)
+    return { props: { isLoggedIn: false, hasMain: false, mainBirth: null } }
   }
+  // "My chart" for everyone: the reader's chart when there is one, else the
+  // form. These reach the form anyway: ?new=1 and ?for= (another chart),
+  // ?save=1 (a chart made as a guest, waiting to be saved), ?welcome.
+  const main = await queryOne<{ id: string; birth_date: string; birth_time: string | null; birth_time_enc: string | null; birth_lat: number | null; birth_lat_enc: string | null; birth_lng: number | null; birth_lng_enc: string | null }>('SELECT id, birth_date, birth_time, birth_time_enc, birth_lat, birth_lat_enc, birth_lng, birth_lng_enc FROM birth_charts WHERE user_id = $1 AND is_primary = true LIMIT 1', [user.id])
+  const q = context.query
+  if (main && redesignOn('mine') && !q.new && !q.for && !q.save && !q.welcome) {
+    return { redirect: { destination: `/birth-chart/${main.id}`, permanent: false } }
+  }
+  let mainBirth: Props['mainBirth'] = null
+  if (main && q.save) {
+    const d = decryptBirthFields(main)
+    const num = (v: unknown) => (v == null || !Number.isFinite(Number(v)) ? null : Number(v))
+    mainBirth = { date: main.birth_date, time: d.birth_time?.slice(0, 5) ?? null, lat: num(d.birth_lat), lng: num(d.birth_lng) }
+  }
+  return { props: { isLoggedIn: true, hasMain: !!main, mainBirth } }
 }
 
-export default function ChartPage({ isLoggedIn }: Props) {
+export default function ChartPage({ isLoggedIn, hasMain, mainBirth }: Props) {
   const router = useRouter()
-  const isWelcome = router.query.welcome === 'true'
-  // Only relevant once logged in — SaveAfterSignup POSTs to an auth-
-  // required endpoint, so a logged-out visitor always gets the guest form
-  // regardless of any stale pending payload from an abandoned signup.
-  const [pending, setPending] = useState<PendingChart | null>(() => (isLoggedIn ? readPending() : null))
+  const { query } = router
+  const isWelcome = query.welcome === 'true'
+  // A chart made before signing in, waiting for the account. Read after the
+  // first render (the server cannot see it); ?save=1 shows nothing until then.
+  const look = isLoggedIn && !query.new && !query.for && (!hasMain || !!query.save)
+  const [pending, setPending] = useState<PendingChart | null | undefined>(undefined)
+  useEffect(() => {
+    if (!look) { setPending(null); return }
+    const w = waitingChart()
+    // Already in the account as the main chart (same moment, same place): nothing to ask.
+    const near = (a: number | null | undefined, b: number) => a != null && Math.abs(a - b) < 0.1
+    if (w?.isForSelf && mainBirth && mainBirth.date === w.birthDate && (mainBirth.time ?? '') === (w.birthTime || '') && near(mainBirth.lat, w.birthLat) && near(mainBirth.lng, w.birthLng)) {
+      clearWaiting(w)
+      window.location.replace(safeNext(query.next) ?? '/birth-chart')
+      return
+    }
+    if (!w && query.save) { window.location.replace(safeNext(query.next) ?? (hasMain ? '/birth-chart' : '/birth-chart?new=1')); return }
+    setPending(w)
+  }, [look]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!isLoggedIn) {
-    return <GuestChartForm />
+  if (redesignOn('mine')) {
+    if (!isLoggedIn) return <MineGuest />
+    if (look && pending) {
+      return (
+        <SaveWaiting pending={pending} hasMain={hasMain} next={safeNext(query.next)} onSkip={() => {
+          // "Not now" drops the waiting save; a chart kept on the device stays its 7 days.
+          try { sessionStorage.removeItem(PENDING_KEY) } catch { /* blocked */ }
+          window.location.href = safeNext(query.next) ?? (hasMain ? '/birth-chart' : '/birth-chart?new=1')
+        }} />
+      )
+    }
+    if (look && pending === undefined && query.save) return <main className="rdp"><div className="wrap mine" aria-busy="true" /></main>
+    return <MineAuthed hasMain={hasMain} />
   }
 
-  if (pending) {
-    return (
-      <DashboardLayout>
-        <SaveAfterSignup pending={pending} onDone={() => setPending(null)} />
-      </DashboardLayout>
-    )
-  }
-
+  if (!isLoggedIn) return <GuestChartForm />
   return (
     <DashboardLayout>
       <AuthedChartForm isWelcome={isWelcome} />
@@ -160,7 +190,7 @@ function ChartRequestForm({ showLabelField, submitText, loadingText, onSubmit, o
                 : 'border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500'
             }`}
           >
-            Someone Else
+            Someone else
           </button>
         </div>
       </div>
@@ -195,7 +225,7 @@ function ChartRequestForm({ showLabelField, submitText, loadingText, onSubmit, o
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm mb-1 text-slate-500 dark:text-slate-400">
-            Birth Date <span aria-hidden="true" className="text-rose-600">*</span>
+            Birth date <span aria-hidden="true" className="text-rose-600">*</span>
             <span className="sr-only">(required)</span>
           </label>
           <input
@@ -208,7 +238,7 @@ function ChartRequestForm({ showLabelField, submitText, loadingText, onSubmit, o
           />
         </div>
         <div>
-          <label className="block text-sm mb-1 text-slate-500 dark:text-slate-400">Birth Time</label>
+          <label className="block text-sm mb-1 text-slate-500 dark:text-slate-400">Birth time</label>
           <input
             type="time"
             name="birthTime"
@@ -226,7 +256,7 @@ function ChartRequestForm({ showLabelField, submitText, loadingText, onSubmit, o
 
       <div>
         <label className="block text-sm mb-1 text-slate-500">
-          Birth City <span aria-hidden="true" className="text-rose-600">*</span>
+          Birth city <span aria-hidden="true" className="text-rose-600">*</span>
           <span className="sr-only">(required)</span>
         </label>
         <CityAutocomplete
@@ -334,102 +364,12 @@ function GuestChartForm() {
       </Head>
 
       <main className="max-w-2xl mx-auto px-4 py-12">
-        <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-2">Get Your Free Birth Chart</h1>
+        <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-2">Get your free birth chart</h1>
         <p className="text-slate-500 dark:text-slate-400 mb-8">
           Enter your birth details below and see your full chart instantly. No account needed — you can save it afterward if you want to keep it.
         </p>
 
         <ChartRequestForm submitText="See My Chart" loadingText="Calculating…" onSubmit={handleSubmit} />
-      </main>
-    </>
-  )
-}
-
-// After signup, the visitor lands back here with a session but no saved
-// chart yet — this finishes the job with one click instead of re-asking
-// for birth details already entered once.
-function SaveAfterSignup({ pending, onDone }: { pending: PendingChart; onDone: () => void }) {
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
-
-  async function handleSave() {
-    if (!turnstileToken) return
-    setLoading(true)
-    setError(null)
-
-    let data: { error?: string; chart?: { id: string } }
-    try {
-      const res = await fetch('/api/birth-chart', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...pending,
-          birthTime: pending.birthTime || null,
-          turnstileToken,
-          label: pending.isForSelf ? (pending.label || 'My Chart') : (pending.label || pending.subjectName || 'Chart'),
-          subjectName: pending.isForSelf ? null : pending.subjectName,
-        }),
-      })
-      data = await res.json()
-      if (!res.ok) {
-        setError(data.error ?? 'Something went wrong')
-        setLoading(false)
-        return
-      }
-    } catch {
-      setError('Network error... please try again')
-      setLoading(false)
-      return
-    }
-
-    sessionStorage.removeItem(PENDING_KEY)
-    if (data.chart?.id) {
-      window.location.href = `/birth-chart/${data.chart.id}`
-    } else {
-      onDone()
-    }
-  }
-
-  return (
-    <>
-      <Head>
-        <title>Save Your Birth Chart | Birth Chart Library</title>
-        <meta name="robots" content="noindex" />
-      </Head>
-      <main className="max-w-md mx-auto px-4 py-16 text-center">
-        <div className="text-3xl mb-3">&#10022;</div>
-        <h1 className="font-display text-2xl tracking-wide mb-2">Account confirmed — save your chart?</h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">
-          {pending.isForSelf ? 'Your chart' : `${pending.subjectName || 'This'}'s chart`} for {pending.birthDate} in {pending.birthCity} is ready to save.
-        </p>
-
-        <div className="card space-y-4">
-          <div className="flex justify-center">
-            <Turnstile
-              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-              onSuccess={setTurnstileToken}
-            />
-          </div>
-          {error && (
-            <p className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-lg px-3 py-2">
-              {error}
-            </p>
-          )}
-          <button
-            onClick={handleSave}
-            disabled={loading || !turnstileToken}
-            className="btn-primary w-full"
-          >
-            {loading ? 'Saving…' : 'Save My Chart'}
-          </button>
-          <button
-            onClick={() => { sessionStorage.removeItem(PENDING_KEY); onDone() }}
-            className="text-sm text-slate-400 hover:text-slate-600 transition-colors"
-          >
-            Skip and start a new chart instead
-          </button>
-        </div>
       </main>
     </>
   )
@@ -532,6 +472,55 @@ function AuthedChartForm({ isWelcome }: { isWelcome: boolean }) {
           onIsForSelfChange={setIsForSelf}
         />
       </main>
+    </>
+  )
+}
+
+// ---------------------------------------------------------------------
+// Stage 'mine': the redesigned form and result. Same endpoints, same
+// save-after-signup handoff; the result is read like a celebrity chart.
+// ---------------------------------------------------------------------
+const MINE_HEAD = (
+  <Head>
+    <title>Free Birth Chart: your sky at birth, read plainly | Birth Chart Library</title>
+    <meta name="description" content="Make your birth chart free, no account needed. Your Sun, Moon and Rising, every planet and house, read the same way as every celebrity chart in the library." />
+    {/* Back with a chart on this device: hold the form back so it does not flash first. */}
+    <script dangerouslySetInnerHTML={{ __html: `try{var k=+localStorage.getItem('${KEPT_UNTIL_KEY}');if(k>Date.now()&&localStorage.getItem('${KEPT_KEY}')&&!/[?&](new|for)=/.test(location.search)&&!/bcl_logged_in=/.test(document.cookie))document.documentElement.classList.add('kept-chart')}catch(e){}` }} />
+  </Head>
+)
+
+function MineGuest() {
+  return (
+    <ChartTool head={MINE_HEAD} title="Your birth chart" sub="The sky at the moment you were born, read the same way as every chart in the library. Free, and no account needed." submitText="See my chart" saveRef="guest-chart" home />
+  )
+}
+
+function MineAuthed({ hasMain }: { hasMain: boolean }) {
+  async function submit(form: MineFormValues, isForSelf: boolean, turnstileToken: string): Promise<string | null> {
+    const subjectName = isForSelf ? null : form.subjectName.trim()
+    let data: { error?: string; chart?: { id: string } }
+    try {
+      const res = await fetch('/api/birth-chart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, birthTime: form.birthTime || null, turnstileToken, isForSelf, subjectName, label: isForSelf ? (hasMain ? 'Another chart for me' : 'My Chart') : subjectName }),
+      })
+      data = await res.json()
+      if (!res.ok) return data.error ?? 'That did not work. Check the details and try again.'
+    } catch {
+      return 'No connection. Check your internet and try again.'
+    }
+    track('chart_made', isForSelf ? 'self' : 'someone')
+    if (!data.chart?.id) return 'The chart was saved, but opening it failed. Find it on your account page.'
+    window.location.href = `/birth-chart/${data.chart.id}`
+    return null
+  }
+  return (
+    <>
+      {MINE_HEAD}
+      <div className="rdp">
+        <MineForm title="Make a birth chart" sub="Yours, or someone else’s. It is saved to your account and private unless you share it." submitText="Make the chart" onSubmit={submit} hasMain={hasMain} />
+      </div>
     </>
   )
 }

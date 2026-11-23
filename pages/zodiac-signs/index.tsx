@@ -3,6 +3,10 @@ import Head from 'next/head'
 import { SIGNS } from '@/lib/interpretations'
 import { getElementColor, SIGN_SYMBOLS } from '@/lib/zodiac-colors'
 import { breadcrumbSchema, jsonLd } from '@/lib/schema'
+import { redesignOn } from '@/lib/redesign'
+import { Disc } from '@/components/redesign/Disc'
+import { LearnHero, NextLinks } from '@/components/redesign/Learn'
+import { GROUP_COLOR, signIcon } from '@/lib/redesign/astro'
 
 export default function ZodiacSignsPage() {
   const signNames = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces']
@@ -32,7 +36,7 @@ export default function ZodiacSignsPage() {
   }
 
   return (
-    <main className="max-w-4xl mx-auto px-4 py-12">
+    <>
       <Head>
         <title>Zodiac Signs — Complete Guide to All 12 Signs</title>
         <meta name="description" content="Explore all 12 zodiac signs: elements, modalities, ruling planets, and what they reveal about personality, strengths, growth, and compatibility." />
@@ -42,8 +46,35 @@ export default function ZodiacSignsPage() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(collectionPageSchema) }} />
       </Head>
-
-      <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-2">Zodiac Signs</h1>
+      {redesignOn('hubs') ? (
+        <main className="rdp"><div className="lrn">
+          <LearnHero kicker="Learn" title="Zodiac signs">
+            <p>The twelve signs color how every planet in a chart behaves. Learning them is the first step in reading any birth chart.</p>
+          </LearnHero>
+          <ul className="popgrid">
+            {signNames.map(name => {
+              const sign = SIGNS[name]
+              if (!sign) return null
+              return (
+                <li key={name}>
+                  <Link href={`/zodiac-signs/${name.toLowerCase()}`}>
+                    <Disc disc={{ color: GROUP_COLOR[sign.element], icon: signIcon(name) }} size={44} iconSize={24} />
+                    <span><b>{name}</b><small>{sign.element}, {sign.modality}</small></span>
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+          <NextLinks links={[
+            { href: '/astrology-planets', title: 'The planets', sub: 'What each planet governs in a chart.' },
+            { href: '/astrology-houses', title: 'The houses', sub: 'The twelve areas of life a chart covers.' },
+            { href: '/compatibility', title: 'Sign compatibility', sub: 'How the twelve signs get along.' },
+            { href: '/birth-chart?ref=signs-index', title: 'Your free birth chart', sub: 'See which signs your planets are in.' },
+          ]} />
+        </div></main>
+      ) : (
+    <main className="max-w-4xl mx-auto px-4 py-12">
+      <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-2">Zodiac signs</h1>
       <p className="text-slate-500 dark:text-slate-400 mb-10 max-w-2xl">
         The twelve signs of the zodiac each carry a distinct energy that colors how planets express themselves in your chart. Understanding the signs is the first step toward reading any birth chart.
       </p>
@@ -76,5 +107,7 @@ export default function ZodiacSignsPage() {
         })}
       </div>
     </main>
+      )}
+    </>
   )
 }

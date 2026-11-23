@@ -12,12 +12,18 @@ import { getListableCelebrities } from '@/lib/celebrities'
 import { PLANET_BOOKS } from '@/lib/interpretations/planet-books'
 import { bookCoverUrl } from '@/lib/book-cover'
 import { PLANET_KEYS, SIGN_LIST } from '@/lib/constants'
+import SectionStrip from '@/components/redesign/SectionStrip'
+import { SIGNS as SIGNS_INFO } from '@/lib/interpretations/signs'
+import { redesignOn } from '@/lib/redesign'
+import { BODY_ICON, BODY_KEYS, DISC, GROUP_COLOR, ordinal, signIcon } from '@/lib/redesign/astro'
+import type { HomePerson } from '@/lib/redesign/home-view'
+import { Facts, Fold, LearnHero, NextLinks, People, PrevNext, Prose } from '@/components/redesign/Learn'
 
 const PLANET_LOVE_LINK: Partial<Record<string, { href: string; label: string; sub: string }>> = {
   SUN:   { href: '/compatibility', label: 'Sun Sign Compatibility', sub: 'How your Sun sign connects with every other sign' },
   MOON:  { href: '/love/moon-sign-compatibility', label: 'Moon Sign Compatibility', sub: 'The relationship layer Sun signs miss' },
-  VENUS: { href: '/love', label: 'Love & Astrology', sub: 'What Venus reveals about how you attract and connect' },
-  MARS:  { href: '/love', label: 'Love & Astrology', sub: 'What Mars reveals about desire and pursuit in relationships' },
+  VENUS: { href: '/compatibility', label: 'Compatibility', sub: 'What Venus reveals about how you attract and connect' },
+  MARS:  { href: '/love/celebrity-couples', label: 'Famous couples', sub: 'What Mars reveals about desire and pursuit in relationships' },
 }
 
 const PLANET_ARTICLES: Record<string, { slug: string; title: string }[]> = {
@@ -102,6 +108,7 @@ interface PlanetPageProps {
   nextName: string | null
   famousCelebs: FamousCeleb[]
   celebSignLabel: string
+  people?: HomePerson[]
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -130,7 +137,12 @@ export const getStaticProps: GetStaticProps<PlanetPageProps> = async (context) =
   const rulingSign = PLANET_RULES[key] || 'Aries'
   const celebSignLabel = key === 'MOON' ? `${rulingSign} Moon` : `${rulingSign} Sun`
   const signCol = key === 'MOON' ? 'moon_sign' : 'sun_sign'
-  const famousCelebs = await getListableCelebrities<FamousCeleb>({
+  let people: HomePerson[] | undefined
+  if (redesignOn('hubs')) {
+    const { peopleWhere } = await import('@/lib/redesign/people')
+    try { people = await peopleWhere(`${signCol} = $1`, [rulingSign]) } catch { people = [] }
+  }
+  const famousCelebs = people ? [] : await getListableCelebrities<FamousCeleb>({
     columns: 'name, slug, image_url, sun_sign',
     where: `${signCol} = $1`,
     params: [rulingSign],
@@ -151,6 +163,7 @@ export const getStaticProps: GetStaticProps<PlanetPageProps> = async (context) =
       nextName: next ? (PLANETS[next]?.name ?? null) : null,
       famousCelebs,
       celebSignLabel,
+      ...(people ? { people } : {}),
     })),
     revalidate: 604800,
   }
@@ -162,7 +175,7 @@ const PLANET_RULES_SIGN: Record<string, string> = {
   PLUTO: 'Scorpio', NORTH_NODE: 'Virgo', CHIRON: 'Virgo', LILITH: 'Scorpio',
 }
 
-export default function PlanetDetailPage({ planet, key_, planetName, title, description, prevKey, prevName, nextKey, nextName, famousCelebs, celebSignLabel }: PlanetPageProps) {
+export default function PlanetDetailPage({ planet, key_, planetName, title, description, prevKey, prevName, nextKey, nextName, famousCelebs, celebSignLabel, people }: PlanetPageProps) {
   const info = PLANETS[key_]
   if (!info) return null
 
@@ -175,7 +188,7 @@ export default function PlanetDetailPage({ planet, key_, planetName, title, desc
   ]
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-12">
+    <>
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -193,6 +206,94 @@ export default function PlanetDetailPage({ planet, key_, planetName, title, desc
       </Head>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema([{ name: 'Home', url: 'https://birthchartlibrary.com' }, { name: 'Planets', url: 'https://birthchartlibrary.com/astrology-planets' }, { name: info.name, url: `https://birthchartlibrary.com/astrology-planets/${planet}` }])) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(faqs)) }} />
+      {people ? (() => {
+        const the = ['SUN', 'MOON', 'NORTH_NODE'].includes(key_) ? `The ${planetName}` : planetName
+        const keys = (BODY_KEYS[key_] ?? '').split(', ')
+        const classical = !['NORTH_NODE', 'CHIRON'].includes(key_)
+        const ruledIdx = SIGN_LIST.indexOf(ruledSign)
+        const books = PLANET_BOOKS[key_] ?? []
+        const loveLink = PLANET_LOVE_LINK[key_]
+        return (
+          <main className="rdp"><div className="lrn">
+            <LearnHero crumbs={[{ label: 'Planets', href: '/astrology-planets' }, { label: planetName }]} disc={{ color: DISC[key_] ?? DISC.RISING, icon: BODY_ICON[key_] }} kicker={classical ? 'Astrology planet' : 'Chart point'} title={the}>
+              <p>{the} stands for {keys.slice(0, -1).join(', ')} and {keys[keys.length - 1]}.</p>
+            </LearnHero>
+
+            {classical && ruledIdx >= 0 ? (
+              <Facts items={[
+                { label: 'Rules', value: ruledSign, href: `/zodiac-signs/${ruledSign.toLowerCase()}` },
+                { label: 'Natural house', value: `The ${ordinal(ruledIdx + 1)} house`, href: `/astrology-houses/${ruledIdx + 1}` },
+              ]} />
+            ) : null}
+
+            <Prose title={`About ${the.replace(/^The /, 'the ')}`} text={info.description} />
+            <Prose title="In mythology" text={info.mythology} />
+            <Prose title="As a transit" text={info.asTransit} />
+            {info.retrograde ? <Prose title={`${planetName} retrograde`} text={info.retrograde} /> : null}
+
+            <section className="lsec" id="signs">
+              <h2>{planetName} in the signs</h2>
+              <p className="lede">How each sign shapes {the.replace(/^The /, 'the ')}. Open one to read it.</p>
+              {SIGN_LIST.map(sign => {
+                const text = PLANET_IN_SIGN[`${key_}_${sign}`]
+                if (!text) return null
+                const el = SIGNS_INFO[sign]?.element ?? 'Fire'
+                return (
+                  <Fold key={sign} title={`${planetName} in ${sign}`} disc={{ color: GROUP_COLOR[el], icon: signIcon(sign) }}>
+                    {text.split(/\n\s*\n/).map((t, i) => <p key={i}>{t.trim()}</p>)}
+                    <Link className="go" href={`/zodiac-signs/${sign.toLowerCase()}`}>All about {sign}</Link>
+                  </Fold>
+                )
+              })}
+            </section>
+
+            <section className="lsec" id="houses">
+              <h2>{planetName} in the houses</h2>
+              <p className="lede">Where in life {the.replace(/^The /, 'the ')} does its work.</p>
+              {Array.from({ length: 12 }, (_, i) => i + 1).map(h => {
+                const text = PLANET_IN_HOUSE[`${key_}_H${h}`]
+                if (!text) return null
+                return (
+                  <Fold key={h} title={`${planetName} in the ${ordinal(h)} house`} disc={{ color: '#C9CFEA', text: String(h) }}>
+                    {text.split(/\n\s*\n/).map((t, i) => <p key={i}>{t.trim()}</p>)}
+                    <Link className="go" href={`/astrology-houses/${h}`}>All about the {ordinal(h)} house</Link>
+                  </Fold>
+                )
+              })}
+            </section>
+
+            {/* No people for the Node and Chiron: they rule no sign, so there is no honest list. */}
+            {classical ? <People title={`Famous ${celebSignLabel}s`} lede={`${the} rules ${celebSignLabel.split(' ')[0]}.`} people={people} more={key_ === 'MOON' ? undefined : { href: `/celebrity-birth-charts/sign/${celebSignLabel.split(' ')[0].toLowerCase()}`, label: `All ${celebSignLabel.split(' ')[0]} charts` }} /> : null}
+
+            {books.length > 0 ? (
+              <section className="lsec">
+                <h2>Books about {the.replace(/^The /, 'the ')}</h2>
+                <div className="books">
+                  {books.map(book => (
+                    <a key={book.amazonUrl} className="bk" href={book.amazonUrl} target="_blank" rel="noopener noreferrer nofollow">
+                      {bookCoverUrl(book.amazonUrl) ? <img src={bookCoverUrl(book.amazonUrl)!} alt="" loading="lazy" onError={e => { e.currentTarget.style.display = 'none' }} /> : null}
+                      <span><b>{book.title}</b><small>by {book.author}</small><span className="bl">{book.blurb}</span></span>
+                    </a>
+                  ))}
+                </div>
+                <p className="disclose">As an Amazon Associate, Birth Chart Library earns from qualifying purchases.</p>
+              </section>
+            ) : null}
+
+            <NextLinks title="From the blog" links={(PLANET_ARTICLES[key_] ?? []).map(a => ({ href: `/blog/${a.slug}`, title: a.title.replace(' \u2014 ', ': ') }))} />
+
+            <NextLinks links={[
+              { href: '/birth-chart?ref=planet-page', title: `Where is your ${planetName}?`, sub: `Your free chart shows its sign, house and what it means for you.` },
+              { href: `/astrology-interpretations/${planet === 'north_node' ? 'north-node' : planet}`, title: 'Interpretation library', sub: `Every ${planetName} placement in one place.` },
+              { href: '/astrology-aspects', title: 'The aspects', sub: `How ${the.replace(/^The /, 'the ')} talks to the other planets.` },
+              ...(loveLink ? [{ href: loveLink.href, title: loveLink.label.replace(' & ', ' and ').replace('Sun Sign Compatibility', 'Sign compatibility').replace('Moon Sign Compatibility', 'Moon sign compatibility'), sub: loveLink.sub + '.' }] : []),
+            ]} />
+
+            <PrevNext prev={prevKey && prevName ? { href: `/astrology-planets/${prevKey}`, label: prevName } : null} next={nextKey && nextName ? { href: `/astrology-planets/${nextKey}`, label: nextName } : null} />
+          </div></main>
+        )
+      })() : (
+      <main className="max-w-3xl mx-auto px-4 py-12">
       {/* Breadcrumb */}
       <AdminBreadcrumb crumbs={[
         { label: 'Planets', href: '/astrology-planets' },
@@ -210,28 +311,38 @@ export default function PlanetDetailPage({ planet, key_, planetName, title, desc
         <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{info.description}</p>
       </div>
 
+      <SectionStrip label={`${planetName} on this page`} sections={[
+        { id: 'mythology', label: 'Mythology' },
+        { id: 'transit', label: 'Transits' },
+        ...(info.retrograde ? [{ id: 'retrograde', label: 'Retrograde' }] : []),
+        { id: 'signs', label: 'Signs' },
+        { id: 'houses', label: 'Houses' },
+        ...(famousCelebs.length > 0 ? [{ id: 'famous', label: 'Famous charts' }] : []),
+        ...(PLANET_BOOKS[key_]?.length ? [{ id: 'reading', label: 'Reading' }] : []),
+      ]} />
+
       {/* Mythology & Symbolism */}
       <section className="mb-10">
-        <h2 className="text-xl font-semibold mb-3">{planetName} in Mythology &amp; Symbolism</h2>
+        <h2 id="mythology" className="text-xl font-semibold mb-3">{planetName} in mythology and symbolism</h2>
         <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{info.mythology}</p>
       </section>
 
       {/* As a Transit */}
       <section className="mb-10">
-        <h2 className="text-xl font-semibold mb-3">{planetName} as a Transit</h2>
+        <h2 id="transit" className="text-xl font-semibold mb-3">{planetName} as a transit</h2>
         <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{info.asTransit}</p>
       </section>
 
       {/* Retrograde (conditional) */}
       {info.retrograde && (
         <section className="mb-10">
-          <h2 className="text-xl font-semibold mb-3">{planetName} Retrograde</h2>
+          <h2 id="retrograde" className="text-xl font-semibold mb-3">{planetName} retrograde</h2>
           <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{info.retrograde}</p>
         </section>
       )}
 
       {/* In each sign */}
-      <h2 className="text-xl font-semibold mb-4">{info.name} in the Signs</h2>
+      <h2 id="signs" className="text-xl font-semibold mb-4">{info.name} in the signs</h2>
       <p className="text-slate-500 text-sm mb-6">
         How {info.name}&apos;s energy is shaped by each zodiac sign.
       </p>
@@ -255,7 +366,7 @@ export default function PlanetDetailPage({ planet, key_, planetName, title, desc
       </div>
 
       {/* In each house */}
-      <h2 className="text-xl font-semibold mb-4">{info.name} in the Houses</h2>
+      <h2 id="houses" className="text-xl font-semibold mb-4">{info.name} in the houses</h2>
       <p className="text-slate-500 text-sm mb-6">
         How {info.name}&apos;s energy is focused by each house placement.
       </p>
@@ -268,7 +379,7 @@ export default function PlanetDetailPage({ planet, key_, planetName, title, desc
               <h3 className="font-medium mb-2">
                 {info.name} in the{' '}
                 <Link href={`/astrology-houses/${house}`} className="text-slate-600 hover:text-slate-600 transition-colors">
-                  {house === 1 ? '1st' : house === 2 ? '2nd' : house === 3 ? '3rd' : `${house}th`} House
+                  {house === 1 ? '1st' : house === 2 ? '2nd' : house === 3 ? '3rd' : `${house}th`} house
                 </Link>
               </h3>
               <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{text}</p>
@@ -280,7 +391,7 @@ export default function PlanetDetailPage({ planet, key_, planetName, title, desc
       {/* Famous celebrities */}
       {famousCelebs.length > 0 && (
         <div className="mt-12">
-          <h2 className="text-xl font-semibold mb-2">Famous {celebSignLabel} Celebrities</h2>
+          <h2 id="famous" className="text-xl font-semibold mb-2">Famous {celebSignLabel}s</h2>
           <p className="text-slate-500 text-sm mb-5">
             {planetName} rules {celebSignLabel.split(' ')[0]}. Here are some notable {celebSignLabel.toLowerCase()} charts.
           </p>
@@ -312,11 +423,11 @@ export default function PlanetDetailPage({ planet, key_, planetName, title, desc
       {/* Quick links */}
       <div className="grid sm:grid-cols-3 gap-3 mt-10 mb-4">
         <Link href={`/astrology-interpretations/${planet === 'north_node' ? 'north-node' : planet}`} className="card hover:border-slate-400 transition-colors group">
-          <p className="font-medium text-sm group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">Interpretation Library</p>
+          <p className="font-medium text-sm group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">Interpretation library</p>
           <p className="text-xs text-slate-400 mt-0.5">Every {planetName} placement — all signs &amp; houses</p>
         </Link>
         <Link href="/astrology-aspects" className="card hover:border-slate-400 transition-colors group">
-          <p className="font-medium text-sm group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">Aspects Guide</p>
+          <p className="font-medium text-sm group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">Aspects guide</p>
           <p className="text-xs text-slate-400 mt-0.5">How {planetName} interacts with other planets</p>
         </Link>
         {ruledSign && (
@@ -334,7 +445,7 @@ export default function PlanetDetailPage({ planet, key_, planetName, title, desc
           <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Calculate your free birth chart to find your {planetName} sign, house, and personal interpretation.</p>
         </div>
         <a href="/signup?ref=planet-page" className="btn-primary shrink-0 px-6 py-2.5 text-sm whitespace-nowrap">
-          Get My Free Chart
+          Get my free chart
         </a>
       </div>
 
@@ -350,7 +461,7 @@ export default function PlanetDetailPage({ planet, key_, planetName, title, desc
       {/* Recommended Reading */}
       {PLANET_BOOKS[key_] && PLANET_BOOKS[key_].length > 0 && (
         <div className="mt-12">
-          <h2 className="text-xl font-semibold mb-2">Recommended Reading</h2>
+          <h2 id="reading" className="text-xl font-semibold mb-2">Recommended reading</h2>
           <p className="text-slate-500 text-sm mb-5">
             Books that go deeper on {planetName} — its mythology, transits, and role in your birth chart.
           </p>
@@ -414,5 +525,7 @@ export default function PlanetDetailPage({ planet, key_, planetName, title, desc
         ) : <span />}
       </div>
     </main>
+      )}
+    </>
   )
 }

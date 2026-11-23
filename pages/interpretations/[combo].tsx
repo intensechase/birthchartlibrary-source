@@ -13,6 +13,11 @@ import { SignGlyph } from '@/components/Glyph'
 import { PLANET_PATHS, toneOf } from '@/components/NatalChartWheel'
 import { CelebFace, cleanCelebName } from '@/components/FeaturedCelebs'
 import Scallop from '@/components/Scallop'
+import { placementWhere } from '@/lib/celebrities'
+import { redesignOn } from '@/lib/redesign'
+import { BODY_ICON, DISC, GROUP_COLOR, HOUSE_KEYS, signIcon } from '@/lib/redesign/astro'
+import type { HomePerson } from '@/lib/redesign/home-view'
+import { Facts, Fold, LearnHero, NextLinks, People, Prose, TileGrid } from '@/components/redesign/Learn'
 
 const INK = 'text-slate-800 dark:text-slate-100'
 const MUTED = 'text-slate-500 dark:text-slate-400'
@@ -66,6 +71,15 @@ interface Props {
   combinedInterpretations: { house: number; text: string }[] | null
   celebrities: Celebrity[]
   relatedLinks: { href: string; label: string }[]
+  people?: HomePerson[]
+}
+
+// Ranked people for the redesign (same match as getCelebritiesWithPlacement).
+async function rankedPeople(planetKey: string, placement: { sign: string } | { house: number }): Promise<HomePerson[] | undefined> {
+  if (!redesignOn('hubs')) return undefined
+  const { peopleWhere } = await import('@/lib/redesign/people')
+  const { where, params } = placementWhere(planetKey, placement)
+  try { return await peopleWhere(where, params) } catch { return [] }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -108,6 +122,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
     const ordinal = house === 1 ? '1st' : house === 2 ? '2nd' : house === 3 ? '3rd' : `${house}th`
 
     const celebrities = await getCelebritiesWithPlacement(planetKey, { house })
+    const people = await rankedPeople(planetKey, { house })
 
     const relatedLinks: { href: string; label: string }[] = []
     // Other planets in this house
@@ -138,6 +153,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
         combinedInterpretations: null,
         celebrities,
         relatedLinks: relatedLinks.slice(0, 12),
+        ...(people ? { people } : {}),
       },
     }
   }
@@ -163,6 +179,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
     // People whose own chart has this placement (read from chart_data).
     const celebrities = await getCelebritiesWithPlacement(planetKey, { sign: signName })
+    const people = await rankedPeople(planetKey, { sign: signName })
 
     const relatedLinks: { href: string; label: string }[] = []
     // Other planets in this sign
@@ -192,6 +209,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
         combinedInterpretations,
         celebrities,
         relatedLinks: relatedLinks.slice(0, 12),
+        ...(people ? { people } : {}),
       })),
       revalidate: 604800,
     }
@@ -200,7 +218,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   return { notFound: true }
 }
 
-export default function InterpretationPage({ type, planetSlug, planetKey, planetName, signOrHouse, title, metaDescription, interpretation, combinedInterpretations, celebrities, relatedLinks }: Props) {
+export default function InterpretationPage({ type, planetSlug, planetKey, planetName, signOrHouse, title, metaDescription, interpretation, combinedInterpretations, celebrities, relatedLinks, people }: Props) {
   const isSign = type === 'sign'
   const canonicalPath = `/interpretations/${planetSlug}-in-${isSign ? signOrHouse.toLowerCase() : `house-${signOrHouse.split(' ')[0].replace(/[a-z]/g, '')}`}`
 
@@ -241,6 +259,70 @@ export default function InterpretationPage({ type, planetSlug, planetKey, planet
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(faqItems)) }} />
       )}
 
+      {redesignOn('hubs') ? (() => {
+        const houseNum = isSign ? 0 : parseInt(signOrHouse, 10)
+        const ord = isSign ? '' : ordinalOf(houseNum)
+        const where = isSign ? signOrHouse : `the ${ord} house`
+        const the = ['SUN', 'MOON', 'NORTH_NODE'].includes(planetKey) ? `the ${planetName}` : planetName
+        const pDisc = { color: DISC[planetKey] ?? DISC.RISING, icon: BODY_ICON[planetKey] }
+        const el = isSign ? SIGNS[signOrHouse]?.element ?? 'Fire' : ''
+        const signSlug = signOrHouse.toLowerCase()
+        const planetTiles = PLANET_ORDER.filter(p => p !== planetSlug).map(p => {
+          const k = PLANET_KEYS[p]
+          return { href: isSign ? `/interpretations/${p}-in-${signSlug}` : `/interpretations/${p}-in-house-${houseNum}`, label: planetLabel(k), dot: DISC[k] ?? DISC.RISING, sub: isSign ? signOrHouse : `${ord} house` }
+        })
+        const placeTiles = isSign
+          ? SIGN_NAMES.filter(s => s !== signSlug).map(s => ({ href: `/interpretations/${planetSlug}-in-${s}`, label: capitalize(s), sub: SIGNS[capitalize(s)]?.element, dot: GROUP_COLOR[SIGNS[capitalize(s)]?.element ?? 'Fire'] }))
+          : Array.from({ length: 12 }, (_, i) => i + 1).filter(h => h !== houseNum).map(h => ({ href: `/interpretations/${planetSlug}-in-house-${h}`, label: `${ordinalOf(h)} house`, sub: HOUSE_KEYS[h].split(', ')[0] }))
+        return (
+          <main className="rdp"><div className="lrn">
+            <LearnHero
+              crumbs={[{ label: 'Interpretations', href: '/astrology-interpretations' }, { label: planetName, href: `/astrology-interpretations/${planetSlug}` }, { label: isSign ? signOrHouse : `${ord} house` }]}
+              disc={[pDisc, isSign ? { color: GROUP_COLOR[el], icon: signIcon(signOrHouse) } : { color: '#C9CFEA', text: String(houseNum) }]}
+              kicker="Interpretation"
+              title={`${planetName} in ${where}`}
+            />
+
+            <Facts items={[
+              { label: 'Planet', value: planetName, href: `/astrology-planets/${planetSlug === 'north-node' ? 'north_node' : planetSlug}` },
+              isSign
+                ? { label: 'Sign', value: signOrHouse, href: `/zodiac-signs/${signSlug}` }
+                : { label: 'House', value: `The ${ord} house`, href: `/astrology-houses/${houseNum}` },
+            ]} />
+
+            {paragraphs.length ? <Prose text={paragraphs.join('\n\n')} /> : null}
+
+            {combinedInterpretations && combinedInterpretations.length > 0 ? (
+              <section className="lsec">
+                <h2>{planetName} in {signOrHouse} by house</h2>
+                <p className="lede">The house shows where in life {the} in {signOrHouse} plays out. Open one to read it.</p>
+                {combinedInterpretations.map(ci => (
+                  <Fold key={ci.house} title={`In the ${ordinalOf(ci.house)} house`} sub={HOUSE_KEYS[ci.house]} disc={{ color: '#C9CFEA', text: String(ci.house) }}>
+                    {ci.text.replace(/\r\n/g, '\n').split('\n\n').filter(p => p.trim()).map((p, i) => <p key={i}>{p.trim()}</p>)}
+                  </Fold>
+                ))}
+              </section>
+            ) : null}
+
+            <People title={`Famous people with ${planetName} in ${where}`} people={people ?? []} />
+
+            <section className="lsec">
+              <h2>{planetName} in other {isSign ? 'signs' : 'houses'}</h2>
+              <TileGrid items={placeTiles} />
+            </section>
+            <section className="lsec">
+              <h2>Other planets in {where}</h2>
+              <TileGrid items={planetTiles} />
+            </section>
+
+            <NextLinks links={[
+              { href: '/birth-chart?ref=interp-next', title: `Where is your ${planetName}?`, sub: 'Your free chart shows its sign, its house and what both mean for you.' },
+              { href: '/astrology-interpretations', title: 'Interpretation library', sub: 'Any planet in any sign or house.' },
+            ]} />
+          </div></main>
+        )
+      })() : (
+      <>
       {/* Hero band */}
       <section className="bg-[var(--band)]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-5 pb-9">
@@ -347,6 +429,8 @@ export default function InterpretationPage({ type, planetSlug, planetKey, planet
           </aside>
         </div>
       </main>
+      </>
+      )}
     </>
   )
 }

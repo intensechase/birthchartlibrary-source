@@ -1,8 +1,14 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { GetStaticProps } from 'next'
-import { useState } from 'react'
+import { useTabState } from '@/lib/use-tab-state'
 import { query } from '@/lib/db'
+import { NOINDEX_BLOG_SQL } from '@/lib/thin-pages'
+import { redesignOn } from '@/lib/redesign'
+import { LearnHero } from '@/components/redesign/Learn'
+
+// DB categories are lowercase slugs; show them as words.
+const label = (c: string) => c.charAt(0).toUpperCase() + c.slice(1)
 
 interface Article {
   slug: string
@@ -29,7 +35,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const dbArticles = await query<{ slug: string; title: string; description: string; publish_date: string; category: string; read_time: string }>(
     `SELECT slug, title, description, publish_date, category, read_time
      FROM blog_articles
-     WHERE published = true AND publish_date <= $1
+     WHERE published = true AND publish_date <= $1 AND ${NOINDEX_BLOG_SQL}
      ORDER BY publish_date DESC`,
     [today]
   )
@@ -50,7 +56,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 }
 
 export default function BlogPage({ articles }: Props) {
-  const [activeCategory, setActiveCategory] = useState<string>('all')
+  const [activeCategory, setActiveCategory] = useTabState<string>('blog', 'all', v => v === 'all' || articles.some(a => a.category === v))
 
   const categories = ['all', ...Array.from(new Set(articles.map(a => a.category)))]
   const categoryCounts = Object.fromEntries(categories.filter(c => c !== 'all').map(c => [c, articles.filter(a => a.category === c).length]))
@@ -67,6 +73,30 @@ export default function BlogPage({ articles }: Props) {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
       </Head>
+      {redesignOn('hubs') ? (
+        <main className="rdp"><div className="lrn">
+          <LearnHero title="Articles">
+            <p>Astrology explained... one article at a time.</p>
+          </LearnHero>
+          <div className="chips filt" role="group" aria-label="Filter by topic">
+            {categories.map(cat => (
+              <button key={cat} type="button" className="chip" aria-pressed={activeCategory === cat} onClick={() => setActiveCategory(cat)}>
+                {cat === 'all' ? 'All' : label(cat)} <small>{cat === 'all' ? articles.length : categoryCounts[cat] ?? 0}</small>
+              </button>
+            ))}
+          </div>
+          <ul className="rank">
+            {filtered.map(a => (
+              <li key={a.slug}>
+                <Link href={`/blog/${a.slug}`}>
+                  <span className="rt"><b>{a.title}</b><small>{a.description}</small></span>
+                  <span className="rs"><em>{a.readTime}</em></span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div></main>
+      ) : (
       <main className="max-w-3xl mx-auto px-4 py-20">
         <h1 className="font-display text-5xl md:text-6xl tracking-wide text-slate-800 dark:text-slate-100 mb-3">Blog</h1>
         <p className="text-slate-500 dark:text-slate-400 text-base mb-12">Astrology explained... one article at a time.</p>
@@ -143,6 +173,7 @@ export default function BlogPage({ articles }: Props) {
           </div>
         )}
       </main>
+      )}
     </>
   )
 }

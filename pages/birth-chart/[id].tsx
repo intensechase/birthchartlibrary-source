@@ -1,7 +1,8 @@
 import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { track } from '@/lib/track'
 import { getUser } from '@/lib/auth'
 import { queryOne, parseJsonb } from '@/lib/db'
 import { decryptBirthFields } from '@/lib/crypto'
@@ -10,6 +11,9 @@ import { buildInterpBundle } from '@/lib/chartInterp'
 import ChartDetail from '@/components/ChartDetail'
 import DashboardLayout from '@/components/DashboardLayout'
 import type { Interpretations } from '@/components/chart/PlanetCard'
+import { redesignOn } from '@/lib/redesign'
+import type { CelebView } from '@/lib/redesign/celeb-view'
+import MinePage, { OwnerLine, OwnerFoot, SharedBar, titleOf } from '@/components/redesign/MinePage'
 
 interface Props {
   notFound?: boolean
@@ -20,6 +24,7 @@ interface Props {
   birthTime?: string | null
   birthCity?: string
   isOwner?: boolean
+  own?: boolean // the reader's own chart (lights My chart in the header)
   isPublic?: boolean
   chartId?: string
   sunSign?: string | null
@@ -31,6 +36,9 @@ interface Props {
   interp?: Interpretations
   metaTitle?: string
   metaDescription?: string
+  // stage 'mine'
+  view?: CelebView | null
+  subjectName?: string | null
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
@@ -78,6 +86,15 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
   const venusSign   = chartData.planets.find(p => p.planet === 'VENUS')?.sign   ?? null
   const marsSign    = chartData.planets.find(p => p.planet === 'MARS')?.sign    ?? null
 
+  // Stage 'mine': read like a celebrity chart. "Your" only for the owner's own
+  // chart; anyone else opening a shared link reads it in the third person.
+  let view: CelebView | null = null
+  const subjectName = chart.subject_name || (isOwner ? null : 'this person')
+  if (redesignOn('mine')) {
+    const { buildMineView } = await import('@/lib/redesign/mine-view')
+    view = await buildMineView({ chart: chartData, birthDate: chart.birth_date, birthTime: chart.birth_time ?? null, birthCity: chart.birth_city ?? '', subjectName, lat: chart.birth_lat, lng: chart.birth_lng })
+  }
+
   return {
     props: {
       chartData,
@@ -86,6 +103,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
       birthTime: chart.birth_time ?? null,
       birthCity: chart.birth_city ?? '',
       isOwner,
+      own: isOwner && !chart.subject_name,
       isPublic: chart.is_public,
       chartId: chart.id,
       sunSign,
@@ -95,14 +113,17 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
       venusSign,
       marsSign,
       interp,
+      view: view ? JSON.parse(JSON.stringify(view)) : null,
+      subjectName: chart.subject_name || null,
       metaTitle: `${chart.label || 'My Chart'} — Birth Chart`,
       metaDescription: `Birth chart for ${chart.label || 'this person'}, born ${chart.birth_date} in ${chart.birth_city}. Full natal chart with planet positions, house placements, and detailed interpretations.`,
     },
   }
 }
 
-export default function ChartDetailPage({ noData, chartData, label, birthDate, birthTime, birthCity, isOwner, isPublic: initialIsPublic, chartId, sunSign, moonSign, risingSign, mercurySign, venusSign, marsSign, interp, metaTitle, metaDescription }: Props) {
+export default function ChartDetailPage({ noData, chartData, label, birthDate, birthTime, birthCity, isOwner, isPublic: initialIsPublic, chartId, sunSign, moonSign, risingSign, mercurySign, venusSign, marsSign, interp, metaTitle, metaDescription, view, subjectName, own }: Props) {
   const [isPublic, setIsPublic] = useState(initialIsPublic ?? false)
+  useEffect(() => { if (own) track('my_chart_opened') }, [own, chartId])
   const [shareLoading, setShareLoading] = useState(false)
   const [copied, setCopied] = useState(false)
   const [downloading, setDownloading] = useState(false)
@@ -177,8 +198,9 @@ export default function ChartDetailPage({ noData, chartData, label, birthDate, b
 
   const head = (
     <Head>
-      <title>{`${metaTitle || 'Birth Chart'} | Birth Chart Library`}</title>
-      {metaDescription && <meta name="description" content={metaDescription} />}
+      {/* Plain on purpose: Analytics records page titles, and chart names are private. */}
+      <title>Birth chart | Birth Chart Library</title>
+      {isPublic && metaDescription && <meta name="description" content={metaDescription} />}
       {!isPublic && <meta name="robots" content="noindex" />}
       {isPublic && ogImageUrl && (
         <>
@@ -246,7 +268,7 @@ export default function ChartDetailPage({ noData, chartData, label, birthDate, b
         <p className="text-slate-500 text-sm mt-1">Get your free birth chart — Sun, Moon, Rising, and 1,700+ interpretations.</p>
       </div>
       <Link href="/signup?ref=shared-chart" className="btn-primary shrink-0 px-6 py-2.5 text-sm whitespace-nowrap">
-        Get My Free Chart
+        Get my free chart
       </Link>
     </div>
   ) : null
@@ -273,6 +295,21 @@ export default function ChartDetailPage({ noData, chartData, label, birthDate, b
       ) : null}
     </main>
   )
+
+  if (view && chartId) {
+    const shareText = [sunSign && `${sunSign} Sun`, moonSign && `${moonSign} Moon`, risingSign && `${risingSign} Rising`].filter(Boolean).join(', ')
+    const line = isOwner ? <OwnerLine chartId={chartId} own={!subjectName} subject={subjectName} /> : undefined
+    const foot = isOwner
+      ? <OwnerFoot chartId={chartId} isPublic={initialIsPublic ?? false} shareText={shareText} ogUrl={buildOgUrl} fileBase={(label || 'birth-chart').toLowerCase().replace(/\s+/g, '-')} own={!subjectName} subject={subjectName} />
+      : <SharedBar />
+    const heading = isOwner ? undefined : subjectName ? titleOf(subjectName) : { title: 'A shared birth chart', whose: 'this person’s' }
+    return (
+      <>
+        {head}
+        <MinePage chart={{ view, birthDate: birthDate!, birthTime: birthTime ?? null, birthCity: birthCity ?? '', subjectName: isOwner ? subjectName ?? null : subjectName ?? 'this person' }} line={line} foot={foot} heading={heading} />
+      </>
+    )
+  }
 
   if (!isOwner) {
     // Public view: use the site's standard header/footer (via _app.tsx) without the dashboard sidebar

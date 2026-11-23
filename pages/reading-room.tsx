@@ -158,7 +158,7 @@ export default function ReadingRoom({ monthlyPick, previousPicks, beginnerBooks,
         {/* Previous Monthly Picks */}
         {previousPicks.length > 0 && (
           <section className="mb-16">
-            <h2 className="font-display text-2xl tracking-wide mb-1">Previous Picks</h2>
+            <h2 className="font-display text-2xl tracking-wide mb-1">Previous picks</h2>
             <p className="text-sm text-slate-400 mb-4">What we recommended in past months</p>
             <div className="space-y-3">
               {previousPicks.map(book => (
@@ -194,7 +194,7 @@ export default function ReadingRoom({ monthlyPick, previousPicks, beginnerBooks,
         {/* Start Here */}
         {beginnerBooks.length > 0 && (
           <section className="mb-16">
-            <h2 className="font-display text-2xl tracking-wide mb-1">Start Here</h2>
+            <h2 className="font-display text-2xl tracking-wide mb-1">Start here</h2>
             <p className="text-sm text-slate-400 mb-4">New to birth charts? These will get you grounded</p>
             <div className="space-y-3">
               {beginnerBooks.map(book => <BookCard key={book.id} book={book} />)}
@@ -205,7 +205,7 @@ export default function ReadingRoom({ monthlyPick, previousPicks, beginnerBooks,
         {/* Go Deeper */}
         {intermediateBooks.length > 0 && (
           <section className="mb-16">
-            <h2 className="font-display text-2xl tracking-wide mb-1">Go Deeper</h2>
+            <h2 className="font-display text-2xl tracking-wide mb-1">Go deeper</h2>
             <p className="text-sm text-slate-400 mb-4">Ready to explore aspects, transits, and technique</p>
             <div className="space-y-3">
               {intermediateBooks.map(book => <BookCard key={book.id} book={book} />)}

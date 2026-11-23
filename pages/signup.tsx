@@ -1,7 +1,12 @@
-import { useState, useMemo, useRef } from 'react'
+import { useState, useMemo, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { REDESIGN_ANY } from '@/lib/redesign'
+import { PENDING_COMPARE_KEY, clearWaiting, waitingChart, type PendingChart } from '@/lib/kept-chart'
+import { safeSessionGet } from '@/lib/safe-storage'
+import { safeNext } from '@/lib/safe-next'
+import { track } from '@/lib/track'
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 
 function PasswordRule({ met, label }: { met: boolean; label: string }) {
@@ -45,6 +50,14 @@ function StarField() {
   )
 }
 
+// "1990-07-04" to "July 4, 1990"; anything else passes through.
+function niceDate(iso: string): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso)
+  if (!m) return iso
+  const names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  return `${names[Number(m[2]) - 1]} ${Number(m[3])}, ${m[1]}`
+}
+
 export default function SignupPage() {
   const router = useRouter()
   const ref = router.query.ref as string | undefined
@@ -58,6 +71,13 @@ export default function SignupPage() {
   const [turnstileReady, setTurnstileReady] = useState(false)
   const [honeypot, setHoneypot] = useState('')
   const turnstileRef = useRef<TurnstileInstance>(null)
+  // A chart the reader made before signing up (set by the chart page's save
+  // bar). It is sent with the sign up so it saves in the same step.
+  const [held, setHeld] = useState<PendingChart | null>(null)
+  // A comparison they pressed Save on: the compare page saves it on arrival.
+  const [compare, setCompare] = useState(false)
+  useEffect(() => { setHeld(waitingChart()); setCompare(safeSessionGet(PENDING_COMPARE_KEY) !== null) }, [])
+  const next = safeNext(router.query.next)
 
   const rules = {
     length: password.length >= 8,
@@ -96,7 +116,7 @@ export default function SignupPage() {
     const signupRes = await fetch('/api/auth/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, turnstileToken, signup_source: signupSource, signup_ref: signupRef }),
+      body: JSON.stringify({ email, password, turnstileToken, signup_source: signupSource, signup_ref: signupRef, chart: held }),
     })
 
     const data = await signupRes.json()
@@ -117,7 +137,13 @@ export default function SignupPage() {
         lead_type: 'Free Account',
       })
     }
-    window.location.href = '/birth-chart?welcome=true'
+    // Straight to the saved chart when it saved with the account; a page that
+    // sent the reader here (compare) gets them back; otherwise make a chart.
+    track('signup_finished', compare ? 'comparison' : !held ? 'none' : held.isForSelf ? 'self' : 'someone')
+    if (data.chartId && held) clearWaiting(held)
+    if (compare) window.location.href = '/calculators/synastry?saving=1'
+    else if (data.chartId) window.location.href = `/birth-chart/${data.chartId}`
+    else window.location.href = next ?? '/birth-chart?welcome=true'
   }
 
   function handleTurnstileExpire() {
@@ -147,16 +173,19 @@ export default function SignupPage() {
         <meta name="robots" content="noindex" />
       </Head>
       <main className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
-        <StarField />
+        {REDESIGN_ANY ? null : <StarField />}
 
         <div className="relative z-10 w-full max-w-md">
           <div className="text-center mb-8">
-            <div className="text-3xl mb-3 tracking-widest text-slate-400">{'\u2726'} {'\u2726'} {'\u2726'}</div>
-            <h1 className="font-serif text-4xl font-bold mb-2 bg-gradient-to-b from-slate-800 to-slate-500 bg-clip-text text-transparent">
-              Begin Your Journey
+            <h1 className="font-display text-4xl font-bold mb-3">
+              {compare ? 'Keep your comparison' : held ? 'Keep your chart' : 'Create your free account'}
             </h1>
-            <p className="text-slate-500 text-sm">
-              Create your account to generate your natal chart
+            <p className="text-slate-500">
+              {compare
+                ? `Your comparison saves to your account as you sign up${held ? ', and so does your chart' : ''}.`
+                : held
+                ? `${held.isForSelf === false && held.subjectName ? `${held.subjectName}’s chart` : 'Your chart'} for ${niceDate(held.birthDate)} saves to your account as you sign up. Private unless you share it.`
+                : 'Save your chart and the charts of people you know, and compare any two.'}
             </p>
           </div>
 
@@ -167,7 +196,7 @@ export default function SignupPage() {
               </div>
               <div>
                 <label className="block text-xs uppercase tracking-widest mb-2 text-slate-500 dark:text-slate-400">
-                  Email Address <span aria-hidden="true" className="text-rose-600 normal-case">*</span>
+                  Email address <span aria-hidden="true" className="text-rose-600 normal-case">*</span>
                   <span className="sr-only">(required)</span>
                 </label>
                 <input type="email" required autoComplete="email" autoCapitalize="none" autoCorrect="off" inputMode="email" value={email} onChange={e => setEmail(e.target.value)} className="input" placeholder="you@example.com" />
@@ -248,7 +277,7 @@ export default function SignupPage() {
                   <p>{error}</p>
                   {error.includes('already exists') && (
                     <div className="mt-2 flex gap-3 text-xs">
-                      <Link href="/login" className="underline underline-offset-2 hover:text-red-700">Sign in</Link>
+                      <Link href={next ? `/login?redirectTo=${encodeURIComponent(next)}` : '/login'} className="underline underline-offset-2 hover:text-red-700">Sign in</Link>
                       <Link href="/forgot-password" className="underline underline-offset-2 hover:text-red-700">Reset password</Link>
                     </div>
                   )}
@@ -270,12 +299,12 @@ export default function SignupPage() {
 
             <p className="text-xs text-center mt-6 text-slate-400 dark:text-slate-500">
               Already have an account?{' '}
-              <Link href="/login" className="text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100 transition-colors">Sign in</Link>
+              <Link href={next ? `/login?redirectTo=${encodeURIComponent(next)}` : '/login'} className="text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100 transition-colors">Sign in</Link>
             </p>
           </div>
 
           <p className="text-center text-xs text-slate-400 mt-6">
-            Free forever · Open source · Ad-supported
+            Free · Open source · Ad supported
           </p>
         </div>
       </main>

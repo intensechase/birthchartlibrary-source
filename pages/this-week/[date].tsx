@@ -98,7 +98,7 @@ export default function WeeklyPage({ week, startStr, endStr, prevDate, hasPrev, 
         {/* Weekly events */}
         {week.events.length > 0 && (
           <section className="mb-8">
-            <h2 className="font-display text-xl tracking-wide mb-4">Key Events</h2>
+            <h2 className="font-display text-xl tracking-wide mb-4">Key events</h2>
             <div className="space-y-3">
               {week.events.map((event, i) => {
                 const endP = week.endPositions.find(p => p.planet === event.planet)
@@ -134,7 +134,7 @@ export default function WeeklyPage({ week, startStr, endStr, prevDate, hasPrev, 
 
         {/* Moon this week */}
         <section className="mb-8">
-          <h2 className="font-display text-xl tracking-wide mb-4">The Moon This Week</h2>
+          <h2 className="font-display text-xl tracking-wide mb-4">The Moon this week</h2>
           <p className="text-slate-500 text-sm mb-4">
             The Moon passes through {week.moonSigns.length} signs this week: {week.moonSigns.join(', ')}.
           </p>
@@ -156,7 +156,7 @@ export default function WeeklyPage({ week, startStr, endStr, prevDate, hasPrev, 
 
         {/* Planet positions at week start */}
         <section className="mb-8">
-          <h2 className="font-display text-xl tracking-wide mb-4">Planetary Positions</h2>
+          <h2 className="font-display text-xl tracking-wide mb-4">Planetary positions</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {week.startPositions.filter(p => p.planet !== 'MOON' && p.planet !== 'NORTH_NODE').map(p => {
               const ec = getElementColor(p.sign)
@@ -180,7 +180,7 @@ export default function WeeklyPage({ week, startStr, endStr, prevDate, hasPrev, 
         <div className="p-6 bg-slate-50 border border-slate-200 rounded-xl text-center mb-8">
           <p className="font-display text-xl tracking-wide mb-2">How does this week affect your chart?</p>
           <p className="text-slate-500 text-sm mb-4">Generate your birth chart to see how this week's transits interact with your specific planetary positions.</p>
-          <Link href="/signup" className="btn-primary">Create Your Free Chart</Link>
+          <Link href="/signup" className="btn-primary">Create your free chart</Link>
         </div>
 
         {/* Prev / Next */}

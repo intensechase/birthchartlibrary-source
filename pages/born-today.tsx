@@ -4,9 +4,12 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import { GetStaticProps } from 'next'
-import { getListableCelebrities } from '@/lib/celebrities'
+import { FRONT_PAGE_OK_SQL, getListableCelebrities } from '@/lib/celebrities'
 import { getElementColor } from '@/lib/zodiac-colors'
 import { SignGlyph } from '@/components/Glyph'
+import { redesignOn } from '@/lib/redesign'
+import RedesignBornToday from '@/components/redesign/BornTodayPage'
+import type { HomePerson } from '@/lib/redesign/home-view'
 
 const MONTH_NAMES = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
 const MONTH_LABELS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -27,6 +30,7 @@ interface Celebrity {
 interface Props {
   celebrities: Celebrity[]
   dateStr: string
+  people?: HomePerson[] | null
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
@@ -36,13 +40,20 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
   const celebrities = await getListableCelebrities<Celebrity>({
     columns: 'name, slug, birth_date, birth_city, category, image_url, sun_sign, moon_sign, rising_sign',
-    where: 'EXTRACT(MONTH FROM birth_date) = $1 AND EXTRACT(DAY FROM birth_date) = $2',
+    where: `EXTRACT(MONTH FROM birth_date) = $1 AND EXTRACT(DAY FROM birth_date) = $2 AND ${FRONT_PAGE_OK_SQL}`,
     params: [month, day],
     orderBy: 'name',
     requireImage: false,
   })
 
   const dateStr = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' })
+
+  // Stage 'library': today's birthdays as person cards, the week filling in.
+  if (redesignOn('library')) {
+    const { buildHomeView } = await import('@/lib/redesign/home-view')
+    const home = await buildHomeView(now)
+    return { props: { celebrities: [], dateStr, people: home.weekAll }, revalidate: 21600 }
+  }
 
   return {
     props: { celebrities, dateStr },
@@ -101,13 +112,15 @@ function BirthdayLookup() {
   )
 }
 
-export default function BornTodayPage({ celebrities, dateStr }: Props) {
+export default function BornTodayPage({ celebrities, dateStr, people }: Props) {
   return (
     <>
       <Head>
         <title>Born Today — Celebrity Birthdays</title>
         <meta name="description" content="See which celebrities and famous people were born on today's date. Explore their birth charts, Sun signs, and astrological profiles." />
       </Head>
+      {people ? <main className="rdp"><RedesignBornToday dateLabel={dateStr} people={people} /></main> : null}
+      {people ? null : <>
       <main className="max-w-3xl mx-auto px-4 py-12">
         <h1 className="font-display text-4xl tracking-wide mb-2">Born on {dateStr}</h1>
         <p className="text-slate-500 mb-6">
@@ -167,9 +180,10 @@ export default function BornTodayPage({ celebrities, dateStr }: Props) {
         )}
 
         <div className="mt-10 text-center">
-          <Link href="/celebrity-birth-charts" className="btn-outline">Browse All Celebrities</Link>
+          <Link href="/celebrity-birth-charts" className="btn-outline">Browse all celebrities</Link>
         </div>
       </main>
+      </>}
     </>
   )
 }

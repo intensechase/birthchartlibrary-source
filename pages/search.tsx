@@ -1,4 +1,5 @@
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Head from 'next/head'
 import { glossary } from '@/lib/glossary'
@@ -59,6 +60,16 @@ export default function SearchPage() {
       })))
     }, 200)
   }, [])
+
+  // The header search sends what was typed here as ?q=.
+  const { isReady, query: params } = useRouter()
+  const sent = isReady && typeof params.q === 'string' ? params.q.slice(0, 100) : ''
+  useEffect(() => {
+    if (!sent) return
+    setQuery(sent)
+    searchCelebs(sent)
+    searchBlog(sent)
+  }, [sent, searchCelebs, searchBlog])
 
   const staticResults = query.length < 2 ? [] : STATIC_PAGES.filter(p =>
     p.title.toLowerCase().includes(query.toLowerCase())

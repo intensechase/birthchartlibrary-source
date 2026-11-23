@@ -8,6 +8,10 @@ import { SIGNS } from '@/lib/interpretations/signs'
 import { getElementColor, SIGN_SYMBOLS } from '@/lib/zodiac-colors'
 import { SignGlyph } from '@/components/Glyph'
 import { breadcrumbSchema, jsonLd } from '@/lib/schema'
+import { redesignOn } from '@/lib/redesign'
+import { GROUP_COLOR, signIcon } from '@/lib/redesign/astro'
+import { Disc } from '@/components/redesign/Disc'
+import { LearnHero, NextLinks } from '@/components/redesign/Learn'
 
 const SCORE_COLOR: Record<string, string> = {
   high: 'bg-emerald-100 text-emerald-800',
@@ -58,13 +62,59 @@ export default function CompatibilityPage({ scoreClassByCombo }: Props) {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
       </Head>
-      <main className="max-w-4xl mx-auto px-4 py-12">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema([
-          { name: 'Home', url: 'https://birthchartlibrary.com' },
-          { name: 'Compatibility', url: 'https://birthchartlibrary.com/compatibility' },
-        ])) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema([
+        { name: 'Home', url: 'https://birthchartlibrary.com' },
+        { name: 'Compatibility', url: 'https://birthchartlibrary.com/compatibility' },
+      ])) }} />
+      {redesignOn('hubs') ? (
+        <main className="rdp"><div className="lrn">
+          <LearnHero kicker="Learn" title="Sign compatibility">
+            <p>Pick two Sun signs to see how they connect. The Sun is only part of a chart, but the pairing shows the basic dynamic between two people.</p>
+          </LearnHero>
 
-        <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-2">Zodiac Compatibility</h1>
+          <form className="card lookup" onSubmit={e => { e.preventDefault(); handleGo() }}>
+            <h2>Check two signs</h2>
+            <div className="datein">
+              <label className="sr-only" htmlFor="cp-a">Your sign</label>
+              <select id="cp-a" value={sign1} onChange={e => setSign1(e.target.value)}>
+                <option value="">Your sign</option>
+                {SIGN_ORDER.map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+              <label className="sr-only" htmlFor="cp-b">Their sign</label>
+              <select id="cp-b" value={sign2} onChange={e => setSign2(e.target.value)}>
+                <option value="">Their sign</option>
+                {SIGN_ORDER.map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+              <button className="btn" type="submit" disabled={!sign1 || !sign2}>Read the pairing</button>
+            </div>
+          </form>
+
+          <section className="lsec">
+            <h2>Start from one sign</h2>
+            <p className="lede">Each sign with all twelve others, ranked.</p>
+            <ul className="popgrid">
+              {SIGN_ORDER.map(s => (
+                <li key={s}>
+                  <Link href={`/compatibility/${s.toLowerCase()}`}>
+                    <Disc disc={{ color: GROUP_COLOR[SIGNS[s]?.element ?? 'Fire'], icon: signIcon(s) }} size={44} iconSize={24} />
+                    <span><b>{s}</b><small>{SIGNS[s]?.element}, {SIGNS[s]?.modality}</small></span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <NextLinks links={[
+            { href: '/calculators/synastry', title: 'Compare two full charts', sub: 'Sun signs are only the start. Synastry compares every planet.' },
+            { href: '/love/celebrity-couples', title: 'Celebrity couples', sub: 'Real charts, real compatibility.' },
+            { href: '/love', title: 'Love and astrology', sub: 'Each sign in love, and couples read closely.' },
+            { href: '/birth-chart?ref=compat-index', title: 'Your free birth chart', sub: 'Your Moon, Venus and rising sign shape how you love, too.' },
+          ]} />
+        </div></main>
+      ) : (
+      <main className="max-w-4xl mx-auto px-4 py-12">
+
+        <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-2">Zodiac compatibility</h1>
         <p className="text-slate-500 mb-8 max-w-2xl">
           Select two signs to explore how they connect ... or browse the grid below to find any pairing. Compatibility is more than Sun signs, but the Sun sign pairing reveals the fundamental dynamic between two people.
         </p>
@@ -74,7 +124,7 @@ export default function CompatibilityPage({ scoreClassByCombo }: Props) {
           <p className="text-sm font-medium text-slate-700 mb-3">Check your compatibility</p>
           <div className="flex gap-3 items-end">
             <div className="flex-1">
-              <label className="block text-xs text-slate-400 mb-1">Your Sign</label>
+              <label className="block text-xs text-slate-400 mb-1">Your sign</label>
               <select value={sign1} onChange={e => setSign1(e.target.value)} className="input w-full text-sm">
                 <option value="">Select...</option>
                 {SIGN_ORDER.map(s => <option key={s} value={s}>{SIGN_SYMBOLS[s]} {s}</option>)}
@@ -82,7 +132,7 @@ export default function CompatibilityPage({ scoreClassByCombo }: Props) {
             </div>
             <span className="text-slate-300 pb-2 text-lg">&amp;</span>
             <div className="flex-1">
-              <label className="block text-xs text-slate-400 mb-1">Their Sign</label>
+              <label className="block text-xs text-slate-400 mb-1">Their sign</label>
               <select value={sign2} onChange={e => setSign2(e.target.value)} className="input w-full text-sm">
                 <option value="">Select...</option>
                 {SIGN_ORDER.map(s => <option key={s} value={s}>{SIGN_SYMBOLS[s]} {s}</option>)}
@@ -148,11 +198,11 @@ export default function CompatibilityPage({ scoreClassByCombo }: Props) {
         </div>
 
         {/* Love cross-link */}
-        <Link href="/love" className="card flex items-center gap-4 hover:border-slate-400 dark:hover:border-slate-500 transition-colors group mt-12 mb-6 border-rose-100 dark:border-rose-900/30 bg-rose-50/30 dark:bg-rose-900/10">
+        <Link href="/love/celebrity-couples" className="card flex items-center gap-4 hover:border-slate-400 dark:hover:border-slate-500 transition-colors group mt-12 mb-6 border-rose-100 dark:border-rose-900/30 bg-rose-50/30 dark:bg-rose-900/10">
           <span className="text-2xl flex-shrink-0">♥</span>
           <div className="flex-1 min-w-0">
-            <p className="font-semibold text-sm text-slate-800 dark:text-slate-100 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">Love &amp; Astrology</p>
-            <p className="text-xs text-slate-400 mt-0.5">Celebrity couple deep-dives, sign-in-love profiles, red flags by sign, and more</p>
+            <p className="font-semibold text-sm text-slate-800 dark:text-slate-100 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">Famous couples</p>
+            <p className="text-xs text-slate-400 mt-0.5">Real couples, read chart by chart</p>
           </div>
           <span className="text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors flex-shrink-0 text-sm">Explore →</span>
         </Link>
@@ -178,6 +228,7 @@ export default function CompatibilityPage({ scoreClassByCombo }: Props) {
           })}
         </div>
       </main>
+      )}
     </>
   )
 }

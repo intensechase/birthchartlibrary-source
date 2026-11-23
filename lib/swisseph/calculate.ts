@@ -74,7 +74,7 @@ function longitudeToSign(longitude: number): { sign: Sign; degree: number } {
   return { sign: SIGNS[signIndex], degree: longitude % 30 }
 }
 
-function houseForLongitude(longitude: number, cusps: number[]): number {
+export function houseForLongitude(longitude: number, cusps: number[]): number {
   // cusps[1]–cusps[12] are the 12 house cusp longitudes
   for (let i = 1; i <= 12; i++) {
     const current = cusps[i]

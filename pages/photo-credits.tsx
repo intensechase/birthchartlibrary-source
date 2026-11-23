@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { query } from '@/lib/db'
 import { QUALITY_BIO_SQL } from '@/lib/celebrities'
+import { TextPage } from '@/components/redesign/Learn'
 import { PHOTO_CREDIT_COLUMNS, toPhotoCredit, type PhotoCredit } from '@/lib/photo-credit'
 
 interface Row {
@@ -37,14 +38,10 @@ export default function PhotoCreditsPage({ rows }: Props) {
         <meta name="description" content="Author and license for every celebrity photo on Birth Chart Library. All photos come from Wikimedia Commons." />
         <meta name="robots" content="noindex,follow" />
       </Head>
-      <main className="max-w-3xl mx-auto px-4 py-12">
-        <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-3">Photo Credits</h1>
-        <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-8 max-w-2xl">
-          Every celebrity photo on this site comes from Wikimedia Commons and is used under the license its author chose.
-          Each name below links to the photo&apos;s Commons page, where the full license terms are. Photos may be cropped
-          into a circle on our pages. If you took one of these photos and the credit is wrong,{' '}
-          <Link href="/contact" className="underline">please tell us</Link>.
-        </p>
+      <TextPage
+        title="Photo credits"
+        lead={<>Every celebrity photo on this site comes from Wikimedia Commons and is used under the license its author chose. Each name below links to the photo&apos;s Commons page, where the full license terms are. Photos may be cropped into a circle on our pages. If you took one of these photos and the credit is wrong, <Link href="/contact" className="underline">please tell us</Link>.</>}
+      >
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -68,14 +65,14 @@ export default function PhotoCreditsPage({ rows }: Props) {
                   <td className="py-2 text-slate-600 dark:text-slate-300 whitespace-nowrap">
                     {r.credit?.licenseUrl
                       ? <a href={r.credit.licenseUrl} target="_blank" rel="noopener noreferrer license" className="hover:underline">{r.credit.license}</a>
-                      : (r.credit?.license || '—')}
+                      : (r.credit?.license || 'Not listed')}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      </main>
+      </TextPage>
     </>
   )
 }

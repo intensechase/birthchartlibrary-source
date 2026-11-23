@@ -9,6 +9,10 @@ import { getElementColor } from '@/lib/zodiac-colors'
 import { SignGlyph } from '@/components/Glyph'
 import { breadcrumbSchema, faqSchema, jsonLd } from '@/lib/schema'
 import { PLANET_KEYS, PLANET_SLUGS, SLUG_TO_PLANET_KEY, SIGN_LIST } from '@/lib/constants'
+import { SIGNS as SIGNS_INFO } from '@/lib/interpretations/signs'
+import { redesignOn } from '@/lib/redesign'
+import { BODY_ICON, DISC, GROUP_COLOR, HOUSE_KEYS } from '@/lib/redesign/astro'
+import { LearnHero, NextLinks, PrevNext, TileGrid } from '@/components/redesign/Learn'
 
 const SLUG_TO_KEY = SLUG_TO_PLANET_KEY
 
@@ -78,7 +82,7 @@ export default function PlanetInterpretationsPage({ slug, planetKey, planetName,
   ]
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-12">
+    <>
       <Head>
         <title>{`${planetName} Interpretations — Sign & House Placements`}</title>
         <meta name="description" content={`Read detailed ${planetName} interpretations for all 12 zodiac signs and all 12 houses. Understand what ${planetName} means in every placement of your birth chart.`} />
@@ -94,6 +98,27 @@ export default function PlanetInterpretationsPage({ slug, planetKey, planetName,
         { name: planetName, url: `https://birthchartlibrary.com/astrology-interpretations/${slug}` },
       ])) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(planetFaqs)) }} />
+      {redesignOn('hubs') ? (
+        <main className="rdp"><div className="lrn">
+          <LearnHero crumbs={[{ label: 'Interpretations', href: '/astrology-interpretations' }, { label: planetName }]} disc={{ color: DISC[planetKey] ?? DISC.RISING, icon: BODY_ICON[planetKey] }} kicker="Interpretation library" title={`${planetName} placements`}>
+            <p>Choose a sign or a house to read what {['SUN', 'MOON', 'NORTH_NODE'].includes(planetKey) ? `the ${planetName}` : planetName} means there.</p>
+          </LearnHero>
+          <section className="lsec">
+            <h2>{planetName} in the signs</h2>
+            <TileGrid items={SIGN_LIST.filter(s => PLANET_IN_SIGN[`${planetKey}_${s}`]).map(s => ({ href: `/interpretations/${interpSlug}-in-${s.toLowerCase()}`, label: s, sub: SIGNS_INFO[s]?.element, dot: GROUP_COLOR[SIGNS_INFO[s]?.element ?? 'Fire'] }))} />
+          </section>
+          <section className="lsec">
+            <h2>{planetName} in the houses</h2>
+            <TileGrid items={Array.from({ length: 12 }, (_, i) => i + 1).filter(h => PLANET_IN_HOUSE[`${planetKey}_H${h}`]).map(h => ({ href: `/interpretations/${interpSlug}-in-house-${h}`, label: `${ordinal(h)} house`, sub: HOUSE_KEYS[h].split(', ')[0] }))} />
+          </section>
+          <NextLinks links={[
+            { href: `/astrology-planets/${slug === 'north-node' ? 'north_node' : slug}`, title: `All about ${planetName}`, sub: 'What it governs, its myth, and how it moves.' },
+            { href: '/birth-chart?ref=interp-planet', title: `Where is your ${planetName}?`, sub: 'Your free chart shows its sign and house.' },
+          ]} />
+          <PrevNext prev={prevSlug && prevName ? { href: `/astrology-interpretations/${prevSlug}`, label: prevName } : null} next={nextSlug && nextName ? { href: `/astrology-interpretations/${nextSlug}`, label: nextName } : null} />
+        </div></main>
+      ) : (
+    <main className="max-w-3xl mx-auto px-4 py-12">
 
       {/* Breadcrumb */}
       <AdminBreadcrumb crumbs={[
@@ -180,5 +205,7 @@ export default function PlanetInterpretationsPage({ slug, planetKey, planetName,
         ) : <span />}
       </div>
     </main>
+      )}
+    </>
   )
 }

@@ -49,7 +49,41 @@ function clearCookies(response: NextResponse): NextResponse {
   return response
 }
 
+// Preview site (preview.birthchartlibrary.com, PREVIEW_MODE=1 at run time).
+// It reads the live database, so it must never write to it: only the
+// calculator and read routes below may take a POST, and account, sign in,
+// admin, cron and unsubscribe routes are closed for every method. A new
+// route is closed on the preview until it is added here. Every response
+// also says noindex (Cloudflare Access already keeps crawlers out).
+const PREVIEW_OPEN_POSTS = ['/api/calculate', '/api/synastry', '/api/celebrity-match', '/api/compatibility', '/api/embed/calculate']
+const PREVIEW_CLOSED = ['/api/auth', '/api/account', '/api/admin', '/api/cron', '/api/guest-subscribe', '/api/guest-unsubscribe', '/api/celebrity-requests', '/api/synastry-save', '/api/user-charts', '/api/my-chart', '/api/birth-chart', '/login', '/signup', '/account', '/admin']
+
+function previewGuard(request: NextRequest): NextResponse | null {
+  const p = request.nextUrl.pathname
+  const m = request.method
+  const write = m !== 'GET' && m !== 'HEAD' && m !== 'OPTIONS'
+  const closed = PREVIEW_CLOSED.some((r) => p === r || p.startsWith(r + '/'))
+    || (write && !PREVIEW_OPEN_POSTS.includes(p))
+  if (!closed) return null
+  const res = p.startsWith('/api/')
+    ? NextResponse.json({ error: 'This is the preview site. Forms and accounts are turned off here.' }, { status: 403 })
+    : new NextResponse('This is the preview site. Accounts and forms are turned off here.', { status: 403 })
+  res.headers.set('X-Robots-Tag', 'noindex, nofollow')
+  return res
+}
+
 export async function middleware(request: NextRequest) {
+  if (process.env.PREVIEW_MODE === '1') {
+    const blocked = previewGuard(request)
+    if (blocked) return blocked
+    const res = await siteMiddleware(request)
+    res.headers.set('X-Robots-Tag', 'noindex, nofollow')
+    return res
+  }
+  return siteMiddleware(request)
+}
+
+async function siteMiddleware(request: NextRequest): Promise<NextResponse> {
   const pathname = request.nextUrl.pathname
 
   // Case-insensitive URL canonicalization: external links sometimes
@@ -82,7 +116,8 @@ export async function middleware(request: NextRequest) {
 
   if (validSession && AUTH_ROUTES.includes(pathname)) {
     const url = request.nextUrl.clone()
-    url.pathname = '/daily-horoscope'
+    url.pathname = '/birth-chart' // their chart, or the form when there is none
+    url.search = ''
     return NextResponse.redirect(url)
   }
 

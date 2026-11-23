@@ -1,4 +1,6 @@
 import type { BirthChartData, PlanetName } from './calculate'
+import { SYNASTRY_TEXT } from './synastry-text'
+import { conjunctionPolarity } from './synastry-score'
 
 export type AspectType = 'conjunction' | 'sextile' | 'square' | 'trine' | 'opposition'
 export type RelationshipType = 'romantic' | 'friendship' | 'work' | 'family' | 'siblings' | 'rivals'
@@ -8,7 +10,7 @@ export interface SynastryAspect {
   planet2: PlanetName   // Person B
   aspectType: AspectType
   orb: number           // degrees from exact
-  isHarmonic: boolean   // conjunction/trine/sextile = true, square/opposition = false
+  isHarmonic: boolean   // trine/sextile true, square/opposition false; a conjunction by Lilly's rule for the pair (synastry-score.ts)
   interpretation: string
 }
 
@@ -157,6 +159,10 @@ const INTERPS: Record<string, PairInterps> = {
 }
 
 function getInterpretation(p1: PlanetName, p2: PlanetName, aspectType: AspectType): string {
+  // Full texts written per aspect (hook + paragraphs) win; the short pair texts
+  // below are the fallback until every pair has its own.
+  const full = SYNASTRY_TEXT[[p1, p2].sort().join('-')]?.[aspectType]
+  if (full) return full
   const key1 = `${p1}-${p2}`
   const key2 = `${p2}-${p1}`
   const interp = INTERPS[key1] || INTERPS[key2]
@@ -201,7 +207,7 @@ export function computeSynastryAspects(
             planet2: pB.planet,
             aspectType: aspect.type,
             orb: Math.round(orb * 10) / 10,
-            isHarmonic: aspect.harmonic,
+            isHarmonic: aspect.type === 'conjunction' ? conjunctionPolarity(pA.planet as never, pB.planet as never, relationshipType) >= 0 : aspect.harmonic,
             interpretation: getInterpretation(pA.planet, pB.planet, aspect.type),
           })
           break // only one aspect per planet pair
@@ -218,35 +224,22 @@ export function computeSynastryAspects(
     return a.orb - b.orb
   })
 
+  // The same pair can meet both ways (A's Venus trine B's Mars and A's Mars
+  // trine B's Venus). Print the text once; the repeat keeps its hook and points up.
+  const seen = new Set<string>()
+  for (const a of aspects) {
+    if (seen.has(a.interpretation)) {
+      const blocks = a.interpretation.split('\n\n')
+      a.interpretation = blocks.length > 1
+        ? `${blocks[0]}\n\n${REVERSED}`
+        : REVERSED
+    } else seen.add(a.interpretation)
+  }
+
   return aspects
 }
 
-export function synastryScore(aspects: SynastryAspect[]): { label: string; score: number } {
-  if (!aspects.length) return { label: 'Neutral', score: 50 }
-  const harmonic = aspects.filter(a => a.isHarmonic).length
-  const score = Math.round((harmonic / aspects.length) * 100)
-  const label =
-    score >= 70 ? 'Very Harmonious' :
-    score >= 55 ? 'Harmonious' :
-    score >= 45 ? 'Mixed' :
-    score >= 30 ? 'Challenging' : 'Very Challenging'
-  return { label, score }
-}
+const REVERSED = 'The same pairing appears above with the roles reversed. Everything said there applies here too, with the two people trading parts.'
 
-export const ASPECT_SYMBOLS: Record<AspectType, string> = {
-  conjunction: '☌',
-  sextile:     '⚹',
-  square:      '□',
-  trine:       '△',
-  opposition:  '☍',
-}
-
-export const PLANET_SYMBOLS: Partial<Record<PlanetName, string>> = {
-  SUN:     '☉',
-  MOON:    '☽',
-  MERCURY: '☿',
-  VENUS:   '♀',
-  MARS:    '♂',
-  JUPITER: '♃',
-  SATURN:  '♄',
-}
+// Symbols live in a small module so client pages don't bundle the texts.
+export { ASPECT_SYMBOLS, PLANET_SYMBOLS } from './synastry-symbols'

@@ -2,6 +2,24 @@ import Link from 'next/link'
 import Head from 'next/head'
 import { ASPECTS, ASPECT_ORDER } from '@/lib/interpretations/aspects'
 import { breadcrumbSchema, jsonLd } from '@/lib/schema'
+import { redesignOn } from '@/lib/redesign'
+import { DISC } from '@/lib/redesign/astro'
+import type { IconName } from '@/lib/icons/paths'
+import { Disc } from '@/components/redesign/Disc'
+import { LearnHero, NextLinks, Prose } from '@/components/redesign/Learn'
+
+// Redesign copy (same text as the legacy page, hyphens reworded).
+const ASPECT_GUIDE = `When you look at a birth chart, the lines drawn between planets are aspects. Each line shows that two planets are in a geometric relationship ... they are communicating, for better or worse. The nature of that communication depends on the angle between them.
+
+Harmonious aspects (trines and sextiles) create flow and cooperation. The planets involved work together naturally, producing talents and ease in the areas of life they govern.
+
+Challenging aspects (squares and oppositions) create tension and friction. The planets involved are at odds, generating inner conflict that ultimately drives growth and achievement.
+
+The conjunction is neither harmonious nor challenging by default ... it merges two planetary energies into one, and the result depends entirely on which planets are involved.
+
+A balanced chart usually has a mix of all aspect types. Harmonious aspects alone can produce comfort without motivation. Challenging aspects alone can produce drive without rest. The most dynamic, interesting lives tend to come from charts that contain both.`
+
+const ORB_GUIDE = `Aspects are rarely exact to the degree. An orb is the margin allowed when deciding whether an aspect counts. A trine is technically 120\u00b0, but two planets 117\u00b0 apart still form a trine if the orb allows 3\u00b0 either way. Tighter orbs, closer to exact, produce stronger and more noticeable aspects. Wider orbs produce subtler effects. The orbs on this site are standard values most Western astrologers use, though traditions vary.`
 
 const NATURE_COLORS: Record<string, { bg: string; text: string; border: string }> = {
   harmonious: { bg: 'bg-emerald-50 dark:bg-emerald-950', text: 'text-emerald-700 dark:text-emerald-400', border: 'border-emerald-300 dark:border-emerald-800' },
@@ -11,7 +29,7 @@ const NATURE_COLORS: Record<string, { bg: string; text: string; border: string }
 
 export default function AstrologyAspectsPage() {
   return (
-    <main className="max-w-4xl mx-auto px-4 py-12">
+    <>
       <Head>
         <title>Astrology Aspects — Conjunctions, Squares, Trines & More</title>
         <meta name="description" content="The five major astrology aspects — conjunction, sextile, square, trine, opposition. How planets interact in your birth chart and what their angles mean." />
@@ -20,8 +38,43 @@ export default function AstrologyAspectsPage() {
         { name: 'Home', url: 'https://birthchartlibrary.com' },
         { name: 'Aspects', url: 'https://birthchartlibrary.com/astrology-aspects' },
       ])) }} />
+      {redesignOn('hubs') ? (
+        <main className="rdp"><div className="lrn">
+          <LearnHero kicker="Learn" title="The aspects">
+            <p>Aspects are the angles between planets in a chart. They describe how different parts of a person interact ... whether they cooperate, clash, or merge into something new.</p>
+          </LearnHero>
 
-      <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-2">Astrology Aspects</h1>
+          <section className="lsec">
+            <h2>The five major aspects</h2>
+            <ol className="rank">
+              {ASPECT_ORDER.map(key => {
+                const a = ASPECTS[key]
+                return (
+                  <li key={key}>
+                    <Link href={`/astrology-aspects/${a.slug}`}>
+                      <Disc disc={{ color: DISC.RISING, icon: a.slug as IconName }} size={40} iconSize={22} />
+                      <span className="rt"><b>{a.name}</b><small>{a.degree}&deg;, {a.nature}</small></span>
+                    </Link>
+                  </li>
+                )
+              })}
+            </ol>
+          </section>
+
+          <Prose title="How to read them" text={ASPECT_GUIDE} />
+          <Prose title="What an orb is" text={ORB_GUIDE} />
+
+          <NextLinks links={[
+            { href: '/birth-chart?ref=aspects-index', title: 'Your free birth chart', sub: 'Every aspect in your own chart, explained.' },
+            { href: '/calculators/synastry', title: 'Compare two charts', sub: 'The aspects between one chart and another.' },
+            { href: '/astrology-planets', title: 'The planets', sub: 'What each planet brings to an aspect.' },
+            { href: '/astrology-interpretations', title: 'Interpretation library', sub: 'Every planet in every sign and house.' },
+          ]} />
+        </div></main>
+      ) : (
+      <main className="max-w-4xl mx-auto px-4 py-12">
+
+      <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-2">Astrology aspects</h1>
       <p className="text-slate-500 mb-4 max-w-2xl">
         Aspects are the angles between planets in your birth chart. They describe how different parts of your personality interact ... whether they cooperate, clash, or merge into something new.
       </p>
@@ -122,7 +175,7 @@ export default function AstrologyAspectsPage() {
 
       {/* Orb explanation */}
       <div className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">What Are Orbs?</h2>
+        <h2 className="text-xl font-semibold mb-4">What are orbs?</h2>
         <div className="card">
           <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
             Aspects are rarely exact to the degree. An <strong className="text-slate-800 dark:text-slate-100">orb</strong> is the margin of error allowed when determining whether an aspect is active. A trine is technically 120°, but if two planets are 117° apart, they are still considered in a trine if the orb allows 3° of variance. Tighter orbs (closer to exact) produce stronger, more noticeable aspects. Wider orbs produce subtler effects. The orbs listed on this page are standard values used by most Western astrologers, though different traditions may use slightly different ranges.
@@ -130,5 +183,7 @@ export default function AstrologyAspectsPage() {
         </div>
       </div>
     </main>
+      )}
+    </>
   )
 }

@@ -10,7 +10,7 @@ const SECTIONS = [
   {
     label: 'Horoscope',
     items: [
-      { href: '/horoscope', label: 'Daily Horoscope' },
+      { href: '/daily-horoscope', label: 'Daily Horoscope' },
     ],
   },
   {
@@ -25,7 +25,6 @@ const SECTIONS = [
   {
     label: 'Love',
     items: [
-      { href: '/love', label: 'Love & Astrology' },
       { href: '/compatibility', label: 'Compatibility' },
       { href: '/love/celebrity-couples', label: 'Celebrity Couples' },
       { href: '/calculators/synastry', label: 'Synastry Calculator' },
@@ -57,7 +56,7 @@ export default function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
   const [open, setOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
-  const { theme, toggleTheme } = useTheme()
+  const { theme, toggleTheme, canToggle } = useTheme()
 
   useEffect(() => { setMounted(true) }, [])
 
@@ -106,7 +105,7 @@ export default function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
               {isLoggedIn && (
                 <>
                   <div className="border-t border-slate-200 dark:border-slate-700 my-3" />
-                  <p className="text-xs uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2">My Account</p>
+                  <p className="text-xs uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2">My account</p>
                   <div className="space-y-1">
                     {[
                       { href: '/daily-horoscope', label: 'Daily Horoscope' },
@@ -131,7 +130,7 @@ export default function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
                   <div className="border-t border-slate-200 dark:border-slate-700 my-3" />
                   <form action="/api/auth/signout" method="POST">
                     <button type="submit" className="w-full text-left px-3 py-2.5 rounded-lg text-sm text-slate-400 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                      Sign Out
+                      Sign out
                     </button>
                   </form>
                 </>
@@ -141,15 +140,16 @@ export default function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
                 <>
                   <div className="border-t border-slate-200 dark:border-slate-700 my-3" />
                   <Link href="/login" onClick={() => setOpen(false)} className="block px-3 py-2.5 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800">
-                    Sign In
+                    Sign in
                   </Link>
                   <Link href="/signup" onClick={() => setOpen(false)} className="block px-3 py-2.5 rounded-lg text-sm bg-slate-800 dark:bg-slate-700 text-white text-center mt-2">
-                    Sign Up
+                    Sign up
                   </Link>
                 </>
               )}
 
-              {/* Theme toggle */}
+              {/* Theme toggle (hidden while the redesign is dark only) */}
+              {canToggle && <>
               <div className="border-t border-slate-200 dark:border-slate-700 my-3" />
               <button
                 onClick={toggleTheme}
@@ -163,17 +163,18 @@ export default function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
                       <line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" />
                       <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
                     </svg>
-                    Light Mode
+                    Light mode
                   </>
                 ) : (
                   <>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                     </svg>
-                    Dark Mode
+                    Dark mode
                   </>
                 )}
               </button>
+              </>}
             </nav>
           </div>
         </>

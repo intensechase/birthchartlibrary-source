@@ -94,7 +94,7 @@ export default function RisingSignCalculator() {
       ) : (
         <div>
           <div className={`bg-gradient-to-br ${ec!.gradient} border ${ec!.border} rounded-xl p-8 text-center mb-6`}>
-            <p className="text-xs uppercase tracking-widest text-slate-400 mb-2">Your Rising Sign</p>
+            <p className="text-xs uppercase tracking-widest text-slate-400 mb-2">Your rising sign</p>
             <SignGlyph sign={result.sign} decorative className={`text-6xl mb-2 ${ec!.text} block`} />
             <h2 className="font-display text-4xl tracking-wide">{result.sign}</h2>
           </div>
@@ -105,7 +105,7 @@ export default function RisingSignCalculator() {
 
           <div className="flex gap-3 mb-8">
             <button onClick={() => { setResult(null); setTurnstileToken(null) }} className="btn-outline flex-1">
-              Calculate Another
+              Calculate another
             </button>
           </div>
 
@@ -113,7 +113,7 @@ export default function RisingSignCalculator() {
           <div className="p-6 bg-slate-50 border border-slate-200 rounded-xl text-center">
             <p className="font-display text-xl tracking-wide mb-2">Discover what the rest of your chart reveals</p>
             <p className="text-slate-500 text-sm mb-4">Your results won&apos;t last forever... create a free account to save your chart and unlock your personalized daily horoscope.</p>
-            <Link href="/signup?ref=calc-rising-sign" className="btn-primary">Create Your Free Chart</Link>
+            <Link href="/signup?ref=calc-rising-sign" className="btn-primary">Create your free chart</Link>
           </div>
         </div>
       )}

@@ -67,7 +67,7 @@ export default function EmailSettings({ email }: Props) {
       <div className="card">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs text-slate-400 mb-1">Email Address</p>
+            <p className="text-xs text-slate-400 mb-1">Email address</p>
             {editing ? (
               <input
                 type="email"

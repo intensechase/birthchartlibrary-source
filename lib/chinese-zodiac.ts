@@ -26,8 +26,8 @@ export function getYearsForAnimal(animal: string): number[] {
 
 export const ANIMAL_DESCRIPTIONS: Record<string, { traits: string; strengths: string; challenges: string; compatibility: string; description: string }> = {
   Rat: {
-    traits: 'Clever, resourceful, adaptable, quick-witted',
-    strengths: 'Problem-solving, social intelligence, finding opportunity in any situation',
+    traits: 'Clever, resourceful, adaptable, quick',
+    strengths: 'Solving problems, social intelligence, finding opportunity in any situation',
     challenges: 'Can be opportunistic, restless, or overly calculating',
     compatibility: 'Best with Dragon, Monkey, Ox. Challenging with Horse.',
     description: `The Rat is the first animal in the Chinese zodiac cycle... the one who outsmarted every other animal to win the race. This origin story tells you everything you need to know about Rat energy... it's clever, resourceful, and always finds a way. Rats are natural networkers who thrive in social situations and possess an instinctive ability to read a room. They spot opportunity where others see only obstacles, and their adaptability means they can thrive in almost any environment. In Chinese culture, the Rat is associated with wealth and surplus... not through brute force but through intelligence and timing. The shadow side of Rat energy is a tendency toward opportunism and restlessness... the mind that's always calculating the next move sometimes forgets to be present in the current one. Rats are most fulfilled when their cleverness serves a genuine purpose rather than just personal advantage.`,
@@ -44,14 +44,14 @@ export const ANIMAL_DESCRIPTIONS: Record<string, { traits: string; strengths: st
     strengths: 'Leadership, courage, inspiring others to action',
     challenges: 'Impulsiveness, authority issues, difficulty with compromise',
     compatibility: 'Best with Dragon, Horse, Pig. Challenging with Monkey.',
-    description: `The Tiger is the most magnetic animal in the Chinese zodiac... a natural leader whose confidence and courage command attention without asking for it. Tiger energy is bold, competitive, and driven by a deep need to protect what it loves and conquer what stands in its way. In Chinese culture, the Tiger is the king of all animals and a symbol of power, bravery, and the ability to ward off evil. People born in Tiger years tend to be passionate and driven... they approach life as a series of challenges to be met head-on, and their enthusiasm is genuinely contagious. The shadow side of Tiger energy is impulsiveness and a tendency to dominate... the same fire that inspires can also burn. Tigers are most fulfilled when their courage serves something larger than their ego... when they fight for others rather than just for themselves.`,
+    description: `The Tiger is the most magnetic animal in the Chinese zodiac... a natural leader whose confidence and courage command attention without asking for it. Tiger energy is bold, competitive, and driven by a deep need to protect what it loves and conquer what stands in its way. In Chinese culture, the Tiger is the king of all animals and a symbol of power, bravery, and the ability to ward off evil. People born in Tiger years tend to be passionate and driven... they approach life as a series of challenges to be met directly, and their enthusiasm is genuinely contagious. The shadow side of Tiger energy is impulsiveness and a tendency to dominate... the same fire that inspires can also burn. Tigers are most fulfilled when their courage serves something larger than their ego... when they fight for others rather than just for themselves.`,
   },
   Rabbit: {
     traits: 'Elegant, diplomatic, gentle, perceptive',
     strengths: 'Social grace, peacemaking, aesthetic sensibility',
-    challenges: 'Conflict avoidance, indecisiveness, surface-level engagement',
+    challenges: 'Conflict avoidance, indecisiveness, staying on the surface',
     compatibility: 'Best with Goat, Pig, Dog. Challenging with Rooster.',
-    description: `The Rabbit is the diplomat of the Chinese zodiac... the animal that navigates the world through grace, perception, and an almost uncanny ability to sense what others need. Rabbit energy is refined, socially intelligent, and deeply attuned to beauty and harmony. In Chinese culture, the Rabbit symbolizes longevity, mercy, and elegance... it's considered one of the most fortunate signs. People born in Rabbit years tend to be charming and well-liked... they move through social situations with a ease that others envy and possess a refined aesthetic sense that shows in everything from their homes to their relationships. The shadow side of Rabbit energy is a tendency to avoid conflict at the cost of authenticity... the desire for harmony can become an unwillingness to rock the boat even when it needs rocking. Rabbits are most fulfilled when they use their social intelligence for genuine connection rather than just smooth surfaces.`,
+    description: `The Rabbit is the diplomat of the Chinese zodiac... the animal that navigates the world through grace, perception, and an almost uncanny ability to sense what others need. Rabbit energy is refined, socially intelligent, and deeply attuned to beauty and harmony. In Chinese culture, the Rabbit symbolizes longevity, mercy, and elegance... it's considered one of the most fortunate signs. People born in Rabbit years tend to be charming and well liked... they move through social situations with a ease that others envy and possess a refined aesthetic sense that shows in everything from their homes to their relationships. The shadow side of Rabbit energy is a tendency to avoid conflict at the cost of authenticity... the desire for harmony can become an unwillingness to rock the boat even when it needs rocking. Rabbits are most fulfilled when they use their social intelligence for genuine connection rather than just smooth surfaces.`,
   },
   Dragon: {
     traits: 'Ambitious, charismatic, confident, visionary',
@@ -68,11 +68,11 @@ export const ANIMAL_DESCRIPTIONS: Record<string, { traits: string; strengths: st
     description: `The Snake is the deepest thinker in the Chinese zodiac... the animal that represents wisdom, intuition, and the power of strategic patience. Snake energy is quiet, observant, and profoundly perceptive... Snakes see what others miss because they watch before they act. In Chinese culture, the Snake is associated with wisdom and supernatural knowledge... it's considered a symbol of cunning intelligence that operates beneath the surface. People born in Snake years tend to be naturally intuitive and psychologically astute... they read people and situations with an accuracy that others find either impressive or slightly unnerving. The shadow side of Snake energy is a tendency toward suspicion and secretiveness... the same depth that produces wisdom can also produce paranoia. Snakes are most fulfilled when they use their extraordinary perception in service of understanding rather than control.`,
   },
   Horse: {
-    traits: 'Energetic, independent, adventurous, free-spirited',
+    traits: 'Energetic, independent, adventurous, untamed',
     strengths: 'Physical vitality, enthusiasm, inspiring freedom in others',
     challenges: 'Restlessness, commitment issues, impatience with routine',
     compatibility: 'Best with Tiger, Goat, Dog. Challenging with Rat.',
-    description: `The Horse is the free spirit of the Chinese zodiac... the animal that represents the pure joy of movement, independence, and the open horizon. Horse energy is energetic, adventurous, and genuinely infectious... when a Horse enters a room, the energy level rises. In Chinese culture, the Horse symbolizes speed, perseverance, and the travel that broadens the mind. People born in Horse years tend to be naturally active and sociable... they crave experience, resist confinement, and possess an enthusiasm that draws others into their adventures. The shadow side of Horse energy is a restlessness that can become inability to commit... the same freedom-loving spirit that makes life exciting can also make it hard to stay with anything long enough to see it through. Horses are most fulfilled when they find freedom within commitment rather than treating them as opposites.`,
+    description: `The Horse is the free spirit of the Chinese zodiac... the animal that represents the pure joy of movement, independence, and the open horizon. Horse energy is energetic, adventurous, and genuinely infectious... when a Horse enters a room, the energy level rises. In Chinese culture, the Horse symbolizes speed, perseverance, and the travel that broadens the mind. People born in Horse years tend to be naturally active and sociable... they crave experience, resist confinement, and possess an enthusiasm that draws others into their adventures. The shadow side of Horse energy is a restlessness that can become inability to commit... the same love of freedom that makes life exciting can also make it hard to stay with anything long enough to see it through. Horses are most fulfilled when they find freedom within commitment rather than treating them as opposites.`,
   },
   Goat: {
     traits: 'Creative, gentle, empathetic, artistic',
@@ -83,31 +83,31 @@ export const ANIMAL_DESCRIPTIONS: Record<string, { traits: string; strengths: st
   },
   Monkey: {
     traits: 'Clever, inventive, entertaining, versatile',
-    strengths: 'Mental agility, innovation, problem-solving through wit',
+    strengths: 'Mental agility, innovation, solving problems through wit',
     challenges: 'Mischief, unreliability, using charm to avoid accountability',
     compatibility: 'Best with Dragon, Rat, Snake. Challenging with Tiger.',
-    description: `The Monkey is the most mentally agile animal in the Chinese zodiac... the trickster who solves problems through wit, innovation, and a refusal to accept that anything is impossible. Monkey energy is clever, entertaining, and endlessly inventive... Monkeys see solutions where others see only walls. In Chinese culture, the Monkey is associated with cleverness and the ability to outsmart any obstacle... the Monkey King from Journey to the West is one of the most beloved figures in Chinese mythology. People born in Monkey years tend to be quick-witted, socially charming, and genuinely fun to be around... their intelligence is formidable but it wears a playful face. The shadow side of Monkey energy is using charm as a substitute for depth and wit as a way to avoid genuine accountability. Monkeys are most fulfilled when their cleverness serves something meaningful rather than just their own entertainment.`,
+    description: `The Monkey is the most mentally agile animal in the Chinese zodiac... the trickster who solves problems through wit, innovation, and a refusal to accept that anything is impossible. Monkey energy is clever, entertaining, and endlessly inventive... Monkeys see solutions where others see only walls. In Chinese culture, the Monkey is associated with cleverness and the ability to outsmart any obstacle... the Monkey King from Journey to the West is one of the most beloved figures in Chinese mythology. People born in Monkey years tend to be sharp, socially charming, and genuinely fun to be around... their intelligence is formidable but it wears a playful face. The shadow side of Monkey energy is using charm as a substitute for depth and wit as a way to avoid genuine accountability. Monkeys are most fulfilled when their cleverness serves something meaningful rather than just their own entertainment.`,
   },
   Rooster: {
     traits: 'Observant, hardworking, honest, straightforward',
     strengths: 'Organizational ability, directness, high standards',
     challenges: 'Criticism, perfectionism, difficulty with diplomacy',
     compatibility: 'Best with Ox, Snake, Dragon. Challenging with Rabbit.',
-    description: `The Rooster is the most observant and straightforward animal in the Chinese zodiac... the one who sees everything, says what they see, and holds themselves and everyone around them to the highest standard. Rooster energy is honest, hardworking, and refreshingly direct... there's no pretense with a Rooster. In Chinese culture, the Rooster symbolizes punctuality, honesty, and the courage to speak truth... the rooster's crow at dawn represents the arrival of light and the dispelling of darkness. People born in Rooster years tend to be organized, detail-oriented, and unafraid of honest assessment... they make things better by being willing to see what's actually there rather than what people wish was there. The shadow side of Rooster energy is criticism that becomes harsh and perfectionism that becomes paralyzing. Roosters are most fulfilled when their honesty is tempered with compassion and their standards are applied most rigorously to themselves.`,
+    description: `The Rooster is the most observant and straightforward animal in the Chinese zodiac... the one who sees everything, says what they see, and holds themselves and everyone around them to the highest standard. Rooster energy is honest, hardworking, and refreshingly direct... there's no pretense with a Rooster. In Chinese culture, the Rooster symbolizes punctuality, honesty, and the courage to speak truth... the rooster's crow at dawn represents the arrival of light and the dispelling of darkness. People born in Rooster years tend to be organized, careful with details, and unafraid of honest assessment... they make things better by being willing to see what's actually there rather than what people wish was there. The shadow side of Rooster energy is criticism that becomes harsh and perfectionism that becomes paralyzing. Roosters are most fulfilled when their honesty is tempered with compassion and their standards are applied most rigorously to themselves.`,
   },
   Dog: {
     traits: 'Loyal, honest, principled, protective',
     strengths: 'Moral integrity, faithfulness, fighting for justice',
     challenges: 'Anxiety, pessimism, difficulty trusting',
     compatibility: 'Best with Rabbit, Tiger, Horse. Challenging with Dragon.',
-    description: `The Dog is the most loyal and principled animal in the Chinese zodiac... the guardian whose sense of right and wrong never wavers and whose devotion to the people they love is absolute. Dog energy is honest, protective, and driven by a deep moral compass. In Chinese culture, the Dog symbolizes loyalty, honesty, and the willingness to sacrifice personal comfort for the greater good. People born in Dog years tend to be trustworthy, fair-minded, and genuinely concerned with justice... they're the first to defend someone being treated unfairly and the last to abandon someone in need. The shadow side of Dog energy is anxiety born from a world that doesn't always live up to their moral standards... and a pessimism that can become self-fulfilling. Dogs are most fulfilled when they channel their protective instincts into service rather than worry... when they fight for what's right rather than simply fearing what's wrong.`,
+    description: `The Dog is the most loyal and principled animal in the Chinese zodiac... the guardian whose sense of right and wrong never wavers and whose devotion to the people they love is absolute. Dog energy is honest, protective, and driven by a deep moral compass. In Chinese culture, the Dog symbolizes loyalty, honesty, and the willingness to sacrifice personal comfort for the greater good. People born in Dog years tend to be trustworthy, fair, and genuinely concerned with justice... they're the first to defend someone being treated unfairly and the last to abandon someone in need. The shadow side of Dog energy is anxiety born from a world that doesn't always live up to their moral standards... and a pessimism that can make its own gloomy predictions come true. Dogs are most fulfilled when they channel their protective instincts into service rather than worry... when they fight for what's right rather than simply fearing what's wrong.`,
   },
   Pig: {
-    traits: 'Generous, sincere, kind, pleasure-loving',
+    traits: 'Generous, sincere, kind, fond of pleasure',
     strengths: 'Warmth, generosity, genuine enjoyment of life',
     challenges: 'Naivety, overindulgence, difficulty saying no',
     compatibility: 'Best with Rabbit, Goat, Tiger. Challenging with Snake.',
-    description: `The Pig is the most warm-hearted and generous animal in the Chinese zodiac... the one who genuinely believes that life is meant to be enjoyed and shared. Pig energy is sincere, kind, and genuinely abundant... Pigs give freely because generosity is their natural state, not a performance. In Chinese culture, the Pig symbolizes wealth, good fortune, and the simple pleasures that make life worth living... it's the last animal in the cycle, representing the completion and fulfillment of the journey. People born in Pig years tend to be honest, compassionate, and deeply appreciative of comfort, beauty, and human connection... they create warmth wherever they go. The shadow side of Pig energy is a naivety that can be exploited and an indulgence that can become excess... the same openness that makes them lovable can make them vulnerable. Pigs are most fulfilled when their generosity is met with respect and their pleasure-seeking is balanced with the wisdom to know when enough is enough.`,
+    description: `The Pig is the most warmhearted and generous animal in the Chinese zodiac... the one who genuinely believes that life is meant to be enjoyed and shared. Pig energy is sincere, kind, and genuinely abundant... Pigs give freely because generosity is their natural state, not a performance. In Chinese culture, the Pig symbolizes wealth, good fortune, and the simple pleasures that make life worth living... it's the last animal in the cycle, representing the completion and fulfillment of the journey. People born in Pig years tend to be honest, compassionate, and deeply appreciative of comfort, beauty, and human connection... they create warmth wherever they go. The shadow side of Pig energy is a naivety that can be exploited and an indulgence that can become excess... the same openness that makes them lovable can make them vulnerable. Pigs are most fulfilled when their generosity is met with respect and their love of pleasure is balanced with the wisdom to know when enough is enough.`,
   },
 }
 
@@ -255,3 +255,36 @@ export function formatCNYEnd(year: number): string | null {
 
 // Recent years mapped to animals (for SEO year pages)
 export const YEAR_RANGE = Array.from({ length: 124 }, (_, i) => 1924 + i) // 1924-2047
+
+// Redesign: the animal's character in a disc tinted by the year's element (the site
+// has no animal icons, and emoji render differently on every device).
+export const ANIMAL_CHAR: Record<string, string> = { Rat: '鼠', Ox: '牛', Tiger: '虎', Rabbit: '兔', Dragon: '龍', Snake: '蛇', Horse: '馬', Goat: '羊', Monkey: '猴', Rooster: '雞', Dog: '狗', Pig: '豬' }
+export const CZ_ELEMENT_COLOR: Record<string, string> = { Wood: '#8FCB8F', Fire: '#FF8A65', Earth: '#C2AE93', Metal: '#D4DCEB', Water: '#5FA8F0' }
+
+// "Best with Dragon, Monkey, Ox. Challenging with Horse." as two fact tiles.
+export function compatTiles(text: string): { label: string; value: string }[] {
+  const best = text.match(/Best with ([^.]+)\./)?.[1]
+  const hard = text.match(/Challenging with ([^.]+)\./)?.[1]
+  return [...(best ? [{ label: 'Best with', value: best }] : []), ...(hard ? [{ label: 'Harder with', value: hard }] : [])]
+}
+
+// SQL matching birth dates inside the given zodiac years (Chinese New Year to the
+// day before the next one). Built only from the CNY_DATES constants, never input.
+export function czYearsSql(years: number[]): string {
+  const parts = years.filter(y => CNY_DATES[y] && CNY_DATES[y + 1]).map(y => {
+    const [m, d] = CNY_DATES[y], [m2, d2] = CNY_DATES[y + 1]
+    return `(birth_date >= make_date(${y}, ${m}, ${d}) AND birth_date < make_date(${y + 1}, ${m2}, ${d2}))`
+  })
+  return parts.length ? `(${parts.join(' OR ')})` : 'false'
+}
+
+// The Chinese year a birth date (YYYY-MM-DD) belongs to: a birth before that
+// calendar year's new year counts in the year before. Null outside the table
+// (each answer needs a start date and the next year's start date).
+export function chineseYearOf(date: string): number | null {
+  const [y, m, d] = date.slice(0, 10).split('-').map(Number)
+  if (!y || !m || !d || !CNY_DATES[y]) return null
+  const [sm, sd] = CNY_DATES[y]
+  const cy = (m < sm || (m === sm && d < sd)) ? y - 1 : y
+  return CNY_DATES[cy] && CNY_DATES[cy + 1] ? cy : null
+}

@@ -40,20 +40,20 @@ export const ELEMENT_COMPAT: Record<string, { nature: string; score: number; des
     nature: 'steamy',
     score: 50,
     description: 'Fire and Water don\'t naturally coexist. Water can douse the fire; Fire can evaporate the water. And when they\'re generating steam, the question is whether that\'s chemistry or damage. When it works, this pairing produces something genuinely passionate and emotionally alive... each partner gets access to a register they couldn\'t reach alone. When it doesn\'t, Fire blunders through Water\'s sensitivity and Water floods Fire\'s need for forward motion.',
-    communication: 'The hardest element gap to bridge. Fire is direct, externally oriented, and solution-focused. Water is intuitive, internally oriented, and emotionally coded. Fire accidentally says the thing that wounds. Water expresses the wound in ways Fire can\'t parse. Getting both partners to slow down enough to hear what the other is actually saying is the central work.',
+    communication: 'The hardest element gap to bridge. Fire is direct, externally oriented, and focused on solutions. Water is intuitive, internally oriented, and emotionally coded. Fire accidentally says the thing that wounds. Water expresses the wound in ways Fire can\'t parse. Getting both partners to slow down enough to hear what the other is actually saying is the central work.',
     loveStyle: 'When the chemistry is right, intensely physical and emotionally consuming. Fire provides the pursuit and the heat; Water provides the depth and the devotion. The physical connection can be extraordinary. The emotional one takes longer to build and is more fragile.',
   },
   'Earth+Earth': {
     nature: 'stable',
     score: 70,
-    description: 'Two Earth signs build something that holds... reliable, sensory, and built to last. Both partners understand each other\'s need for security, share practical values around what a life should look like, and make the day-to-day less friction than most pairings. The risk is comfort becoming the destination rather than the baseline. Without outside challenge, this pairing can organize itself into a very attractive rut.',
-    communication: 'Measured, practical, and substance-forward. Neither partner is inclined toward dramatic emotional negotiations... they talk about what\'s actionable and what\'s real. The weakness is that feelings don\'t always fall into those categories. Unspoken emotional needs tend to accumulate quietly until the practical surface cracks.',
-    loveStyle: 'Sensory, loyal, and expressed through consistent presence and shared life-building. Earth sign pairs show up. They cook the meal, fix the thing that\'s broken, plan the trip. What they\'re less naturally inclined toward is spontaneous declaration or romantic drama, which can feel like a deficit to partners who equate love with its loudest expressions.',
+    description: 'Two Earth signs build something that holds... reliable, sensory, and built to last. Both partners understand each other\'s need for security, share practical values around what a life should look like, and make daily life smoother than most pairings do. The risk is comfort becoming the destination rather than the baseline. Without outside challenge, this pairing can organize itself into a very attractive rut.',
+    communication: 'Measured, practical, and focused on substance. Neither partner is inclined toward dramatic emotional negotiations... they talk about what\'s actionable and what\'s real. The weakness is that feelings don\'t always fall into those categories. Unspoken emotional needs tend to accumulate quietly until the practical surface cracks.',
+    loveStyle: 'Sensory, loyal, and expressed through consistent presence and building a life together. Earth sign pairs show up. They cook the meal, fix the thing that\'s broken, plan the trip. What they\'re less naturally inclined toward is spontaneous declaration or romantic drama, which can feel like a deficit to partners who equate love with its loudest expressions.',
   },
   'Earth+Air': {
     nature: 'contrasting',
     score: 50,
-    description: 'Earth processes through the senses and the material world. Air processes through the mind and the abstract. This creates a pairing that is either deeply complementary... one partner grounds the other\'s ideas in something real... or perpetually frustrating, as each finds the other\'s mode of operating slightly baffling. The intellectual interest is genuine. The lived-experience gap is real.',
+    description: 'Earth processes through the senses and the material world. Air processes through the mind and the abstract. This creates a pairing that is either deeply complementary... one partner grounds the other\'s ideas in something real... or perpetually frustrating, as each finds the other\'s mode of operating slightly baffling. The intellectual interest is genuine. The gap in how they actually live is real.',
     communication: 'Rationality is the shared language, which helps more than you\'d expect. Where they diverge is in what they consider rational... Air wants to discuss the concept and its implications, Earth wants to discuss the plan and its outcomes. Each thinks they\'re being clear. Neither is wrong.',
     loveStyle: 'Air brings novelty, social energy, and ideas. Earth brings sensuality, stability, and presence. The combination works when Air can root affection in consistent action and Earth can develop tolerance for Air\'s need to move, mentally and physically, in ways that don\'t threaten the foundation.',
   },
@@ -93,7 +93,7 @@ export const MODALITY_COMPAT: Record<string, { dynamic: string; tension: string 
     tension: 'The question is always who goes first. Cardinal signs need to take turns and neither is naturally inclined to volunteer for second. Treating compromise as a tool rather than a concession is the work.',
   },
   'Cardinal+Fixed': {
-    dynamic: 'One partner starts things. The other sustains them. Cardinal brings the idea and the momentum. Fixed brings the follow-through and the refusal to quit when it gets hard. When this division of labor gets respected, the pairing covers a lot of ground.',
+    dynamic: 'One partner starts things. The other sustains them. Cardinal brings the idea and the momentum. Fixed brings the staying power and the refusal to quit when it gets hard. When this division of labor gets respected, the pairing covers a lot of ground.',
     tension: 'Cardinal sees Fixed as too slow to adapt. Fixed sees Cardinal as too quick to abandon what\'s working. The key is both partners understanding that starting and sustaining are equal contributions, not competing ones.',
   },
   'Cardinal+Mutable': {
@@ -109,7 +109,7 @@ export const MODALITY_COMPAT: Record<string, { dynamic: string; tension: string 
     tension: 'Fixed reads Mutable as unreliable. Mutable reads Fixed as rigid. Both are describing the same traits from opposite angles. The pairing works when each recognizes that what irritates them is also what the other contributes.',
   },
   'Mutable+Mutable': {
-    dynamic: 'Two adaptable, low-control partners who can adjust to almost anything... including each other\'s changes. The relationship stays flexible and mentally alive, and neither partner feels trapped by the other\'s needs.',
+    dynamic: 'Two adaptable, easygoing partners who can adjust to almost anything... including each other\'s changes. The relationship stays flexible and mentally alive, and neither partner feels trapped by the other\'s needs.',
     tension: 'Who makes the decision? Two Mutable signs can stay in perpetual motion without planting anything. Someone has to occasionally choose a direction and stick with it long enough to see what it produces.',
   },
 }
@@ -131,13 +131,13 @@ export const PAIRS: Record<string, PairData> = {
   'Aries+Taurus': {
     summary: 'The pioneer meets the builder ... exhilarating friction between speed and steadiness.',
     dynamic: 'Aries wants to go. Taurus wants to stay. This is the fundamental tension ... and when it works, it produces a partnership where one person starts things and the other finishes them. Aries is drawn to Taurus\'s calm strength and sensuality; Taurus is drawn to Aries\'s courage and vitality.\n\nThe danger is mutual frustration: Aries sees Taurus as slow, Taurus sees Aries as reckless. The gift is balance ... Aries learns patience, Taurus learns to take risks.',
-    strengths: ['Complementary strengths: initiation meets follow-through', 'Strong physical chemistry between Mars and Venus energy', 'Aries inspires Taurus to act; Taurus grounds Aries\'s impulses', 'Both are honest and direct in different ways'],
+    strengths: ['Complementary strengths: initiation meets staying power', 'Strong physical chemistry between Mars and Venus energy', 'Aries inspires Taurus to act; Taurus grounds Aries\'s impulses', 'Both are honest and direct in different ways'],
     challenges: ['Fundamentally different paces of life', 'Aries needs novelty; Taurus needs routine', 'Stubbornness meets impatience in conflicts', 'Aries may feel controlled; Taurus may feel destabilized'],
     tip: 'Aries: slow down occasionally. Taurus: speed up occasionally. Meet in the middle more often than you think you should.',
   },
   'Aries+Gemini': {
-    summary: 'A fast-paced, mentally stimulating duo that thrives on novelty and never runs out of things to do.',
-    dynamic: 'Aries and Gemini share a restless, forward-moving energy that makes life together feel like an ongoing adventure. Aries brings decisiveness and courage; Gemini brings wit and versatility. The conversation is electric, the laughter is constant, and boredom is almost impossible.\n\nThe challenge is depth. Both signs prefer action over reflection, and the relationship can stay on the surface if neither partner deliberately creates space for emotional vulnerability.',
+    summary: 'A quick, mentally stimulating duo that thrives on novelty and never runs out of things to do.',
+    dynamic: 'Aries and Gemini share a restless energy that keeps moving forward and makes life together feel like an ongoing adventure. Aries brings decisiveness and courage; Gemini brings wit and versatility. The conversation is electric, the laughter is constant, and boredom is almost impossible.\n\nThe challenge is depth. Both signs prefer action over reflection, and the relationship can stay on the surface if neither partner deliberately creates space for emotional vulnerability.',
     strengths: ['Endless mental stimulation and shared curiosity', 'Both adapt quickly and hate stagnation', 'A social powerhouse as a couple', 'Mutual respect for independence and freedom'],
     challenges: ['Neither naturally gravitates toward emotional depth', 'Can become scattered with too many shared projects', 'Gemini\'s changeability may frustrate Aries\'s directness', 'Risk of the relationship feeling more like friendship than romance'],
     tip: 'Schedule unstructured time together with no agenda ... that\'s where the deeper connection happens.',
@@ -151,37 +151,37 @@ export const PAIRS: Record<string, PairData> = {
   },
   'Aries+Leo': {
     summary: 'A bold, magnetic pairing of two Fire signs who inspire and admire each other.',
-    dynamic: 'Aries and Leo are a natural match ... both are warm, confident, and driven by a need for self-expression. There is a mutual admiration here that fuels the relationship: Aries respects Leo\'s staying power, and Leo respects Aries\'s courage. Together they are a power couple who light up every room they enter.\n\nThe challenge is ego. Both signs need to feel special, and competition for the spotlight can turn admiration into rivalry if neither is willing to share center stage.',
+    dynamic: 'Aries and Leo are a natural match ... both are warm, confident, and driven by a need to express themselves. There is a mutual admiration here that fuels the relationship: Aries respects Leo\'s staying power, and Leo respects Aries\'s courage. Together they are a power couple who light up every room they enter.\n\nThe challenge is ego. Both signs need to feel special, and competition for the spotlight can turn admiration into rivalry if neither is willing to share center stage.',
     strengths: ['Genuine mutual admiration and respect', 'Shared enthusiasm for life and adventure', 'Strong physical and creative chemistry', 'Both are loyal and willing to fight for the relationship'],
     challenges: ['Competition for attention and dominance', 'Both can be proud and reluctant to apologize first', 'Drama can escalate quickly when egos collide', 'Neither is naturally attuned to subtlety or emotional nuance'],
     tip: 'You are on the same team. Celebrate each other\'s wins as enthusiastically as your own.',
   },
   'Aries+Virgo': {
     summary: 'The impulsive pioneer meets the careful analyst ... an unlikely pairing that grows through friction.',
-    dynamic: 'Aries acts first and thinks later; Virgo thinks first and acts carefully. This creates a dynamic where Aries often feels slowed down by Virgo\'s caution, and Virgo often feels anxious about Aries\'s impulsiveness. The gift is that each partner offers what the other lacks.\n\nWhen this works, Aries brings courage and momentum to Virgo\'s perfectionism, and Virgo brings precision and follow-through to Aries\'s visions. It requires both partners to genuinely value what the other brings rather than seeing it as a flaw.',
+    dynamic: 'Aries acts first and thinks later; Virgo thinks first and acts carefully. This creates a dynamic where Aries often feels slowed down by Virgo\'s caution, and Virgo often feels anxious about Aries\'s impulsiveness. The gift is that each partner offers what the other lacks.\n\nWhen this works, Aries brings courage and momentum to Virgo\'s perfectionism, and Virgo brings precision and the patience to finish to Aries\'s visions. It requires both partners to genuinely value what the other brings rather than seeing it as a flaw.',
     strengths: ['Complementary skills: vision + execution', 'Both are hard workers with strong drive', 'Virgo\'s attention to detail grounds Aries\'s big ideas', 'Aries helps Virgo take risks and loosen up'],
-    challenges: ['Aries finds Virgo critical; Virgo finds Aries careless', 'Very different approaches to planning and decision-making', 'Aries may see Virgo as uptight; Virgo may see Aries as reckless', 'Communication styles clash: blunt vs. precise'],
+    challenges: ['Aries finds Virgo critical; Virgo finds Aries careless', 'Very different approaches to planning and making decisions', 'Aries may see Virgo as uptight; Virgo may see Aries as reckless', 'Communication styles clash: blunt vs. precise'],
     tip: 'Aries: listen to the details, they matter. Virgo: not everything needs to be perfect before you start.',
   },
   'Aries+Libra': {
     summary: 'Opposites on the zodiac wheel who are magnetically drawn to the qualities they lack in themselves.',
-    dynamic: 'Aries and Libra sit across from each other in the zodiac, creating a classic opposition that is equal parts attraction and tension. Aries is about self; Libra is about other. Aries is direct; Libra is diplomatic. Aries acts alone; Libra seeks partnership. Each is fascinated by what the other represents.\n\nThe initial chemistry is often intense ... Aries finds Libra\'s grace irresistible, and Libra finds Aries\'s confidence thrilling. The long-term work is integration: learning to be both independent and partnered, both assertive and considerate.',
+    dynamic: 'Aries and Libra sit across from each other in the zodiac, creating a classic opposition that is equal parts attraction and tension. Aries is about self; Libra is about other. Aries is direct; Libra is diplomatic. Aries acts alone; Libra seeks partnership. Each is fascinated by what the other represents.\n\nThe initial chemistry is often intense ... Aries finds Libra\'s grace irresistible, and Libra finds Aries\'s confidence thrilling. The work over time is integration: learning to be both independent and partnered, both assertive and considerate.',
     strengths: ['Powerful magnetic attraction of opposites', 'Aries brings courage; Libra brings balance', 'Socially dynamic as a couple', 'Each helps the other develop their weaker qualities'],
     challenges: ['Aries may find Libra indecisive; Libra may find Aries selfish', 'Different conflict styles: confrontation vs. avoidance', 'Aries wants action; Libra wants consensus', 'Can project disowned qualities onto each other'],
     tip: 'The qualities you find most annoying in your partner are usually the ones you need to develop in yourself.',
   },
   'Aries+Scorpio': {
     summary: 'Two signs sharing a ruling planet ... an intense, passionate, and occasionally volcanic connection.',
-    dynamic: 'Aries and Scorpio share a ruling planet (Mars) and a fundamental intensity that produces one of the more charged pairings in the zodiac. Both are bold, both are fighters, and neither is afraid of conflict. The attraction is often immediate and almost physical in its force.\n\nThe difference is depth. Aries lives on the surface of that Mars energy ... action, courage, directness. Scorpio lives in the underworld of it ... strategy, obsession, transformation. Aries may find Scorpio\'s intensity overwhelming, and Scorpio may find Aries\'s directness shallow.',
+    dynamic: 'Aries and Scorpio share Mars (Aries’ ruler, and Scorpio’s traditional one before Pluto) and a fundamental intensity that produces one of the more charged pairings in the zodiac. Both are bold, both are fighters, and neither is afraid of conflict. The attraction is often immediate and almost physical in its force.\n\nThe difference is depth. Aries lives on the surface of that Mars energy ... action, courage, directness. Scorpio lives in the underworld of it ... strategy, obsession, transformation. Aries may find Scorpio\'s intensity overwhelming, and Scorpio may find Aries\'s directness shallow.',
     strengths: ['Extraordinary passion and physical chemistry', 'Mutual respect for strength and courage', 'Both are fiercely loyal once committed', 'Transformative potential when both partners grow'],
     challenges: ['Power struggles can become destructive', 'Scorpio\'s need for control vs. Aries\'s need for freedom', 'Trust issues: Scorpio is suspicious, Aries is impatient with tests', 'Arguments can escalate to damaging levels'],
     tip: 'Channel your shared intensity into building something rather than tearing each other down.',
   },
   'Aries+Sagittarius': {
     summary: 'Two adventurers who share a love of freedom, honesty, and living life at full volume.',
-    dynamic: 'Aries and Sagittarius share a natural compatibility that doesn\'t need much explanation... both are Fire signs who value freedom, adventure, and honesty. The energy between them is warm, optimistic, and forward-moving. They laugh together easily, share an appetite for new experiences, and give each other the space both need.\n\nThe challenge is commitment and depth. Both signs prefer action over introspection, and the relationship can become a perpetual adventure that never deepens into genuine intimacy.',
+    dynamic: 'Aries and Sagittarius share a natural compatibility that doesn\'t need much explanation... both are Fire signs who value freedom, adventure, and honesty. The energy between them is warm, optimistic, and always moving forward. They laugh together easily, share an appetite for new experiences, and give each other the space both need.\n\nThe challenge is commitment and depth. Both signs prefer action over introspection, and the relationship can become a perpetual adventure that never deepens into genuine intimacy.',
     strengths: ['Natural compatibility and easy chemistry', 'Shared love of travel, adventure, and growth', 'Both are honest and straightforward', 'Mutual respect for independence and personal freedom'],
-    challenges: ['Both may avoid emotional vulnerability', 'Lack of grounding can make the relationship feel rootless', 'Neither is naturally domestic or detail-oriented', 'Can become too casual to develop lasting commitment'],
+    challenges: ['Both may avoid emotional vulnerability', 'Lack of grounding can make the relationship feel rootless', 'Neither is naturally domestic or careful with details', 'Can become too casual to develop lasting commitment'],
     tip: 'Adventure together is easy. The real adventure is staying still long enough to build something that lasts.',
   },
   'Aries+Capricorn': {
@@ -200,16 +200,16 @@ export const PAIRS: Record<string, PairData> = {
   },
   'Aries+Pisces': {
     summary: 'The warrior and the mystic ... a surprising attraction between two very different worlds.',
-    dynamic: 'Aries and Pisces sit next to each other in the zodiac but inhabit completely different realities. Aries is the beginning of the cycle ... raw, direct, self-asserting. Pisces is the end of the cycle ... diffuse, intuitive, surrendering. Aries is drawn to Pisces\'s sensitivity and imagination; Pisces is drawn to Aries\'s strength and clarity.\n\nThis pairing has a protector-dreamer quality that can be deeply beautiful or deeply unbalanced, depending on whether both partners maintain their own center.',
+    dynamic: 'Aries and Pisces sit next to each other in the zodiac but inhabit completely different realities. Aries is the beginning of the cycle ... raw, direct, sure of itself. Pisces is the end of the cycle ... diffuse, intuitive, surrendering. Aries is drawn to Pisces\'s sensitivity and imagination; Pisces is drawn to Aries\'s strength and clarity.\n\nThis pairing can feel like a protector and a dreamer, which can be deeply beautiful or deeply unbalanced, depending on whether both partners maintain their own center.',
     strengths: ['Aries provides strength that makes Pisces feel safe', 'Pisces provides emotional depth that softens Aries', 'Strong creative and imaginative chemistry', 'Each has what the other needs most'],
-    challenges: ['Aries may overwhelm Pisces with directness', 'Pisces may confuse Aries with emotional complexity', 'Different energy levels and needs for stimulation', 'Risk of a rescuer-rescued dynamic that becomes unhealthy'],
+    challenges: ['Aries may overwhelm Pisces with directness', 'Pisces may confuse Aries with emotional complexity', 'Different energy levels and needs for stimulation', 'Risk of one partner rescuing the other in a way that becomes unhealthy'],
     tip: 'Aries: gentleness is not weakness. Pisces: directness is not aggression. Teach each other.',
   },
 
   // ─── Taurus pairs ───────────────────────────────────────────
   'Taurus+Taurus': {
     summary: 'Double the loyalty, double the sensuality, double the stubbornness.',
-    dynamic: 'Two Taurus partners create a stable, comfortable, and sensually rich relationship. Both value security, beauty, and the simple pleasures of life. You understand each other\'s rhythms intuitively, and the relationship feels like coming home.\n\nThe challenge is inertia. When two Fixed Earth signs settle in, they can become so comfortable that growth stops entirely. Without external motivation, this relationship can become a beautiful, furniture-and-all rut.',
+    dynamic: 'Two Taurus partners create a stable, comfortable, and sensually rich relationship. Both value security, beauty, and the simple pleasures of life. You understand each other\'s rhythms intuitively, and the relationship feels like coming home.\n\nThe challenge is inertia. When two Fixed Earth signs settle in, they can become so comfortable that growth stops entirely. Without external motivation, this relationship can become a beautiful rut, furniture and all.',
     strengths: ['Deep mutual understanding and shared values', 'Extraordinary sensual and physical compatibility', 'Financial stability and shared practical goals', 'Unwavering loyalty and commitment'],
     challenges: ['Stubbornness makes conflicts nearly unresolvable', 'Resistance to change can stall personal growth', 'Possessiveness can become suffocating', 'Routine can replace romance over time'],
     tip: 'Schedule regular disruptions ... new restaurants, surprise trips, uncomfortable conversations. Comfort is your gift, but growth requires occasional discomfort.',
@@ -239,7 +239,7 @@ export const PAIRS: Record<string, PairData> = {
     summary: 'Two Earth signs who build a practical, harmonious, and deeply reliable partnership.',
     dynamic: 'Taurus and Virgo are a trine apart ... the most harmonious aspect in astrology. Both are Earth signs who value practicality, reliability, and building things that work. The relationship is grounded, sensible, and quietly beautiful. There is a mutual respect here that grows stronger over time.\n\nThe challenge is that both signs can be so focused on getting things right that they forget to enjoy what they have. Virgo\'s perfectionism and Taurus\'s possessiveness are the two shadows to watch.',
     strengths: ['Natural harmony and shared Earth values', 'Excellent at building a stable, beautiful shared life', 'Both are reliable, loyal, and present', 'Complementary: Taurus provides calm, Virgo provides precision'],
-    challenges: ['Can become overly practical and neglect romance', 'Virgo\'s criticism can wound Taurus\'s pride', 'Both may avoid emotional risk-taking', 'The relationship can feel more functional than passionate'],
+    challenges: ['Can become overly practical and neglect romance', 'Virgo\'s criticism can wound Taurus\'s pride', 'Both may avoid taking emotional risks', 'The relationship can feel more functional than passionate'],
     tip: 'You build a beautiful life together ... make sure you stop to enjoy it instead of always optimizing it.',
   },
   'Taurus+Libra': {
@@ -251,7 +251,7 @@ export const PAIRS: Record<string, PairData> = {
   },
   'Taurus+Scorpio': {
     summary: 'The zodiac\'s most intense opposition ... magnetic, possessive, and transformative.',
-    dynamic: 'Taurus and Scorpio are opposite signs, and their attraction is legendary. Both are Fixed signs obsessed with security ... Taurus through material stability, Scorpio through emotional control. The pull between them is almost gravitational. They see in each other the depth and intensity they crave.\n\nThis is an all-or-nothing pairing. When it works, the intimacy is unmatched ... deeply physical, deeply emotional, deeply committed. When it doesn\'t, possessiveness and power struggles can make it feel like a trap.',
+    dynamic: 'Taurus and Scorpio are opposite signs, and their attraction is legendary. Both are Fixed signs obsessed with security ... Taurus through material stability, Scorpio through emotional control. The pull between them is almost gravitational. They see in each other the depth and intensity they crave.\n\nThis pairing is all or nothing. When it works, the intimacy is unmatched ... deeply physical, deeply emotional, deeply committed. When it doesn\'t, possessiveness and power struggles can make it feel like a trap.',
     strengths: ['Extraordinary physical and emotional chemistry', 'Both are deeply loyal and committed', 'Mutual understanding of possessiveness and devotion', 'Transformative potential ... both partners are changed by this relationship'],
     challenges: ['Jealousy and possessiveness from both sides', 'Power struggles over control and trust', 'Both are stubborn and resist vulnerability', 'Can become obsessive or codependent'],
     tip: 'Trust is everything here. Build it slowly, protect it fiercely, and never weaponize each other\'s vulnerabilities.',
@@ -282,7 +282,7 @@ export const PAIRS: Record<string, PairData> = {
     dynamic: 'Taurus and Pisces are a sextile apart and share a natural affinity for beauty, pleasure, and emotional connection. Taurus provides the physical grounding that Pisces craves; Pisces provides the imaginative depth that enriches Taurus\'s world. Together they create something soft, beautiful, and sustaining.\n\nThis is a tender pairing where both partners feel safe enough to be vulnerable. The challenge is practicality ... Pisces can drift and Taurus can become possessive when they sense their partner slipping away.',
     strengths: ['Deep emotional and sensual compatibility', 'Shared love of beauty, music, and art', 'Taurus provides stability for Pisces\'s sensitivity', 'Pisces enriches Taurus\'s inner world with imagination'],
     challenges: ['Pisces\'s escapist tendencies worry practical Taurus', 'Taurus\'s possessiveness can smother Pisces\'s fluidity', 'Both may avoid conflict until it becomes unavoidable', 'Different energy levels and approaches to daily life'],
-    tip: 'Create beauty together ... art, music, cooking, gardening. Your shared Venus-Neptune connection is most alive when you are co-creating.',
+    tip: 'Create beauty together ... art, music, cooking, gardening. The Venus and Neptune link you share is most alive when you are making something together.',
   },
 
   // ─── Gemini pairs ───────────────────────────────────────────
@@ -311,7 +311,7 @@ export const PAIRS: Record<string, PairData> = {
     summary: 'Two ruled by Mercury minds that connect intellectually but diverge on details vs. big picture.',
     dynamic: 'Both ruled by Mercury, Gemini and Virgo share a love of information, analysis, and communication. But they use Mercury very differently: Gemini collects breadth, Virgo pursues depth. Gemini skims; Virgo scrutinizes. This creates a fascinating intellectual connection and a frustrating practical one.\n\nThe square between them generates productive tension when both partners respect the other\'s approach to knowledge.',
     strengths: ['Shared Mercury rulership: intellectual rapport', 'Both are analytical and enjoy learning', 'Strong verbal communication skills', 'Can collaborate effectively on projects'],
-    challenges: ['Virgo finds Gemini superficial; Gemini finds Virgo nitpicky', 'Different standards for accuracy and follow-through', 'Both can overthink and under-feel', 'Criticism flows easily; praise does not'],
+    challenges: ['Virgo finds Gemini superficial; Gemini finds Virgo nitpicky', 'Different standards for accuracy and finishing things', 'Both can think too much and feel too little', 'Criticism flows easily; praise does not'],
     tip: 'You are both right about different things. Gemini sees the forest; Virgo sees the trees. Both views are necessary.',
   },
   'Gemini+Libra': {
@@ -323,7 +323,7 @@ export const PAIRS: Record<string, PairData> = {
   },
   'Gemini+Scorpio': {
     summary: 'Light meets shadow ... a challenging, fascinating pairing of surface and depth.',
-    dynamic: 'Gemini skates across the surface of many topics; Scorpio dives to the bottom of a few. Gemini is transparent and changeable; Scorpio is secretive and fixed. The attraction is often intense ... each is fascinated by what they cannot be. Gemini is intrigued by Scorpio\'s mystery; Scorpio is captivated by Gemini\'s sparkle.\n\nThe long-term challenge is trust. Scorpio needs emotional certainty that Gemini struggles to provide, and Gemini needs freedom that Scorpio struggles to grant.',
+    dynamic: 'Gemini skates across the surface of many topics; Scorpio dives to the bottom of a few. Gemini is transparent and changeable; Scorpio is secretive and fixed. The attraction is often intense ... each is fascinated by what they cannot be. Gemini is intrigued by Scorpio\'s mystery; Scorpio is captivated by Gemini\'s sparkle.\n\nThe challenge over time is trust. Scorpio needs emotional certainty that Gemini struggles to provide, and Gemini needs freedom that Scorpio struggles to grant.',
     strengths: ['Intellectually fascinating to each other', 'Scorpio adds depth to Gemini\'s world', 'Gemini adds lightness to Scorpio\'s intensity', 'Strong physical attraction driven by curiosity'],
     challenges: ['Trust is the central issue: openness vs. secrecy', 'Gemini feels controlled; Scorpio feels insecure', 'Completely different emotional processing styles', 'Scorpio\'s jealousy clashes with Gemini\'s social nature'],
     tip: 'Gemini: Scorpio\'s intensity is not a cage ... it\'s devotion. Scorpio: Gemini\'s lightness is not betrayal ... it\'s nature.',
@@ -337,7 +337,7 @@ export const PAIRS: Record<string, PairData> = {
   },
   'Gemini+Capricorn': {
     summary: 'The butterfly meets the mountain ... a puzzling pairing that works when ambition aligns.',
-    dynamic: 'Gemini and Capricorn seem like they should not work. Gemini is light, social, and constantly moving; Capricorn is serious, private, and goal-oriented. Yet there is often a surprising attraction: Gemini admires Capricorn\'s authority and accomplishment, and Capricorn is quietly charmed by Gemini\'s wit and social ease.\n\nThis pairing requires both partners to genuinely value what the other brings, rather than trying to mold them into a more compatible shape.',
+    dynamic: 'Gemini and Capricorn seem like they should not work. Gemini is light, social, and constantly moving; Capricorn is serious, private, and focused on goals. Yet there is often a surprising attraction: Gemini admires Capricorn\'s authority and accomplishment, and Capricorn is quietly charmed by Gemini\'s wit and social ease.\n\nThis pairing requires both partners to genuinely value what the other brings, rather than trying to mold them into a more compatible shape.',
     strengths: ['Capricorn provides structure Gemini secretly needs', 'Gemini provides levity Capricorn secretly craves', 'Strong intellectual respect when both are accomplished', 'Can be an effective professional partnership as well'],
     challenges: ['Very different social needs and energy levels', 'Capricorn finds Gemini unreliable; Gemini finds Capricorn rigid', 'Emotional expression is challenging for both', 'Different timelines: Gemini lives in the now, Capricorn plans decades ahead'],
     tip: 'Gemini: respect Capricorn\'s long game. Capricorn: enjoy Gemini\'s present moment. You need both timelines.',
@@ -351,8 +351,8 @@ export const PAIRS: Record<string, PairData> = {
   },
   'Gemini+Pisces': {
     summary: 'Two Mutable signs who adapt to everything except each other\'s fundamental nature.',
-    dynamic: 'Gemini and Pisces are both Mutable and both shape-shifters, but they shift in different dimensions. Gemini shifts mentally, adapting through words and ideas. Pisces shifts emotionally, adapting through feeling and intuition. The square between them creates a fundamental miscommunication: Gemini speaks in logic, Pisces speaks in poetry.\n\nWhen it works, there is a creative, imaginative quality to this pairing that produces art, music, and inspired collaboration. When it doesn\'t, both feel perpetually misunderstood.',
-    strengths: ['Both are adaptable and open-minded', 'Strong creative and imaginative chemistry', 'Neither tries to dominate the other', 'Mutual fascination with different ways of knowing'],
+    dynamic: 'Gemini and Pisces are both Mutable and both shapeshifters, but they shift in different dimensions. Gemini shifts mentally, adapting through words and ideas. Pisces shifts emotionally, adapting through feeling and intuition. The square between them creates a fundamental miscommunication: Gemini speaks in logic, Pisces speaks in poetry.\n\nWhen it works, there is a creative, imaginative quality to this pairing that produces art, music, and inspired collaboration. When it doesn\'t, both feel perpetually misunderstood.',
+    strengths: ['Both are adaptable and open to new ideas', 'Strong creative and imaginative chemistry', 'Neither tries to dominate the other', 'Mutual fascination with different ways of knowing'],
     challenges: ['Fundamental communication mismatch: words vs. feelings', 'Gemini finds Pisces irrational; Pisces finds Gemini cold', 'Both avoid confrontation in different ways', 'Neither provides the structure the relationship needs'],
     tip: 'Learn each other\'s language. Gemini: listen to what Pisces means, not just what they say. Pisces: say what you mean, even when it\'s hard.',
   },
@@ -368,13 +368,13 @@ export const PAIRS: Record<string, PairData> = {
   'Cancer+Leo': {
     summary: 'The nurturer meets the performer ... a warm, devoted pairing that thrives on mutual appreciation.',
     dynamic: 'Cancer and Leo sit next to each other in the zodiac and share a warmth that feels genuinely familial. Cancer nurtures; Leo protects. Cancer provides emotional depth; Leo provides confidence and joy. When this pairing clicks, Cancer feels safe enough to open up, and Leo feels loved enough to let down the royal guard.\n\nThe tension is between Cancer\'s need for emotional security and Leo\'s need for admiration. Both are giving, but they give different things and need different things in return.',
-    strengths: ['Both are loyal, protective, and family-oriented', 'Cancer\'s care makes Leo feel genuinely loved', 'Leo\'s confidence makes Cancer feel safe', 'Warm, generous, and devoted to each other'],
+    strengths: ['Both are loyal, protective, and devoted to family', 'Cancer\'s care makes Leo feel genuinely loved', 'Leo\'s confidence makes Cancer feel safe', 'Warm, generous, and devoted to each other'],
     challenges: ['Leo needs praise; Cancer needs reassurance ... both must give what the other requires', 'Cancer\'s moodiness can dim Leo\'s sunshine', 'Leo\'s need for attention may trigger Cancer\'s insecurity', 'Different social needs: private vs. public'],
     tip: 'Leo: prioritize Cancer\'s feelings as much as you prioritize your own. Cancer: celebrate Leo\'s wins as loudly as they celebrate your stability.',
   },
   'Cancer+Virgo': {
     summary: 'A quietly devoted pairing that expresses love through acts of service and careful attention.',
-    dynamic: 'Cancer and Virgo are a sextile apart and share an orientation toward care, service, and making life work for the people they love. Both are modest, both are detail-oriented in their own way, and both show love through doing rather than declaring.\n\nThis is a gentle pairing that grows stronger over time. The early stages may lack the fireworks of other combinations, but the foundation being built is remarkably solid.',
+    dynamic: 'Cancer and Virgo are a sextile apart and share an orientation toward care, service, and making life work for the people they love. Both are modest, both pay close attention to detail in their own way, and both show love through doing rather than declaring.\n\nThis is a gentle pairing that grows stronger over time. The early stages may lack the fireworks of other combinations, but the foundation being built is remarkably solid.',
     strengths: ['Shared values of care, service, and devotion', 'Both show love through action rather than words', 'Complementary: Cancer provides emotional warmth, Virgo provides practical support', 'A stable, nurturing home environment'],
     challenges: ['Virgo\'s criticism can wound Cancer deeply', 'Both can worry and overthink', 'Neither is comfortable with grand romantic expression', 'Cancer\'s moodiness may frustrate Virgo\'s need for order'],
     tip: 'You both show love through service. Make sure you also tell each other how you feel. Words matter too.',
@@ -404,7 +404,7 @@ export const PAIRS: Record<string, PairData> = {
     summary: 'The zodiac\'s parental axis ... opposite signs who create family and structure together.',
     dynamic: 'Cancer and Capricorn are opposite signs who represent the two sides of building a life: Cancer is the heart (home, family, emotional foundations) and Capricorn is the spine (career, structure, worldly achievement). The attraction is powerful because each has what the other needs.\n\nThis is a productive opposition when both partners own their side and respect the other\'s. What gets built is a life with both warmth and structure, both nurturing and ambition... the combination most partnerships are trying to approximate.',
     strengths: ['Complementary strengths: heart + ambition', 'Both take commitment and responsibility seriously', 'Strong shared values around family and legacy', 'Each becomes more complete through the other'],
-    challenges: ['Cancer feels Capricorn is emotionally unavailable', 'Capricorn feels Cancer is too needy', 'Work-life balance is the constant negotiation', 'Both can be controlling in different ways'],
+    challenges: ['Cancer feels Capricorn is emotionally unavailable', 'Capricorn feels Cancer is too needy', 'Balancing work and home is the constant negotiation', 'Both can be controlling in different ways'],
     tip: 'Cancer: Capricorn shows love through providing. Capricorn: Cancer shows love through feeling. Both are valid.',
   },
   'Cancer+Aquarius': {
@@ -441,7 +441,7 @@ export const PAIRS: Record<string, PairData> = {
     summary: 'A glamorous, socially radiant pairing that thrives on beauty, partnership, and admiration.',
     dynamic: 'Leo and Libra are a sextile apart and share a love of beauty, romance, and social life. Leo brings the creative fire; Libra brings the refined taste. Together they are a genuinely attractive pairing... enjoyable to be around and genuinely devoted to each other in ways that read as easy even when they\'re not.\n\nThe relationship flows because both partners naturally give what the other needs: Leo gives passion and decisiveness, Libra gives grace and partnership.',
     strengths: ['Natural romantic chemistry', 'Both are generous and socially skilled', 'Shared love of art, beauty, and culture', 'Leo decides, Libra harmonizes ... a smooth dynamic'],
-    challenges: ['Both can prioritize appearances over substance', 'Libra\'s diplomacy may feel wishy-washy to direct Leo', 'Leo\'s dominance may quietly frustrate Libra over time', 'Conflict avoidance from Libra can create pressure'],
+    challenges: ['Both can prioritize appearances over substance', 'Libra\'s diplomacy may feel noncommittal to direct Leo', 'Leo\'s dominance may quietly frustrate Libra over time', 'Conflict avoidance from Libra can create pressure'],
     tip: 'You create beautiful things together. Make sure the interior of the relationship is as beautiful as the exterior.',
   },
   'Leo+Scorpio': {
@@ -466,15 +466,15 @@ export const PAIRS: Record<string, PairData> = {
     tip: 'Capricorn: warmth is not weakness. Leo: patience is not coldness. Speak each other\'s love language.',
   },
   'Leo+Aquarius': {
-    summary: 'Opposite signs on the self-vs-collective axis ... magnetic, challenging, and evolutionarily significant.',
-    dynamic: 'Leo and Aquarius sit across from each other in the zodiac, representing the individual and the group. Leo is personal, warm, and centered on self-expression; Aquarius is impersonal, intellectual, and centered on collective progress. The attraction is powerful because each has what the other needs.\n\nThis opposition works when Leo learns that being part of something bigger doesn\'t diminish their light, and Aquarius learns that personal warmth doesn\'t compromise their ideals.',
+    summary: 'Opposite signs on the axis of self and group ... magnetic, challenging, and evolutionarily significant.',
+    dynamic: 'Leo and Aquarius sit across from each other in the zodiac, representing the individual and the group. Leo is personal, warm, and centered on being seen; Aquarius is impersonal, intellectual, and centered on collective progress. The attraction is powerful because each has what the other needs.\n\nThis opposition works when Leo learns that being part of something bigger doesn\'t diminish their light, and Aquarius learns that personal warmth doesn\'t compromise their ideals.',
     strengths: ['Powerful magnetic attraction of opposites', 'Both are creative and original', 'Leo brings heart; Aquarius brings vision', 'Each challenges the other to grow beyond their comfort zone'],
     challenges: ['Leo wants personal devotion; Aquarius wants universal connection', 'Aquarius\'s detachment hurts Leo; Leo\'s drama overwhelms Aquarius', 'Fixed sign stubbornness on both sides', 'Different social styles: center stage vs. behind the scenes'],
     tip: 'You need each other. Leo reminds Aquarius to love one person deeply. Aquarius reminds Leo to care about more than themselves.',
   },
   'Leo+Pisces': {
     summary: 'The performer meets the dreamer ... a creative, romantic pairing that requires careful handling.',
-    dynamic: 'Leo and Pisces share a creative, romantic sensibility but express it very differently. Leo creates through self-expression and performance; Pisces creates through imagination and surrender. Leo is bold; Pisces is subtle. The attraction is often based on each partner seeing in the other a creative quality they admire.\n\nThe challenge is that Leo\'s directness can overwhelm Pisces\'s sensitivity, and Pisces\'s elusiveness can frustrate Leo\'s need for clarity and admiration.',
+    dynamic: 'Leo and Pisces share a creative, romantic sensibility but express it very differently. Leo creates through performance and personal expression; Pisces creates through imagination and surrender. Leo is bold; Pisces is subtle. The attraction is often based on each partner seeing in the other a creative quality they admire.\n\nThe challenge is that Leo\'s directness can overwhelm Pisces\'s sensitivity, and Pisces\'s elusiveness can frustrate Leo\'s need for clarity and admiration.',
     strengths: ['Strong creative and romantic chemistry', 'Both are generous and caring', 'Pisces genuinely admires Leo, which Leo thrives on', 'Leo provides strength that Pisces needs'],
     challenges: ['Leo\'s volume can drown out Pisces\'s subtlety', 'Pisces may withdraw rather than confront Leo', 'Different energy levels and social needs', 'Leo may not understand Pisces\'s emotional complexity'],
     tip: 'Leo: turn the volume down sometimes and listen. Pisces: turn the volume up sometimes and be heard.',
@@ -514,7 +514,7 @@ export const PAIRS: Record<string, PairData> = {
     dynamic: 'Virgo and Capricorn are a trine apart and share the Earth element\'s dedication to competence, structure, and tangible results. Both partners value hard work, respect each other\'s standards, and build with patience and precision. The respect that develops between them is genuine and grows stronger over time.\n\nThe challenge is softness. Two Earth signs can create a life that runs smoothly but lacks warmth, romance, and emotional expression.',
     strengths: ['Solid foundation of shared values', 'Both are hardworking, reliable, and competent', 'Excellent financial and professional partnership', 'Deep mutual respect that grows over time'],
     challenges: ['Emotional expression is difficult for both', 'Can become all work and no play', 'Neither prioritizes romance naturally', 'Risk of the relationship becoming functional but dry'],
-    tip: 'Schedule romance with the same discipline you apply to everything else. Date nights, surprises, and emotional check-ins are not optional.',
+    tip: 'Schedule romance with the same discipline you apply to everything else. Date nights, surprises, and honest talks about feelings are not optional.',
   },
   'Virgo+Aquarius': {
     summary: 'Two intellectual signs who connect through ideas but operate from very different systems.',
@@ -534,14 +534,14 @@ export const PAIRS: Record<string, PairData> = {
   // ─── Libra pairs ────────────────────────────────────────────
   'Libra+Libra': {
     summary: 'Two diplomats who create a beautiful, balanced partnership ... if someone can make a decision.',
-    dynamic: 'Two Libras together create a relationship that is aesthetically beautiful, socially graceful, and fundamentally harmonious. Both partners are considerate, fair-minded, and deeply oriented toward partnership. You share a love of beauty, culture, and intellectual conversation.\n\nThe challenge is decision-making and confrontation. Two people pleasers in one relationship can create a beautifully maintained surface with unaddressed tension underneath.',
+    dynamic: 'Two Libras together create a relationship that is aesthetically beautiful, socially graceful, and fundamentally harmonious. Both partners are considerate, fair, and deeply oriented toward partnership. You share a love of beauty, culture, and intellectual conversation.\n\nThe challenge is making decisions and facing conflict. Two people pleasers in one relationship can create a beautifully maintained surface with unaddressed tension underneath.',
     strengths: ['Shared values of fairness, beauty, and partnership', 'Socially brilliant as a couple', 'Both are considerate and willing to compromise', 'Strong aesthetic and intellectual connection'],
-    challenges: ['Indecisiveness doubled', 'Conflict avoidance prevents real resolution', 'Both may prioritize harmony over honesty', 'Passive-aggression when true feelings go unexpressed'],
+    challenges: ['Indecisiveness doubled', 'Conflict avoidance prevents real resolution', 'Both may prioritize harmony over honesty', 'Quiet resentment when true feelings go unexpressed'],
     tip: 'Practice respectful disagreement. The relationship will be stronger for it, not weaker.',
   },
   'Libra+Scorpio': {
     summary: 'The diplomat meets the detective ... a pairing that combines surface grace with hidden depth.',
-    dynamic: 'Libra and Scorpio are neighboring signs with very different approaches to relationship. Libra values harmony, balance, and social grace; Scorpio values authenticity, intensity, and emotional truth. Libra operates on the surface; Scorpio operates underneath it.\n\nThe attraction is often powerful ... Libra is intrigued by Scorpio\'s depth, and Scorpio appreciates Libra\'s elegance. The long-term challenge is that Libra may find Scorpio\'s intensity exhausting, and Scorpio may find Libra\'s diplomacy dishonest.',
+    dynamic: 'Libra and Scorpio are neighboring signs with very different approaches to relationship. Libra values harmony, balance, and social grace; Scorpio values authenticity, intensity, and emotional truth. Libra operates on the surface; Scorpio operates underneath it.\n\nThe attraction is often powerful ... Libra is intrigued by Scorpio\'s depth, and Scorpio appreciates Libra\'s elegance. Over time, the challenge is that Libra may find Scorpio\'s intensity exhausting, and Scorpio may find Libra\'s diplomacy dishonest.',
     strengths: ['Both value commitment and partnership', 'Libra brings social grace; Scorpio brings emotional depth', 'Strong romantic and sexual chemistry', 'Both are strategically intelligent'],
     challenges: ['Libra avoids conflict; Scorpio seeks it', 'Scorpio may see Libra as superficial; Libra may see Scorpio as intense', 'Trust styles differ: openness vs. guardedness', 'Power dynamics can become complicated'],
     tip: 'Libra: Scorpio\'s intensity is not aggression ... it\'s intimacy. Scorpio: Libra\'s diplomacy is not dishonesty ... it\'s care.',
@@ -549,7 +549,7 @@ export const PAIRS: Record<string, PairData> = {
   'Libra+Sagittarius': {
     summary: 'A bright, optimistic pairing that thrives on shared culture, travel, and intellectual exploration.',
     dynamic: 'Libra and Sagittarius are a sextile apart and share a love of culture, beauty, and philosophical conversation. Both are socially oriented, both are optimistic, and both value fairness and justice, though they express these values differently.\n\nThis is a light, enjoyable pairing that works well as long as both partners invest in emotional depth beyond the pleasant surface.',
-    strengths: ['Natural rapport and shared interests', 'Both love travel, culture, and intellectual conversation', 'Optimistic and future-oriented together', 'Mutual respect for independence'],
+    strengths: ['Natural rapport and shared interests', 'Both love travel, culture, and intellectual conversation', 'Optimistic and looking ahead together', 'Mutual respect for independence'],
     challenges: ['Neither gravitates toward emotional heaviness', 'Sagittarius\'s bluntness can upset Libra\'s need for tact', 'Commitment may feel casual rather than deep', 'Both may avoid difficult conversations'],
     tip: 'You enjoy life beautifully together. Make sure you also navigate hardship together ... that\'s what makes it real.',
   },
@@ -565,12 +565,12 @@ export const PAIRS: Record<string, PairData> = {
     dynamic: 'Libra and Aquarius are a trine apart and share the Air element\'s love of ideas, justice, and social connection. Both care about fairness, both are intellectually curious, and both value independence within partnership. The conversation between them is stimulating and the friendship is genuine.\n\nThis is a natural pairing that flows easily. The challenge, as with all Air and Air combinations, is developing emotional depth and physical intimacy beyond the mental connection.',
     strengths: ['Strong intellectual chemistry and shared values', 'Both value fairness, equality, and independence', 'Excellent social and creative partnership', 'Mutual respect for each other\'s individuality'],
     challenges: ['Emotional intimacy may remain underdeveloped', 'Both can be detached when feelings get intense', 'Indecisiveness combined with stubbornness', 'May feel more like best friends than passionate lovers'],
-    tip: 'Your minds are matched. Now match your hearts. Regular emotional check-ins turn a great friendship into a great love.',
+    tip: 'Your minds are matched. Now match your hearts. Regular talks about feelings turn a great friendship into a great love.',
   },
   'Libra+Pisces': {
     summary: 'Two romantics who idealize love ... and must learn to love what\'s real, not just what\'s beautiful.',
     dynamic: 'Libra and Pisces are both deeply romantic and both crave a love that feels like art. Libra approaches romance through beauty and balance; Pisces approaches it through feeling and surrender. Together they can create something genuinely magical ... but the magic requires grounding to survive.\n\nBoth signs tend to idealize partners and relationships, which creates a beautiful beginning and a potentially disillusioning middle when reality sets in.',
-    strengths: ['Both are romantic, gentle, and relationship-oriented', 'Shared love of art, music, and beauty', 'Complementary: Libra brings elegance, Pisces brings depth', 'Both are compassionate and considerate'],
+    strengths: ['Both are romantic, gentle, and devoted to the relationship', 'Shared love of art, music, and beauty', 'Complementary: Libra brings elegance, Pisces brings depth', 'Both are compassionate and considerate'],
     challenges: ['Both may idealize the relationship rather than seeing it clearly', 'Conflict avoidance from both sides', 'Neither is naturally practical or decisive', 'Boundaries can become blurred'],
     tip: 'Love the real person, not the ideal. The real version is more interesting and more worthy of your devotion.',
   },
@@ -580,7 +580,7 @@ export const PAIRS: Record<string, PairData> = {
     summary: 'The most intense pairing in the zodiac ... transformative, consuming, and unforgettable.',
     dynamic: 'Two Scorpios together create a connection so intense that it changes both people permanently. You understand each other\'s depth, honor each other\'s need for privacy, and share a capacity for intimacy that most people never achieve. The loyalty between you is absolute.\n\nThe risk is equally absolute. Two Fixed Water signs who both need control, both guard secrets, and both carry grudges can create a dynamic that is more power struggle than partnership.',
     strengths: ['Unmatched emotional and physical intimacy', 'Absolute loyalty and commitment', 'Deep mutual understanding and respect', 'Transformative growth potential'],
-    challenges: ['Power struggles can become all-consuming', 'Jealousy and possessiveness amplified', 'Neither forgives or forgets easily', 'Intensity without relief can become toxic'],
+    challenges: ['Power struggles can take over everything', 'Jealousy and possessiveness amplified', 'Neither forgives or forgets easily', 'Intensity without relief can become toxic'],
     tip: 'You have the depth. Work on the lightness. Laughter, play, and forgiveness are not betrayals of your intensity.',
   },
   'Scorpio+Sagittarius': {
@@ -616,20 +616,20 @@ export const PAIRS: Record<string, PairData> = {
   'Sagittarius+Sagittarius': {
     summary: 'Two adventurers who explore the world together ... if they can commit to exploring each other.',
     dynamic: 'Two Sagittarians together create a life of perpetual adventure, philosophical debate, and infectious optimism. You share a love of freedom, learning, and experiencing everything the world has to offer. The laughter is constant and the energy is boundless.\n\nThe challenge is depth and commitment. Both partners value freedom so highly that settling down and doing the hard work of intimacy can feel like a threat to the adventure.',
-    strengths: ['Shared love of travel, learning, and growth', 'Both are optimistic and future-oriented', 'Mutual respect for independence', 'Endlessly fun and energizing together'],
+    strengths: ['Shared love of travel, learning, and growth', 'Both are optimistic and look to the future', 'Mutual respect for independence', 'Endlessly fun and energizing together'],
     challenges: ['Neither naturally gravitates toward commitment', 'Both avoid emotional heaviness', 'Can become perpetual travelers who never build a home', 'Honesty can become bluntness that wounds'],
     tip: 'The greatest adventure is not out there ... it is the person sitting next to you. Go deep, not just wide.',
   },
   'Sagittarius+Capricorn': {
     summary: 'The optimist meets the realist ... neighboring signs who grow through productive tension.',
-    dynamic: 'Sagittarius sees the best-case scenario; Capricorn plans for the worst case. Sagittarius takes risks; Capricorn calculates them. These neighboring signs often frustrate each other because their timelines and risk tolerances are so different.\n\nYet there is a complementary strength here: Sagittarius provides the vision and enthusiasm that Capricorn\'s careful plans need, and Capricorn provides the structure that turns Sagittarius\'s dreams into reality.',
+    dynamic: 'Sagittarius expects the best; Capricorn plans for the worst. Sagittarius takes risks; Capricorn calculates them. These neighboring signs often frustrate each other because their timelines and risk tolerances are so different.\n\nYet there is a complementary strength here: Sagittarius provides the vision and enthusiasm that Capricorn\'s careful plans need, and Capricorn provides the structure that turns Sagittarius\'s dreams into reality.',
     strengths: ['Complementary: vision + execution', 'Both are ambitious in different ways', 'Sagittarius lightens Capricorn; Capricorn grounds Sagittarius', 'Shared respect for honesty and integrity'],
     challenges: ['Different risk tolerances and timelines', 'Sagittarius finds Capricorn pessimistic; Capricorn finds Sagittarius naive', 'Social and lifestyle differences', 'Different approaches to money and security'],
     tip: 'Sagittarius: Capricorn\'s caution is not fear. Capricorn: Sagittarius\'s optimism is not irresponsibility. Combine both.',
   },
   'Sagittarius+Aquarius': {
     summary: 'Two independent thinkers who share a love of freedom, ideas, and making the world better.',
-    dynamic: 'Sagittarius and Aquarius are a sextile apart and share a progressive, freedom-loving, intellectually driven orientation. Both care about the future, both resist convention, and both need significant independence within relationship. The friendship between them is genuine and easy.\n\nThis pairing works well because both partners understand and respect each other\'s need for space. The challenge is developing the emotional intimacy that sustains romance beyond friendship.',
+    dynamic: 'Sagittarius and Aquarius are a sextile apart and share a progressive, independent, intellectually driven orientation. Both care about the future, both resist convention, and both need significant independence within relationship. The friendship between them is genuine and easy.\n\nThis pairing works well because both partners understand and respect each other\'s need for space. The challenge is developing the emotional intimacy that sustains romance beyond friendship.',
     strengths: ['Strong intellectual chemistry and shared ideals', 'Both value freedom and give it generously', 'Shared interest in social justice and progress', 'Fun, adventurous, and unconventional together'],
     challenges: ['Emotional depth requires deliberate effort', 'Both may avoid commitment or settling down', 'Can feel more like philosophical allies than romantic partners', 'Neither provides grounding or domesticity'],
     tip: 'You share a vision of the future. Make sure that future includes emotional intimacy, not just intellectual alignment.',
@@ -637,7 +637,7 @@ export const PAIRS: Record<string, PairData> = {
   'Sagittarius+Pisces': {
     summary: 'Two Mutable signs ruled by Jupiter who share idealism but express it through different dimensions.',
     dynamic: 'Sagittarius and Pisces are both ruled by Jupiter (traditionally) and both oriented toward meaning, faith, and transcendence. Sagittarius seeks meaning through philosophy, travel, and external exploration; Pisces seeks it through imagination, spirituality, and internal exploration. The square between them creates friction around method but not motivation.\n\nWhen it works, this pairing produces a deeply creative, spiritually rich connection. When it doesn\'t, Sagittarius finds Pisces too sensitive and Pisces finds Sagittarius too blunt.',
-    strengths: ['Shared Jupiterian expansiveness and idealism', 'Both are creative, imaginative, and open-minded', 'Strong spiritual and philosophical connection', 'Neither is materialistic or controlling'],
+    strengths: ['Shared Jupiterian expansiveness and idealism', 'Both are creative, imaginative, and open to new ideas', 'Strong spiritual and philosophical connection', 'Neither is materialistic or controlling'],
     challenges: ['Sagittarius\'s bluntness wounds Pisces\'s sensitivity', 'Pisces\'s emotionality overwhelms Sagittarius\'s lightness', 'Both can be escapist in different ways', 'Neither provides practical grounding'],
     tip: 'You both seek meaning. Sagittarius finds it in truth; Pisces finds it in beauty. Honor both paths.',
   },
@@ -659,7 +659,7 @@ export const PAIRS: Record<string, PairData> = {
   },
   'Capricorn+Pisces': {
     summary: 'The builder meets the dreamer ... a surprisingly complementary pairing of structure and soul.',
-    dynamic: 'Capricorn and Pisces are a sextile apart and create a partnership where dreams meet discipline. Capricorn provides the structure, planning, and follow-through; Pisces provides the vision, imagination, and emotional depth. Each has something the other desperately needs.\n\nCapricorn softens in Pisces\'s presence, accessing emotions they normally suppress. Pisces stabilizes in Capricorn\'s presence, grounding dreams they normally let float away.',
+    dynamic: 'Capricorn and Pisces are a sextile apart and create a partnership where dreams meet discipline. Capricorn provides the structure, planning, and staying power; Pisces provides the vision, imagination, and emotional depth. Each has something the other desperately needs.\n\nCapricorn softens in Pisces\'s presence, accessing emotions they normally suppress. Pisces stabilizes in Capricorn\'s presence, grounding dreams they normally let float away.',
     strengths: ['Deeply complementary strengths', 'Capricorn grounds Pisces; Pisces softens Capricorn', 'Both are more caring than they appear', 'Quietly devoted and loyal'],
     challenges: ['Capricorn may dismiss Pisces\'s emotions as impractical', 'Pisces may feel restricted by Capricorn\'s rules', 'Different approaches to money and security', 'Communication styles differ: direct vs. indirect'],
     tip: 'Capricorn: Pisces\'s dreams are not impractical ... they are the vision your plans need. Pisces: Capricorn\'s structure is not a cage ... it is what turns your dreams into reality.',

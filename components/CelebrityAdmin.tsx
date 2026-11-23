@@ -56,6 +56,7 @@ export default function CelebrityAdmin() {
           birthCity: form.birthCity,
           birthLat: form.birthLat,
           birthLng: form.birthLng,
+          subjectName: form.name,
           turnstileToken,
         }),
       })
@@ -97,7 +98,7 @@ export default function CelebrityAdmin() {
 
   return (
     <div>
-      <h2 className="font-semibold mb-4">Add Celebrity</h2>
+      <h2 className="font-semibold mb-4">Add celebrity</h2>
       <form onSubmit={handleSubmit} className="card space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
@@ -118,7 +119,7 @@ export default function CelebrityAdmin() {
             <input type="date" name="birthDate" value={form.birthDate} onChange={handleChange} className="input" />
           </div>
           <div>
-            <label className="block text-sm mb-1 text-slate-500">Birth Time</label>
+            <label className="block text-sm mb-1 text-slate-500">Birth time</label>
             <input type="time" name="birthTime" value={form.birthTime} onChange={handleChange} className="input" />
             {!form.birthTime && <p className="text-xs text-slate-400 mt-1">Defaults to noon if unknown</p>}
           </div>

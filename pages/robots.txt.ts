@@ -46,7 +46,9 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     'Disallow: /account',
     'Disallow: /admin',
     'Disallow: /daily-horoscope',
-    'Disallow: /birth-chart',
+    // The calculator (/birth-chart) is public; saved charts (/birth-chart/<id>)
+    // hold people's birth details and stay out of search (owner 11/21).
+    'Disallow: /birth-chart/',
     'Disallow: /login',
     'Disallow: /signup',
     'Disallow: /celebrity-birth-charts?*',

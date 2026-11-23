@@ -9,6 +9,10 @@ import { describeTransit, describeMoonTransit } from '@/lib/interpretations/tran
 import { getPlanetInfo } from '@/lib/interpretations'
 import { getElementColor } from '@/lib/zodiac-colors'
 import DashboardLayout from '@/components/DashboardLayout'
+import { redesignOn } from '@/lib/redesign'
+import { Disc } from '@/components/redesign/Disc'
+import { LearnHero, NextLinks } from '@/components/redesign/Learn'
+import { BODY_ICON, DISC } from '@/lib/redesign/astro'
 
 interface Props {
   hasChart: boolean
@@ -114,7 +118,90 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
   }
 }
 
+type T = Array<Transit & { description: string; planetSymbol: string; planetName: string; natalPlanetName: string }>
+
+// One transit: the moving planet's disc, what it touches in the chart, the text.
+function TransitList({ items, withSign }: { items: T; withSign: boolean }) {
+  return (
+    <ul className="trn">
+      {items.map((t, i) => (
+        <li key={i}>
+          <Disc disc={{ color: DISC[t.transitPlanet] ?? '#C3CBFF', icon: BODY_ICON[t.transitPlanet] }} size={36} />
+          <div>
+            <b>{t.planetName}{withSign ? ` in ${t.transitSign}` : ''} {t.aspect} your {t.natalPlanetName}</b>
+            <small>{t.orb}° from exact</small>
+            <p>{t.description}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+// Stage 'finish': the reader's day, said first. The Moon's sign and house for
+// the day, then what touches their chart today, this week and this season.
+function DailyRedesign(props: Props) {
+  const { hasChart, chartId, sunSign, moonSign, ascendantSign, dateStr, dayWord, dailyMoonSign, moonTransitParagraphs, todayTransits, weekTransits, seasonTransits } = props
+  const head = (
+    <Head>
+      <title>Your Daily Horoscope | Birth Chart Library</title>
+      <meta name="description" content="A personalized daily horoscope based on your natal chart and current planetary transits." />
+    </Head>
+  )
+  if (!hasChart) {
+    return (
+      <>
+        {head}
+        <main className="rdp"><div className="lrn">
+          <LearnHero title="Your daily horoscope">
+            <p>Generate your birth chart first to unlock your personalized daily horoscope.</p>
+            <p>Your horoscope is calculated from your unique natal chart, so no two are alike.</p>
+          </LearnHero>
+          <p className="dgo"><Link className="btn" href="/birth-chart">Generate your chart</Link></p>
+        </div></main>
+      </>
+    )
+  }
+  const days = [['yesterday', 'Yesterday'], ['', 'Today'], ['tomorrow', 'Tomorrow']] as const
+  return (
+    <>
+      {head}
+      <main className="rdp"><div className="lrn dh">
+        <LearnHero kicker="Daily horoscope" title={dateStr ?? ''}>
+          <p>From your own chart: {[sunSign && `${sunSign} Sun`, moonSign && `${moonSign} Moon`, ascendantSign && `${ascendantSign} rising`].filter(Boolean).join(', ')}.</p>
+        </LearnHero>
+        <nav className="chips filt" aria-label="Which day">
+          {days.map(([q, label]) => (
+            <Link key={label} className="chip" href={q ? `/daily-horoscope?day=${q}` : '/daily-horoscope'} aria-current={dayWord === label ? 'page' : undefined}>{label}</Link>
+          ))}
+        </nav>
+
+        <section className="lsec">
+          <div className="dmoon">
+            <Disc disc={{ color: DISC.MOON, icon: 'moon' }} size={48} />
+            <h2>{dayWord}: the Moon in {dailyMoonSign}</h2>
+          </div>
+          {moonTransitParagraphs?.map((t, i) => <p key={i}>{t}</p>)}
+          {todayTransits?.length ? <TransitList items={todayTransits} withSign={false} /> : null}
+        </section>
+
+        {weekTransits?.length ? <section className="lsec"><h2>This week</h2><TransitList items={weekTransits} withSign /></section> : null}
+        {seasonTransits?.length ? <section className="lsec"><h2>This season</h2><TransitList items={seasonTransits} withSign /></section> : null}
+
+        <NextLinks
+          lede="Readings refresh daily at midnight UTC."
+          links={[{ href: `/birth-chart/${chartId}`, title: 'My chart', sub: 'Every planet, house and aspect' }, { href: `/birth-chart/${chartId}/reading`, title: 'My full reading', sub: 'The whole chart in plain words' }]}
+        />
+      </div></main>
+    </>
+  )
+}
+
 export default function DailyHoroscopePage(props: Props) {
+  return redesignOn('finish') ? <DailyRedesign {...props} /> : <LegacyDailyHoroscopePage {...props} />
+}
+
+function LegacyDailyHoroscopePage(props: Props) {
   const {
     hasChart, chartId, chartLabel, sunSign, moonSign, ascendantSign,
     dateStr, dayWord, dailyMoonSign, moonElementColor,
@@ -130,19 +217,19 @@ export default function DailyHoroscopePage(props: Props) {
 
       {!hasChart ? (
         <main className="max-w-2xl mx-auto px-4 py-12">
-          <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-4">Your Daily Horoscope</h1>
+          <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-4">Your daily horoscope</h1>
           <div className="card text-center py-10">
             <div className="text-4xl mb-4">&#10022;</div>
             <p className="text-slate-500 mb-2">Generate your birth chart first to unlock your personalized daily horoscope.</p>
             <p className="text-slate-400 text-sm mb-6">Your horoscope is calculated from your unique natal chart... no two are alike.</p>
-            <Link href="/birth-chart" className="btn-primary">Generate Your Chart</Link>
+            <Link href="/birth-chart" className="btn-primary">Generate your chart</Link>
           </div>
         </main>
       ) : (
         <main className="max-w-2xl mx-auto px-4 py-12">
           {/* Header */}
           <div className="mb-6">
-            <p className="text-xs uppercase tracking-widest text-slate-400 mb-2">Daily Horoscope</p>
+            <p className="text-xs uppercase tracking-widest text-slate-400 mb-2">Daily horoscope</p>
             <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-1">{dateStr}</h1>
             <p className="text-slate-500 dark:text-slate-400 text-sm">
               Personalized for {chartLabel}... {sunSign} Sun, {moonSign} Moon, {ascendantSign} Rising
@@ -185,7 +272,7 @@ export default function DailyHoroscopePage(props: Props) {
             <section className="mb-8">
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-xl">&#10022;</span>
-                <h2 className="text-lg font-semibold">This Week</h2>
+                <h2 className="text-lg font-semibold">This week</h2>
               </div>
 
               <div className="space-y-3">
@@ -207,7 +294,7 @@ export default function DailyHoroscopePage(props: Props) {
             <section className="mb-8">
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-xl">&#9711;</span>
-                <h2 className="text-lg font-semibold">This Season</h2>
+                <h2 className="text-lg font-semibold">This season</h2>
               </div>
 
               <div className="space-y-3">

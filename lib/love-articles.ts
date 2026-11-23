@@ -23,188 +23,6 @@ export interface Article {
   related?: string[]
 }
 
-// ─── Sign-in-love template data ───────────────────────────────────────────────
-
-const SIGN_LOVE: Record<string, {
-  symbol: string
-  brings: string; needs: string; tip: string; shadow: string
-  best: string[]; bestNote: string
-  famous: { who: string; sign: string }[]
-}> = {
-  Aries: {
-    symbol: '♈',
-    brings: 'passion, directness, and the electric thrill of pursuit. Aries doesn\'t love quietly — they go all in, fast, with the full force of their attention.',
-    needs: 'independence, genuine excitement, and a partner who can hold their own without needing to be managed. The moment Aries feels like they\'re the only one rowing, interest fades.',
-    tip: 'Signs that can match Aries\' energy without being overwhelmed — or who offer the grounding they don\'t know they need — tend to go the distance. Aries does best when they have a partner who challenges them, not one who simply follows.',
-    shadow: 'When Aries feels threatened or ignored, they can become combative and impatient. The competitive drive that energizes them can turn inward, making every disagreement a battle to be won rather than a conversation to be had. An Aries operating from wound doesn\'t pause to consider impact.',
-    best: ['Leo', 'Sagittarius', 'Gemini', 'Aquarius'],
-    bestNote: 'Fire signs share Aries\' pace and passion. Air signs fuel the flame without smothering it.',
-    famous: [{ who: 'Victoria Beckham', sign: 'Aries' }, { who: 'Serena Williams', sign: 'Libra' }],
-  },
-  Taurus: {
-    symbol: '♉',
-    brings: 'loyalty, deep sensuality, and a love that deepens with time rather than fading. Taurus is the partner who remembers. Who shows up. Who builds something real.',
-    needs: 'stability, physical and emotional consistency, and a partner who means what they say. Empty promises are the fastest way to lose a Taurus entirely.',
-    tip: 'Taurus thrives with signs who appreciate consistency and build something real. What looks like stubbornness from the outside is often devotion — but Taurus must also be willing to grow, or the relationship calcifies into routine.',
-    shadow: 'Taurus\' shadow is possessiveness and immovability. When threatened, they dig in. When hurt, they may become cold or withhold affection as a form of control. The resistance to change that makes them reliable can make them impossible when change is exactly what\'s needed.',
-    best: ['Virgo', 'Capricorn', 'Cancer', 'Pisces'],
-    bestNote: 'Earth signs share Taurus\' values and pace. Water signs bring emotional depth that grounds Taurus in the heart.',
-    famous: [{ who: 'David Beckham', sign: 'Taurus' }, { who: 'Amal Clooney', sign: 'Aquarius' }],
-  },
-  Gemini: {
-    symbol: '♊',
-    brings: 'wit, adaptability, and a mind that never stops exploring. A Gemini in love is a conversationalist, a playmate, a mirror who reflects your best ideas back with extra sparkle.',
-    needs: 'intellectual stimulation, variety, and space to evolve without being made to feel guilty for changing. Gemini suffocates in stagnant partnerships.',
-    tip: 'The best matches for Gemini are signs who can keep up mentally — or who offer a center of gravity Gemini actually wants to return to. Gemini doesn\'t need a twin; they need a home base.',
-    shadow: 'Gemini\'s shadow is emotional inconsistency. Present one day, absent the next. Fully committed in theory, scattered in practice. A Gemini operating from wound can use their verbal facility to deflect rather than connect — winning arguments rather than having conversations.',
-    best: ['Libra', 'Aquarius', 'Aries', 'Leo'],
-    bestNote: 'Air signs share Gemini\'s love of ideas and movement. Fire signs provide the enthusiasm and directness that grounds Gemini\'s restlessness.',
-    famous: [{ who: 'Tom Holland', sign: 'Gemini' }, { who: 'Blake Shelton', sign: 'Gemini' }],
-  },
-  Cancer: {
-    symbol: '♋',
-    brings: 'deep emotional attunement, fierce loyalty, and a love that feels like coming home. Cancer doesn\'t love on the surface — they love from the inside out.',
-    needs: 'security, genuine emotional reciprocity, and a partner who shows up consistently. Cancer can read insincerity from a mile away, and no one withdraws faster when they sense it.',
-    tip: 'Cancer does best with signs who honor emotional depth — not those who call it "too much." The right match creates enough safety that Cancer can stop armoring their heart. Without that safety, Cancer\'s protective instincts run the whole relationship.',
-    shadow: 'Cancer\'s shadow is emotional enmeshment and indirect communication. When hurt, they retreat instead of speaking. When anxious, they can become clingy or use guilt as a way to keep people close. The care that makes them wonderful can curdle into control when they\'re afraid.',
-    best: ['Scorpio', 'Pisces', 'Taurus', 'Capricorn'],
-    bestNote: 'Water signs understand Cancer\'s depth intuitively. Earth signs offer the stability and reliability Cancer needs to feel safe.',
-    famous: [{ who: 'Selena Gomez', sign: 'Cancer' }, { who: 'Kristen Bell', sign: 'Cancer' }],
-  },
-  Leo: {
-    symbol: '♌',
-    brings: 'warmth, generosity, and a love that makes their partner feel like the most important person in the room. Leo doesn\'t love halfway — when they choose you, they celebrate you.',
-    needs: 'genuine admiration, unwavering loyalty, and a partner who is secure enough to let Leo shine without feeling eclipsed. Insecurity in a Leo\'s partner tends to bring out Leo\'s worst.',
-    tip: 'Leo needs a partner who celebrates them — and who shines in return. The fear beneath Leo\'s boldness is invisibility. The right match sees Leo fully and chooses them anyway.',
-    shadow: 'Leo\'s shadow is ego displacing intimacy. When not receiving consistent affirmation, Leo can become performative, cold, or punishing. The vulnerability beneath the bravado is real — but a Leo who hasn\'t done the work will protect it by becoming impossible to criticize.',
-    best: ['Aries', 'Sagittarius', 'Gemini', 'Libra'],
-    bestNote: 'Fire signs share Leo\'s warmth and vitality. Air signs provide the audience and intellectual match that Leo thrives on.',
-    famous: [{ who: 'Meghan Markle', sign: 'Leo' }, { who: 'Jennifer Lopez', sign: 'Leo' }],
-  },
-  Virgo: {
-    symbol: '♍',
-    brings: 'devotion, attentiveness, and a love expressed through acts of care so precise they amount to a language. Virgo notices everything — and remembers.',
-    needs: 'respect for their standards, emotional reliability, and a partner who sees the love in the attention to detail. Virgo needs to be appreciated for what they give, not just told what they do wrong.',
-    tip: 'Virgo\'s best matches are those who see the love behind the criticism and offer the warmth that softens Virgo\'s tendency toward self-criticism. Virgo can be impossibly hard on themselves; a partner who genuinely values their care unlocks their best.',
-    shadow: 'Virgo\'s shadow is criticism deployed as armor. When anxious, Virgo fixates on what\'s wrong — in the relationship, in their partner, in themselves. The helpfulness that is their gift can become an endless catalog of inadequacy. A Virgo in their wound makes the people around them feel like they can never measure up.',
-    best: ['Taurus', 'Capricorn', 'Cancer', 'Scorpio'],
-    bestNote: 'Earth signs share Virgo\'s grounded values and reliability. Water signs bring emotional warmth that thaws Virgo\'s tendency toward over-analysis.',
-    famous: [{ who: 'Beyoncé', sign: 'Virgo' }, { who: 'Zendaya', sign: 'Virgo' }],
-  },
-  Libra: {
-    symbol: '♎',
-    brings: 'charm, genuine fairness, and a commitment to making the relationship beautiful in every dimension. Libra is the sign that was built for partnership.',
-    needs: 'harmony, intellectual connection, and a partner who can engage in real disagreement without Libra having to disappear entirely. Peace-keeping is not the same as peace.',
-    tip: 'Libra does best with signs who can hold the tension of a real disagreement and still choose the relationship — because what Libra needs is a partner they can stop performing harmony for.',
-    shadow: 'Libra\'s shadow is chronic conflict avoidance. When tension rises, Libra can agree with things they don\'t believe to keep the peace, or become emotionally evasive in ways that make real intimacy impossible. The relationship becomes a performance rather than a reality.',
-    best: ['Gemini', 'Aquarius', 'Leo', 'Sagittarius'],
-    bestNote: 'Air signs share Libra\'s need for mental connection and social alignment. Fire signs provide decisiveness and warmth that Libra gravitates toward and relies on.',
-    famous: [{ who: 'Cardi B', sign: 'Libra' }, { who: 'Will Smith', sign: 'Libra' }],
-  },
-  Scorpio: {
-    symbol: '♏',
-    brings: 'unwavering loyalty, intensity that transforms both people, and a love that refuses to stay on the surface. Scorpio loves all of you — especially the parts you\'ve hidden from everyone else.',
-    needs: 'trust above everything, emotional honesty even when it\'s hard, and a partner who can handle real depth without flinching. What Scorpio cannot survive: betrayal, deception, or a partner who is structurally unavailable.',
-    tip: 'Scorpio\'s best matches understand that the intensity is the love — not a red flag. Signs who run from depth will always disappoint Scorpio. The right match enters the water willingly.',
-    shadow: 'Scorpio\'s shadow is punishment. When hurt or betrayed, Scorpio can become withdrawn, controlling, or retaliatory — making the partner pay for injuries they may not have even known they caused. The survival mechanisms that protect Scorpio can also imprison both people in the relationship.',
-    best: ['Cancer', 'Pisces', 'Virgo', 'Capricorn'],
-    bestNote: 'Water signs understand Scorpio\'s depth without needing it explained. Earth signs provide the stability and loyalty that earns Scorpio\'s trust over time.',
-    famous: [{ who: 'Travis Kelce', sign: 'Scorpio' }, { who: 'Goldie Hawn', sign: 'Scorpio' }],
-  },
-  Sagittarius: {
-    symbol: '♐',
-    brings: 'adventure, philosophical honesty, and a love that expands both people\'s world. A Sagittarius in love is a genuine companion — present, enthusiastic, and interested in who you actually are.',
-    needs: 'freedom to be themselves, a partner who is genuinely curious about life, and philosophical alignment on what makes a relationship worth having. Sagittarius cannot be contained — only chosen.',
-    tip: 'Sagittarius thrives with signs who want to grow together rather than those who try to contain them. The right match is a fellow adventurer, not a warden. Sagittarius\'s best relationships feel like an ongoing invitation.',
-    shadow: 'Sagittarius\' shadow is using philosophical honesty as an excuse not to show up fully. "I need freedom" can become a pattern of never fully committing. Sagittarius can idealize the idea of connection while subtly avoiding the work that real intimacy requires.',
-    best: ['Aries', 'Leo', 'Libra', 'Aquarius'],
-    bestNote: 'Fire signs share Sagittarius\' enthusiasm and need for expansion. Air signs bring the intellectual depth and social range that keeps Sagittarius genuinely interested.',
-    famous: [{ who: 'Taylor Swift', sign: 'Sagittarius' }, { who: 'Jay-Z', sign: 'Sagittarius' }],
-  },
-  Capricorn: {
-    symbol: '♑',
-    brings: 'commitment, stability, and a love that builds something real over time. Capricorn doesn\'t say it often, but when they choose you, they mean it for keeps.',
-    needs: 'a partner who respects what they\'re building and can meet them in their world — practically grounded, emotionally reliable, and not in need of constant reassurance.',
-    tip: 'Capricorn opens slowly but loves for keeps. The best matches are those patient enough to earn that trust — and secure enough not to mistake Capricorn\'s seriousness for coldness.',
-    shadow: 'Capricorn\'s shadow is emotional unavailability dressed as strength. Work and achievement can become substitutes for intimacy. The self-sufficiency that makes them reliable can become a wall the partner cannot get behind. Capricorn at their worst makes love feel like another item on the to-do list.',
-    best: ['Taurus', 'Virgo', 'Scorpio', 'Pisces'],
-    bestNote: 'Earth signs match Capricorn\'s pace and pragmatism. Water signs bring the emotional warmth and intuitive care that helps Capricorn lower their guard.',
-    famous: [{ who: 'Michelle Obama', sign: 'Capricorn' }, { who: 'LeBron James', sign: 'Capricorn' }],
-  },
-  Aquarius: {
-    symbol: '♒',
-    brings: 'originality, intellectual depth, and a love that never loses its sense of possibility. Aquarius sees their partner as a full person — not a role to be filled.',
-    needs: 'freedom to remain an individual, genuine mental connection, and a partner who understands that emotional distance doesn\'t mean absence of love.',
-    tip: 'Aquarius does best with signs who value ideas and independence — and who understand that Aquarius\'s emotional expression is real even when it doesn\'t look conventional.',
-    shadow: 'Aquarius\' shadow is emotional detachment that passes as independence. When Aquarius intellectualizes rather than feels, the partner can end up experiencing a relationship with a concept of a person rather than the person themselves. The analysis can crowd out the intimacy.',
-    best: ['Gemini', 'Libra', 'Sagittarius', 'Aries'],
-    bestNote: 'Air signs share Aquarius\' love of ideas and space. Fire signs provide the spontaneity and directness that helps Aquarius access their own emotional life.',
-    famous: [{ who: 'Jennifer Aniston', sign: 'Aquarius' }, { who: 'Ellen DeGeneres', sign: 'Aquarius' }],
-  },
-  Pisces: {
-    symbol: '♓',
-    brings: 'empathy, romantic imagination, and a love that makes their partner feel truly, completely seen. Pisces loves without armor — a rare and precious thing.',
-    needs: 'gentleness, genuine emotional safety, and a partner who grounds without controlling. Pisces in the wrong relationship becomes whoever the relationship needs them to be.',
-    tip: 'Pisces thrives with signs who can hold space for deep feeling without taking advantage of that openness. The right match is a soft landing, not another wound.',
-    shadow: 'Pisces\' shadow is escapism — when things get hard, Pisces can dissolve into fantasy, projection, or substances rather than staying present with difficulty. Pisces can fall in love with who they want someone to be rather than who they are, and feel betrayed when the real person doesn\'t match the dream.',
-    best: ['Cancer', 'Scorpio', 'Taurus', 'Capricorn'],
-    bestNote: 'Water signs understand Pisces\' depth without making them explain it. Earth signs offer the grounding and reliability that helps Pisces stay tethered to reality.',
-    famous: [{ who: 'Rihanna', sign: 'Pisces' }, { who: 'Elizabeth Taylor', sign: 'Pisces' }],
-  },
-}
-
-function buildSignArticle(sign: string): Article {
-  const d = SIGN_LOVE[sign]
-  if (!d) throw new Error(`No data for ${sign}`)
-  return {
-    title: `${sign} in Love`,
-    description: `What ${sign} brings to relationships, what they need from a partner, their best matches, and the shadow patterns to watch for. A complete ${sign} love profile.`,
-    publishDate: '2026-05-01',
-    readTime: '5 min read',
-    category: 'sign',
-    sign1: sign,
-    intro: `${sign} ${d.symbol} in love is ${d.brings.charAt(0).toLowerCase() + d.brings.slice(1)}. Here's what that actually means for the people who love them — and for ${sign} themselves.`,
-    compatLink: `/compatibility/${sign.toLowerCase()}`,
-    sections: [
-      {
-        heading: `What ${sign} Brings to a Relationship`,
-        paragraphs: [
-          `${sign} brings ${d.brings}`,
-          `This is not a sign that does things halfway in love. Whatever the expression looks like from the outside, the interior is total. The challenge for partners is learning to receive love in the language ${sign} actually speaks — which may not always be the language you were expecting.`,
-        ],
-      },
-      {
-        heading: `What ${sign} Needs`,
-        paragraphs: [
-          `${sign} needs ${d.needs}`,
-          `${d.tip}`,
-        ],
-      },
-      {
-        heading: `Best Matches for ${sign}`,
-        signBullets: d.best.map(s => ({ sign: s, text: `${s} — ${d.bestNote}` })),
-        paragraphs: [`These aren't the only signs that work with ${sign} — any two charts can create something real with awareness and effort. But elementally, these are the pairings where the baseline compatibility supports the work.`],
-      },
-      {
-        heading: `The Shadow Side`,
-        paragraphs: [
-          d.shadow,
-          `This is not who ${sign} is — it's who ${sign} becomes when they're operating from an unhealed place. Every sign has a shadow. Recognizing yours is the first move toward not being run by it.`,
-        ],
-      },
-      {
-        callout: `${sign} at their best is ${d.brings.split(',')[0]} and genuinely transformative for the people they choose. The work is getting out of their own way enough to let that happen.`,
-      },
-    ],
-    faqs: [
-      { question: `Who is ${sign} most compatible with?`, answer: `${sign}'s best matches tend to be ${d.best.slice(0, 3).join(', ')}. ${d.bestNote}` },
-      { question: `What does ${sign} need in a relationship?`, answer: `${sign} needs ${d.needs}` },
-      { question: `What are ${sign}'s red flags in a relationship?`, answer: d.shadow },
-    ],
-    related: ['moon-sign-compatibility', 'red-flags-by-zodiac-sign'],
-  }
-}
-
 // ─── Article content ──────────────────────────────────────────────────────────
 
 export const ARTICLES: Record<string, Article> = {
@@ -230,7 +48,7 @@ export const ARTICLES: Record<string, Article> = {
         paragraphs: [
           'Virgo is an Earth sign: grounded, detail-oriented, service-driven in love. Virgo notices the small things and remembers them. They express care through precision — the right question at the right moment, the thing you mentioned once that they kept track of without making it a production.',
           'Gemini is an Air sign: adaptable, intellectually restless, communicative in a way that moves faster than it settles. Gemini processes by talking, exploring, circling back from a different angle. Where Virgo refines, Gemini expands.',
-          'The element score between Earth and Air (50/100) is technically "contrasting" — but that score assumes no shared Mercury rulership. The reality is that the Mercury bridge elevates this pairing significantly above the baseline number.',
+          'The element score between Earth and Air (C tier) is technically "contrasting" — but that score assumes no shared Mercury rulership. The reality is that the Mercury bridge elevates this pairing significantly above the baseline number.',
         ],
       },
       {
@@ -250,11 +68,11 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        callout: 'Two people who met as teenagers on a film set, grew up alongside each other, and chose each other anyway — that history provides a foundation that no element score can account for. This is a pairing that works better than the numbers suggest, and their Mercury bridge is exactly why.',
+        callout: 'Two people who met as teenagers on a film set, grew up alongside each other, and chose each other anyway — that history provides a foundation that no element score can account for. This is a pairing that works better than the letters suggest, and their Mercury bridge is exactly why.',
       },
     ],
     faqs: [
-      { question: 'Are Zendaya and Tom Holland compatible?', answer: 'Elementally (Earth + Air), the compatibility score is 50/100 — contrasting energies. But both signs are Mercury-ruled, which elevates their communication compatibility significantly. The shared Mercury rulership creates a cognitive connection that most Earth-Air couples have to build from scratch.' },
+      { question: 'Are Zendaya and Tom Holland compatible?', answer: 'Elementally (Earth + Air), the compatibility score is C tier — contrasting energies. But both signs are Mercury-ruled, which elevates their communication compatibility significantly. The shared Mercury rulership creates a cognitive connection that most Earth-Air couples have to build from scratch.' },
       { question: 'What is Zendaya\'s zodiac sign?', answer: 'Zendaya is a Virgo, born September 1, 1996. Virgo is an Earth sign ruled by Mercury, known for precision, attentiveness, and devotion expressed through acts of care.' },
       { question: 'What is Tom Holland\'s zodiac sign?', answer: 'Tom Holland is a Gemini, born June 1, 1996. Gemini is an Air sign also ruled by Mercury, known for adaptability, wit, and intellectual restlessness.' },
     ],
@@ -274,7 +92,7 @@ export const ARTICLES: Record<string, Article> = {
       {
         heading: 'Fire and Water — the Steamy Dynamic',
         paragraphs: [
-          'Fire and Water is one of astrology\'s most electrically charged element combinations. It scores 50/100 — not because it\'s bad, but because it requires genuine translation. Fire (Sagittarius) brings optimism, directness, and expansion. Water (Scorpio) brings intensity, emotional depth, and a loyalty that doesn\'t flinch.',
+          'Fire and Water is one of astrology\'s most electrically charged element combinations. It rates C tier — not because it\'s bad, but because it requires genuine translation. Fire (Sagittarius) brings optimism, directness, and expansion. Water (Scorpio) brings intensity, emotional depth, and a loyalty that doesn\'t flinch.',
           'When Fire-Water pairings work, they\'re described by both partners as "unlike anything before." When they don\'t, Fire feels smothered by Water\'s intensity, and Water feels burned by Fire\'s carelessness. The key is whether both people can learn the other\'s emotional language.',
         ],
       },
@@ -313,7 +131,7 @@ export const ARTICLES: Record<string, Article> = {
       },
     ],
     faqs: [
-      { question: 'Are Taylor Swift and Travis Kelce compatible?', answer: 'Their element combination (Fire + Water) scores 50/100 — contrasting energies that require understanding. Sagittarius and Scorpio can create profound chemistry when they learn each other\'s emotional language, but both signs need to actively bridge their different approaches to vulnerability.' },
+      { question: 'Are Taylor Swift and Travis Kelce compatible?', answer: 'Their element combination (Fire + Water) rates C tier — contrasting energies that require understanding. Sagittarius and Scorpio can create profound chemistry when they learn each other\'s emotional language, but both signs need to actively bridge their different approaches to vulnerability.' },
       { question: 'What is Taylor Swift\'s zodiac sign?', answer: 'Taylor Swift is a Sagittarius, born December 13, 1989. Sagittarius is a Fire sign ruled by Jupiter, known for expansiveness, honesty, and a love of adventure and philosophical exploration.' },
       { question: 'What is Travis Kelce\'s zodiac sign?', answer: 'Travis Kelce is a Scorpio, born October 5, 1989. Scorpio is a Water sign ruled by Pluto and Mars, known for intensity, loyalty, and emotional depth.' },
     ],
@@ -342,7 +160,7 @@ export const ARTICLES: Record<string, Article> = {
         heading: 'The Square Aspect',
         paragraphs: [
           'In astrology, signs that are 90 degrees apart (square) produce tension, friction, and pressure. They see the world differently enough to challenge each other constantly. That challenge can be exhausting — or it can be the engine of everything remarkable they produce together.',
-          'The Earth + Fire element score (55/100) reflects this tension. But a 55 in practice looks like two people who don\'t agree easily, who have to actively work to understand each other, and who — when they do find common ground — build something neither could have reached alone.',
+          'The Earth + Fire element score (B tier) reflects this tension. But a B tier pairing in practice looks like two people who don\'t agree easily, who have to actively work to understand each other, and who — when they do find common ground — build something neither could have reached alone.',
         ],
       },
       {
@@ -366,7 +184,7 @@ export const ARTICLES: Record<string, Article> = {
       },
     ],
     faqs: [
-      { question: 'Are Beyoncé and Jay-Z compatible?', answer: 'Their element combination (Earth + Fire) scores 55/100. Virgo and Sagittarius form a square aspect, meaning there\'s inherent friction and tension in the pairing. That tension is also the source of their creative drive and the reason they build at the scale they do.' },
+      { question: 'Are Beyoncé and Jay-Z compatible?', answer: 'Their element combination (Earth + Fire) rates B tier. Virgo and Sagittarius form a square aspect, meaning there\'s inherent friction and tension in the pairing. That tension is also the source of their creative drive and the reason they build at the scale they do.' },
       { question: 'What is Beyoncé\'s zodiac sign?', answer: 'Beyoncé is a Virgo, born September 4, 1981. Virgo is an Earth sign ruled by Mercury, known for precision, devotion, and an approach to love that expresses itself through acts of meticulous care.' },
       { question: 'What is Jay-Z\'s zodiac sign?', answer: 'Jay-Z is a Sagittarius, born December 4, 1969. Sagittarius is a Fire sign ruled by Jupiter, known for vision, philosophical ambition, and a love of expansion and legacy-building.' },
     ],
@@ -374,14 +192,14 @@ export const ARTICLES: Record<string, Article> = {
   },
 
   'jennifer-aniston-and-brad-pitt': {
-    title: 'Jennifer Aniston & Brad Pitt: The 85/100 Compatibility That Still Didn\'t Last',
-    description: 'Jennifer Aniston is Aquarius. Brad Pitt is Sagittarius. Their element combination scores 85/100 — among the highest in astrology. Here\'s why high compatibility doesn\'t guarantee forever.',
+    title: 'Jennifer Aniston & Brad Pitt: The S Tier Compatibility That Still Didn\'t Last',
+    description: 'Jennifer Aniston is Aquarius. Brad Pitt is Sagittarius. Their element combination rates S tier — among the highest in astrology. Here\'s why high compatibility doesn\'t guarantee forever.',
     publishDate: '2026-05-01',
     readTime: '5 min read',
     category: 'couple',
     sign1: 'Aquarius', sign2: 'Sagittarius',
     compatLink: '/compatibility/sagittarius-and-aquarius',
-    intro: 'Jennifer Aniston (Aquarius, born February 11, 1969) and Brad Pitt (Sagittarius, born December 18, 1963) have an Air + Fire element combination that scores 85/100 — among the highest in the compatibility chart. The chemistry was obvious. The separation still surprised people. Astrology explains both.',
+    intro: 'Jennifer Aniston (Aquarius, born February 11, 1969) and Brad Pitt (Sagittarius, born December 18, 1963) have an Air + Fire element combination that rates S tier — among the highest in the compatibility chart. The chemistry was obvious. The separation still surprised people. Astrology explains both.',
     sections: [
       {
         heading: 'Fire and Air — the Electric Combination',
@@ -416,7 +234,7 @@ export const ARTICLES: Record<string, Article> = {
       },
     ],
     faqs: [
-      { question: 'Were Jennifer Aniston and Brad Pitt compatible?', answer: 'Their element combination (Air + Fire) scores 85/100 — among the highest in astrology. Aquarius and Sagittarius share independence, intellectual depth, and genuine enjoyment of each other\'s company. The compatibility was real; the relationship ended because of life-timeline divergence, not elemental incompatibility.' },
+      { question: 'Were Jennifer Aniston and Brad Pitt compatible?', answer: 'Their element combination (Air + Fire) rates S tier — among the highest in astrology. Aquarius and Sagittarius share independence, intellectual depth, and genuine enjoyment of each other\'s company. The compatibility was real; the relationship ended because of life-timeline divergence, not elemental incompatibility.' },
       { question: 'What is Jennifer Aniston\'s zodiac sign?', answer: 'Jennifer Aniston is an Aquarius, born February 11, 1969. Aquarius is an Air sign ruled by Uranus, known for originality, intellectual independence, and a love of ideas over convention.' },
       { question: 'What is Brad Pitt\'s zodiac sign?', answer: 'Brad Pitt is a Sagittarius, born December 18, 1963. Sagittarius is a Fire sign ruled by Jupiter, known for expansiveness, philosophical curiosity, and a strong orientation toward freedom.' },
     ],
@@ -431,7 +249,7 @@ export const ARTICLES: Record<string, Article> = {
     category: 'couple',
     sign1: 'Libra', sign2: 'Capricorn',
     compatLink: '/compatibility/libra-and-capricorn',
-    intro: 'Kim Kardashian (Libra, born October 21, 1980) and Lewis Hamilton (Capricorn, born January 7, 1985) are both Cardinal signs — the initiators, the builders, the ones who don\'t wait for permission. The element score between Air and Earth is 50/100, which reads as contrasting. The reality of this pairing is considerably more interesting than that number suggests.',
+    intro: 'Kim Kardashian (Libra, born October 21, 1980) and Lewis Hamilton (Capricorn, born January 7, 1985) are both Cardinal signs — the initiators, the builders, the ones who don\'t wait for permission. The element score between Air and Earth is C tier, which reads as contrasting. The reality of this pairing is considerably more interesting than that number suggests.',
     sections: [
       {
         heading: 'Two Cardinals — What That Actually Means',
@@ -450,7 +268,7 @@ export const ARTICLES: Record<string, Article> = {
       {
         heading: 'Air and Earth — Where They Meet',
         paragraphs: [
-          'Air (Libra) and Earth (Capricorn) is a 50/100 element combination — contrasting rather than naturally compatible. Air moves through ideas, social connection, and the circulation of energy between people. Earth moves through tangible results, material reality, and things that can be held and measured.',
+          'Air (Libra) and Earth (Capricorn) is a C tier element combination — contrasting rather than naturally compatible. Air moves through ideas, social connection, and the circulation of energy between people. Earth moves through tangible results, material reality, and things that can be held and measured.',
           'The friction: Libra can find Capricorn\'s seriousness heavy, its self-sufficiency emotionally distant. Capricorn can find Libra\'s need for social validation superficial, its indecisiveness frustrating. Both are real risks in this pairing.',
           'The complementarity: Libra brings the aesthetic vision and social intelligence that softens Capricorn\'s edges and opens doors that pure achievement can\'t. Capricorn brings the structural seriousness and follow-through that gives Libra\'s considerable charm somewhere to land. When this pairing works, it tends to produce something publicly impressive.',
         ],
@@ -474,7 +292,7 @@ export const ARTICLES: Record<string, Article> = {
       },
     ],
     faqs: [
-      { question: 'Are Kim Kardashian and Lewis Hamilton compatible?', answer: 'Their element combination (Air + Earth) scores 50/100 — contrasting energies that require deliberate effort. Both are Cardinal signs, which creates mutual respect for ambition and drive. The pairing works best when both are aligned on shared goals and willing to bridge Libra\'s social orientation with Capricorn\'s private seriousness.' },
+      { question: 'Are Kim Kardashian and Lewis Hamilton compatible?', answer: 'Their element combination (Air + Earth) rates C tier — contrasting energies that require deliberate effort. Both are Cardinal signs, which creates mutual respect for ambition and drive. The pairing works best when both are aligned on shared goals and willing to bridge Libra\'s social orientation with Capricorn\'s private seriousness.' },
       { question: 'What is Kim Kardashian\'s zodiac sign?', answer: 'Kim Kardashian is a Libra, born October 21, 1980. Libra is an Air sign ruled by Venus, known for aesthetic intelligence, social attunement, and a deep orientation toward partnership and beauty.' },
       { question: 'What is Lewis Hamilton\'s zodiac sign?', answer: 'Lewis Hamilton is a Capricorn, born January 7, 1985. Capricorn is an Earth sign ruled by Saturn, known for long-term ambition, disciplined mastery, and a commitment to building things that last.' },
     ],
@@ -489,13 +307,13 @@ export const ARTICLES: Record<string, Article> = {
     category: 'couple',
     sign1: 'Scorpio', sign2: 'Cancer',
     compatLink: '/compatibility/cancer-and-scorpio',
-    intro: 'Kendall Jenner (Scorpio, November 3, 1995) and Jacob Elordi (Cancer, June 26, 1997) are both Water signs — which could mean there is considerably more happening beneath the surface of this relationship than either has publicly acknowledged. Scorpio and Cancer score 75/100 on element compatibility. The real story isn\'t the number. It\'s what happens when two of astrology\'s most private signs choose each other.',
+    intro: 'Kendall Jenner (Scorpio, November 3, 1995) and Jacob Elordi (Cancer, June 26, 1997) are both Water signs — which could mean there is considerably more happening beneath the surface of this relationship than either has publicly acknowledged. Scorpio and Cancer rate A tier on element compatibility. The real story isn\'t the number. It\'s what happens when two of astrology\'s most private signs choose each other.',
     sections: [
       {
         heading: 'Water Meets Water',
         paragraphs: [
           'Water signs process through feeling rather than logic. Both Scorpio and Cancer tend to be more guarded publicly than they are in private — the version of themselves that appears in interviews and photographs may be a carefully managed fraction of who they actually are in a room with someone they trust.',
-          'If this element combination suggests anything for this pairing, it\'s that what they show publicly could be only a fraction of what actually exists between them. Water-Water relationships tend to develop in the interior first — in quiet moments, in conversations that never get photographed. A 75/100 element score reflects the natural resonance between these two signs: they don\'t fight each other\'s emotional nature; they recognize it.',
+          'If this element combination suggests anything for this pairing, it\'s that what they show publicly could be only a fraction of what actually exists between them. Water-Water relationships tend to develop in the interior first — in quiet moments, in conversations that never get photographed. An A tier element rating reflects the natural resonance between these two signs: they don\'t fight each other\'s emotional nature; they recognize it.',
         ],
       },
       {
@@ -517,7 +335,7 @@ export const ARTICLES: Record<string, Article> = {
       },
     ],
     faqs: [
-      { question: 'Are Kendall Jenner and Jacob Elordi compatible?', answer: 'Their element combination (Water + Water) scores 75/100 — one of the more naturally compatible pairings. Scorpio and Cancer share emotional depth, a preference for privacy, and an instinct for loyalty. The main challenge could be both signs\' tendency to withdraw under stress rather than communicate directly.' },
+      { question: 'Are Kendall Jenner and Jacob Elordi compatible?', answer: 'Their element combination (Water + Water) rates A tier — one of the more naturally compatible pairings. Scorpio and Cancer share emotional depth, a preference for privacy, and an instinct for loyalty. The main challenge could be both signs\' tendency to withdraw under stress rather than communicate directly.' },
       { question: 'What is Kendall Jenner\'s zodiac sign?', answer: 'Kendall Jenner is a Scorpio, born November 3, 1995. Scorpio is a Water sign ruled by Pluto and Mars, known for intensity, loyalty, and emotional depth that rarely shows itself publicly.' },
       { question: 'What is Jacob Elordi\'s zodiac sign?', answer: 'Jacob Elordi is a Cancer, born June 26, 1997. Cancer is a Water sign ruled by the Moon, known for emotional attunement, care, and a deep instinct toward creating safety and home.' },
     ],
@@ -560,7 +378,7 @@ export const ARTICLES: Record<string, Article> = {
       },
     ],
     faqs: [
-      { question: 'Are Ariana Grande and Ethan Slater compatible?', answer: 'Two Cancer Suns share a Water-Water element combination that scores 75/100. The natural resonance and emotional understanding could be profound. The main consideration is whether the shared tendency toward emotional withdrawal under stress creates distance when both people need connection most.' },
+      { question: 'Are Ariana Grande and Ethan Slater compatible?', answer: 'Two Cancer Suns share a Water-Water element combination that rates A tier. The natural resonance and emotional understanding could be profound. The main consideration is whether the shared tendency toward emotional withdrawal under stress creates distance when both people need connection most.' },
       { question: 'What is Ariana Grande\'s zodiac sign?', answer: 'Ariana Grande is a Cancer, born June 26, 1993. Cancer is a Water sign ruled by the Moon, known for deep emotional attunement, creativity, and a powerful instinct to protect and nurture those they love.' },
       { question: 'What is Ethan Slater\'s zodiac sign?', answer: 'Ethan Slater is a Cancer, born June 2, 1992. Like Ariana, his Cancer Sun could suggest an emotionally oriented, care-driven approach to relationships and a deep need for genuine safety and connection.' },
     ],
@@ -575,7 +393,7 @@ export const ARTICLES: Record<string, Article> = {
     category: 'couple',
     sign1: 'Scorpio', sign2: 'Pisces',
     compatLink: '/compatibility/scorpio-and-pisces',
-    intro: 'Goldie Hawn (Scorpio, November 21, 1945) and Kurt Russell (Pisces, March 17, 1951) have been together since 1983 — over 40 years, two blended families, no marriage certificate. They\'ve spoken openly about choosing this arrangement deliberately. Scorpio and Pisces is a Water-Water pairing that scores 75/100, and it could suggest a bond that doesn\'t require conventional structure to feel real.',
+    intro: 'Goldie Hawn (Scorpio, November 21, 1945) and Kurt Russell (Pisces, March 17, 1951) have been together since 1983 — over 40 years, two blended families, no marriage certificate. They\'ve spoken openly about choosing this arrangement deliberately. Scorpio and Pisces is a Water-Water pairing that rates A tier, and it could suggest a bond that doesn\'t require conventional structure to feel real.',
     sections: [
       {
         heading: 'Scorpio and Pisces — the Deepest Water Combination',
@@ -610,7 +428,7 @@ export const ARTICLES: Record<string, Article> = {
       },
     ],
     faqs: [
-      { question: 'Are Goldie Hawn and Kurt Russell compatible?', answer: 'Their element combination (Water + Water: Scorpio + Pisces) scores 75/100. This is one of astrology\'s most naturally resonant pairings — both signs operate at emotional depths most others don\'t reach, and share an intuitive attunement that strengthens rather than fades over time.' },
+      { question: 'Are Goldie Hawn and Kurt Russell compatible?', answer: 'Their element combination (Water + Water: Scorpio + Pisces) rates A tier. This is one of astrology\'s most naturally resonant pairings — both signs operate at emotional depths most others don\'t reach, and share an intuitive attunement that strengthens rather than fades over time.' },
       { question: 'What is Goldie Hawn\'s zodiac sign?', answer: 'Goldie Hawn is a Scorpio, born November 21, 1945. Scorpio is a Fixed Water sign ruled by Pluto and Mars, known for intense loyalty, emotional depth, and a commitment style that prioritizes internal truth over external validation.' },
       { question: 'What is Kurt Russell\'s zodiac sign?', answer: 'Kurt Russell is a Pisces, born March 17, 1951. Pisces is a Mutable Water sign ruled by Neptune, known for empathy, adaptability, and a capacity for spiritual and emotional intimacy that complements Scorpio\'s depth.' },
     ],
@@ -625,7 +443,7 @@ export const ARTICLES: Record<string, Article> = {
     category: 'couple',
     sign1: 'Leo', sign2: 'Capricorn',
     compatLink: '/compatibility/leo-and-capricorn',
-    intro: 'Barack Obama (Leo, August 4, 1961) and Michelle Obama (Capricorn, January 17, 1964) have been married since 1992 — over 30 years, the presidency, two daughters, and a level of public scrutiny that most partnerships never approach, let alone survive. Leo and Capricorn is a Fire-Earth pairing that scores 55/100 and forms what astrologers call a square aspect. Not the easiest configuration. Possibly the most productive one.',
+    intro: 'Barack Obama (Leo, August 4, 1961) and Michelle Obama (Capricorn, January 17, 1964) have been married since 1992 — over 30 years, the presidency, two daughters, and a level of public scrutiny that most partnerships never approach, let alone survive. Leo and Capricorn is a Fire-Earth pairing that rates B tier and forms what astrologers call a square aspect. Not the easiest configuration. Possibly the most productive one.',
     sections: [
       {
         heading: 'The Square — What It Actually Means',
@@ -656,11 +474,11 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        callout: 'Fire + Earth at 55/100 doesn\'t promise an easy partnership. It promises a productive one — where the friction between two strong natures, over time and with sustained commitment, produces something more durable than what either person could have built alone.',
+        callout: 'Fire + Earth at B tier doesn\'t promise an easy partnership. It promises a productive one — where the friction between two strong natures, over time and with sustained commitment, produces something more durable than what either person could have built alone.',
       },
     ],
     faqs: [
-      { question: 'Are Barack and Michelle Obama compatible?', answer: 'Their element combination (Fire + Earth: Leo + Capricorn) scores 55/100 and forms a square aspect — which produces both friction and extraordinary drive. Long-term Leo-Capricorn pairings that work tend to involve genuine mutual shaping over time, each person\'s strength addressing the other\'s limitation.' },
+      { question: 'Are Barack and Michelle Obama compatible?', answer: 'Their element combination (Fire + Earth: Leo + Capricorn) rates B tier and forms a square aspect — which produces both friction and extraordinary drive. Long-term Leo-Capricorn pairings that work tend to involve genuine mutual shaping over time, each person\'s strength addressing the other\'s limitation.' },
       { question: 'What is Barack Obama\'s zodiac sign?', answer: 'Barack Obama is a Leo, born August 4, 1961. Leo is a Fire sign ruled by the Sun, known for warmth, expressiveness, natural leadership, and a deep need to find meaning in what they do and how they are received.' },
       { question: 'What is Michelle Obama\'s zodiac sign?', answer: 'Michelle Obama is a Capricorn, born January 17, 1964. Capricorn is an Earth sign ruled by Saturn, known for discipline, structural intelligence, long-term commitment, and a love expressed primarily through action and reliability.' },
     ],
@@ -681,7 +499,7 @@ export const ARTICLES: Record<string, Article> = {
         heading: 'Water Meets Fire',
         paragraphs: [
           'Cancer and Leo share a border on the zodiac — Cancer ends and Leo begins, which creates a certain adjacent quality between them. But elementally, they could not be more different. Cancer is Water: emotional, attuned, inward-moving, deeply feeling. Leo is Fire: warm, expressive, outward-moving, energized by connection and recognition.',
-          'The element combination scores 50/100 — contrasting, requiring translation. What Fire-Water pairings have that other contrasting combinations often lack is a quality of intensity. Water can feel Fire\'s warmth at a depth that Air signs rarely reach. Fire can feel Water\'s emotional richness in a way that grounds it. When this pairing works, it tends to be because each person is offering the other something they genuinely cannot provide for themselves.',
+          'The element combination rates C tier — contrasting, requiring translation. What Fire-Water pairings have that other contrasting combinations often lack is a quality of intensity. Water can feel Fire\'s warmth at a depth that Air signs rarely reach. Fire can feel Water\'s emotional richness in a way that grounds it. When this pairing works, it tends to be because each person is offering the other something they genuinely cannot provide for themselves.',
         ],
       },
       {
@@ -703,7 +521,7 @@ export const ARTICLES: Record<string, Article> = {
       },
     ],
     faqs: [
-      { question: 'Are Selena Gomez and Benny Blanco compatible?', answer: 'Their element combination (Water + Fire) scores 50/100 — contrasting energies that require conscious effort. Cancer and Leo are adjacent signs that share a certain warmth, but their emotional languages are different. When Leo\'s warmth is genuine and consistent, it can provide exactly the safety Cancer needs to open fully.' },
+      { question: 'Are Selena Gomez and Benny Blanco compatible?', answer: 'Their element combination (Water + Fire) rates C tier — contrasting energies that require conscious effort. Cancer and Leo are adjacent signs that share a certain warmth, but their emotional languages are different. When Leo\'s warmth is genuine and consistent, it can provide exactly the safety Cancer needs to open fully.' },
       { question: 'What is Selena Gomez\'s zodiac sign?', answer: 'Selena Gomez is a Cancer, born July 22, 1992. Cancer is a Water sign ruled by the Moon, known for deep emotional attunement, strong creative instincts, and a profound need for genuine safety in close relationships.' },
       { question: 'What is Benny Blanco\'s zodiac sign?', answer: 'Benny Blanco is a Leo, born March 8, 1988. Leo is a Fire sign ruled by the Sun, known for warmth, creative generosity, and a genuine desire to make the people they love feel celebrated and chosen.' },
     ],
@@ -712,13 +530,13 @@ export const ARTICLES: Record<string, Article> = {
 
   'brad-pitt-and-angelina-jolie': {
     title: 'Brad Pitt & Angelina Jolie: The Opposite Signs Who Couldn\'t Stay Away',
-    description: 'Brad Pitt is Sagittarius. Angelina Jolie is Gemini. Opposite signs, 85/100 element compatibility, two Mutable Fire and Air energies. Here\'s what their charts could say about why the attraction was so magnetic — and why it burned the way it did.',
+    description: 'Brad Pitt is Sagittarius. Angelina Jolie is Gemini. Opposite signs, S tier element compatibility, two Mutable Fire and Air energies. Here\'s what their charts could say about why the attraction was so magnetic — and why it burned the way it did.',
     publishDate: '2026-05-08',
     readTime: '6 min read',
     category: 'couple',
     sign1: 'Sagittarius', sign2: 'Gemini',
     compatLink: '/compatibility/gemini-and-sagittarius',
-    intro: 'Brad Pitt (Sagittarius, December 18, 1963) and Angelina Jolie (Gemini, June 4, 1975) were together from 2004 to 2016. Sagittarius and Gemini are opposite signs — they sit exactly 180 degrees apart on the zodiac wheel. Their element combination (Fire + Air) scores 85/100, among the highest in astrology. What makes this pairing worth studying is not that it ended. It\'s what the astrology could suggest about why it was so compelling while it lasted, and so complicated when it didn\'t.',
+    intro: 'Brad Pitt (Sagittarius, December 18, 1963) and Angelina Jolie (Gemini, June 4, 1975) were together from 2004 to 2016. Sagittarius and Gemini are opposite signs — they sit exactly 180 degrees apart on the zodiac wheel. Their element combination (Fire + Air) rates S tier, among the highest in astrology. What makes this pairing worth studying is not that it ended. It\'s what the astrology could suggest about why it was so compelling while it lasted, and so complicated when it didn\'t.',
     sections: [
       {
         heading: 'The Opposite Sign Dynamic',
@@ -728,7 +546,7 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        heading: 'Fire and Air — 85/100',
+        heading: 'Fire and Air — S tier',
         paragraphs: [
           'Fire and Air is the most naturally compatible element combination in astrology. Air feeds Fire; Fire gives Air warmth and direction. Both elements are active, expressive, and oriented toward freedom rather than security. Both value intellectual engagement and find domestic routine insufficient as the full content of a life.',
           'If this describes both Brad and Angelina\'s orientation, it could imply their relationship was energized by a shared restlessness — a shared need to keep moving, to have the relationship mean something beyond its own daily maintenance. The humanitarian work they pursued together could be one expression of this: both signs at their best find meaning in a life that extends beyond the personal.',
@@ -744,16 +562,16 @@ export const ARTICLES: Record<string, Article> = {
       {
         heading: 'Why It Was Also Complicated',
         paragraphs: [
-          'Both Gemini and Sagittarius are signs of freedom. Neither is naturally oriented toward emotional depth or the sustained interiority that long-term partnership often requires. The pairing that scores 85/100 elementally can still produce real difficulty when the emotional foundation is less developed than the intellectual and physical chemistry.',
+          'Both Gemini and Sagittarius are signs of freedom. Neither is naturally oriented toward emotional depth or the sustained interiority that long-term partnership often requires. The pairing that rates S tier elementally can still produce real difficulty when the emotional foundation is less developed than the intellectual and physical chemistry.',
           'Sagittarius\'s philosophical honesty can be blunt in ways that wound without intending to. Gemini\'s adaptability can slide into inconsistency. Both signs process by externalizing — talking, moving, engaging with the world — which may mean neither provided the other with a genuinely private space for vulnerability.',
         ],
       },
       {
-        callout: 'An 85/100 element score tells you the chemistry was real and the connection was natural. It doesn\'t tell you whether both people had developed the emotional capacity to sustain it long-term. Opposite signs recognize each other — what they do with that recognition is always a choice.',
+        callout: 'An S tier element rating tells you the chemistry was real and the connection was natural. It doesn\'t tell you whether both people had developed the emotional capacity to sustain it long-term. Opposite signs recognize each other — what they do with that recognition is always a choice.',
       },
     ],
     faqs: [
-      { question: 'Were Brad Pitt and Angelina Jolie compatible?', answer: 'Their element combination (Fire + Air: Sagittarius + Gemini) scores 85/100 — among the highest in astrology. They are also opposite signs, which creates intense magnetic attraction and a sense of recognition. High compatibility doesn\'t guarantee longevity; it describes the quality of the connection, not the choices made within it.' },
+      { question: 'Were Brad Pitt and Angelina Jolie compatible?', answer: 'Their element combination (Fire + Air: Sagittarius + Gemini) rates S tier — among the highest in astrology. They are also opposite signs, which creates intense magnetic attraction and a sense of recognition. High compatibility doesn\'t guarantee longevity; it describes the quality of the connection, not the choices made within it.' },
       { question: 'What is Brad Pitt\'s zodiac sign?', answer: 'Brad Pitt is a Sagittarius, born December 18, 1963. Sagittarius is a Fire sign ruled by Jupiter, known for expansiveness, philosophical honesty, and a deep orientation toward freedom and meaning.' },
       { question: 'What is Angelina Jolie\'s zodiac sign?', answer: 'Angelina Jolie is a Gemini, born June 4, 1975. Gemini is an Air sign ruled by Mercury, known for intellectual curiosity, adaptability, and a quick, wide-ranging engagement with ideas and people.' },
     ],
@@ -762,16 +580,16 @@ export const ARTICLES: Record<string, Article> = {
 
   'blake-lively-and-ryan-reynolds': {
     title: 'Blake Lively & Ryan Reynolds: Why Virgo and Scorpio Work So Well',
-    description: 'Blake Lively is Virgo. Ryan Reynolds is Scorpio. Earth + Water scores 80/100 — one of the highest-compatibility pairings in the zodiac. Here\'s what their charts could explain about why this one looks so effortless.',
+    description: 'Blake Lively is Virgo. Ryan Reynolds is Scorpio. Earth + Water rates S tier — one of the highest-compatibility pairings in the zodiac. Here\'s what their charts could explain about why this one looks so effortless.',
     publishDate: '2026-05-08',
     readTime: '5 min read',
     category: 'couple',
     sign1: 'Virgo', sign2: 'Scorpio',
     compatLink: '/compatibility/virgo-and-scorpio',
-    intro: 'Blake Lively (Virgo, August 25, 1987) and Ryan Reynolds (Scorpio, October 23, 1976) married in 2012. Their element combination — Earth and Water — scores 80/100, one of the highest in astrology. Of all the celebrity couples in this library, this pairing has one of the strongest elemental foundations. What\'s interesting is how visible that compatibility is even from the outside.',
+    intro: 'Blake Lively (Virgo, August 25, 1987) and Ryan Reynolds (Scorpio, October 23, 1976) married in 2012. Their element combination — Earth and Water — rates S tier, one of the highest in astrology. Of all the celebrity couples in this library, this pairing has one of the strongest elemental foundations. What\'s interesting is how visible that compatibility is even from the outside.',
     sections: [
       {
-        heading: 'Earth and Water — 80/100',
+        heading: 'Earth and Water — S tier',
         paragraphs: [
           'Earth and Water is one of astrology\'s most naturally compatible element combinations. Water nourishes Earth; Earth gives Water a container and a form. Together they create fertile ground — for emotional security, for sustained commitment, for a shared life that feels genuinely anchored.',
           'Virgo is Earth: precise, attentive, devoted in ways that express themselves through action rather than declaration. Scorpio is Water: intense, loyal, emotionally deep in a way that doesn\'t show its full surface. If these descriptions hold for this pairing, it could mean each person offers what the other most needs: Virgo\'s attentiveness creates the consistency Scorpio needs to feel safe enough to open; Scorpio\'s depth gives Virgo\'s considerable devotion somewhere genuinely worth going.',
@@ -798,11 +616,11 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        callout: 'An 80/100 score means the elements are working with each other rather than against each other. What Blake and Ryan appear to have built could be the practical expression of that: a partnership where the structure is sound enough that the harder moments don\'t threaten the whole.',
+        callout: 'An S tier rating means the elements are working with each other rather than against each other. What Blake and Ryan appear to have built could be the practical expression of that: a partnership where the structure is sound enough that the harder moments don\'t threaten the whole.',
       },
     ],
     faqs: [
-      { question: 'Are Blake Lively and Ryan Reynolds compatible?', answer: 'Their element combination (Earth + Water: Virgo + Scorpio) scores 80/100 — one of the highest compatibility scores in astrology. Earth nourishes Water; Water softens Earth. The combination could suggest a relationship with strong structural compatibility and the emotional depth to sustain it long-term.' },
+      { question: 'Are Blake Lively and Ryan Reynolds compatible?', answer: 'Their element combination (Earth + Water: Virgo + Scorpio) rates S tier — one of the highest compatibility scores in astrology. Earth nourishes Water; Water softens Earth. The combination could suggest a relationship with strong structural compatibility and the emotional depth to sustain it long-term.' },
       { question: 'What is Blake Lively\'s zodiac sign?', answer: 'Blake Lively is a Virgo, born August 25, 1987. Virgo is an Earth sign ruled by Mercury, known for precision, attentiveness, and a love expressed through acts of careful, consistent care.' },
       { question: 'What is Ryan Reynolds\'s zodiac sign?', answer: 'Ryan Reynolds is a Scorpio, born October 23, 1976. Scorpio is a Water sign ruled by Pluto and Mars, known for intensity, loyalty, and a depth of commitment that doesn\'t announce itself.' },
     ],
@@ -811,13 +629,13 @@ export const ARTICLES: Record<string, Article> = {
 
   'princess-diana-and-prince-charles': {
     title: 'Princess Diana & Prince Charles: When Compatible Signs Aren\'t Enough',
-    description: 'Diana was Cancer. Charles is Scorpio. Water + Water scores 75/100. One of history\'s most studied relationships — and one of astrology\'s most important lessons about what compatibility scores can and can\'t tell you.',
+    description: 'Diana was Cancer. Charles is Scorpio. Water + Water rates A tier. One of history\'s most studied relationships — and one of astrology\'s most important lessons about what compatibility scores can and can\'t tell you.',
     publishDate: '2026-05-08',
     readTime: '6 min read',
     category: 'couple',
     sign1: 'Cancer', sign2: 'Scorpio',
     compatLink: '/compatibility/cancer-and-scorpio',
-    intro: 'Princess Diana (Cancer, July 1, 1961) and Prince Charles (Scorpio, November 14, 1948) were married from 1981 to 1996. Their element combination — Cancer and Scorpio, both Water — scores 75/100. By element alone, this should have been one of the more compatible pairings in the royal family\'s history. What this relationship teaches, more than almost any other, is what a compatibility score cannot tell you.',
+    intro: 'Princess Diana (Cancer, July 1, 1961) and Prince Charles (Scorpio, November 14, 1948) were married from 1981 to 1996. Their element combination — Cancer and Scorpio, both Water — rates A tier. By element alone, this should have been one of the more compatible pairings in the royal family\'s history. What this relationship teaches, more than almost any other, is what a compatibility score cannot tell you.',
     sections: [
       {
         heading: 'Water + Water — The Natural Resonance',
@@ -843,7 +661,7 @@ export const ARTICLES: Record<string, Article> = {
       {
         heading: 'The Compatibility Score\'s Limit',
         paragraphs: [
-          'This relationship is perhaps the clearest example in public life of a simple but important astrological truth: element compatibility is the floor, not the ceiling. A 75/100 score means the elemental languages are compatible — it does not mean the relationship will be healthy, reciprocal, or freely chosen.',
+          'This relationship is perhaps the clearest example in public life of a simple but important astrological truth: element compatibility is the floor, not the ceiling. An A tier rating means the elemental languages are compatible — it does not mean the relationship will be healthy, reciprocal, or freely chosen.',
           'Compatibility describes the nature of the energetic connection between two Sun signs. It cannot describe what two people do with that connection, under what conditions they engage it, or whether the institutional and personal contexts surrounding them allow it to develop into something real. The score tells you what could be possible. The relationship tells you what actually was.',
         ],
       },
@@ -852,7 +670,7 @@ export const ARTICLES: Record<string, Article> = {
       },
     ],
     faqs: [
-      { question: 'Were Princess Diana and Prince Charles compatible?', answer: 'Their element combination (Water + Water: Cancer + Scorpio) scores 75/100 — a naturally resonant pairing. This relationship is one of astrology\'s most important case studies in what a compatibility score can and can\'t tell you. Element resonance describes potential; it cannot account for power dynamics, external obligations, or the health of each person\'s emotional foundation.' },
+      { question: 'Were Princess Diana and Prince Charles compatible?', answer: 'Their element combination (Water + Water: Cancer + Scorpio) rates A tier — a naturally resonant pairing. This relationship is one of astrology\'s most important case studies in what a compatibility score can and can\'t tell you. Element resonance describes potential; it cannot account for power dynamics, external obligations, or the health of each person\'s emotional foundation.' },
       { question: 'What was Princess Diana\'s zodiac sign?', answer: 'Princess Diana was a Cancer, born July 1, 1961. Cancer is a Water sign ruled by the Moon, known for deep emotional sensitivity, care for others, and a profound need for genuine safety and reciprocity in close relationships.' },
       { question: 'What is King Charles\'s zodiac sign?', answer: 'King Charles III is a Scorpio, born November 14, 1948. Scorpio is a Water sign ruled by Pluto and Mars, known for depth, intensity, and a complexity of emotional life that is rarely visible on the surface.' },
     ],
@@ -861,13 +679,13 @@ export const ARTICLES: Record<string, Article> = {
 
   'dolly-parton-and-carl-dean': {
     title: 'Dolly Parton & Carl Dean: What 60 Years of Capricorn and Cancer Actually Looks Like',
-    description: 'Dolly Parton is Capricorn. Carl Dean is Cancer. Opposite signs, Earth + Water scores 80/100, married since 1966. One of the longest celebrity marriages in history — here\'s what their charts could explain.',
+    description: 'Dolly Parton is Capricorn. Carl Dean is Cancer. Opposite signs, Earth + Water rates S tier, married since 1966. One of the longest celebrity marriages in history — here\'s what their charts could explain.',
     publishDate: '2026-05-08',
     readTime: '5 min read',
     category: 'couple',
     sign1: 'Capricorn', sign2: 'Cancer',
     compatLink: '/compatibility/cancer-and-capricorn',
-    intro: 'Dolly Parton (Capricorn, January 19, 1946) and Carl Dean (Cancer, July 20, 1942) married in 1966 — over 60 years ago. Capricorn and Cancer are opposite signs: they sit exactly 180 degrees apart on the zodiac wheel, sharing the axis of home, security, ambition, and legacy. Their Earth + Water element combination scores 80/100. The duration of this marriage could be one of the most direct illustrations in popular culture of what that combination looks like when sustained over a lifetime.',
+    intro: 'Dolly Parton (Capricorn, January 19, 1946) and Carl Dean (Cancer, July 20, 1942) married in 1966 — over 60 years ago. Capricorn and Cancer are opposite signs: they sit exactly 180 degrees apart on the zodiac wheel, sharing the axis of home, security, ambition, and legacy. Their Earth + Water element combination rates S tier. The duration of this marriage could be one of the most direct illustrations in popular culture of what that combination looks like when sustained over a lifetime.',
     sections: [
       {
         heading: 'Opposite Signs on the Same Axis',
@@ -891,11 +709,11 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        callout: 'Sixty years is not compatibility — it is a practice, sustained daily. But 80/100 element compatibility and the complementary nature of opposite signs could create exactly the structural conditions that make the practice sustainable: each person providing what the other most needs, and each person\'s strength fitting the other\'s gap.',
+        callout: 'Sixty years is not compatibility — it is a practice, sustained daily. But S tier element compatibility and the complementary nature of opposite signs could create exactly the structural conditions that make the practice sustainable: each person providing what the other most needs, and each person\'s strength fitting the other\'s gap.',
       },
     ],
     faqs: [
-      { question: 'Are Dolly Parton and Carl Dean compatible?', answer: 'Their element combination (Earth + Water: Capricorn + Cancer) scores 80/100, and they are opposite signs — which creates natural complementarity rather than similarity. Capricorn brings ambition and structure; Cancer brings emotional grounding and home. Together, this axis could explain one of the most enduring marriages in celebrity history.' },
+      { question: 'Are Dolly Parton and Carl Dean compatible?', answer: 'Their element combination (Earth + Water: Capricorn + Cancer) rates S tier, and they are opposite signs — which creates natural complementarity rather than similarity. Capricorn brings ambition and structure; Cancer brings emotional grounding and home. Together, this axis could explain one of the most enduring marriages in celebrity history.' },
       { question: 'What is Dolly Parton\'s zodiac sign?', answer: 'Dolly Parton is a Capricorn, born January 19, 1946. Capricorn is an Earth sign ruled by Saturn, known for disciplined long-term ambition, structural intelligence, and a commitment to building things that genuinely last.' },
       { question: 'What is Carl Dean\'s zodiac sign?', answer: 'Carl Dean is a Cancer, born July 20, 1942. Cancer is a Water sign ruled by the Moon, known for emotional attunement, care, and a deep instinct toward home and the protection of private life.' },
     ],
@@ -904,7 +722,7 @@ export const ARTICLES: Record<string, Article> = {
 
   'jennifer-lopez-and-ben-affleck': {
     title: 'Jennifer Lopez & Ben Affleck: Two Leos, One Axis',
-    description: 'Jennifer Lopez is Leo. Ben Affleck is Leo. Two Fixed Fire signs, 75/100 compatibility — and one of the most watched celebrity relationship arcs of the modern era. Here\'s what the charts could suggest.',
+    description: 'Jennifer Lopez is Leo. Ben Affleck is Leo. Two Fixed Fire signs, A tier compatibility — and one of the most watched celebrity relationship arcs of the modern era. Here\'s what the charts could suggest.',
     publishDate: '2026-05-08',
     readTime: '5 min read',
     category: 'couple',
@@ -938,7 +756,7 @@ export const ARTICLES: Record<string, Article> = {
       },
     ],
     faqs: [
-      { question: 'Are Jennifer Lopez and Ben Affleck compatible?', answer: 'As two Leo Suns, their Fire + Fire element combination scores 75/100. Same-sign couples share immediate recognition and deep understanding. The main challenge for two Fixed Leos is the symmetry of their needs — both require genuine recognition and neither naturally yields. The relationship\'s history suggests both significant connection and real friction from this dynamic.' },
+      { question: 'Are Jennifer Lopez and Ben Affleck compatible?', answer: 'As two Leo Suns, their Fire + Fire element combination rates A tier. Same-sign couples share immediate recognition and deep understanding. The main challenge for two Fixed Leos is the symmetry of their needs — both require genuine recognition and neither naturally yields. The relationship\'s history suggests both significant connection and real friction from this dynamic.' },
       { question: 'What is Jennifer Lopez\'s zodiac sign?', answer: 'Jennifer Lopez is a Leo, born July 24, 1969. Leo is a Fixed Fire sign ruled by the Sun, known for warmth, generosity, a powerful creative drive, and a deep need to be genuinely seen and celebrated by those they love.' },
       { question: 'What is Ben Affleck\'s zodiac sign?', answer: 'Ben Affleck is a Leo, born August 15, 1972. As a fellow Leo, he shares Jennifer\'s Fixed Fire orientation — the same warmth, the same need for recognition, and the same Fixed-sign difficulty with conceding ground in conflict.' },
     ],
@@ -947,13 +765,13 @@ export const ARTICLES: Record<string, Article> = {
 
   'kate-and-prince-william': {
     title: 'Kate & Prince William: What Capricorn and Cancer Build Together',
-    description: 'Kate, Princess of Wales, is Capricorn. Prince William is Cancer. Opposite signs, Earth + Water scores 80/100 — one of the strongest compatibility scores in the royal family\'s modern history. Here\'s what their charts could suggest.',
+    description: 'Kate, Princess of Wales, is Capricorn. Prince William is Cancer. Opposite signs, Earth + Water rates S tier — one of the strongest compatibility scores in the royal family\'s modern history. Here\'s what their charts could suggest.',
     publishDate: '2026-05-08',
     readTime: '5 min read',
     category: 'couple',
     sign1: 'Capricorn', sign2: 'Cancer',
     compatLink: '/compatibility/cancer-and-capricorn',
-    intro: 'Catherine, Princess of Wales (Capricorn, January 9, 1982) and Prince William (Cancer, June 21, 1982) married in 2011 after a decade together. They share the Cancer-Capricorn axis — opposite signs, 80/100 Earth + Water compatibility. This is one of the most structurally sound sign pairings in astrology, and it could offer a frame for understanding why this partnership has the quality of genuine partnership it appears to have.',
+    intro: 'Catherine, Princess of Wales (Capricorn, January 9, 1982) and Prince William (Cancer, June 21, 1982) married in 2011 after a decade together. They share the Cancer-Capricorn axis — opposite signs, S tier Earth + Water compatibility. This is one of the most structurally sound sign pairings in astrology, and it could offer a frame for understanding why this partnership has the quality of genuine partnership it appears to have.',
     sections: [
       {
         heading: 'The Capricorn-Cancer Axis',
@@ -963,9 +781,9 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        heading: 'Earth and Water — 80/100',
+        heading: 'Earth and Water — S tier',
         paragraphs: [
-          'Earth + Water is one of astrology\'s most complementary element combinations. Earth gives Water a container and a form; Water nourishes Earth and brings emotional depth that pure Earth signs sometimes suppress. The 80/100 score reflects genuine elemental resonance — not the effortless electricity of Fire + Air, but the quiet durability of two signs that build rather than burn.',
+          'Earth + Water is one of astrology\'s most complementary element combinations. Earth gives Water a container and a form; Water nourishes Earth and brings emotional depth that pure Earth signs sometimes suppress. The S tier rating reflects genuine elemental resonance — not the effortless electricity of Fire + Air, but the quiet durability of two signs that build rather than burn.',
           'What this could mean in practice: a relationship that doesn\'t perform its compatibility, but simply functions. The partnership that has looked, even under extraordinary public pressure, like two people who genuinely respect and rely on each other.',
         ],
       },
@@ -977,11 +795,11 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        callout: 'Opposite signs often describe the most durable partnerships: not two people who are the same, but two people whose different natures fit together in a way that makes both more complete. 80/100 with this much shared history could suggest exactly that.',
+        callout: 'Opposite signs often describe the most durable partnerships: not two people who are the same, but two people whose different natures fit together in a way that makes both more complete. S tier with this much shared history could suggest exactly that.',
       },
     ],
     faqs: [
-      { question: 'Are Kate and Prince William compatible?', answer: 'Their element combination (Earth + Water: Capricorn + Cancer) scores 80/100 — one of the highest compatibility scores in astrology. They are also opposite signs, which creates complementarity rather than similarity. Capricorn provides structure; Cancer provides emotional attunement and home.' },
+      { question: 'Are Kate and Prince William compatible?', answer: 'Their element combination (Earth + Water: Capricorn + Cancer) rates S tier — one of the highest compatibility scores in astrology. They are also opposite signs, which creates complementarity rather than similarity. Capricorn provides structure; Cancer provides emotional attunement and home.' },
       { question: 'What is Kate, Princess of Wales\'s zodiac sign?', answer: 'Kate, Princess of Wales is a Capricorn, born January 9, 1982. Capricorn is an Earth sign ruled by Saturn, known for composure under pressure, long-term commitment, and a love expressed through reliability and sustained action.' },
       { question: 'What is Prince William\'s zodiac sign?', answer: 'Prince William is a Cancer, born June 21, 1982. Cancer is a Water sign ruled by the Moon, known for emotional attunement, deep loyalty, and a profound need for genuine safety and home.' },
     ],
@@ -996,13 +814,13 @@ export const ARTICLES: Record<string, Article> = {
     category: 'couple',
     sign1: 'Pisces', sign2: 'Libra',
     compatLink: '/compatibility/libra-and-pisces',
-    intro: 'Rihanna (Pisces, February 20, 1988) and ASAP Rocky (Libra, October 3, 1988) have been together since 2021 and have two children. Pisces and Libra is a Water + Air combination that scores 45/100 on element compatibility — among the more challenging pairings by that measure. The astrological story is more nuanced than the number suggests.',
+    intro: 'Rihanna (Pisces, February 20, 1988) and ASAP Rocky (Libra, October 3, 1988) have been together since 2021 and have two children. Pisces and Libra is a Water + Air combination that rates C tier on element compatibility — among the more challenging pairings by that measure. The astrological story is more nuanced than the number suggests.',
     sections: [
       {
         heading: 'Water and Air — Where They Meet',
         paragraphs: [
           'Water and Air have the most difficulty communicating of any element combination. Air processes intellectually and socially; Water processes through feeling and intuition. What Air experiences as a casual conversation, Water may experience as an emotional event. What Water communicates through mood and atmosphere, Air may not register at all.',
-          'The 45/100 score reflects this structural challenge. It does not mean the chemistry isn\'t real — it means the chemistry requires conscious work to sustain. What brings a Pisces-Libra couple together tends to be aesthetic and creative: both signs have a highly developed sense of beauty, both are oriented toward art and connection. What keeps them together is whether they can bridge the gap between how each person experiences emotion.',
+          'The C tier rating reflects this structural challenge. It does not mean the chemistry isn\'t real — it means the chemistry requires conscious work to sustain. What brings a Pisces-Libra couple together tends to be aesthetic and creative: both signs have a highly developed sense of beauty, both are oriented toward art and connection. What keeps them together is whether they can bridge the gap between how each person experiences emotion.',
         ],
       },
       {
@@ -1020,11 +838,11 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        callout: 'A 45/100 score is not a verdict — it\'s a starting point. Some of the most compelling relationships exist exactly where the elements create friction. The question is whether both people are willing to learn the other\'s language. For a Pisces-Libra couple, that language gap is real — and crossing it is the work.',
+        callout: 'A C tier rating is not a verdict — it\'s a starting point. Some of the most compelling relationships exist exactly where the elements create friction. The question is whether both people are willing to learn the other\'s language. For a Pisces-Libra couple, that language gap is real — and crossing it is the work.',
       },
     ],
     faqs: [
-      { question: 'Are Rihanna and ASAP Rocky compatible?', answer: 'Their element combination (Water + Air: Pisces + Libra) scores 45/100 — one of the more challenging pairings elementally. Both signs are oriented toward beauty, art, and connection, which could create strong initial chemistry. The longer-term work is bridging Pisces\'s emotional depth with Libra\'s more intellectual processing style.' },
+      { question: 'Are Rihanna and ASAP Rocky compatible?', answer: 'Their element combination (Water + Air: Pisces + Libra) rates C tier — one of the more challenging pairings elementally. Both signs are oriented toward beauty, art, and connection, which could create strong initial chemistry. The longer-term work is bridging Pisces\'s emotional depth with Libra\'s more intellectual processing style.' },
       { question: 'What is Rihanna\'s zodiac sign?', answer: 'Rihanna is a Pisces, born February 20, 1988. Pisces is a Water sign ruled by Neptune, known for emotional depth, creative imagination, and an empathic attunement to feeling that shapes everything she produces.' },
       { question: 'What is ASAP Rocky\'s zodiac sign?', answer: 'ASAP Rocky is a Libra, born October 3, 1988. Libra is an Air sign ruled by Venus, known for aesthetic intelligence, social grace, and a genuine orientation toward beauty and partnership.' },
     ],
@@ -1039,7 +857,7 @@ export const ARTICLES: Record<string, Article> = {
     category: 'couple',
     sign1: 'Pisces', sign2: 'Pisces',
     compatLink: '/compatibility/pisces-and-pisces',
-    intro: 'Steph Curry (Pisces, March 14, 1988) and Ayesha Curry (Pisces, March 23, 1989) married in 2011 and have built one of the most visibly grounded partnerships in professional sports. Two Pisces together is a rare configuration — Water + Water scores 75/100, and the same-sign dynamic adds a layer of recognition that most couples never fully experience.',
+    intro: 'Steph Curry (Pisces, March 14, 1988) and Ayesha Curry (Pisces, March 23, 1989) married in 2011 and have built one of the most visibly grounded partnerships in professional sports. Two Pisces together is a rare configuration — Water + Water rates A tier, and the same-sign dynamic adds a layer of recognition that most couples never fully experience.',
     sections: [
       {
         heading: 'Two Pisces — The Depth of Mutual Recognition',
@@ -1067,7 +885,7 @@ export const ARTICLES: Record<string, Article> = {
       },
     ],
     faqs: [
-      { question: 'Are Steph and Ayesha Curry compatible?', answer: 'Two Pisces Suns share a Water + Water combination that scores 75/100. The same-sign dynamic creates immediate recognition and mutual understanding of emotional depth. The main consideration is ensuring both people maintain individual groundedness so the shared depth becomes enriching rather than consuming.' },
+      { question: 'Are Steph and Ayesha Curry compatible?', answer: 'Two Pisces Suns share a Water + Water combination that rates A tier. The same-sign dynamic creates immediate recognition and mutual understanding of emotional depth. The main consideration is ensuring both people maintain individual groundedness so the shared depth becomes enriching rather than consuming.' },
       { question: 'What is Steph Curry\'s zodiac sign?', answer: 'Steph Curry is a Pisces, born March 14, 1988. Pisces is a Water sign ruled by Neptune, known for creative depth, empathic attunement, and a capacity for complete absorption in what matters most to them.' },
       { question: 'What is Ayesha Curry\'s zodiac sign?', answer: 'Ayesha Curry is a Pisces, born March 23, 1989. As a fellow Pisces, she shares Steph\'s Water orientation — the same emotional depth, creative intuition, and capacity for genuine attunement in relationship.' },
     ],
@@ -1076,13 +894,13 @@ export const ARTICLES: Record<string, Article> = {
 
   'patrick-and-brittany-mahomes': {
     title: 'Patrick & Brittany Mahomes: Two Virgos Building Something Real',
-    description: 'Patrick Mahomes is Virgo. Brittany Mahomes is Virgo. Same sign, Earth + Earth scores 70/100, married 2022. Here\'s what two Virgos in a partnership could look like — and why same-sign Earth pairings tend to last.',
+    description: 'Patrick Mahomes is Virgo. Brittany Mahomes is Virgo. Same sign, Earth + Earth rates A tier, married 2022. Here\'s what two Virgos in a partnership could look like — and why same-sign Earth pairings tend to last.',
     publishDate: '2026-05-08',
     readTime: '5 min read',
     category: 'couple',
     sign1: 'Virgo', sign2: 'Virgo',
     compatLink: '/compatibility/virgo-and-virgo',
-    intro: 'Patrick Mahomes (Virgo, September 17, 1995) and Brittany Mahomes (Virgo, September 6, 1995) married in 2022, having been together since high school. Two Virgos — Earth + Earth, 70/100 — is one of astrology\'s more quietly durable configurations. The recognition is immediate; the shared values run deep; the standards are high and mutual.',
+    intro: 'Patrick Mahomes (Virgo, September 17, 1995) and Brittany Mahomes (Virgo, September 6, 1995) married in 2022, having been together since high school. Two Virgos — Earth + Earth, A tier — is one of astrology\'s more quietly durable configurations. The recognition is immediate; the shared values run deep; the standards are high and mutual.',
     sections: [
       {
         heading: 'What Two Virgos Share',
@@ -1092,9 +910,9 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        heading: 'Earth + Earth — 70/100',
+        heading: 'Earth + Earth — A tier',
         paragraphs: [
-          'Two Earth signs build something solid. The 70/100 score reflects the natural resonance between Earth and Earth: shared values around reliability, shared appreciation for things that are real and tangible, shared ability to build toward a long-term goal without losing patience.',
+          'Two Earth signs build something solid. The A tier rating reflects the natural resonance between Earth and Earth: shared values around reliability, shared appreciation for things that are real and tangible, shared ability to build toward a long-term goal without losing patience.',
           'If this describes the Mahomes\' dynamic, it could suggest a partnership organized around what they\'re building together — family, career, and a shared vision of what they want their life to look like — rather than around romantic chemistry alone. Earth signs tend to stay. When they commit, the commitment is structural, not sentimental.',
         ],
       },
@@ -1110,7 +928,7 @@ export const ARTICLES: Record<string, Article> = {
       },
     ],
     faqs: [
-      { question: 'Are Patrick and Brittany Mahomes compatible?', answer: 'Two Virgo Suns share an Earth + Earth combination that scores 70/100. The same-sign dynamic creates immediate recognition and shared values around precision, reliability, and the belief that love is expressed through consistent action. The main consideration is ensuring the shared Virgo critical nature is directed toward shared goals rather than toward each other.' },
+      { question: 'Are Patrick and Brittany Mahomes compatible?', answer: 'Two Virgo Suns share an Earth + Earth combination that rates A tier. The same-sign dynamic creates immediate recognition and shared values around precision, reliability, and the belief that love is expressed through consistent action. The main consideration is ensuring the shared Virgo critical nature is directed toward shared goals rather than toward each other.' },
       { question: 'What is Patrick Mahomes\'s zodiac sign?', answer: 'Patrick Mahomes is a Virgo, born September 17, 1995. Virgo is an Earth sign ruled by Mercury, known for precision, attentiveness, and a commitment to excellence that applies equally to craft and to the people they love.' },
       { question: 'What is Brittany Mahomes\'s zodiac sign?', answer: 'Brittany Mahomes is a Virgo, born September 6, 1995. As a fellow Virgo, she shares Patrick\'s Earth orientation — the same attention to detail, high standards, and love expressed through consistent, careful action.' },
     ],
@@ -1119,7 +937,7 @@ export const ARTICLES: Record<string, Article> = {
 
   'ryan-gosling-and-eva-mendes': {
     title: 'Ryan Gosling & Eva Mendes: The Most Private Love in Hollywood',
-    description: 'Ryan Gosling is a Scorpio. Eva Mendes is a Pisces. Water + Water scores 75/100 — and their 15-year partnership is one of Hollywood\'s most quietly durable.',
+    description: 'Ryan Gosling is a Scorpio. Eva Mendes is a Pisces. Water + Water rates A tier — and their 15-year partnership is one of Hollywood\'s most quietly durable.',
     publishDate: '2026-05-08',
     readTime: '5 min read',
     category: 'couple',
@@ -1135,7 +953,7 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        heading: 'Scorpio + Pisces: Water + Water — 75/100',
+        heading: 'Scorpio + Pisces: Water + Water — A tier',
         paragraphs: [
           'Two Water signs together tend to feel, from the inside, like arriving somewhere. The emotional attunement is immediate — not because they\'re the same, but because both people understand that the interior life is real, that depth isn\'t a threat, and that feeling things fully is not a weakness.',
           'Scorpio and Pisces have complementary strengths. Scorpio brings focus, loyalty, and an ability to hold steady in crisis. Pisces brings empathy, imagination, and the kind of unconditional emotional acceptance that Scorpio rarely feels safe enough to ask for but deeply needs. If their dynamic reflects this pattern, it could mean she is one of the few people he fully trusts — and that he offers a kind of unwavering, protective constancy that grounds her Pisces sensitivity.',
@@ -1155,14 +973,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Ryan Gosling\'s zodiac sign?', answer: 'Ryan Gosling is a Scorpio, born November 12, 1980. Scorpio is a Water sign ruled by Pluto, known for intensity, depth, loyalty, and a fierce protectiveness over the people and things they love most.' },
       { question: 'What is Eva Mendes\'s zodiac sign?', answer: 'Eva Mendes is a Pisces, born March 5, 1974. Pisces is a Water sign ruled by Neptune, known for empathy, creative depth, and an emotional openness that requires genuine safety to fully express.' },
-      { question: 'Are Ryan Gosling and Eva Mendes compatible?', answer: 'Scorpio + Pisces is a Water + Water pairing that scores 75/100. The mutual emotional attunement and complementary strengths — Scorpio\'s protective loyalty meeting Pisces\'s unconditional acceptance — make this one of astrology\'s more naturally harmonious pairings.' },
+      { question: 'Are Ryan Gosling and Eva Mendes compatible?', answer: 'Scorpio + Pisces is a Water + Water pairing that rates A tier. The mutual emotional attunement and complementary strengths — Scorpio\'s protective loyalty meeting Pisces\'s unconditional acceptance — make this one of astrology\'s more naturally harmonious pairings.' },
     ],
     related: ['scorpio-in-love', 'goldie-hawn-and-kurt-russell', 'moon-sign-compatibility'],
   },
 
   'prince-harry-and-meghan-markle': {
     title: 'Prince Harry & Meghan Markle: A Virgo and a Leo Rewriting the Script',
-    description: 'Prince Harry is a Virgo. Meghan Markle is a Leo. Earth + Fire scores 55/100. Leo leads, Virgo commits, and together they made one of the most consequential exits in modern royal history.',
+    description: 'Prince Harry is a Virgo. Meghan Markle is a Leo. Earth + Fire rates B tier. Leo leads, Virgo commits, and together they made one of the most consequential exits in modern royal history.',
     publishDate: '2026-05-08',
     readTime: '6 min read',
     category: 'couple',
@@ -1178,9 +996,9 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        heading: 'Earth + Fire — 55/100',
+        heading: 'Earth + Fire — B tier',
         paragraphs: [
-          'Earth and Fire are complementary but requiring. Fire wants to expand; Earth wants to consolidate. Fire thinks in terms of vision; Earth thinks in terms of process. The 55/100 reflects a pairing that works best when the Fire person provides direction and the Earth person provides the infrastructure to make that direction real.',
+          'Earth and Fire are complementary but requiring. Fire wants to expand; Earth wants to consolidate. Fire thinks in terms of vision; Earth thinks in terms of process. The B tier reflects a pairing that works best when the Fire person provides direction and the Earth person provides the infrastructure to make that direction real.',
           'If their dynamic reflects this, it could mean Meghan\'s Leo clarity about who she was and what she needed provided the direction — and Harry\'s Virgo loyalty and service orientation made following that direction feel like the right thing, even when it required unprecedented choices. A Virgo who has decided that their primary loyalty is to a person rather than an institution will surprise everyone, including themselves.',
         ],
       },
@@ -1198,14 +1016,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Prince Harry\'s zodiac sign?', answer: 'Prince Harry is a Virgo, born September 15, 1984. Virgo is an Earth sign ruled by Mercury, known for attentiveness, loyalty, a service orientation, and a tendency to prioritize the needs of others over their own.' },
       { question: 'What is Meghan Markle\'s zodiac sign?', answer: 'Meghan Markle is a Leo, born August 4, 1981. Leo is a Fire sign ruled by the Sun, known for warmth, leadership, a strong sense of identity, and a need for genuine recognition rather than performed acceptance.' },
-      { question: 'Are Harry and Meghan compatible?', answer: 'Leo + Virgo is an Earth + Fire pairing that scores 55/100. The most workable version of this combination is one where the Leo provides vision and direction and the Virgo provides loyalty and follow-through — which appears to describe their dynamic fairly well.' },
+      { question: 'Are Harry and Meghan compatible?', answer: 'Leo + Virgo is an Earth + Fire pairing that rates B tier. The most workable version of this combination is one where the Leo provides vision and direction and the Virgo provides loyalty and follow-through — which appears to describe their dynamic fairly well.' },
     ],
     related: ['leo-in-love', 'virgo-in-love', 'moon-sign-compatibility'],
   },
 
   'david-and-victoria-beckham': {
     title: 'David & Victoria Beckham: 25 Years of a Taurus and an Aries',
-    description: 'David Beckham is a Taurus. Victoria Beckham is an Aries. Earth + Fire scores 55/100 — adjacent signs with very different defaults. That they\'ve made it 25 years says something important about both of them.',
+    description: 'David Beckham is a Taurus. Victoria Beckham is an Aries. Earth + Fire rates B tier — adjacent signs with very different defaults. That they\'ve made it 25 years says something important about both of them.',
     publishDate: '2026-05-08',
     readTime: '5 min read',
     category: 'couple',
@@ -1221,9 +1039,9 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        heading: 'Earth + Fire — 55/100',
+        heading: 'Earth + Fire — B tier',
         paragraphs: [
-          'Earth and Fire can work, but not without effort. Fire moves quickly; Earth moves deliberately. Fire is animated by what\'s possible; Earth is motivated by what\'s real. A 55/100 reflects genuine compatibility alongside real friction points — particularly around pace and ambition.',
+          'Earth and Fire can work, but not without effort. Fire moves quickly; Earth moves deliberately. Fire is animated by what\'s possible; Earth is motivated by what\'s real. A B tier reflects genuine compatibility alongside real friction points — particularly around pace and ambition.',
           'The key for an Aries-Taurus pairing is often that the Aries provides direction and the Taurus provides stability: the one who lights the fire, and the one who keeps it from burning everything down. If this describes their dynamic, Victoria\'s Aries drive could set the terms of what comes next, while David\'s Taurus reliability ensures the foundation holds regardless.',
         ],
       },
@@ -1241,14 +1059,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is David Beckham\'s zodiac sign?', answer: 'David Beckham is a Taurus, born May 2, 1975. Taurus is an Earth sign ruled by Venus, known for loyalty, consistency, aesthetic sensibility, and a commitment to building things that last.' },
       { question: 'What is Victoria Beckham\'s zodiac sign?', answer: 'Victoria Beckham is an Aries, born April 17, 1974. Aries is a Fire sign ruled by Mars, known for initiative, ambition, the willingness to reinvent, and an instinct to lead rather than follow.' },
-      { question: 'Are David and Victoria Beckham compatible?', answer: 'Aries + Taurus is a Fire + Earth pairing that scores 55/100. The complementary dynamic — Aries setting direction, Taurus providing stability — gives this pairing a working structure that can outlast its friction points when both people are committed to staying.' },
+      { question: 'Are David and Victoria Beckham compatible?', answer: 'Aries + Taurus is a Fire + Earth pairing that rates B tier. The complementary dynamic — Aries setting direction, Taurus providing stability — gives this pairing a working structure that can outlast its friction points when both people are committed to staying.' },
     ],
     related: ['aries-in-love', 'taurus-in-love', 'moon-sign-compatibility'],
   },
 
   'kourtney-kardashian-and-travis-barker': {
     title: 'Kourtney Kardashian & Travis Barker: When Aries Meets Scorpio',
-    description: 'Kourtney Kardashian is an Aries. Travis Barker is a Scorpio. Fire + Water scores 55/100 — a pairing ruled by intensity on both sides. Their relationship has been nothing but that.',
+    description: 'Kourtney Kardashian is an Aries. Travis Barker is a Scorpio. Fire + Water rates C tier — a pairing ruled by intensity on both sides. Their relationship has been nothing but that.',
     publishDate: '2026-05-08',
     readTime: '5 min read',
     category: 'couple',
@@ -1264,9 +1082,9 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        heading: 'Fire + Water — 55/100',
+        heading: 'Fire + Water — C tier',
         paragraphs: [
-          'Fire and Water are a tension pairing — exciting, sometimes volatile, but rarely neutral. Fire wants to move and express; Water wants to feel and deepen. The 55/100 reflects that this combination requires both people to stretch toward the other\'s mode.',
+          'Fire and Water are a tension pairing — exciting, sometimes volatile, but rarely neutral. Fire wants to move and express; Water wants to feel and deepen. The C tier reflects that this combination requires both people to stretch toward the other\'s mode.',
           'The risk in Fire + Water pairings is that the intensity that draws them together — the heat, the emotional charge — can tip into conflict if not channeled into shared direction. The opportunity is that Fire signs can help Water signs move forward when they\'d otherwise stay in the depth too long; Water signs can help Fire signs slow down and actually feel what\'s happening rather than always pushing ahead.',
         ],
       },
@@ -1284,14 +1102,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Kourtney Kardashian\'s zodiac sign?', answer: 'Kourtney Kardashian is an Aries, born April 18, 1979. Aries is a Fire sign ruled by Mars, known for directness, initiative, and a willingness to go all-in on what they want.' },
       { question: 'What is Travis Barker\'s zodiac sign?', answer: 'Travis Barker is a Scorpio, born November 14, 1975. Scorpio is a Water sign ruled by Pluto, known for intensity, loyalty, emotional depth, and a protectiveness over the things and people they love.' },
-      { question: 'Are Kourtney and Travis compatible?', answer: 'Aries + Scorpio is a Fire + Water pairing that scores 55/100. Both signs are co-ruled by Mars, which creates an unusual resonance — shared intensity and drive — that can hold the friction of their different elements together when directed toward a common purpose.' },
+      { question: 'Are Kourtney and Travis compatible?', answer: 'Aries + Scorpio is a Fire + Water pairing that rates C tier. Both signs are co-ruled by Mars, which creates an unusual resonance — shared intensity and drive — that can hold the friction of their different elements together when directed toward a common purpose.' },
     ],
     related: ['aries-in-love', 'scorpio-in-love', 'princess-diana-and-prince-charles'],
   },
 
   'chrissy-teigen-and-john-legend': {
     title: 'Chrissy Teigen & John Legend: A Sagittarius and a Capricorn Who Make It Work',
-    description: 'Chrissy Teigen is a Sagittarius. John Legend is a Capricorn. Fire + Earth scores 55/100 — adjacent signs that operate differently. Together since 2006, married since 2013. Their longevity is the argument.',
+    description: 'Chrissy Teigen is a Sagittarius. John Legend is a Capricorn. Fire + Earth rates B tier — adjacent signs that operate differently. Together since 2006, married since 2013. Their longevity is the argument.',
     publishDate: '2026-05-08',
     readTime: '5 min read',
     category: 'couple',
@@ -1307,9 +1125,9 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        heading: 'Fire + Earth — 55/100',
+        heading: 'Fire + Earth — B tier',
         paragraphs: [
-          'Fire and Earth need each other but don\'t always speak the same language. Fire thinks in terms of possibility and meaning; Earth thinks in terms of structure and outcomes. The 55/100 reflects the real difference in their default orientations.',
+          'Fire and Earth need each other but don\'t always speak the same language. Fire thinks in terms of possibility and meaning; Earth thinks in terms of structure and outcomes. The B tier reflects the real difference in their default orientations.',
           'What often makes Sagittarius-Capricorn work is that the Sagittarius provides vision and the Capricorn builds the execution. One person expands the world; the other makes it solid. In a couple that has been together nearly two decades, this could mean Chrissy\'s range and radical authenticity and John\'s patient, sustained craft have found a productive counterbalance — each person offering what the other doesn\'t naturally have.',
         ],
       },
@@ -1327,14 +1145,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Chrissy Teigen\'s zodiac sign?', answer: 'Chrissy Teigen is a Sagittarius, born November 30, 1985. Sagittarius is a Fire sign ruled by Jupiter, known for directness, curiosity, adventure, and an honesty that can be both their greatest strength and their most complicated trait.' },
       { question: 'What is John Legend\'s zodiac sign?', answer: 'John Legend is a Capricorn, born December 28, 1978. Capricorn is an Earth sign ruled by Saturn, known for ambition, discipline, loyalty, and the capacity for sustained effort that produces enduring work.' },
-      { question: 'Are Chrissy and John compatible?', answer: 'Sagittarius + Capricorn is a Fire + Earth pairing that scores 55/100. The complementary dynamic — Sagittarius bringing range and authenticity, Capricorn providing structure and follow-through — gives this pairing a working balance when both people lean into what they do naturally.' },
+      { question: 'Are Chrissy and John compatible?', answer: 'Sagittarius + Capricorn is a Fire + Earth pairing that rates B tier. The complementary dynamic — Sagittarius bringing range and authenticity, Capricorn providing structure and follow-through — gives this pairing a working balance when both people lean into what they do naturally.' },
     ],
     related: ['sagittarius-in-love', 'capricorn-in-love', 'moon-sign-compatibility'],
   },
 
   'katy-perry-and-orlando-bloom': {
     title: 'Katy Perry & Orlando Bloom: How Scorpio and Capricorn Actually Work',
-    description: 'Katy Perry is a Scorpio. Orlando Bloom is a Capricorn. Water + Earth scores 70/100 — a pairing built on depth and structure. On and off since 2016, engaged 2019, daughter born 2020.',
+    description: 'Katy Perry is a Scorpio. Orlando Bloom is a Capricorn. Water + Earth rates S tier — a pairing built on depth and structure. On and off since 2016, engaged 2019, daughter born 2020.',
     publishDate: '2026-05-08',
     readTime: '5 min read',
     category: 'couple',
@@ -1350,10 +1168,10 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        heading: 'Water + Earth — 70/100',
+        heading: 'Water + Earth — S tier',
         paragraphs: [
           'Water and Earth are naturally complementary. Earth needs Water to stay alive; Water needs Earth or it loses its shape and disperses. In a relationship, this typically means the Water sign brings emotional depth and intuition, and the Earth sign provides grounding, structure, and the patience to wait for something real.',
-          'The 70/100 reflects a genuinely workable compatibility. Where it requires attention is in pacing: Scorpio can move fast emotionally and demand intensity; Capricorn tends to move slowly and needs time before fully committing. The breaks they\'ve taken in their relationship could reflect exactly that tension — a Scorpio who reached an intensity point before a Capricorn was fully ready, and a Capricorn who eventually decided the depth was worth the commitment.',
+          'The S tier reflects a genuinely workable compatibility. Where it requires attention is in pacing: Scorpio can move fast emotionally and demand intensity; Capricorn tends to move slowly and needs time before fully committing. The breaks they\'ve taken in their relationship could reflect exactly that tension — a Scorpio who reached an intensity point before a Capricorn was fully ready, and a Capricorn who eventually decided the depth was worth the commitment.',
         ],
       },
       {
@@ -1370,14 +1188,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Katy Perry\'s zodiac sign?', answer: 'Katy Perry is a Scorpio, born October 25, 1984. Scorpio is a Water sign ruled by Pluto, known for emotional intensity, loyalty, depth, and a fixed nature that tends to stay in what matters and orbit back to what was lost.' },
       { question: 'What is Orlando Bloom\'s zodiac sign?', answer: 'Orlando Bloom is a Capricorn, born January 13, 1977. Capricorn is an Earth sign ruled by Saturn, known for patience, ambition, sustained effort, and a commitment that — once given — tends to be total.' },
-      { question: 'Are Katy Perry and Orlando Bloom compatible?', answer: 'Scorpio + Capricorn is a Water + Earth pairing that scores 70/100. The natural complementarity of these elements — depth meeting structure — gives this combination genuine staying power when both people are patient enough to arrive at the same point at the same time.' },
+      { question: 'Are Katy Perry and Orlando Bloom compatible?', answer: 'Scorpio + Capricorn is a Water + Earth pairing that rates S tier. The natural complementarity of these elements — depth meeting structure — gives this combination genuine staying power when both people are patient enough to arrive at the same point at the same time.' },
     ],
     related: ['scorpio-in-love', 'capricorn-in-love', 'goldie-hawn-and-kurt-russell'],
   },
 
   'priyanka-chopra-and-nick-jonas': {
     title: 'Priyanka Chopra & Nick Jonas: When Cancer Meets Virgo',
-    description: 'Priyanka Chopra is a Cancer. Nick Jonas is a Virgo. Water + Earth scores 70/100 — an emotionally intelligent pairing where attunement and care run both ways. Married 2018.',
+    description: 'Priyanka Chopra is a Cancer. Nick Jonas is a Virgo. Water + Earth rates S tier — an emotionally intelligent pairing where attunement and care run both ways. Married 2018.',
     publishDate: '2026-05-08',
     readTime: '5 min read',
     category: 'couple',
@@ -1393,10 +1211,10 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        heading: 'Water + Earth — 70/100',
+        heading: 'Water + Earth — S tier',
         paragraphs: [
           'Cancer and Virgo form a trine in the zodiac — 120 degrees apart — which in astrology represents natural ease and mutual understanding. The elements confirm it: Water and Earth support each other. Cancer\'s emotional depth and intuition have a container in Virgo\'s practical, grounded orientation. Virgo\'s occasional self-criticism has a softening influence in Cancer\'s warmth and acceptance.',
-          'The 70/100 reflects this natural alignment. Not a friction-free relationship — no pairing is — but one with a fundamental compatibility in how both people orient toward care and commitment. Both signs are wired to show up, and they tend to recognize that in each other.',
+          'The S tier reflects this natural alignment. Not a friction-free relationship — no pairing is — but one with a fundamental compatibility in how both people orient toward care and commitment. Both signs are wired to show up, and they tend to recognize that in each other.',
         ],
       },
       {
@@ -1413,14 +1231,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Priyanka Chopra\'s zodiac sign?', answer: 'Priyanka Chopra is a Cancer, born July 18, 1982. Cancer is a Water sign ruled by the Moon, known for emotional depth, fierce loyalty, a protective instinct toward family, and an ability to create a sense of home wherever they are.' },
       { question: 'What is Nick Jonas\'s zodiac sign?', answer: 'Nick Jonas is a Virgo, born September 16, 1992. Virgo is an Earth sign ruled by Mercury, known for precision, attentiveness, adaptability, and a love that is demonstrated through consistent, practical care rather than grand declaration.' },
-      { question: 'Are Priyanka Chopra and Nick Jonas compatible?', answer: 'Cancer + Virgo is a Water + Earth pairing that scores 70/100. The natural trine between these signs creates genuine ease — both are care-oriented, both show up, and both tend to recognize that quality immediately in the other.' },
+      { question: 'Are Priyanka Chopra and Nick Jonas compatible?', answer: 'Cancer + Virgo is a Water + Earth pairing that rates S tier. The natural trine between these signs creates genuine ease — both are care-oriented, both show up, and both tend to recognize that quality immediately in the other.' },
     ],
     related: ['cancer-in-love', 'virgo-in-love', 'selena-gomez-and-benny-blanco'],
   },
 
   'will-smith-and-jada-pinkett-smith': {
     title: 'Will Smith & Jada Pinkett Smith: A Libra and a Virgo in a Long, Complicated Story',
-    description: 'Will Smith is a Libra. Jada Pinkett Smith is a Virgo. Air + Earth scores 50/100. Married 1997. Separated 2016. Still married. It\'s complicated — and astrologically, that actually makes sense.',
+    description: 'Will Smith is a Libra. Jada Pinkett Smith is a Virgo. Air + Earth rates C tier. Married 1997. Separated 2016. Still married. It\'s complicated — and astrologically, that actually makes sense.',
     publishDate: '2026-05-08',
     readTime: '6 min read',
     category: 'couple',
@@ -1436,9 +1254,9 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        heading: 'Air + Earth — 50/100',
+        heading: 'Air + Earth — C tier',
         paragraphs: [
-          'Air and Earth are not natural companions. Air lives in ideas and social interaction; Earth lives in the tangible and enduring. Air can find Earth limiting; Earth can find Air insufficiently grounded. The 50/100 reflects a pairing that requires deliberate, ongoing translation between two genuinely different orientations.',
+          'Air and Earth are not natural companions. Air lives in ideas and social interaction; Earth lives in the tangible and enduring. Air can find Earth limiting; Earth can find Air insufficiently grounded. The C tier reflects a pairing that requires deliberate, ongoing translation between two genuinely different orientations.',
           'For Libra and Virgo specifically, the challenge often lives in how they process difficulty. Libra tends toward conflict-avoidance — maintaining the appearance of harmony even when it requires internal suppression. Virgo tends toward direct assessment — naming what\'s wrong even when it\'s uncomfortable. Over 25-plus years, those defaults could produce a particular kind of relational exhaustion that neither sign would necessarily say out loud.',
         ],
       },
@@ -1456,14 +1274,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Will Smith\'s zodiac sign?', answer: 'Will Smith is a Libra, born September 25, 1968. Libra is an Air sign ruled by Venus, known for charm, a deep investment in partnership, an instinct toward harmony, and a genuine desire for fairness in relationship.' },
       { question: 'What is Jada Pinkett Smith\'s zodiac sign?', answer: 'Jada Pinkett Smith is a Virgo, born September 18, 1971. Virgo is an Earth sign ruled by Mercury, known for discernment, directness, a high standard for what is real, and love expressed through attentiveness and honest assessment.' },
-      { question: 'Are Will Smith and Jada Pinkett Smith compatible?', answer: 'Libra + Virgo is an Air + Earth pairing that scores 50/100. The most challenging aspect of this combination is the gap between Libra\'s instinct toward maintaining harmony and Virgo\'s instinct toward naming what\'s actually true — a tension that, over decades, requires ongoing and deliberate navigation.' },
+      { question: 'Are Will Smith and Jada Pinkett Smith compatible?', answer: 'Libra + Virgo is an Air + Earth pairing that rates C tier. The most challenging aspect of this combination is the gap between Libra\'s instinct toward maintaining harmony and Virgo\'s instinct toward naming what\'s actually true — a tension that, over decades, requires ongoing and deliberate navigation.' },
     ],
     related: ['libra-in-love', 'virgo-in-love', 'red-flags-by-zodiac-sign'],
   },
 
   'tom-brady-and-gisele-bundchen': {
     title: 'Tom Brady & Gisele Bündchen: A Leo and a Cancer After the Final Whistle',
-    description: 'Tom Brady is a Leo. Gisele Bündchen is a Cancer. Fire + Water scores 60/100 — a pairing with genuine warmth and real incompatibilities. They were married for 13 years. They divorced in 2022.',
+    description: 'Tom Brady is a Leo. Gisele Bündchen is a Cancer. Fire + Water rates C tier — a pairing with genuine warmth and real incompatibilities. They were married for 13 years. They divorced in 2022.',
     publishDate: '2026-05-08',
     readTime: '6 min read',
     category: 'couple',
@@ -1479,10 +1297,10 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        heading: 'Fire + Water — 60/100',
+        heading: 'Fire + Water — C tier',
         paragraphs: [
           'Fire and Water are attracted to each other and can exhaust each other simultaneously. Fire generates heat; Water moderates it. Fire seeks expansion; Water seeks depth. In the best version, one person\'s energy is contained and given direction by the other\'s emotional intelligence. In the strained version, the Fire feels suffocated and the Water feels perpetually drained.',
-          'The 60/100 reflects genuine compatibility alongside a meaningful tension point — particularly around the question of home versus career, security versus visibility. Both those things mattered. The question is which one came first.',
+          'The C tier reflects genuine compatibility alongside a meaningful tension point — particularly around the question of home versus career, security versus visibility. Both those things mattered. The question is which one came first.',
         ],
       },
       {
@@ -1505,14 +1323,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Tom Brady\'s zodiac sign?', answer: 'Tom Brady is a Leo, born August 3, 1977. Leo is a Fire sign ruled by the Sun, known for confidence, a drive to excel in a chosen arena, natural leadership, and a fixed nature that tends to pursue what it loves well past the point most people would stop.' },
       { question: 'What is Gisele Bündchen\'s zodiac sign?', answer: 'Gisele Bündchen is a Cancer, born July 20, 1980. Cancer is a Water sign ruled by the Moon, known for emotional depth, fierce loyalty to family, a protective instinct, and a fundamental need for stability and safety in the people they love.' },
-      { question: 'Were Tom Brady and Gisele Bündchen compatible?', answer: 'Leo + Cancer is a Fire + Water pairing that scores 60/100. The Sun-Moon symbolism creates a genuine initial attraction, and the relationship produced 13 years of marriage and a family. The central tension — Leo\'s need to stay in their arena versus Cancer\'s need for home to be the primary axis — ultimately defined what ended it.' },
+      { question: 'Were Tom Brady and Gisele Bündchen compatible?', answer: 'Leo + Cancer is a Fire + Water pairing that rates C tier. The Sun-Moon symbolism creates a genuine initial attraction, and the relationship produced 13 years of marriage and a family. The central tension — Leo\'s need to stay in their arena versus Cancer\'s need for home to be the primary axis — ultimately defined what ended it.' },
     ],
     related: ['cancer-in-love', 'leo-in-love', 'selena-gomez-and-benny-blanco'],
   },
 
   'megan-fox-and-machine-gun-kelly': {
     title: 'Megan Fox & Machine Gun Kelly: Two Tauruses, One Story',
-    description: 'Megan Fox is a Taurus. Machine Gun Kelly is a Taurus. Same sign, Earth + Earth scores 70/100 — deep recognition and a shared stubborn streak. Engaged 2022. Intensely public. Complicated.',
+    description: 'Megan Fox is a Taurus. Machine Gun Kelly is a Taurus. Same sign, Earth + Earth rates A tier — deep recognition and a shared stubborn streak. Engaged 2022. Intensely public. Complicated.',
     publishDate: '2026-05-08',
     readTime: '5 min read',
     category: 'couple',
@@ -1528,10 +1346,10 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        heading: 'Earth + Earth — 70/100',
+        heading: 'Earth + Earth — A tier',
         paragraphs: [
           'Two Earth signs share a fundamental compatibility: both people orient toward the tangible, the committed, the real. Earth signs don\'t love lightly. They\'re slow to open, deep when they do, and not inclined toward casual. Two Tauruses together tend to build a world between themselves — a shared aesthetic, a shared private space, a shared sense of what home means.',
-          'The 70/100 reflects natural ease alongside the particular challenge of two fixed signs: when they disagree, both people hold. Taurus stubbornness — the immovability that is both their greatest strength and their most consistent difficulty — doubles in a same-sign pairing. Reconciliations tend to be real; impasses, when they happen, can also be total.',
+          'The A tier reflects natural ease alongside the particular challenge of two fixed signs: when they disagree, both people hold. Taurus stubbornness — the immovability that is both their greatest strength and their most consistent difficulty — doubles in a same-sign pairing. Reconciliations tend to be real; impasses, when they happen, can also be total.',
         ],
       },
       {
@@ -1548,14 +1366,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Megan Fox\'s zodiac sign?', answer: 'Megan Fox is a Taurus, born May 16, 1986. Taurus is an Earth sign ruled by Venus, known for sensuality, loyalty, aesthetic depth, and a fixed nature that commits deeply and holds positions with equal conviction.' },
       { question: 'What is Machine Gun Kelly\'s zodiac sign?', answer: 'Machine Gun Kelly (Colson Baker) is a Taurus, born April 22, 1990. As a fellow Taurus, he shares Megan\'s Venus-ruled orientation — the deep aesthetic investment, the need for loyalty, and the same stubborn core that makes Taurus both the most devoted and the most immovable sign.' },
-      { question: 'Are Megan Fox and MGK compatible?', answer: 'Taurus + Taurus is an Earth + Earth same-sign pairing that scores 70/100. The mutual recognition is immediate and deep; the primary challenge is that both people\'s fixed nature means conflicts can become standoffs. The key is directing that shared stubbornness toward the relationship rather than at each other.' },
+      { question: 'Are Megan Fox and MGK compatible?', answer: 'Taurus + Taurus is an Earth + Earth same-sign pairing that rates A tier. The mutual recognition is immediate and deep; the primary challenge is that both people\'s fixed nature means conflicts can become standoffs. The key is directing that shared stubbornness toward the relationship rather than at each other.' },
     ],
     related: ['taurus-in-love', 'steph-and-ayesha-curry', 'moon-sign-compatibility'],
   },
 
   'johnny-cash-and-june-carter-cash': {
     title: 'Johnny Cash & June Carter Cash: A Pisces and a Cancer Who Found Each Other Twice',
-    description: 'Johnny Cash was a Pisces. June Carter Cash was a Cancer. Water + Water scores 80/100 — one of the most enduring love stories in American music, and one of the more astrologically coherent pairings in celebrity history.',
+    description: 'Johnny Cash was a Pisces. June Carter Cash was a Cancer. Water + Water rates A tier — one of the most enduring love stories in American music, and one of the more astrologically coherent pairings in celebrity history.',
     publishDate: '2026-05-08',
     readTime: '7 min read',
     category: 'couple',
@@ -1571,9 +1389,9 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        heading: 'Water + Water — 80/100',
+        heading: 'Water + Water — A tier',
         paragraphs: [
-          'Two Water signs together have a depth of emotional resonance that other pairings often approximate but rarely equal. The 80/100 reflects what\'s real: Pisces and Cancer are mutually supportive. Cancer provides the emotional security and grounding that Pisces desperately needs; Pisces provides the empathy and emotional imagination that Cancer finds hard to find anywhere else.',
+          'Two Water signs together have a depth of emotional resonance that other pairings often approximate but rarely equal. The A tier reflects what\'s real: Pisces and Cancer are mutually supportive. Cancer provides the emotional security and grounding that Pisces desperately needs; Pisces provides the empathy and emotional imagination that Cancer finds hard to find anywhere else.',
           'If there\'s a famous couple whose enduring love story is legible through astrology, it may be this one. June\'s Cancer loyalty was not passive — she actively chose to help Johnny get sober, to build a life with someone whose Pisces depths could have pulled them both under. Her Cancer instinct — to protect what she loved and to make a home out of a person — could mean she gave him somewhere to return to when the water got too deep.',
         ],
       },
@@ -1597,14 +1415,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Johnny Cash\'s zodiac sign?', answer: 'Johnny Cash was a Pisces, born February 26, 1932. Pisces is a Water sign ruled by Neptune, known for deep empathy, spiritual sensitivity, artistic vision, and an emotional range that encompasses both great tenderness and great darkness.' },
       { question: 'What is June Carter Cash\'s zodiac sign?', answer: 'June Carter Cash was a Cancer, born June 23, 1929. Cancer is a Water sign ruled by the Moon, known for fierce loyalty, emotional attunement, a protective instinct, and the capacity to create a sense of home and safety for the people they love.' },
-      { question: 'Were Johnny Cash and June Carter compatible?', answer: 'Pisces + Cancer is a Water + Water pairing that scores 80/100. The mutual emotional attunement between these two signs — Cancer\'s grounding loyalty meeting Pisces\'s empathic depth — produces one of the most naturally resonant pairings in the zodiac. Their story reflects that fully.' },
+      { question: 'Were Johnny Cash and June Carter compatible?', answer: 'Pisces + Cancer is a Water + Water pairing that rates A tier. The mutual emotional attunement between these two signs — Cancer\'s grounding loyalty meeting Pisces\'s empathic depth — produces one of the most naturally resonant pairings in the zodiac. Their story reflects that fully.' },
     ],
     related: ['cancer-in-love', 'pisces-in-love', 'moon-sign-compatibility'],
   },
 
   'adele-and-rich-paul': {
     title: 'Adele & Rich Paul: The Taurus and the Sagittarius',
-    description: 'Adele is a Taurus. Rich Paul is a Sagittarius. Earth + Fire scores 50/100 — a pairing that looks unlikely on paper and has outlasted most predictions. Together since 2021.',
+    description: 'Adele is a Taurus. Rich Paul is a Sagittarius. Earth + Fire rates B tier — a pairing that looks unlikely on paper and has outlasted most predictions. Together since 2021.',
     publishDate: '2026-05-08',
     readTime: '5 min read',
     category: 'couple',
@@ -1620,9 +1438,9 @@ export const ARTICLES: Record<string, Article> = {
         ],
       },
       {
-        heading: 'Earth + Fire — 50/100',
+        heading: 'Earth + Fire — B tier',
         paragraphs: [
-          'The 50/100 reflects genuine friction alongside real appeal. Earth and Fire don\'t naturally share a language: Taurus wants to stay; Sagittarius wants to move. Taurus values what\'s built over time; Sagittarius values what\'s discovered next. These aren\'t irreconcilable, but they require ongoing translation.',
+          'The B tier reflects genuine friction alongside real appeal. Earth and Fire don\'t naturally share a language: Taurus wants to stay; Sagittarius wants to move. Taurus values what\'s built over time; Sagittarius values what\'s discovered next. These aren\'t irreconcilable, but they require ongoing translation.',
           'What makes a Taurus-Sagittarius pairing work is usually mutual respect for what the other person is doing. Adele doesn\'t need Rich Paul to be still; Rich Paul doesn\'t need Adele to constantly expand. But both people need to feel that their fundamental nature isn\'t being asked to stop.',
         ],
       },
@@ -1640,69 +1458,69 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Adele\'s zodiac sign?', answer: 'Adele is a Taurus, born May 5, 1988. Taurus is an Earth sign ruled by Venus, known for emotional depth, loyalty, sensory attunement, and the kind of love that processes through staying rather than moving on.' },
       { question: 'What is Rich Paul\'s zodiac sign?', answer: 'Rich Paul is a Sagittarius, born December 16, 1981. Sagittarius is a Fire sign ruled by Jupiter, known for expansiveness, directness, strategic vision, and a philosophical approach to both career and life.' },
-      { question: 'Are Adele and Rich Paul compatible?', answer: 'Taurus + Sagittarius is an Earth + Fire pairing that scores 50/100. The inconjunct relationship between these signs requires ongoing translation, but pairings that outlast prediction often do so because both people have found something in the other that their own nature can\'t provide — and have chosen to stay near it.' },
+      { question: 'Are Adele and Rich Paul compatible?', answer: 'Taurus + Sagittarius is an Earth + Fire pairing that rates B tier. The inconjunct relationship between these signs requires ongoing translation, but pairings that outlast prediction often do so because both people have found something in the other that their own nature can\'t provide — and have chosen to stay near it.' },
     ],
     related: ['taurus-in-love', 'sagittarius-in-love', 'moon-sign-compatibility'],
   },
 
   'elizabeth-taylor-and-richard-burton': {
     title: 'Elizabeth Taylor & Richard Burton: The Scorpio and the Pisces Who Couldn\'t Stay Apart',
-    description: 'Elizabeth Taylor was a Pisces. Richard Burton was a Scorpio. Water + Water scores 80/100 — and they married each other twice. One of Hollywood\'s most passionate and turbulent love stories.',
+    description: 'Elizabeth Taylor was a Pisces. Richard Burton was a Scorpio. Water + Water rates A tier — and they married each other twice. One of Hollywood\'s most passionate and turbulent love stories.',
     publishDate: '2026-05-08', readTime: '6 min read', category: 'couple',
     sign1: 'Scorpio', sign2: 'Pisces',
     compatLink: '/compatibility/scorpio-and-pisces',
     intro: 'Elizabeth Taylor (Pisces, February 27, 1932) and Richard Burton (Scorpio, November 10, 1925) first met on the set of Cleopatra in 1963, both married to other people. What followed was one of the most documented love affairs in film history — two marriages, one divorce between them, affairs, reconciliations, and a bond that neither of them ever fully severed.',
     sections: [
       { heading: 'Scorpio and Pisces: The Water That Drowns and Saves', paragraphs: ['Scorpio is fixed water — intense, possessive, loyal to the point of obsession. Pisces is mutable water — fluid, empathic, romantic in a way that can idealize the object of its love past any reasonable limit. Together, they create a pairing where the depth is enormous and the turbulence is equally so.', 'Richard Burton\'s Scorpio was total: the commanding stage presence, the dark charisma, the alcoholism, the loyalty that coexisted with infidelity. Elizabeth Taylor\'s Pisces was equally total: the extraordinary emotional openness, the serial marriage, the ability to feel things — grief, love, illness, recovery — with a fullness that most people find terrifying and irresistible in equal measure.'] },
-      { heading: 'Water + Water — 80/100', paragraphs: ['Two Water signs at their best offer each other a depth of emotional recognition that no other combination quite matches. The 80/100 reflects what was genuine: when Scorpio and Pisces connect, the connection is real, felt, and hard to replicate with anyone else.', 'The turbulence — the fights, the public rows, the drinking, the press — is also part of the Water + Water story. Neither sign has good brakes. The intensity that creates the love also fuels the volatility. The same depth that makes them feel understood by each other is the depth from which the damage comes when things go wrong.'] },
+      { heading: 'Water + Water — A tier', paragraphs: ['Two Water signs at their best offer each other a depth of emotional recognition that no other combination quite matches. The A tier reflects what was genuine: when Scorpio and Pisces connect, the connection is real, felt, and hard to replicate with anyone else.', 'The turbulence — the fights, the public rows, the drinking, the press — is also part of the Water + Water story. Neither sign has good brakes. The intensity that creates the love also fuels the volatility. The same depth that makes them feel understood by each other is the depth from which the damage comes when things go wrong.'] },
       { heading: 'Two Marriages', paragraphs: ['They married in 1964. They divorced in 1974. They remarried in 1975. They divorced again in 1976. The fact of two marriages is itself the most astrologically legible thing about them: Scorpio doesn\'t let go. Pisces never stops believing. The pattern of breaking and returning is not a dysfunction — it\'s the pattern these two signs produce when they\'re together.', 'Burton died in 1984. Taylor remained married and widowed several more times. She has spoken of him as the love of her life.'] },
       { callout: 'He once said of her: "She is a wildly exciting love partner." She said of him: "He was the only man I\'d met who was as strong as I was." A Scorpio and a Pisces, both of them at full intensity, both of them too much for almost anyone else.' },
     ],
     faqs: [
       { question: 'What is Elizabeth Taylor\'s zodiac sign?', answer: 'Elizabeth Taylor was a Pisces, born February 27, 1932. Pisces is a Water sign known for emotional depth, romantic idealism, and a capacity for love that is total and sometimes self-destructive.' },
       { question: 'What is Richard Burton\'s zodiac sign?', answer: 'Richard Burton was a Scorpio, born November 10, 1925. Scorpio is a Water sign known for intensity, dark charisma, loyalty, and a possessiveness that can be both the most compelling and most difficult thing about them.' },
-      { question: 'Were Elizabeth Taylor and Richard Burton compatible?', answer: 'Scorpio + Pisces is a Water + Water pairing that scores 80/100. The depth of emotional resonance is genuine; so is the potential for turbulence when two people who feel everything are in the same room.' },
+      { question: 'Were Elizabeth Taylor and Richard Burton compatible?', answer: 'Scorpio + Pisces is a Water + Water pairing that rates A tier. The depth of emotional resonance is genuine; so is the potential for turbulence when two people who feel everything are in the same room.' },
     ],
     related: ['scorpio-in-love', 'pisces-in-love', 'goldie-hawn-and-kurt-russell'],
   },
 
   'marilyn-monroe-and-joe-dimaggio': {
     title: 'Marilyn Monroe & Joe DiMaggio: A Gemini and a Sagittarius Who Couldn\'t Bridge the Gap',
-    description: 'Marilyn Monroe was a Gemini. Joe DiMaggio was a Sagittarius. Opposite signs, Air + Fire, 65/100 — magnetic across the axis but unable to sustain it. They were married 9 months.',
+    description: 'Marilyn Monroe was a Gemini. Joe DiMaggio was a Sagittarius. Opposite signs, Air + Fire, S tier — magnetic across the axis but unable to sustain it. They were married 9 months.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Gemini', sign2: 'Sagittarius',
     compatLink: '/compatibility/gemini-and-sagittarius',
     intro: 'Marilyn Monroe (Gemini, June 1, 1926) and Joe DiMaggio (Sagittarius, November 25, 1914) married in January 1954. They divorced nine months later, in October 1954. DiMaggio never stopped loving her. He had flowers sent to her grave three times a week for 20 years after her death in 1962.',
     sections: [
       { heading: 'Opposite Signs, Opposite Needs', paragraphs: ['Gemini and Sagittarius sit directly across the zodiac from each other — 180 degrees apart, what astrology calls an opposition. Opposite signs share an axis (in this case, the axis of thought and philosophy, meaning and communication) but express it in entirely different ways. Gemini moves fast, adapts, collects ideas and perspectives. Sagittarius moves toward a single truth, a vision, a conviction.', 'Marilyn\'s Gemini was visible in her multiplicity: the public persona versus the private person, the comedy versus the devastation, the performance versus the deep intelligence. Joe DiMaggio\'s Sagittarius was one-directional: his devotion was total and his vision of what he wanted — a private wife, a domestic life, away from cameras — was fixed.'] },
-      { heading: 'Air + Fire — 65/100', paragraphs: ['Opposite signs often produce the most magnetic attractions — each person represents something the other lacks and secretly wants. For Gemini and Sagittarius, the attraction can feel like completing each other: the one who moves in all directions finding the one with a clear destination; the one with a vision finding the one who can articulate it in a hundred different ways.', 'The 65/100 reflects the genuine attraction alongside the fundamental incompatibility: the specific needs of Gemini (freedom, multiplicity, public life) and Sagittarius (truth, commitment, eventually a home) can pull in different directions under sustained pressure.'] },
+      { heading: 'Air + Fire — S tier', paragraphs: ['Opposite signs often produce the most magnetic attractions — each person represents something the other lacks and secretly wants. For Gemini and Sagittarius, the attraction can feel like completing each other: the one who moves in all directions finding the one with a clear destination; the one with a vision finding the one who can articulate it in a hundred different ways.', 'The S tier reflects the genuine attraction alongside the fundamental incompatibility: the specific needs of Gemini (freedom, multiplicity, public life) and Sagittarius (truth, commitment, eventually a home) can pull in different directions under sustained pressure.'] },
       { heading: 'The Flowers', paragraphs: ['Joe DiMaggio ordered roses sent to Marilyn\'s crypt three times a week for 20 years. He never remarried. When she died, he claimed her body when her ex-husbands did not. That\'s Sagittarius: the devotion, once given, tends to outlast the object. The same single-mindedness that made him difficult to be married to made him faithful to her memory in a way that transcended the marriage itself.'] },
       { callout: 'They couldn\'t sustain what they had built together. But he never left. That\'s the particular tragedy of a Sagittarius who loved a Gemini past the end of the relationship — the fire keeps burning after the air has moved on.' },
     ],
     faqs: [
       { question: 'What is Marilyn Monroe\'s zodiac sign?', answer: 'Marilyn Monroe was a Gemini, born June 1, 1926. Gemini is an Air sign known for adaptability, charm, wit, and a duality that made her both the world\'s most recognized icon and a deeply private person.' },
       { question: 'What is Joe DiMaggio\'s zodiac sign?', answer: 'Joe DiMaggio was a Sagittarius, born November 25, 1914. Sagittarius is a Fire sign known for loyalty to a vision, directness, and a devotion that — once committed — tends not to waver.' },
-      { question: 'Were Marilyn Monroe and Joe DiMaggio compatible?', answer: 'Gemini + Sagittarius is an opposition pairing that scores 65/100. The magnetic attraction of opposite signs is real; the friction that comes from fundamentally different needs — Gemini\'s need for freedom and multiplicity versus Sagittarius\'s need for a clear, committed direction — is equally real.' },
+      { question: 'Were Marilyn Monroe and Joe DiMaggio compatible?', answer: 'Gemini + Sagittarius is an opposition pairing that rates S tier. The magnetic attraction of opposite signs is real; the friction that comes from fundamentally different needs — Gemini\'s need for freedom and multiplicity versus Sagittarius\'s need for a clear, committed direction — is equally real.' },
     ],
     related: ['gemini-in-love', 'sagittarius-in-love', 'brad-pitt-and-angelina-jolie'],
   },
 
   'marilyn-monroe-and-arthur-miller': {
     title: 'Marilyn Monroe & Arthur Miller: When Gemini Met Libra',
-    description: 'Marilyn Monroe was a Gemini. Arthur Miller was a Libra. Air + Air scores 75/100 — an intellectual pairing between America\'s most photographed woman and its most celebrated playwright.',
+    description: 'Marilyn Monroe was a Gemini. Arthur Miller was a Libra. Air + Air rates A tier — an intellectual pairing between America\'s most photographed woman and its most celebrated playwright.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Gemini', sign2: 'Libra',
     compatLink: '/compatibility/gemini-and-libra',
     intro: 'Marilyn Monroe (Gemini, June 1, 1926) and Arthur Miller (Libra, October 17, 1915) married in June 1956, days after she converted to Judaism. He was "America\'s playwright" — Death of a Salesman, The Crucible, All My Sons. She was the most famous woman in the world. They were together for five years.',
     sections: [
       { heading: 'Two Air Signs, One Intellectual Current', paragraphs: ['Gemini and Libra are both Air signs — both oriented toward ideas, language, communication, and the exchange of perspectives. Gemini is quick, adaptive, multi-directional. Libra is thoughtful, aesthetic, committed to balance and beauty. Together they produce a pairing where the conversation is fluent and the mental connection is real.', 'Marilyn Monroe was, by every account who knew her, a serious reader and a serious thinker. The public persona was constructed to serve the industry; the private person read Dostoyevsky and studied at the Actors Studio. Arthur Miller represented the intellectual world she had always wanted access to — and she represented something he couldn\'t fully name or contain.'] },
-      { heading: 'Air + Air — 75/100', paragraphs: ['Two Air signs together tend to produce strong mental rapport — the kind of pairing where both people feel genuinely understood in their thinking, not just their emotion. The 75/100 reflects that this combination works well at the level of ideas and communication, which is often where lasting relationships are built.', 'Where Air + Air requires attention is in the practical and emotional dimensions. Both signs can intellectualize experience — explaining feelings rather than fully inhabiting them. For a Pisces-Moon (Marilyn\'s reported Moon sign) in a Gemini body, the need for emotional grounding was acute. A Libra, even a devoted one, can offer equity and beauty but sometimes struggles with the kind of raw emotional presence that Pisces needs.'] },
+      { heading: 'Air + Air — A tier', paragraphs: ['Two Air signs together tend to produce strong mental rapport — the kind of pairing where both people feel genuinely understood in their thinking, not just their emotion. The A tier reflects that this combination works well at the level of ideas and communication, which is often where lasting relationships are built.', 'Where Air + Air requires attention is in the practical and emotional dimensions. Both signs can intellectualize experience — explaining feelings rather than fully inhabiting them. For a Pisces-Moon (Marilyn\'s reported Moon sign) in a Gemini body, the need for emotional grounding was acute. A Libra, even a devoted one, can offer equity and beauty but sometimes struggles with the kind of raw emotional presence that Pisces needs.'] },
       { heading: 'After', paragraphs: ['They divorced in 1961, the same year The Misfits — for which Miller wrote the screenplay specifically for Monroe — was released. She died in 1962. He spent years writing about the experience, including his 1987 play Timebends, a memoir that grappled with what they had been to each other. A Libra processing loss through language and reflection: that\'s consistent.' ] },
       { callout: 'She once said: "I used to think as I looked at the Hollywood night, \'There must be thousands of girls sitting alone like me dreaming of becoming a movie star.\' But I\'m not going to worry about them. I\'m dreaming the hardest." That\'s Gemini: the dream, the self-awareness about the dream, and the refusal to stop anyway.' },
     ],
     faqs: [
       { question: 'What is Arthur Miller\'s zodiac sign?', answer: 'Arthur Miller was a Libra, born October 17, 1915. Libra is an Air sign known for intellect, aesthetic sensibility, a commitment to balance and justice, and relationships built on genuine partnership of mind.' },
-      { question: 'Were Marilyn Monroe and Arthur Miller compatible?', answer: 'Gemini + Libra is an Air + Air pairing that scores 75/100. The mental connection is genuine and fluent; the challenge is whether the Air + Air dynamic offers enough emotional grounding for a Gemini who needs both intellectual stimulation and deep feeling.' },
+      { question: 'Were Marilyn Monroe and Arthur Miller compatible?', answer: 'Gemini + Libra is an Air + Air pairing that rates A tier. The mental connection is genuine and fluent; the challenge is whether the Air + Air dynamic offers enough emotional grounding for a Gemini who needs both intellectual stimulation and deep feeling.' },
       { question: 'How long were Marilyn Monroe and Arthur Miller together?', answer: 'They married in June 1956 and divorced in 1961, having been together for approximately five years. He wrote about their relationship for the rest of his life.' },
     ],
     related: ['gemini-in-love', 'libra-in-love', 'marilyn-monroe-and-joe-dimaggio'],
@@ -1710,220 +1528,220 @@ export const ARTICLES: Record<string, Article> = {
 
   'john-lennon-and-yoko-ono': {
     title: 'John Lennon & Yoko Ono: A Libra and an Aquarius Who Changed What Love Could Look Like',
-    description: 'John Lennon was a Libra. Yoko Ono is an Aquarius. Air + Air scores 75/100 — two visionaries who made their relationship a public act of peace. Together from 1968 until his death in 1980.',
+    description: 'John Lennon was a Libra. Yoko Ono is an Aquarius. Air + Air rates A tier — two visionaries who made their relationship a public act of peace. Together from 1968 until his death in 1980.',
     publishDate: '2026-05-08', readTime: '6 min read', category: 'couple',
     sign1: 'Libra', sign2: 'Aquarius',
     compatLink: '/compatibility/libra-and-aquarius',
     intro: 'John Lennon (Libra, October 9, 1940) and Yoko Ono (Aquarius, February 18, 1933) met in November 1966 at her art exhibition at the Indica Gallery in London. They married in March 1969. The Bed-In for Peace happened that same month. They were inseparable — artistically, politically, domestically — until his murder in December 1980.',
     sections: [
       { heading: 'Two Air Signs Who Made Ideas into Action', paragraphs: ['Libra and Aquarius are both Air signs, but they express that Air very differently. Libra is relational, aesthetic, oriented around partnership and balance. Aquarius is visionary, humanitarian, oriented around the collective and the future. Together they produce a pairing where both people can talk endlessly, disagree productively, and combine art with activism.', 'John\'s Libra was in the music — the melodic beauty, the partnership (his work with Paul McCartney was a famous Libra-style creative relationship), and the deep need to be in a committed creative and romantic partnership. Yoko\'s Aquarius was in the art — the conceptual, ahead-of-its-time work that much of the public rejected in 1969 and much of the world came to appreciate by the 1990s.'] },
-      { heading: 'Air + Air — 75/100', paragraphs: ['Two Air signs together produce the kind of relationship where the meeting of minds is immediate and sustained. The 75/100 reflects genuine compatibility at the level of ideas, communication, and shared vision — which is often what the most enduring partnerships are built from.', 'What\'s particularly notable about this pairing is that their relationship became a joint creative and political project. The Bed-Ins, the album Double Fantasy, the concept art — they didn\'t just share a life, they made the sharing of a life into a public statement about what partnership could mean. That\'s both Libra and Aquarius at their most realized: partnership as an ideal in action.'] },
+      { heading: 'Air + Air — A tier', paragraphs: ['Two Air signs together produce the kind of relationship where the meeting of minds is immediate and sustained. The A tier reflects genuine compatibility at the level of ideas, communication, and shared vision — which is often what the most enduring partnerships are built from.', 'What\'s particularly notable about this pairing is that their relationship became a joint creative and political project. The Bed-Ins, the album Double Fantasy, the concept art — they didn\'t just share a life, they made the sharing of a life into a public statement about what partnership could mean. That\'s both Libra and Aquarius at their most realized: partnership as an ideal in action.'] },
       { heading: 'What Survived', paragraphs: ['Yoko Ono has remained a cultural figure for more than four decades since John\'s death. She has continued the work — archiving his legacy, advocating for peace, creating art that extends the principles they shared. The Aquarius capacity for sustaining a vision past the person who shared it is one of that sign\'s most particular qualities.', 'John Lennon was shot on December 8, 1980. He was 40. The morning he died, they had finished a photo session and he had told an interviewer he felt their life was finally exactly what he wanted it to be.'] },
       { callout: '"Imagine all the people living life in peace." That\'s Aquarius writing the vision and Libra making it beautiful enough to be heard around the world.' },
     ],
     faqs: [
       { question: 'What is John Lennon\'s zodiac sign?', answer: 'John Lennon was a Libra, born October 9, 1940. Libra is an Air sign known for musical beauty, a deep need for creative partnership, aesthetic sensibility, and the belief that relationship is both a personal and a public act.' },
       { question: 'What is Yoko Ono\'s zodiac sign?', answer: 'Yoko Ono is an Aquarius, born February 18, 1933. Aquarius is an Air sign known for visionary thinking, humanitarian ideals, unconventional creativity, and the capacity to sustain a vision past all opposition.' },
-      { question: 'Were John Lennon and Yoko Ono compatible?', answer: 'Libra + Aquarius is an Air + Air pairing that scores 75/100. Both signs live in the realm of ideas and ideals; Libra brings relational beauty and partnership, Aquarius brings the larger vision. Together they produced some of the most politically engaged art of the 20th century.' },
+      { question: 'Were John Lennon and Yoko Ono compatible?', answer: 'Libra + Aquarius is an Air + Air pairing that rates A tier. Both signs live in the realm of ideas and ideals; Libra brings relational beauty and partnership, Aquarius brings the larger vision. Together they produced some of the most politically engaged art of the 20th century.' },
     ],
     related: ['libra-in-love', 'aquarius-in-love', 'moon-sign-compatibility'],
   },
 
   'elvis-and-priscilla-presley': {
     title: 'Elvis & Priscilla Presley: A Capricorn and a Gemini, Fourteen Years Apart',
-    description: 'Elvis Presley was a Capricorn. Priscilla Presley is a Gemini. Earth + Air scores 45/100 — a pairing shaped by control and reinvention, with a 10-year age gap that colored everything.',
+    description: 'Elvis Presley was a Capricorn. Priscilla Presley is a Gemini. Earth + Air rates C tier — a pairing shaped by control and reinvention, with a 10-year age gap that colored everything.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Gemini', sign2: 'Capricorn',
     compatLink: '/compatibility/gemini-and-capricorn',
     intro: 'Elvis Presley (Capricorn, January 8, 1935) and Priscilla Presley (Gemini, May 24, 1945) married on May 1, 1967, ten years after they met in Germany when she was 14 and he was 24. They divorced in 1973 and have one daughter, Lisa Marie Presley. Their relationship was shaped by a power imbalance that Priscilla has spoken about honestly, and by the particular dynamics of a Capricorn who wanted control and a Gemini who eventually needed more than one version of herself.',
     sections: [
       { heading: 'Capricorn and Gemini', paragraphs: ['Capricorn is the sign of structure, ambition, and control — the builder, the authority figure, the person who shapes the environment around them. Elvis\'s Capricorn ran through everything: the discipline of his early career, the management of his image, and the expectation that the people in his life would fit into a world he defined.', 'Gemini is the sign of adaptability and multiplicity — the person who can become what any situation requires, who is genuinely curious about who they are, and who eventually needs space to find out. Priscilla\'s Gemini was suppressed for years within the structure of being Mrs. Presley, and then — when she found her own footing through karate, through friendship, through becoming a businesswoman and actress — it emerged fully.'] },
-      { heading: 'Earth + Air — 45/100', paragraphs: ['Earth and Air have real complementary qualities, but they can also chafe against each other. Earth wants to consolidate; Air wants to move. Earth builds a world; Air needs to breathe. The 45/100 reflects the genuine friction between a Capricorn who built Graceland as a container for a life he controlled and a Gemini who eventually outgrew that container.', 'Priscilla has been candid about the years at Graceland — the isolation, the expectations, the difficulty of being allowed to become her own person inside a relationship with someone as enormous as Elvis. That\'s Earth + Air in its more difficult form: the builder building something the Air sign can\'t fully live inside.'] },
+      { heading: 'Earth + Air — C tier', paragraphs: ['Earth and Air have real complementary qualities, but they can also chafe against each other. Earth wants to consolidate; Air wants to move. Earth builds a world; Air needs to breathe. The C tier reflects the genuine friction between a Capricorn who built Graceland as a container for a life he controlled and a Gemini who eventually outgrew that container.', 'Priscilla has been candid about the years at Graceland — the isolation, the expectations, the difficulty of being allowed to become her own person inside a relationship with someone as enormous as Elvis. That\'s Earth + Air in its more difficult form: the builder building something the Air sign can\'t fully live inside.'] },
       { heading: 'After', paragraphs: ['Their divorce in 1973 was reportedly mutual. Priscilla went on to found the Elvis Presley Enterprises trust that preserved Graceland and turned it into what it is today — a business and cultural site she managed with considerable acumen. Elvis died in 1977. Priscilla attended his funeral and has since been one of the most thoughtful stewards of his legacy.', 'She has said in interviews that she loved him genuinely and that the relationship was complicated in ways she spent years processing. That\'s a Gemini finding the language for something her younger self didn\'t have words for yet.'] },
     ],
     faqs: [
       { question: 'What is Elvis Presley\'s zodiac sign?', answer: 'Elvis Presley was a Capricorn, born January 8, 1935. Capricorn is an Earth sign known for discipline, ambition, the construction of a personal world, and a tendency toward control of the environment — and sometimes the people — around them.' },
       { question: 'What is Priscilla Presley\'s zodiac sign?', answer: 'Priscilla Presley is a Gemini, born May 24, 1945. Gemini is an Air sign known for adaptability, multiplicity, and an eventual need to inhabit more than one version of oneself — which tends to require space.' },
-      { question: 'Were Elvis and Priscilla Presley compatible?', answer: 'Gemini + Capricorn is an Air + Earth pairing that scores 45/100. The dynamic between a Capricorn who builds a controlled world and a Gemini who eventually needs to move beyond any single definition is one of the more structurally challenging combinations in the zodiac.' },
+      { question: 'Were Elvis and Priscilla Presley compatible?', answer: 'Gemini + Capricorn is an Air + Earth pairing that rates C tier. The dynamic between a Capricorn who builds a controlled world and a Gemini who eventually needs to move beyond any single definition is one of the more structurally challenging combinations in the zodiac.' },
     ],
     related: ['capricorn-in-love', 'gemini-in-love', 'red-flags-by-zodiac-sign'],
   },
 
   'jfk-and-jackie-kennedy': {
     title: 'JFK & Jackie Kennedy: A Gemini and a Leo in the Most Watched Marriage in the World',
-    description: 'JFK was a Gemini. Jackie Kennedy was a Leo. Air + Fire scores 65/100 — a pairing of charm and radiance, grace and duality, in the most scrutinized relationship of the 20th century.',
+    description: 'JFK was a Gemini. Jackie Kennedy was a Leo. Air + Fire rates S tier — a pairing of charm and radiance, grace and duality, in the most scrutinized relationship of the 20th century.',
     publishDate: '2026-05-08', readTime: '6 min read', category: 'couple',
     sign1: 'Gemini', sign2: 'Leo',
     compatLink: '/compatibility/gemini-and-leo',
     intro: 'John F. Kennedy (Gemini, May 29, 1917) and Jacqueline Bouvier Kennedy (Leo, July 28, 1929) married on September 12, 1953. They had four children, two of whom survived. He was assassinated in Dallas on November 22, 1963. She was 34 years old. She held his head in her hands.',
     sections: [
       { heading: 'Gemini and Leo: Charm and Radiance', paragraphs: ['Gemini is the most charming sign in the zodiac — quick, adaptable, able to be everything to everyone in a room, and genuinely magnetic in the way of people who seem always to be elsewhere even when they\'re standing in front of you. JFK\'s Gemini was political genius: the ability to communicate across every audience, to shift register from televised debate to private conversation without losing either, to project warmth while remaining essentially unknowable.', 'Leo is the sign of sovereign presence — the person who arrives and changes the room, who knows who they are and expresses it in every gesture. Jackie Kennedy\'s Leo was in the bearing, the aesthetic vision (the White House renovation, the cultural programming of the Kennedy years), and the extraordinary dignity she maintained in the worst moments a public figure can face.'] },
-      { heading: 'Air + Fire — 65/100', paragraphs: ['Gemini and Leo are complementary elements that tend to produce attraction and admiration — Air feeds Fire, which grows larger and brighter in return. The 65/100 reflects genuine compatibility alongside the particular tensions that arise when a Gemini\'s multiplicity meets a Leo\'s need for genuine recognition.', 'Leo needs to know they are seen — really seen, not just publicly celebrated. JFK\'s Gemini tendency to be everywhere and fully present nowhere is perhaps the central tension of their documented dynamic. Jackie knew about his affairs and chose the public version of their life. That\'s a Leo making the calculation that their role — as a public figure, as a mother, as a cultural presence — mattered more than the private reckoning.'] },
+      { heading: 'Air + Fire — S tier', paragraphs: ['Gemini and Leo are complementary elements that tend to produce attraction and admiration — Air feeds Fire, which grows larger and brighter in return. The S tier reflects genuine compatibility alongside the particular tensions that arise when a Gemini\'s multiplicity meets a Leo\'s need for genuine recognition.', 'Leo needs to know they are seen — really seen, not just publicly celebrated. JFK\'s Gemini tendency to be everywhere and fully present nowhere is perhaps the central tension of their documented dynamic. Jackie knew about his affairs and chose the public version of their life. That\'s a Leo making the calculation that their role — as a public figure, as a mother, as a cultural presence — mattered more than the private reckoning.'] },
       { heading: 'Afterward', paragraphs: ['Jackie Kennedy was photographed in the dress she wore when he was shot. She declined to change it. She said she wanted people to see what they had done. That\'s Leo: the instinct to make the moment visible, to give grief a form that could be witnessed.', 'She later married Aristotle Onassis in 1968, and died in 1994. The historical image of her — beside the casket, behind the pink suit, raising John and Caroline — is one of the most enduring portraits of dignified grief in American public life. It is exactly what Leo, at its most realized, looks like.'] },
     ],
     faqs: [
       { question: 'What is JFK\'s zodiac sign?', answer: 'John F. Kennedy was a Gemini, born May 29, 1917. Gemini is an Air sign known for intelligence, charm, political adaptability, and a duality that allows them to be simultaneously everything to everyone and genuinely known by no one.' },
       { question: 'What is Jackie Kennedy\'s zodiac sign?', answer: 'Jackie Kennedy was a Leo, born July 28, 1929. Leo is a Fire sign known for sovereign presence, aesthetic vision, dignity under pressure, and the instinct to make even the most private moments into something the world can witness.' },
-      { question: 'Were JFK and Jackie Kennedy compatible?', answer: 'Gemini + Leo is an Air + Fire pairing that scores 65/100. The complementary elements — Air feeding Fire — produce genuine attraction and admiration; the central tension is Gemini\'s multiplicity meeting Leo\'s deep need for authentic recognition.' },
+      { question: 'Were JFK and Jackie Kennedy compatible?', answer: 'Gemini + Leo is an Air + Fire pairing that rates S tier. The complementary elements — Air feeding Fire — produce genuine attraction and admiration; the central tension is Gemini\'s multiplicity meeting Leo\'s deep need for authentic recognition.' },
     ],
     related: ['gemini-in-love', 'leo-in-love', 'princess-diana-and-prince-charles'],
   },
 
   'sonny-and-cher': {
     title: 'Sonny & Cher: An Aquarius and a Taurus Who Built an Empire Together',
-    description: 'Sonny Bono was an Aquarius. Cher is a Taurus. Air + Earth scores 45/100 — but they made it work long enough to become one of entertainment\'s most enduring creative partnerships.',
+    description: 'Sonny Bono was an Aquarius. Cher is a Taurus. Air + Earth rates C tier — but they made it work long enough to become one of entertainment\'s most enduring creative partnerships.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Taurus', sign2: 'Aquarius',
     compatLink: '/compatibility/taurus-and-aquarius',
     intro: 'Sonny Bono (Aquarius, February 16, 1935) and Cher (Taurus, May 20, 1946) were together from 1964 to 1975. They had a daughter, Chastity (now Chaz). They were also, for a decade, the most famous duo in American entertainment — the Sonny & Cher Comedy Hour, the hit records, the matching outfits. Sonny discovered Cher when she was 16. The power dynamic shaped everything.',
     sections: [
       { heading: 'Aquarius and Taurus: Different Gravitational Fields', paragraphs: ['Aquarius is the visionary — the person who sees the future before it arrives, who is animated by ideas and ideals and the possibility of something new. Sonny\'s Aquarius drove the creative vision: he saw something in Cher before the industry did, packaged the act, wrote the songs, managed the relationship between their art and their public identity.', 'Taurus is the sign that knows its own worth, builds slowly, and eventually owns whatever it has patiently built. Cher\'s Taurus is visible across five decades: the refusal to be defined by any single era, the sustained relevance, the "believe" that comes from a Taurus who simply will not stop. Taurus doesn\'t reinvent — it outlasts.'] },
-      { heading: 'Air + Earth — 45/100', paragraphs: ['Air and Earth don\'t naturally speak the same language. Aquarius lives in the future; Taurus lives in what is real right now. The 45/100 reflects the fundamental friction in this pairing — and the real creative tension that can come from it when both people are making something together.', 'Their professional partnership outlasted the romantic one. They hosted The Sonny & Cher Comedy Hour from 1971 to 1974, then divorced, and briefly reunited for a second show in the late 1970s. The ability of their Air + Earth combination to continue producing together even after the romantic dimension ended suggests the creative partnership was the primary bond.'] },
+      { heading: 'Air + Earth — C tier', paragraphs: ['Air and Earth don\'t naturally speak the same language. Aquarius lives in the future; Taurus lives in what is real right now. The C tier reflects the fundamental friction in this pairing — and the real creative tension that can come from it when both people are making something together.', 'Their professional partnership outlasted the romantic one. They hosted The Sonny & Cher Comedy Hour from 1971 to 1974, then divorced, and briefly reunited for a second show in the late 1970s. The ability of their Air + Earth combination to continue producing together even after the romantic dimension ended suggests the creative partnership was the primary bond.'] },
       { heading: 'The Taurus Who Took It Back', paragraphs: ['After their divorce, Cher\'s career — which Sonny had in some ways constrained through his management — became fully her own. The films, the solo albums, the Oscar, the reinventions. She is, as of 2026, in her late 70s and still performing. That\'s Taurus: the sign that doesn\'t stop because it doesn\'t know how to define stopping as a goal.', 'Sonny died in a skiing accident in 1998. Cher attended his funeral. She has said publicly that whatever their complications, she loved him.'] },
     ],
     faqs: [
       { question: 'What is Cher\'s zodiac sign?', answer: 'Cher is a Taurus, born May 20, 1946. Taurus is an Earth sign known for sensuality, loyalty, a deep aesthetic investment, and a fixed nature that builds steadily and outlasts almost everything.' },
       { question: 'What is Sonny Bono\'s zodiac sign?', answer: 'Sonny Bono was an Aquarius, born February 16, 1935. Aquarius is an Air sign known for visionary thinking, the ability to see potential in unexpected places, and a creative drive that can be both inspiring and difficult to contain.' },
-      { question: 'Were Sonny and Cher compatible?', answer: 'Taurus + Aquarius is an Earth + Air pairing that scores 45/100. The fundamental difference in orientation — Taurus anchored in the real and enduring, Aquarius animated by the ideal and the future — requires ongoing translation. Their creative partnership, which outlasted the romance, may have been the more natural home for what they were to each other.' },
+      { question: 'Were Sonny and Cher compatible?', answer: 'Taurus + Aquarius is an Earth + Air pairing that rates C tier. The fundamental difference in orientation — Taurus anchored in the real and enduring, Aquarius animated by the ideal and the future — requires ongoing translation. Their creative partnership, which outlasted the romance, may have been the more natural home for what they were to each other.' },
     ],
     related: ['taurus-in-love', 'aquarius-in-love', 'moon-sign-compatibility'],
   },
 
   'paul-newman-and-joanne-woodward': {
     title: 'Paul Newman & Joanne Woodward: 50 Years of an Aquarius and a Pisces',
-    description: 'Paul Newman was an Aquarius. Joanne Woodward is a Pisces. Air + Water scores 50/100 — and they made it work for 50 years, one of Hollywood\'s most genuinely enduring marriages.',
+    description: 'Paul Newman was an Aquarius. Joanne Woodward is a Pisces. Air + Water rates C tier — and they made it work for 50 years, one of Hollywood\'s most genuinely enduring marriages.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Aquarius', sign2: 'Pisces',
     compatLink: '/compatibility/aquarius-and-pisces',
     intro: 'Paul Newman (Aquarius, January 26, 1925) and Joanne Woodward (Pisces, February 27, 1930) married in January 1958 and remained married until Paul\'s death from lung cancer in September 2008. Fifty years. When asked about Hollywood infidelity, he famously said: "Why would I go out for hamburger when I have steak at home?"',
     sections: [
       { heading: 'Aquarius and Pisces: The Sign That Dreams and the Sign That Builds the Dream', paragraphs: ['Aquarius and Pisces are adjacent signs — neighbors in the zodiac — which creates a pairing with complementary qualities but also real differences. Aquarius is the visionary, the humanitarian, the person animated by ideas and ideals. Pisces is the empath, the romantic, the person animated by feeling and by the invisible texture of life.', 'Paul Newman\'s Aquarius was in his political commitments (he donated millions to charity, founded Newman\'s Own specifically to give away profits), his racecar driving (the Aquarius instinct for the unconventional arena), and his general refusal to behave the way Hollywood stars were expected to. Joanne Woodward\'s Pisces was in her acting — two Academy Award wins, work that required the Pisces capacity for total empathic inhabitation — and in the quiet steadiness of a person who chose depth over spectacle.'] },
-      { heading: 'Air + Water — 50/100', paragraphs: ['Air and Water are not natural companions — they speak different languages, one in ideas and the other in feeling. The 50/100 reflects real friction alongside real complementarity: the Aquarius who brings vision and the Pisces who brings emotional grounding can, when both people are committed, produce something that neither could quite manage alone.', 'What made their pairing work was probably that both people were genuinely more interested in the actual life than in the performance of it. They lived in Connecticut. He raced cars. She directed plays. They raised children. The Aquarius\'s need for independence and the Pisces\'s need for emotional presence found a form that served both.'] },
+      { heading: 'Air + Water — C tier', paragraphs: ['Air and Water are not natural companions — they speak different languages, one in ideas and the other in feeling. The C tier reflects real friction alongside real complementarity: the Aquarius who brings vision and the Pisces who brings emotional grounding can, when both people are committed, produce something that neither could quite manage alone.', 'What made their pairing work was probably that both people were genuinely more interested in the actual life than in the performance of it. They lived in Connecticut. He raced cars. She directed plays. They raised children. The Aquarius\'s need for independence and the Pisces\'s need for emotional presence found a form that served both.'] },
       { callout: 'Fifty years. One marriage. In Hollywood. Paul Newman once said: "A man can only eat so many hot dogs." That\'s Aquarius-style directness wrapped in enough humor to make it land. The sentiment underneath it was real.' },
     ],
     faqs: [
       { question: 'What is Paul Newman\'s zodiac sign?', answer: 'Paul Newman was an Aquarius, born January 26, 1925. Aquarius is an Air sign known for independence, humanitarian values, unconventional choices, and a directness that can be disarming in its clarity.' },
       { question: 'What is Joanne Woodward\'s zodiac sign?', answer: 'Joanne Woodward is a Pisces, born February 27, 1930. Pisces is a Water sign known for emotional depth, empathic acting ability, a romantic sensibility, and the capacity to be fully present in a life without needing it to be performed.' },
-      { question: 'Were Paul Newman and Joanne Woodward compatible?', answer: 'Aquarius + Pisces is an Air + Water pairing that scores 50/100. The 50-year marriage is its own argument for the pairing. When the Aquarius\'s idealism and the Pisces\'s emotional depth find common ground in a real, non-performative life together, the result can outlast almost any compatibility score.' },
+      { question: 'Were Paul Newman and Joanne Woodward compatible?', answer: 'Aquarius + Pisces is an Air + Water pairing that rates C tier. The 50-year marriage is its own argument for the pairing. When the Aquarius\'s idealism and the Pisces\'s emotional depth find common ground in a real, non-performative life together, the result can outlast almost any compatibility score.' },
     ],
     related: ['aquarius-in-love', 'pisces-in-love', 'dolly-parton-and-carl-dean'],
   },
 
   'humphrey-bogart-and-lauren-bacall': {
     title: 'Humphrey Bogart & Lauren Bacall: A Capricorn and a Virgo Who Had the Best Chemistry in Hollywood',
-    description: 'Humphrey Bogart was a Capricorn. Lauren Bacall was a Virgo. Earth + Earth scores 75/100 — they met on the set of To Have and Have Not in 1944. The 25-year age gap didn\'t matter.',
+    description: 'Humphrey Bogart was a Capricorn. Lauren Bacall was a Virgo. Earth + Earth rates A tier — they met on the set of To Have and Have Not in 1944. The 25-year age gap didn\'t matter.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Virgo', sign2: 'Capricorn',
     compatLink: '/compatibility/virgo-and-capricorn',
     intro: 'Humphrey Bogart (Capricorn, December 25, 1899) and Lauren Bacall (Virgo, September 16, 1924) met filming To Have and Have Not in 1944, when she was 19 and he was 44. They married in 1945 and were together until his death from esophageal cancer in 1957. Their on-screen chemistry — "You know how to whistle, don\'t you, Steve? You just put your lips together and blow" — became one of cinema\'s defining moments.',
     sections: [
       { heading: 'Earth + Earth: Immediate Recognition', paragraphs: ['Capricorn and Virgo are both Earth signs, which in astrology produces a natural affinity — shared values around craft, commitment, quality, and the belief that things worth having are worth working for. Two Earth signs tend to recognize each other immediately, often before any romantic dimension has developed.', 'Bogart\'s Capricorn was in his screen authority — the dry intelligence, the moral clarity even in morally ambiguous roles, the sense of a person who had lived enough to know the cost of things. Bacall\'s Virgo was in her precision — the voice, the delivery, the exactness of everything she did on screen, and the sharp intelligence she brought to both craft and life.'] },
-      { heading: 'Virgo + Capricorn — 75/100', paragraphs: ['Earth + Earth pairings score well because both people orient toward the same things: quality, loyalty, and work done properly. The 75/100 reflects genuine compatibility and a natural working partnership. They made four films together. The work was an extension of the relationship.', 'The age gap — 25 years — is often noted as the defining feature of their dynamic, and it certainly shaped the early power dynamics. But Earth signs, particularly Virgo, tend to be drawn toward the substantive rather than the age-appropriate. A 19-year-old Virgo who has decided something is worth committing to is more committed than many 40-year-olds. She chose him with her full Virgo intelligence, not naively.'] },
+      { heading: 'Virgo + Capricorn — A tier', paragraphs: ['Earth + Earth pairings score well because both people orient toward the same things: quality, loyalty, and work done properly. The A tier reflects genuine compatibility and a natural working partnership. They made four films together. The work was an extension of the relationship.', 'The age gap — 25 years — is often noted as the defining feature of their dynamic, and it certainly shaped the early power dynamics. But Earth signs, particularly Virgo, tend to be drawn toward the substantive rather than the age-appropriate. A 19-year-old Virgo who has decided something is worth committing to is more committed than many 40-year-olds. She chose him with her full Virgo intelligence, not naively.'] },
       { callout: 'After he died, she was 32. She went on to have a long and distinguished career, two more marriages, and a public life as formidable as any she\'d shared with him. Virgo doesn\'t collapse. It grieves, and then it continues to work.' },
     ],
     faqs: [
       { question: 'What is Humphrey Bogart\'s zodiac sign?', answer: 'Humphrey Bogart was a Capricorn, born December 25, 1899. Capricorn is an Earth sign known for authority, dry intelligence, commitment to craft, and a moral seriousness that comes through even in roles designed to obscure it.' },
       { question: 'What is Lauren Bacall\'s zodiac sign?', answer: 'Lauren Bacall was a Virgo, born September 16, 1924. Virgo is an Earth sign known for precision, intelligence, a commitment to excellence in everything they do, and a tendency to choose with their full intelligence rather than their impulse.' },
-      { question: 'Were Bogart and Bacall compatible?', answer: 'Virgo + Capricorn is an Earth + Earth pairing that scores 75/100. Two Earth signs recognize each other quickly and build something durable. Their professional and romantic partnership — four films, 12 years of marriage — reflects exactly that.' },
+      { question: 'Were Bogart and Bacall compatible?', answer: 'Virgo + Capricorn is an Earth + Earth pairing that rates A tier. Two Earth signs recognize each other quickly and build something durable. Their professional and romantic partnership — four films, 12 years of marriage — reflects exactly that.' },
     ],
     related: ['virgo-in-love', 'capricorn-in-love', 'dolly-parton-and-carl-dean'],
   },
 
   'martin-luther-king-and-coretta-scott-king': {
     title: 'Martin Luther King Jr. & Coretta Scott King: A Capricorn and a Taurus Who Shared a Mission',
-    description: 'Martin Luther King Jr. was a Capricorn. Coretta Scott King was a Taurus. Earth + Earth scores 75/100 — two Earth signs who built something together that outlasted both of them.',
+    description: 'Martin Luther King Jr. was a Capricorn. Coretta Scott King was a Taurus. Earth + Earth rates A tier — two Earth signs who built something together that outlasted both of them.',
     publishDate: '2026-05-08', readTime: '6 min read', category: 'couple',
     sign1: 'Taurus', sign2: 'Capricorn',
     compatLink: '/compatibility/taurus-and-capricorn',
     intro: 'Martin Luther King Jr. (Capricorn, January 15, 1929) and Coretta Scott King (Taurus, April 27, 1927) married on June 18, 1953. She was pursuing a concert career in Boston when they met; she gave that up to stand beside him in the work that would define American history. He was assassinated on April 4, 1968. She spent the next 38 years continuing the movement.',
     sections: [
       { heading: 'Two Earth Signs with a Shared Foundation', paragraphs: ['Capricorn is the sign of legacy, purpose, and the willingness to do sustained, difficult work toward a distant goal. Martin Luther King\'s Capricorn was total: the oratory was not performance but the product of years of preparation, the strategy was deliberate, and the commitment to nonviolence required exactly the Capricorn capacity to hold a larger vision through conditions that would break most people.', 'Taurus is the sign of steadiness, loyalty, and the ability to hold the center when everything around it is moving. Coretta Scott King\'s Taurus was in her refusal to be diminished — by surveillance, by threats, by widowhood at 40 — and in the decades of continued advocacy for civil rights, LGBTQ rights, and anti-poverty work that followed her husband\'s death. She didn\'t hold his place. She extended it.'] },
-      { heading: 'Earth + Earth — 75/100', paragraphs: ['Two Earth signs share an understanding of what endures: not the feeling but the work; not the moment but the structure built from moments. The 75/100 reflects a natural compatibility between two people oriented toward the same values — commitment, purpose, and the belief that what you build matters more than how it feels to build it.', 'Their relationship was also shaped by enormous external pressure. The FBI surveillance, the death threats, the constant danger — these are conditions that would test any partnership. Earth signs under pressure don\'t dissolve; they compact. The difficulty became part of what held them together.'] },
+      { heading: 'Earth + Earth — A tier', paragraphs: ['Two Earth signs share an understanding of what endures: not the feeling but the work; not the moment but the structure built from moments. The A tier reflects a natural compatibility between two people oriented toward the same values — commitment, purpose, and the belief that what you build matters more than how it feels to build it.', 'Their relationship was also shaped by enormous external pressure. The FBI surveillance, the death threats, the constant danger — these are conditions that would test any partnership. Earth signs under pressure don\'t dissolve; they compact. The difficulty became part of what held them together.'] },
       { heading: 'After', paragraphs: ['Coretta Scott King died in January 2006, nearly 38 years after Martin\'s assassination. In those years she founded the King Center, continued his work, and became one of the most important civil rights advocates of the late 20th century in her own right. A Taurus who decides to stay committed to something doesn\'t need the original person to sustain the commitment. The work itself becomes the anchor.'] },
       { callout: '"The greatness of a man is not in how much wealth he acquires, but in his integrity and his ability to affect those around him positively." — Martin Luther King Jr. That\'s Capricorn. And a Taurus who chose to spend her life making those words mean something tangible: that\'s Coretta.' },
     ],
     faqs: [
       { question: 'What is Martin Luther King Jr.\'s zodiac sign?', answer: 'Martin Luther King Jr. was a Capricorn, born January 15, 1929. Capricorn is an Earth sign known for disciplined purpose, long-term vision, oratorical power in service of a goal, and the capacity to sustain commitment through conditions that would break others.' },
       { question: 'What is Coretta Scott King\'s zodiac sign?', answer: 'Coretta Scott King was a Taurus, born April 27, 1927. Taurus is an Earth sign known for loyalty, steadiness, the refusal to be diminished, and a fixed commitment that doesn\'t require the original cause to remain present in order to continue.' },
-      { question: 'Were MLK and Coretta Scott King compatible?', answer: 'Taurus + Capricorn is an Earth + Earth pairing that scores 75/100. Two Earth signs with a shared mission produce one of the most durable kinds of partnership — built not on romantic chemistry alone but on shared purpose and mutual recognition of what each person brings to the work.' },
+      { question: 'Were MLK and Coretta Scott King compatible?', answer: 'Taurus + Capricorn is an Earth + Earth pairing that rates A tier. Two Earth signs with a shared mission produce one of the most durable kinds of partnership — built not on romantic chemistry alone but on shared purpose and mutual recognition of what each person brings to the work.' },
     ],
     related: ['capricorn-in-love', 'taurus-in-love', 'barack-and-michelle-obama'],
   },
 
   'justin-and-hailey-bieber': {
     title: 'Justin & Hailey Bieber: A Pisces and a Sagittarius Finding Solid Ground',
-    description: 'Justin Bieber is a Pisces. Hailey Bieber is a Sagittarius. Water + Fire scores 55/100 — she grounds him; he softens her. Married since 2018.',
+    description: 'Justin Bieber is a Pisces. Hailey Bieber is a Sagittarius. Water + Fire rates C tier — she grounds him; he softens her. Married since 2018.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Sagittarius', sign2: 'Pisces',
     compatLink: '/compatibility/sagittarius-and-pisces',
     intro: 'Justin Bieber (Pisces, March 1, 1994) and Hailey Baldwin Bieber (Sagittarius, November 22, 1996) married in September 2018, having known each other since they were teenagers. Justin\'s twenties were documented publicly: the arrests, the struggles with faith and mental health, the years of being one of the most famous people alive before he was 20. Hailey has been a consistent, grounding presence since their reconciliation in 2018.',
     sections: [
       { heading: 'Pisces and Sagittarius: The Dreamer and the Seeker', paragraphs: ['Pisces is the empath — the person who feels everything, who is easily overwhelmed by the scale of the world, and who needs genuine safety to function. Justin\'s Pisces runs through his music (the emotional transparency of his work from "Love Yourself" to "Peaches"), his spiritual life (the Hillsong connection, the public faith), and the documented vulnerability that fame made very difficult to protect.', 'Sagittarius is the seeker — direct, freedom-loving, philosophically oriented, and capable of a particular kind of grounding that doesn\'t ask the other person to be smaller. Hailey\'s Sagittarius is visible in her directness and in the confidence with which she built her own platform (the Rhode beauty brand, the modeling career) rather than living entirely inside someone else\'s.'] },
-      { heading: 'Water + Fire — 55/100', paragraphs: ['Water and Fire are attracted to each other and can drain each other simultaneously. Fire wants to move; Water wants to feel. The 55/100 reflects the real differences in their orientations alongside the genuine complementarity: a Pisces who feels everything finding a Sagittarius who can hold direction; a Sagittarius who moves fast finding a Pisces who makes stillness feel safe.', 'What\'s notable about their dynamic is how much it seems to be organized around Justin\'s wellbeing. Hailey has spoken publicly about the challenges of supporting a partner through mental health struggles. That\'s Sagittarius in a genuinely committed relationship: the adaptability, the honesty about difficulty, and the refusal to pretend things are fine when they\'re not.'] },
+      { heading: 'Water + Fire — C tier', paragraphs: ['Water and Fire are attracted to each other and can drain each other simultaneously. Fire wants to move; Water wants to feel. The C tier reflects the real differences in their orientations alongside the genuine complementarity: a Pisces who feels everything finding a Sagittarius who can hold direction; a Sagittarius who moves fast finding a Pisces who makes stillness feel safe.', 'What\'s notable about their dynamic is how much it seems to be organized around Justin\'s wellbeing. Hailey has spoken publicly about the challenges of supporting a partner through mental health struggles. That\'s Sagittarius in a genuinely committed relationship: the adaptability, the honesty about difficulty, and the refusal to pretend things are fine when they\'re not.'] },
       { callout: 'Justin has said publicly that meeting Hailey was the thing that saved him. That\'s Pisces: the sign that can lose itself completely and needs, more than most, to find a person worth orienting around. When the Sagittarius they find is genuinely present rather than performing presence, the Pisces can actually rest.' },
     ],
     faqs: [
       { question: 'What is Justin Bieber\'s zodiac sign?', answer: 'Justin Bieber is a Pisces, born March 1, 1994. Pisces is a Water sign known for emotional depth, creative sensitivity, spiritual seeking, and a need for genuine safety that fame makes almost impossible to find.' },
       { question: 'What is Hailey Bieber\'s zodiac sign?', answer: 'Hailey Bieber is a Sagittarius, born November 22, 1996. Sagittarius is a Fire sign known for directness, philosophical honesty, independence, and a capacity to be grounding for others without being constrictive.' },
-      { question: 'Are Justin and Hailey Bieber compatible?', answer: 'Sagittarius + Pisces is a Water + Fire pairing that scores 55/100. The complementary dynamic — Fire offering direction, Water offering emotional depth — can work when both people are genuinely committed to what the other needs.' },
+      { question: 'Are Justin and Hailey Bieber compatible?', answer: 'Sagittarius + Pisces is a Water + Fire pairing that rates C tier. The complementary dynamic — Fire offering direction, Water offering emotional depth — can work when both people are genuinely committed to what the other needs.' },
     ],
     related: ['pisces-in-love', 'sagittarius-in-love', 'ariana-grande-and-ethan-slater'],
   },
 
   'kim-kardashian-and-kanye-west': {
     title: 'Kim Kardashian & Kanye West: A Libra and a Gemini When Air Meets Air',
-    description: 'Kim Kardashian is a Libra. Kanye West is a Gemini. Air + Air scores 75/100 on paper. Married 2014-2022. The compatibility was real; so was the eventual divergence.',
+    description: 'Kim Kardashian is a Libra. Kanye West is a Gemini. Air + Air rates A tier on paper. Married 2014-2022. The compatibility was real; so was the eventual divergence.',
     publishDate: '2026-05-08', readTime: '6 min read', category: 'couple',
     sign1: 'Gemini', sign2: 'Libra',
     compatLink: '/compatibility/gemini-and-libra',
     intro: 'Kim Kardashian (Libra, October 21, 1980) and Kanye West (Gemini, June 8, 1977) married in May 2014 in Florence, Italy, after two years together. They have four children: North, Saint, Chicago, and Psalm. Kim filed for divorce in February 2021. It was finalized in November 2022.',
     sections: [
       { heading: 'Two Air Signs Building an Empire', paragraphs: ['Gemini and Libra are both Air signs — both oriented toward ideas, communication, social presence, and the construction of a world that reflects their taste. At their best, they produce a pairing where both people inspire each other creatively and understand each other\'s need for visibility and expression.', 'Kanye\'s Gemini is one of the most fully expressed versions of that sign in public life: the duality (the creative genius alongside the destabilizing public statements), the rapid movement between ideas, the difficulty of being fully captured in any single description. Kim\'s Libra is in her image-making, her commitment to aesthetics, and the diplomatic social intelligence that built a global media business from a reality show.'] },
-      { heading: 'Air + Air — 75/100', paragraphs: ['Two Air signs share a natural fluency — they understand each other at the level of ideas and image and social navigation. The 75/100 reflects that this pairing worked well in the dimensions where they met: the fashion, the art direction, the aesthetic shared vision of what their life should look like.', 'Where Air + Air pairings can lose traction is when one person\'s Air becomes less predictable than the other can navigate. Gemini at its most challenging is volatile — the same mental quickness that produces genius can produce unpredictability. A Libra, whose core need is equilibrium and beauty, eventually reaches a point where the disruption outweighs what the relationship makes possible.'] },
+      { heading: 'Air + Air — A tier', paragraphs: ['Two Air signs share a natural fluency — they understand each other at the level of ideas and image and social navigation. The A tier reflects that this pairing worked well in the dimensions where they met: the fashion, the art direction, the aesthetic shared vision of what their life should look like.', 'Where Air + Air pairings can lose traction is when one person\'s Air becomes less predictable than the other can navigate. Gemini at its most challenging is volatile — the same mental quickness that produces genius can produce unpredictability. A Libra, whose core need is equilibrium and beauty, eventually reaches a point where the disruption outweighs what the relationship makes possible.'] },
       { heading: 'The Divergence', paragraphs: ['Kim\'s filing for divorce came after several years of documented difficulty, including Kanye\'s 2020 presidential run and the public statements that followed. She has spoken about the decision with notable care — not condemning, but also clear. That\'s Libra: the sign that weighs carefully, delays the decision, and when they finally move, has already done the calculus thoroughly.', 'Co-parenting four children while navigating Kanye\'s public behavior has required from Kim a particular kind of Libra discipline: maintaining the public appearance of equity and care while managing a private situation of considerable complexity.'] },
     ],
     faqs: [
       { question: 'What is Kim Kardashian\'s zodiac sign?', answer: 'Kim Kardashian is a Libra, born October 21, 1980. Libra is an Air sign known for aesthetic intelligence, diplomatic social navigation, image-making, and a deep investment in maintaining equilibrium — which makes the decision to end something the hardest thing they do, and the most certain when they finally do it.' },
       { question: 'What is Kanye West\'s zodiac sign?', answer: 'Kanye West is a Gemini, born June 8, 1977. Gemini is an Air sign known for extraordinary creative intelligence, rapid movement between ideas, duality, and the difficulty of being fully described by any single framing.' },
-      { question: 'Were Kim Kardashian and Kanye West compatible?', answer: 'Gemini + Libra is an Air + Air pairing that scores 75/100. The shared orientation toward aesthetics, image, and social intelligence created genuine compatibility in many dimensions; the eventual challenge was Gemini\'s volatility against Libra\'s need for equilibrium.' },
+      { question: 'Were Kim Kardashian and Kanye West compatible?', answer: 'Gemini + Libra is an Air + Air pairing that rates A tier. The shared orientation toward aesthetics, image, and social intelligence created genuine compatibility in many dimensions; the eventual challenge was Gemini\'s volatility against Libra\'s need for equilibrium.' },
     ],
     related: ['libra-in-love', 'gemini-in-love', 'kim-kardashian-and-lewis-hamilton'],
   },
 
   'miley-cyrus-and-liam-hemsworth': {
     title: 'Miley Cyrus & Liam Hemsworth: A Sagittarius and a Capricorn Who Came Back and Came Apart',
-    description: 'Miley Cyrus is a Sagittarius. Liam Hemsworth is a Capricorn. Fire + Earth scores 55/100 — they met as teenagers, split, reconciled, married, and divorced within a year.',
+    description: 'Miley Cyrus is a Sagittarius. Liam Hemsworth is a Capricorn. Fire + Earth rates B tier — they met as teenagers, split, reconciled, married, and divorced within a year.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Sagittarius', sign2: 'Capricorn',
     compatLink: '/compatibility/sagittarius-and-capricorn',
     intro: 'Miley Cyrus (Sagittarius, November 23, 1992) and Liam Hemsworth (Capricorn, January 13, 1990) met on the set of The Last Song in 2009. They were engaged, broke up, reconciled, married in December 2018, and Miley announced their separation in August 2019 — eight months later. She has since written explicitly about the relationship, most notably in "Flowers."',
     sections: [
       { heading: 'The Elemental Tension', paragraphs: ['Sagittarius is the freest sign of the zodiac — expansive, honest, mobile, and fundamentally resistant to anything that constrains the range of who they\'re allowed to be. Miley\'s Sagittarius has been visible in every chapter of her public life: the reinventions, the refusal to be the person anyone expected her to be, the directness about her experiences, and the art that tends to be about liberation of one kind or another.', 'Capricorn is the builder — patient, structured, committed to the long form, and tending toward a vision of stability and legacy. Liam\'s Capricorn is less publicly documented, but the pattern of the relationship — returning, committing, waiting — is consistent with an Earth sign that believes in the investment.'] },
-      { heading: 'Fire + Earth — 55/100', paragraphs: ['Fire and Earth need each other but move at different speeds. The 55/100 reflects a pairing where the Fire person can feel constrained and the Earth person can feel perpetually unsettled. For Sagittarius specifically, any relationship that asks them to be smaller than their range tends to produce the particular restlessness that precedes departure.', '"Flowers" — "I can buy myself flowers / write my name in the sand / talk to myself for hours / say things you don\'t understand" — is one of Sagittarius\'s most direct expressions: the discovery that freedom from a constraining relationship is itself a kind of love. Whether it was constraining or not is between them; the Sagittarian reading of it is clear.'] },
+      { heading: 'Fire + Earth — B tier', paragraphs: ['Fire and Earth need each other but move at different speeds. The B tier reflects a pairing where the Fire person can feel constrained and the Earth person can feel perpetually unsettled. For Sagittarius specifically, any relationship that asks them to be smaller than their range tends to produce the particular restlessness that precedes departure.', '"Flowers" — "I can buy myself flowers / write my name in the sand / talk to myself for hours / say things you don\'t understand" — is one of Sagittarius\'s most direct expressions: the discovery that freedom from a constraining relationship is itself a kind of love. Whether it was constraining or not is between them; the Sagittarian reading of it is clear.'] },
     ],
     faqs: [
       { question: 'What is Miley Cyrus\'s zodiac sign?', answer: 'Miley Cyrus is a Sagittarius, born November 23, 1992. Sagittarius is a Fire sign known for radical honesty, serial reinvention, freedom as a core value, and a need to not be smaller than the full range of who they are.' },
       { question: 'What is Liam Hemsworth\'s zodiac sign?', answer: 'Liam Hemsworth is a Capricorn, born January 13, 1990. Capricorn is an Earth sign known for patience, commitment, a long-term view of investment, and a desire to build something that endures.' },
-      { question: 'Were Miley and Liam compatible?', answer: 'Sagittarius + Capricorn is a Fire + Earth pairing that scores 55/100. The friction between Sagittarius\'s need for freedom and Capricorn\'s need for stability is one of the more common patterns in this pairing — and the one that\'s most often described in the Sagittarius\'s art after the fact.' },
+      { question: 'Were Miley and Liam compatible?', answer: 'Sagittarius + Capricorn is a Fire + Earth pairing that rates B tier. The friction between Sagittarius\'s need for freedom and Capricorn\'s need for stability is one of the more common patterns in this pairing — and the one that\'s most often described in the Sagittarius\'s art after the fact.' },
     ],
     related: ['sagittarius-in-love', 'capricorn-in-love', 'chrissy-teigen-and-john-legend'],
   },
 
   'ariana-grande-and-pete-davidson': {
     title: 'Ariana Grande & Pete Davidson: A Cancer and a Scorpio Who Moved Too Fast',
-    description: 'Ariana Grande is a Cancer. Pete Davidson is a Scorpio. Water + Water scores 80/100 — the intensity was real, the timing was not. Engaged 2018, over five months later.',
+    description: 'Ariana Grande is a Cancer. Pete Davidson is a Scorpio. Water + Water rates A tier — the intensity was real, the timing was not. Engaged 2018, over five months later.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Cancer', sign2: 'Scorpio',
     compatLink: '/compatibility/cancer-and-scorpio',
     intro: 'Ariana Grande (Cancer, June 26, 1993) and Pete Davidson (Scorpio, November 16, 1993) began dating in May 2018, were engaged by June, and called off the engagement by October — approximately five months from start to finish. In that time, they got matching tattoos, moved in together, and became one of the most discussed couples of the year.',
     sections: [
       { heading: 'Cancer and Scorpio: Water Recognizing Water', paragraphs: ['Cancer and Scorpio form a trine in astrology — 120 degrees apart, one of the most naturally harmonious configurations. Both are Water signs, which means the emotional attunement is immediate and the intensity is mutual. When Cancer and Scorpio meet, the connection can feel almost overwhelmingly real — which is exactly what "real" feels like to both of these signs.', 'Ariana\'s Cancer is in the music — the emotional precision, the vulnerability that is also a kind of armor, the fierce protectiveness over the things and people she loves. Pete\'s Scorpio is in the dark humor (Scorpio\'s characteristic mode of processing depth), the openness about his mental health struggles, and the intensity of attachment that can move very fast.'] },
-      { heading: 'Water + Water — 80/100', paragraphs: ['Two Water signs together have an emotional resonance that scores 80/100 because the attunement is genuine and the depth is mutual. The challenge is not compatibility but pace — Water + Water intensity can move faster than any practical foundation can be built.', 'They got engaged after a few weeks. The engagement became one of the major pop culture narratives of 2018. Ariana\'s ex-boyfriend Mac Miller died in September 2018, in the middle of the engagement. The grief and the public pressure became more than five months of a relationship could hold. That the intensity was real doesn\'t mean the timing was right.'] },
+      { heading: 'Water + Water — A tier', paragraphs: ['Two Water signs together have an emotional resonance that rates A tier because the attunement is genuine and the depth is mutual. The challenge is not compatibility but pace — Water + Water intensity can move faster than any practical foundation can be built.', 'They got engaged after a few weeks. The engagement became one of the major pop culture narratives of 2018. Ariana\'s ex-boyfriend Mac Miller died in September 2018, in the middle of the engagement. The grief and the public pressure became more than five months of a relationship could hold. That the intensity was real doesn\'t mean the timing was right.'] },
       { callout: 'Ariana has spoken thoughtfully about that period — the grief, the difficulty, the care she has for Pete as a person. That\'s Cancer: the sign that keeps feeling the full weight of what happened, long after the relationship has ended, and finds ways to honor it that don\'t require anyone to be a villain.' },
     ],
     faqs: [
       { question: 'What is Pete Davidson\'s zodiac sign?', answer: 'Pete Davidson is a Scorpio, born November 16, 1993. Scorpio is a Water sign known for emotional intensity, dark humor as a processing mechanism, a fierce loyalty to people they love, and attachments that can form and run deep very quickly.' },
-      { question: 'Were Ariana Grande and Pete Davidson compatible?', answer: 'Cancer + Scorpio is a Water + Water pairing that scores 80/100. The emotional attunement between these two signs is genuine; the challenge is that the intensity of Water + Water can move faster than any practical foundation can be built beneath it.' },
+      { question: 'Were Ariana Grande and Pete Davidson compatible?', answer: 'Cancer + Scorpio is a Water + Water pairing that rates A tier. The emotional attunement between these two signs is genuine; the challenge is that the intensity of Water + Water can move faster than any practical foundation can be built beneath it.' },
       { question: 'How long were Ariana Grande and Pete Davidson together?', answer: 'Approximately five months from the start of their relationship to the end of their engagement in October 2018.' },
     ],
     related: ['cancer-in-love', 'scorpio-in-love', 'ariana-grande-and-ethan-slater'],
@@ -1931,408 +1749,408 @@ export const ARTICLES: Record<string, Article> = {
 
   'cardi-b-and-offset': {
     title: 'Cardi B & Offset: A Libra and a Sagittarius in a Loud, Complicated Love Story',
-    description: 'Cardi B is a Libra. Offset is a Sagittarius. Air + Fire scores 60/100 — married 2017, on and off since, publicly documented at every turn.',
+    description: 'Cardi B is a Libra. Offset is a Sagittarius. Air + Fire rates S tier — married 2017, on and off since, publicly documented at every turn.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Libra', sign2: 'Sagittarius',
     compatLink: '/compatibility/libra-and-sagittarius',
     intro: 'Cardi B (Libra, October 11, 1992) and Offset (Sagittarius, December 14, 1991) secretly married in September 2017 before announcing it publicly. They have two children together. The relationship has been publicly documented through cheating allegations, breakups, reconciliations, a divorce filing that was reversed, and a 2024 separation that Cardi described as official.',
     sections: [
       { heading: 'Libra and Sagittarius: Air Feeding Fire', paragraphs: ['Libra and Sagittarius are two signs separated by one step in the zodiac, which tends to produce a pairing with good natural energy but real differences in how they approach commitment. Libra is oriented around partnership — it\'s the sign of the relationship, the negotiation, the attempt to make things balanced and fair. Sagittarius is oriented toward freedom and truth — the sign that follows the direction that feels honest, even when that\'s inconvenient.', 'Cardi\'s Libra is in her aesthetics, her public charm, and the social intelligence that built a career from the ground up using every platform available. It\'s also in her willingness to return, to try again, to weigh the costs and benefits of the relationship before finalizing any decision. Offset\'s Sagittarius is in the music, the bluntness of his public persona, and the pattern of a person who pursues what they want without always accounting for the consequences.'] },
-      { heading: 'Air + Fire — 60/100', paragraphs: ['Air and Fire are naturally complementary — Air feeds Fire, which returns warmth. The 60/100 reflects a pairing with genuine energy alongside the friction that comes from Libra\'s need for equity and Sagittarius\'s tendency to see rules as suggestions.', 'Their relationship has been most publicly characterized by infidelity and reconciliation. Libra returns because Libra believes in the relationship even when the reality is hard. Sagittarius returns because the Fire sign\'s version of love can be as intense as their version of freedom. The question for this pairing is always whether both people have arrived at the same understanding of what the relationship requires.'] },
+      { heading: 'Air + Fire — S tier', paragraphs: ['Air and Fire are naturally complementary — Air feeds Fire, which returns warmth. The S tier reflects a pairing with genuine energy alongside the friction that comes from Libra\'s need for equity and Sagittarius\'s tendency to see rules as suggestions.', 'Their relationship has been most publicly characterized by infidelity and reconciliation. Libra returns because Libra believes in the relationship even when the reality is hard. Sagittarius returns because the Fire sign\'s version of love can be as intense as their version of freedom. The question for this pairing is always whether both people have arrived at the same understanding of what the relationship requires.'] },
     ],
     faqs: [
       { question: 'What is Cardi B\'s zodiac sign?', answer: 'Cardi B is a Libra, born October 11, 1992. Libra is an Air sign known for social intelligence, aesthetic vision, a commitment to fairness in relationship, and the capacity to return to something they love even after it has been difficult.' },
       { question: 'What is Offset\'s zodiac sign?', answer: 'Offset is a Sagittarius, born December 14, 1991. Sagittarius is a Fire sign known for directness, the pursuit of freedom and truth, musical ambition, and a relationship with commitment that can be intense but is rarely uncomplicated.' },
-      { question: 'Are Cardi B and Offset compatible?', answer: 'Libra + Sagittarius is an Air + Fire pairing that scores 60/100. The natural energy between these signs is real; the primary challenge is Libra\'s need for equity and balance meeting Sagittarius\'s instinct toward freedom and self-direction.' },
+      { question: 'Are Cardi B and Offset compatible?', answer: 'Libra + Sagittarius is an Air + Fire pairing that rates S tier. The natural energy between these signs is real; the primary challenge is Libra\'s need for equity and balance meeting Sagittarius\'s instinct toward freedom and self-direction.' },
     ],
     related: ['libra-in-love', 'sagittarius-in-love', 'red-flags-by-zodiac-sign'],
   },
 
   'gigi-hadid-and-zayn-malik': {
     title: 'Gigi Hadid & Zayn Malik: A Taurus and a Capricorn Who Share an Earth Foundation',
-    description: 'Gigi Hadid is a Taurus. Zayn Malik is a Capricorn. Earth + Earth scores 75/100 — on and off since 2015, parents of daughter Khai since 2020.',
+    description: 'Gigi Hadid is a Taurus. Zayn Malik is a Capricorn. Earth + Earth rates A tier — on and off since 2015, parents of daughter Khai since 2020.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Taurus', sign2: 'Capricorn',
     compatLink: '/compatibility/taurus-and-capricorn',
     intro: 'Gigi Hadid (Taurus, April 23, 1995) and Zayn Malik (Capricorn, January 12, 1993) began dating in 2015. They had an on-again, off-again relationship across five years before their daughter Khai was born in September 2020. They separated in 2021 following a reported incident with Gigi\'s mother. They co-parent Khai.',
     sections: [
       { heading: 'Taurus and Capricorn: Earth Recognizing Earth', paragraphs: ['Taurus and Capricorn are both Earth signs, and they form a trine — one of astrology\'s most naturally harmonious configurations. Both signs value what is real, what endures, and what is built with patience. The attraction tends to be immediate and the compatibility genuine at the level of values.', 'Gigi\'s Taurus is in her steady, grounded public presence — she works consistently, doesn\'t court controversy unnecessarily, and has built a modeling career that is as much about substance as aesthetics. Zayn\'s Capricorn is in the music career he built after leaving One Direction — private, non-performative (he has spoken about severe anxiety around public performance), and oriented toward craft rather than celebrity.'] },
-      { heading: 'Earth + Earth — 75/100', paragraphs: ['Two Earth signs together have a natural compatibility rooted in shared values. The 75/100 reflects that this pairing tends to work well in the structural dimensions — loyalty, commitment to parenthood, shared values around quality and privacy. Where it requires attention is in emotional communication, where both signs can be reserved in ways that create distance over time.', 'Their co-parenting arrangement — centered on Khai, private and functional — is consistent with what Earth signs do after a romantic relationship ends: they prioritize the real, tangible responsibilities over the emotional reckoning, and they stay committed to what was built even when the builder relationship has changed.'] },
+      { heading: 'Earth + Earth — A tier', paragraphs: ['Two Earth signs together have a natural compatibility rooted in shared values. The A tier reflects that this pairing tends to work well in the structural dimensions — loyalty, commitment to parenthood, shared values around quality and privacy. Where it requires attention is in emotional communication, where both signs can be reserved in ways that create distance over time.', 'Their co-parenting arrangement — centered on Khai, private and functional — is consistent with what Earth signs do after a romantic relationship ends: they prioritize the real, tangible responsibilities over the emotional reckoning, and they stay committed to what was built even when the builder relationship has changed.'] },
     ],
     faqs: [
       { question: 'What is Gigi Hadid\'s zodiac sign?', answer: 'Gigi Hadid is a Taurus, born April 23, 1995. Taurus is an Earth sign known for groundedness, loyalty, a commitment to quality in work and relationship, and a fixed nature that builds steadily rather than dramatically.' },
       { question: 'What is Zayn Malik\'s zodiac sign?', answer: 'Zayn Malik is a Capricorn, born January 12, 1993. Capricorn is an Earth sign known for ambition, private nature, commitment to craft, and a relationship with visibility that can be complicated when the career requires it.' },
-      { question: 'Are Gigi Hadid and Zayn Malik compatible?', answer: 'Taurus + Capricorn is an Earth + Earth pairing that scores 75/100. The natural trine between these signs produces genuine compatibility in values and commitment; the challenge is ensuring that both signs\' tendency toward reserve doesn\'t create emotional distance over time.' },
+      { question: 'Are Gigi Hadid and Zayn Malik compatible?', answer: 'Taurus + Capricorn is an Earth + Earth pairing that rates A tier. The natural trine between these signs produces genuine compatibility in values and commitment; the challenge is ensuring that both signs\' tendency toward reserve doesn\'t create emotional distance over time.' },
     ],
     related: ['taurus-in-love', 'capricorn-in-love', 'martin-luther-king-and-coretta-scott-king'],
   },
 
   'khloe-kardashian-and-tristan-thompson': {
     title: 'Khloe Kardashian & Tristan Thompson: A Cancer and a Pisces with a Complicated History',
-    description: 'Khloe Kardashian is a Cancer. Tristan Thompson is a Pisces. Water + Water scores 80/100 — the emotional resonance was real, and so was the difficulty. Parents of two children.',
+    description: 'Khloe Kardashian is a Cancer. Tristan Thompson is a Pisces. Water + Water rates A tier — the emotional resonance was real, and so was the difficulty. Parents of two children.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Cancer', sign2: 'Pisces',
     compatLink: '/compatibility/cancer-and-pisces',
     intro: 'Khloe Kardashian (Cancer, June 27, 1984) and Tristan Thompson (Pisces, March 13, 1991) began dating in 2016. Their daughter True was born in April 2018, three days after cheating allegations became public. They broke up, reconciled, welcomed a son via surrogate in 2022, and ended the relationship permanently. It was documented across multiple seasons of The Kardashians.',
     sections: [
       { heading: 'Cancer and Pisces: The Depth and the Dissolution', paragraphs: ['Cancer and Pisces are both Water signs that trine each other — producing one of astrology\'s most naturally empathic pairings. The connection between Cancer and Pisces tends to be immediate and emotionally rich. Cancer wants to protect and provide a home; Pisces wants to be held and to feel safe. In theory, they offer each other exactly that.', 'Khloe\'s Cancer is in her fierce loyalty to family, her public vulnerability about the relationship\'s difficulties, and the way she has processed hurt in real time through social media — a Cancer mode if there ever was one. Tristan\'s Pisces is harder to read from the outside, but the pattern of behavior — the emotional attunement that coexists with infidelity — is one way Pisces in its more difficult expression can manifest.'] },
-      { heading: 'Water + Water — 80/100', paragraphs: ['The 80/100 reflects what was genuine: Cancer and Pisces do resonate. The emotional connection was real. The difficulty — and the reason Khloe stayed and returned as long as she did — is that the Water + Water bond can feel irreplaceable even when the relationship is damaging.', 'Cancer\'s most characteristic pattern when hurt is to stay too long because the connection feels too deep to walk away from. When they do finally leave, it tends to be permanent. The 2022 revelation that led to their final separation appears to have been that moment.'] },
+      { heading: 'Water + Water — A tier', paragraphs: ['The A tier reflects what was genuine: Cancer and Pisces do resonate. The emotional connection was real. The difficulty — and the reason Khloe stayed and returned as long as she did — is that the Water + Water bond can feel irreplaceable even when the relationship is damaging.', 'Cancer\'s most characteristic pattern when hurt is to stay too long because the connection feels too deep to walk away from. When they do finally leave, it tends to be permanent. The 2022 revelation that led to their final separation appears to have been that moment.'] },
     ],
     faqs: [
       { question: 'What is Khloe Kardashian\'s zodiac sign?', answer: 'Khloe Kardashian is a Cancer, born June 27, 1984. Cancer is a Water sign known for fierce family loyalty, emotional depth, a protective instinct, and a tendency to stay in difficult situations longer than their own wellbeing recommends because the connection feels too real to leave.' },
       { question: 'What is Tristan Thompson\'s zodiac sign?', answer: 'Tristan Thompson is a Pisces, born March 13, 1991. Pisces is a Water sign known for emotional sensitivity, charm, the capacity for genuine connection, and — in its more difficult expression — a relationship with boundaries and fidelity that can be inconsistent.' },
-      { question: 'Are Khloe Kardashian and Tristan Thompson compatible?', answer: 'Cancer + Pisces is a Water + Water pairing that scores 80/100. The emotional resonance is genuine and the connection is real; the challenge is that high Water compatibility doesn\'t resolve the fundamental question of whether both people are equally committed to honoring it.' },
+      { question: 'Are Khloe Kardashian and Tristan Thompson compatible?', answer: 'Cancer + Pisces is a Water + Water pairing that rates A tier. The emotional resonance is genuine and the connection is real; the challenge is that high Water compatibility doesn\'t resolve the fundamental question of whether both people are equally committed to honoring it.' },
     ],
     related: ['cancer-in-love', 'pisces-in-love', 'johnny-cash-and-june-carter-cash'],
   },
 
   'emily-blunt-and-john-krasinski': {
     title: 'Emily Blunt & John Krasinski: A Pisces and a Libra Who Make It Look Easy',
-    description: 'Emily Blunt is a Pisces. John Krasinski is a Libra. Water + Air scores 50/100 — but their partnership is one of Hollywood\'s most functional. Married since 2010.',
+    description: 'Emily Blunt is a Pisces. John Krasinski is a Libra. Water + Air rates C tier — but their partnership is one of Hollywood\'s most functional. Married since 2010.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Libra', sign2: 'Pisces',
     compatLink: '/compatibility/libra-and-pisces',
     intro: 'Emily Blunt (Pisces, February 23, 1983) and John Krasinski (Libra, October 20, 1979) married in July 2010, having met at a dinner party in 2008. They have two daughters. They made A Quiet Place together in 2018 — John directing, Emily starring — and have maintained a level of public privacy that makes their relationship one of the more quietly remarkable in entertainment.',
     sections: [
       { heading: 'Pisces and Libra: The Feeling and the Balance', paragraphs: ['Pisces is the empath — the person who feels the room, who processes experience through intuition and emotion, who creates from a place of deep internal connection to what is happening. Emily Blunt\'s Pisces is in her acting: the ability to inhabit roles with a completeness that goes beyond technique, from The Devil Wears Prada to Oppenheimer.', 'Libra is the aesthete and the partner — the person who sees beauty in relationship, who commits to equity and balance, and who makes shared creative projects a natural mode of expression. John Krasinski\'s Libra is in his work as a filmmaker and writer, his natural warmth, and the evident investment he makes in the partnership — both the romantic one and the creative one.'] },
-      { heading: 'Water + Air — 50/100', paragraphs: ['Air and Water don\'t share an element, which produces the characteristic friction of the 50/100: different processing styles, different primary orientations. But this pairing also has a particular complementarity — Air can help Water find language for what it\'s feeling; Water can help Air connect to the emotional reality beneath its ideas.', 'Their professional collaboration — most visibly in A Quiet Place — suggests that both people\'s orientations are genuinely compatible in practice. A Libra director and a Pisces actor in a film about the terror of being heard is, in retrospect, an almost astrologically inevitable combination.'] },
-      { callout: 'They credit each other constantly in interviews. Emily has called him her favorite director. He has said she is the best actor he\'s ever worked with. A Libra who admires and a Pisces who feels seen: when those two things are real, the 50/100 becomes its own kind of home.' },
+      { heading: 'Water + Air — C tier', paragraphs: ['Air and Water don\'t share an element, which produces the characteristic friction of the C tier: different processing styles, different primary orientations. But this pairing also has a particular complementarity — Air can help Water find language for what it\'s feeling; Water can help Air connect to the emotional reality beneath its ideas.', 'Their professional collaboration — most visibly in A Quiet Place — suggests that both people\'s orientations are genuinely compatible in practice. A Libra director and a Pisces actor in a film about the terror of being heard is, in retrospect, an almost astrologically inevitable combination.'] },
+      { callout: 'They credit each other constantly in interviews. Emily has called him her favorite director. He has said she is the best actor he\'s ever worked with. A Libra who admires and a Pisces who feels seen: when those two things are real, the C tier becomes its own kind of home.' },
     ],
     faqs: [
       { question: 'What is Emily Blunt\'s zodiac sign?', answer: 'Emily Blunt is a Pisces, born February 23, 1983. Pisces is a Water sign known for empathic depth, the ability to inhabit experience fully, creative sensitivity, and an emotional intelligence that reads rooms before anyone else in them.' },
       { question: 'What is John Krasinski\'s zodiac sign?', answer: 'John Krasinski is a Libra, born October 20, 1979. Libra is an Air sign known for aesthetic vision, genuine warmth in partnership, creative collaboration as a natural mode, and the ability to make other people feel genuinely admired.' },
-      { question: 'Are Emily Blunt and John Krasinski compatible?', answer: 'Libra + Pisces is a Water + Air pairing that scores 50/100. The 50/100 reflects real elemental differences in processing style; their sustained creative and romantic partnership across 15 years suggests that the complementarity — Air giving language to Water\'s feeling, Water giving depth to Air\'s ideas — is genuinely workable when both people are committed to it.' },
+      { question: 'Are Emily Blunt and John Krasinski compatible?', answer: 'Libra + Pisces is a Water + Air pairing that rates C tier. The C tier reflects real elemental differences in processing style; their sustained creative and romantic partnership across 15 years suggests that the complementarity — Air giving language to Water\'s feeling, Water giving depth to Air\'s ideas — is genuinely workable when both people are committed to it.' },
     ],
     related: ['pisces-in-love', 'libra-in-love', 'moon-sign-compatibility'],
   },
 
   'george-and-amal-clooney': {
     title: 'George & Amal Clooney: A Taurus and an Aquarius Who Surprised Everyone',
-    description: 'George Clooney is a Taurus. Amal Clooney is an Aquarius. Earth + Air scores 45/100 — he said he\'d never marry again. He met a human rights lawyer and changed his mind. Married 2014.',
+    description: 'George Clooney is a Taurus. Amal Clooney is an Aquarius. Earth + Air rates C tier — he said he\'d never marry again. He met a human rights lawyer and changed his mind. Married 2014.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Taurus', sign2: 'Aquarius',
     compatLink: '/compatibility/taurus-and-aquarius',
     intro: 'George Clooney (Taurus, May 6, 1961) and Amal Alamuddin Clooney (Aquarius, February 3, 1978) married in September 2014 in Venice. George was 53. He had publicly stated for years that he would not remarry. They have twins — Alexander and Ella — born in 2017. George has said the relationship changed how he understood what was possible in his life.',
     sections: [
       { heading: 'Taurus and Aquarius: Fixed Signs, Different Worlds', paragraphs: ['Taurus and Aquarius are both fixed signs — stubborn, committed to their positions, and difficult to move once settled. The difference is in what they\'re fixed on: Taurus is fixed on the tangible, the sensory, the real and enduring; Aquarius is fixed on the ideal, the principle, the vision of what should exist.', 'George\'s Taurus is in his long career of deliberate choices — the films he has made and declined, the home in Italy that grounded him before the marriage, the commitment to craft. Amal\'s Aquarius is in her legal work: human rights cases, international tribunals, the defense of people in situations where most lawyers wouldn\'t appear. She is, professionally, someone who fights for what should exist rather than what does.'] },
-      { heading: 'Earth + Air — 45/100', paragraphs: ['Earth and Air are not natural companions in the way that same-element or complementary-element pairings are. The 45/100 reflects real differences in orientation. But the fixed quality they share — both signs holding their positions with conviction — can also produce a pairing where both people respect each other\'s commitment to what they believe.', 'The most notable thing about their dynamic is how consistently George has described it as changing him: not just that he found someone, but that he found someone whose work and mind made his pre-2014 life look like it was missing something real. That\'s a Taurus being genuinely surprised by an Aquarius — the fixed Earth sign discovering that the fixed Air sign operates at a frequency it hadn\'t encountered before.'] },
+      { heading: 'Earth + Air — C tier', paragraphs: ['Earth and Air are not natural companions in the way that same-element or complementary-element pairings are. The C tier reflects real differences in orientation. But the fixed quality they share — both signs holding their positions with conviction — can also produce a pairing where both people respect each other\'s commitment to what they believe.', 'The most notable thing about their dynamic is how consistently George has described it as changing him: not just that he found someone, but that he found someone whose work and mind made his pre-2014 life look like it was missing something real. That\'s a Taurus being genuinely surprised by an Aquarius — the fixed Earth sign discovering that the fixed Air sign operates at a frequency it hadn\'t encountered before.'] },
     ],
     faqs: [
       { question: 'What is George Clooney\'s zodiac sign?', answer: 'George Clooney is a Taurus, born May 6, 1961. Taurus is an Earth sign known for deliberateness, loyalty, aesthetic commitment, and a fixed nature that — when it finally decides something is worth committing to — commits completely.' },
       { question: 'What is Amal Clooney\'s zodiac sign?', answer: 'Amal Clooney is an Aquarius, born February 3, 1978. Aquarius is an Air sign known for humanitarian conviction, intellectual independence, the pursuit of justice, and a fixed commitment to principle that is difficult to redirect.' },
-      { question: 'Are George and Amal Clooney compatible?', answer: 'Taurus + Aquarius is an Earth + Air pairing that scores 45/100. The 45/100 reflects real elemental differences; the shared fixed nature — both signs committed to their convictions — and the mutual respect for quality and substance may be what makes the lower elemental compatibility workable.' },
+      { question: 'Are George and Amal Clooney compatible?', answer: 'Taurus + Aquarius is an Earth + Air pairing that rates C tier. The C tier reflects real elemental differences; the shared fixed nature — both signs committed to their convictions — and the mutual respect for quality and substance may be what makes the lower elemental compatibility workable.' },
     ],
     related: ['taurus-in-love', 'aquarius-in-love', 'sonny-and-cher'],
   },
 
   'nicole-kidman-and-keith-urban': {
     title: 'Nicole Kidman & Keith Urban: A Gemini and a Scorpio Who Found Each Other at the Right Moment',
-    description: 'Nicole Kidman is a Gemini. Keith Urban is a Scorpio. Air + Water scores 55/100 — married 2006, they\'ve built one of the more quietly durable partnerships in entertainment.',
+    description: 'Nicole Kidman is a Gemini. Keith Urban is a Scorpio. Air + Water rates C tier — married 2006, they\'ve built one of the more quietly durable partnerships in entertainment.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Gemini', sign2: 'Scorpio',
     compatLink: '/compatibility/gemini-and-scorpio',
     intro: 'Nicole Kidman (Gemini, June 20, 1967) and Keith Urban (Scorpio, October 26, 1967) married in June 2006, a few months after Nicole\'s 39th birthday and Keith\'s recovery from addiction. They have two daughters — Sunday Rose and Faith Margaret. They\'ve been together for nearly two decades.',
     sections: [
       { heading: 'Gemini and Scorpio: Fast Mind, Deep Water', paragraphs: ['Gemini moves quickly — in thought, in conversation, in the way it approaches experience. Scorpio goes deep — slowly, surely, tracking what\'s real beneath the surface. These two signs don\'t naturally share a language, which makes their pairing one of the more surprising combinations when it works.', 'Nicole\'s Gemini is in her range — the sheer variety of what she has played, the ability to disappear into a role, the public persona that is genuinely difficult to locate because she\'s so good at presenting multiple versions. Keith\'s Scorpio is in the music — the emotional intensity of his best work, the survival of addiction, and the loyalty that Scorpio extends when it has decided someone is worth it.'] },
-      { heading: 'Air + Water — 55/100', paragraphs: ['Air and Water are different in their primary orientations, which is where the 55/100 comes from. But Air + Water pairings have a particular complementarity: Scorpio\'s depth can give Gemini\'s range somewhere to land; Gemini\'s lightness can help Scorpio breathe through the intensity that is its natural atmosphere.', 'Keith has been candid about the role Nicole played in his sobriety in the early years of their relationship. He went to rehab four months after they married. She didn\'t leave. That moment — and what she chose to do — appears to have been the foundation of what\'s followed.'] },
+      { heading: 'Air + Water — C tier', paragraphs: ['Air and Water are different in their primary orientations, which is where the C tier comes from. But Air + Water pairings have a particular complementarity: Scorpio\'s depth can give Gemini\'s range somewhere to land; Gemini\'s lightness can help Scorpio breathe through the intensity that is its natural atmosphere.', 'Keith has been candid about the role Nicole played in his sobriety in the early years of their relationship. He went to rehab four months after they married. She didn\'t leave. That moment — and what she chose to do — appears to have been the foundation of what\'s followed.'] },
     ],
     faqs: [
       { question: 'What is Nicole Kidman\'s zodiac sign?', answer: 'Nicole Kidman is a Gemini, born June 20, 1967. Gemini is an Air sign known for range, adaptability, intellectual quickness, and the ability to inhabit multiple registers simultaneously — which makes her one of the more technically interesting actresses of her generation.' },
       { question: 'What is Keith Urban\'s zodiac sign?', answer: 'Keith Urban is a Scorpio, born October 26, 1967. Scorpio is a Water sign known for emotional depth, survival, loyalty, and music that tends to go somewhere real rather than somewhere safe.' },
-      { question: 'Are Nicole Kidman and Keith Urban compatible?', answer: 'Gemini + Scorpio is an Air + Water pairing that scores 55/100. The fundamental difference in orientation requires navigation; the choice Nicole made in 2006, and what Keith chose to build from that moment, suggests both people were genuinely committed to what the relationship required.' },
+      { question: 'Are Nicole Kidman and Keith Urban compatible?', answer: 'Gemini + Scorpio is an Air + Water pairing that rates C tier. The fundamental difference in orientation requires navigation; the choice Nicole made in 2006, and what Keith chose to build from that moment, suggests both people were genuinely committed to what the relationship required.' },
     ],
     related: ['gemini-in-love', 'scorpio-in-love', 'moon-sign-compatibility'],
   },
 
   'kylie-jenner-and-timothee-chalamet': {
     title: 'Kylie Jenner & Timothée Chalamet: A Leo and a Capricorn in the Most Photographed Relationship of 2023',
-    description: 'Kylie Jenner is a Leo. Timothée Chalamet is a Capricorn. Fire + Earth scores 50/100 — they dated through much of 2023 and into 2024. High visibility, limited public disclosure.',
+    description: 'Kylie Jenner is a Leo. Timothée Chalamet is a Capricorn. Fire + Earth rates B tier — they dated through much of 2023 and into 2024. High visibility, limited public disclosure.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Leo', sign2: 'Capricorn',
     compatLink: '/compatibility/leo-and-capricorn',
     intro: 'Kylie Jenner (Leo, August 10, 1997) and Timothée Chalamet (Capricorn, December 27, 1995) were linked in early 2023, attended the US Open and Beyoncé\'s Renaissance Tour together, and made their red-carpet debut at the Golden Globes in January 2024. The relationship appeared to end in 2024 without public statement.',
     sections: [
       { heading: 'Leo and Capricorn: Sun and Saturn', paragraphs: ['Leo is ruled by the Sun — the sign of warmth, visibility, identity, and the desire to be seen. Kylie\'s Leo is in her business empire (Kylie Cosmetics, the Jenner brand as a whole), her social media presence (one of the most followed people alive), and the way she inhabits visibility with apparent ease.', 'Capricorn is ruled by Saturn — the sign of discipline, privacy, craft, and a deep ambivalence about the kind of celebrity that Leo finds natural. Timothée\'s Capricorn is in his acting choices (deliberately unglamorous roles alongside prestige productions), his general avoidance of the influencer economy, and the very different relationship he has with public attention.'] },
-      { heading: 'Fire + Earth — 50/100', paragraphs: ['The 50/100 reflects the fundamental difference between Leo\'s relationship with visibility and Capricorn\'s. Leo needs to be seen; Capricorn tends to protect what it values by keeping it private. A Leo who lives at the center of global media attention and a Capricorn who manages celebrity as a necessary inconvenience of craft may find that the gap between their public orientations is difficult to bridge in private.', 'Their relationship was notably one-sided in terms of public disclosure: Kylie\'s social media life and the Kardashian-Jenner platform created a documentation that Timothée\'s own choices would never have produced. Whether that asymmetry was part of what ended things is not something either has said publicly.'] },
+      { heading: 'Fire + Earth — B tier', paragraphs: ['The B tier reflects the fundamental difference between Leo\'s relationship with visibility and Capricorn\'s. Leo needs to be seen; Capricorn tends to protect what it values by keeping it private. A Leo who lives at the center of global media attention and a Capricorn who manages celebrity as a necessary inconvenience of craft may find that the gap between their public orientations is difficult to bridge in private.', 'Their relationship was notably one-sided in terms of public disclosure: Kylie\'s social media life and the Kardashian-Jenner platform created a documentation that Timothée\'s own choices would never have produced. Whether that asymmetry was part of what ended things is not something either has said publicly.'] },
     ],
     faqs: [
       { question: 'What is Kylie Jenner\'s zodiac sign?', answer: 'Kylie Jenner is a Leo, born August 10, 1997. Leo is a Fire sign known for warmth, a natural relationship with visibility, entrepreneurial confidence, and a need to feel genuinely seen in the relationships that matter to them.' },
       { question: 'What is Timothée Chalamet\'s zodiac sign?', answer: 'Timothée Chalamet is a Capricorn, born December 27, 1995. Capricorn is an Earth sign known for commitment to craft, a complicated relationship with celebrity, discipline, and the tendency to protect what is private rather than perform it.' },
-      { question: 'Were Kylie Jenner and Timothée Chalamet compatible?', answer: 'Leo + Capricorn is a Fire + Earth pairing that scores 50/100. Leo\'s comfort with visibility and Capricorn\'s instinct to protect what is private represents one of the more fundamental compatibility challenges in this pairing.' },
+      { question: 'Were Kylie Jenner and Timothée Chalamet compatible?', answer: 'Leo + Capricorn is a Fire + Earth pairing that rates B tier. Leo\'s comfort with visibility and Capricorn\'s instinct to protect what is private represents one of the more fundamental compatibility challenges in this pairing.' },
     ],
     related: ['leo-in-love', 'capricorn-in-love', 'kim-kardashian-and-lewis-hamilton'],
   },
 
   'harry-styles-and-olivia-wilde': {
     title: 'Harry Styles & Olivia Wilde: An Aquarius and a Pisces Who Made Headlines',
-    description: 'Harry Styles is an Aquarius. Olivia Wilde is a Pisces. Air + Water scores 50/100 — they met on the set of Don\'t Worry Darling in 2021 and were together until late 2022.',
+    description: 'Harry Styles is an Aquarius. Olivia Wilde is a Pisces. Air + Water rates C tier — they met on the set of Don\'t Worry Darling in 2021 and were together until late 2022.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Aquarius', sign2: 'Pisces',
     compatLink: '/compatibility/aquarius-and-pisces',
     intro: 'Harry Styles (Aquarius, February 1, 1994) and Olivia Wilde (Pisces, March 10, 1984) became public as a couple at a wedding in January 2021, having met while making Don\'t Worry Darling. He is 10 years younger. They dated for nearly two years, with their relationship overlapping with the production and release of the film.',
     sections: [
       { heading: 'Aquarius and Pisces: The Visionary and the Empath', paragraphs: ['Aquarius is the sign of the visionary — independent, intellectually driven, animated by ideals and the future. Harry\'s Aquarius is in the refusal to be categorized, the gender-fluid fashion, the music that tends to be about freedom and self-definition, and the particular warmth that Aquarius has for humanity in general even when it maintains some distance from any individual.', 'Pisces is the empath — deeply feeling, romantic, and oriented toward the emotional texture of experience. Olivia\'s Pisces is in her creative work as a director (Booksmart, Don\'t Worry Darling) and in the emotional intelligence she brings to making films about the interior lives of women.'] },
-      { heading: 'Air + Water — 50/100', paragraphs: ['Adjacent signs can produce a natural ease or a subtle disconnect — Aquarius and Pisces are neighbors in the zodiac but different enough in orientation that the 50/100 reflects real translation required. Air processes experience through ideas; Water processes through feeling. Aquarius values independence; Pisces needs genuine emotional presence.', 'Their relationship navigated an enormous amount of public noise — the Don\'t Worry Darling press tour, various tabloid narratives. When they ended in late 2022, neither commented substantially. That Aquarian refusal to perform the end of something, and that Piscean tendency to hold what happened privately, may be the most astrologically on-brand thing about how it concluded.'] },
+      { heading: 'Air + Water — C tier', paragraphs: ['Adjacent signs can produce a natural ease or a subtle disconnect — Aquarius and Pisces are neighbors in the zodiac but different enough in orientation that the C tier reflects real translation required. Air processes experience through ideas; Water processes through feeling. Aquarius values independence; Pisces needs genuine emotional presence.', 'Their relationship navigated an enormous amount of public noise — the Don\'t Worry Darling press tour, various tabloid narratives. When they ended in late 2022, neither commented substantially. That Aquarian refusal to perform the end of something, and that Piscean tendency to hold what happened privately, may be the most astrologically on-brand thing about how it concluded.'] },
     ],
     faqs: [
       { question: 'What is Harry Styles\'s zodiac sign?', answer: 'Harry Styles is an Aquarius, born February 1, 1994. Aquarius is an Air sign known for independence, idealism, a refusal to be categorized, and warmth for people in general that can coexist with genuine aloofness in the particular.' },
       { question: 'What is Olivia Wilde\'s zodiac sign?', answer: 'Olivia Wilde is a Pisces, born March 10, 1984. Pisces is a Water sign known for creative empathy, emotional depth, romantic idealism, and a tendency to process difficult experiences internally rather than performing them publicly.' },
-      { question: 'Were Harry Styles and Olivia Wilde compatible?', answer: 'Aquarius + Pisces is an Air + Water pairing that scores 50/100. The adjacent-sign connection has natural ease at times; the difference in how Air and Water process experience — through ideas versus through feeling — is the recurring friction point.' },
+      { question: 'Were Harry Styles and Olivia Wilde compatible?', answer: 'Aquarius + Pisces is an Air + Water pairing that rates C tier. The adjacent-sign connection has natural ease at times; the difference in how Air and Water process experience — through ideas versus through feeling — is the recurring friction point.' },
     ],
     related: ['aquarius-in-love', 'pisces-in-love', 'paul-newman-and-joanne-woodward'],
   },
 
   'joe-jonas-and-sophie-turner': {
     title: 'Joe Jonas & Sophie Turner: A Leo and a Pisces in a Short Marriage',
-    description: 'Joe Jonas is a Leo. Sophie Turner is a Pisces. Fire + Water scores 60/100 — married 2019, divorced 2023. Two daughters together.',
+    description: 'Joe Jonas is a Leo. Sophie Turner is a Pisces. Fire + Water rates C tier — married 2019, divorced 2023. Two daughters together.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Leo', sign2: 'Pisces',
     compatLink: '/compatibility/leo-and-pisces',
     intro: 'Joe Jonas (Leo, August 15, 1989) and Sophie Turner (Pisces, February 21, 1996) married in Las Vegas in May 2019, then again with a formal ceremony in France that June. They have two daughters — Willa and Delphine. Joe filed for divorce in September 2023. It was finalized in 2024.',
     sections: [
       { heading: 'Leo and Pisces: The Sun and the Deep', paragraphs: ['Leo radiates outward — it is the sign of warmth, performance, and the need to be genuinely seen and celebrated. Joe\'s Leo is in the performance history (the Jonas Brothers, the career that has spanned nearly 20 years), the natural ease with public life, and the personal charm that has been part of his persona since his teens.', 'Pisces goes deep — inward, emotional, oriented toward feeling and the invisible texture of experience. Sophie\'s Pisces is in the acting (Game of Thrones required exactly the Pisces capacity for empathic inhabitation) and in the privacy she has sought around her personal life despite existing in one of the most photographed families in entertainment.'] },
-      { heading: 'Fire + Water — 60/100', paragraphs: ['Fire and Water are attracted to each other — Fire\'s warmth and expressiveness are magnetic to Water\'s depth; Water\'s emotional richness is something Fire genuinely wants to connect with. The 60/100 reflects this real compatibility alongside the central tension: Leo needs to shine publicly; Pisces tends to need the private interior to be genuinely protected.', 'Reports around their divorce suggested disagreements about where to live (she wanted England; he was based in the US) — a geographic argument that may also reflect the deeper tension between Leo\'s comfort with the visible life and Pisces\'s need for a quiet private one. Custody of two daughters adds a permanence to the relationship that the divorce doesn\'t fully end.'] },
+      { heading: 'Fire + Water — C tier', paragraphs: ['Fire and Water are attracted to each other — Fire\'s warmth and expressiveness are magnetic to Water\'s depth; Water\'s emotional richness is something Fire genuinely wants to connect with. The C tier reflects this real compatibility alongside the central tension: Leo needs to shine publicly; Pisces tends to need the private interior to be genuinely protected.', 'Reports around their divorce suggested disagreements about where to live (she wanted England; he was based in the US) — a geographic argument that may also reflect the deeper tension between Leo\'s comfort with the visible life and Pisces\'s need for a quiet private one. Custody of two daughters adds a permanence to the relationship that the divorce doesn\'t fully end.'] },
     ],
     faqs: [
       { question: 'What is Joe Jonas\'s zodiac sign?', answer: 'Joe Jonas is a Leo, born August 15, 1989. Leo is a Fire sign known for warmth, natural performance energy, a need for genuine recognition, and loyalty to the people they love.' },
       { question: 'What is Sophie Turner\'s zodiac sign?', answer: 'Sophie Turner is a Pisces, born February 21, 1996. Pisces is a Water sign known for empathic depth, the preference for a genuine private interior, creative sensitivity, and the capacity to feel things more fully than any public expression of them suggests.' },
-      { question: 'Were Joe Jonas and Sophie Turner compatible?', answer: 'Leo + Pisces is a Fire + Water pairing that scores 60/100. The genuine attraction between these elements coexists with the recurring tension between Leo\'s comfort with visibility and Pisces\'s need for a protected private life.' },
+      { question: 'Were Joe Jonas and Sophie Turner compatible?', answer: 'Leo + Pisces is a Fire + Water pairing that rates C tier. The genuine attraction between these elements coexists with the recurring tension between Leo\'s comfort with visibility and Pisces\'s need for a protected private life.' },
     ],
     related: ['leo-in-love', 'pisces-in-love', 'tom-brady-and-gisele-bundchen'],
   },
 
   'serena-williams-and-alexis-ohanian': {
     title: 'Serena Williams & Alexis Ohanian: A Libra and a Taurus Who Made It Work',
-    description: 'Serena Williams is a Libra. Alexis Ohanian is a Taurus. Air + Earth scores 50/100 — married 2017, they\'ve built a family and maintained a genuinely private life beside enormous public careers.',
+    description: 'Serena Williams is a Libra. Alexis Ohanian is a Taurus. Air + Earth rates C tier — married 2017, they\'ve built a family and maintained a genuinely private life beside enormous public careers.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Libra', sign2: 'Taurus',
     compatLink: '/compatibility/taurus-and-libra',
     intro: 'Serena Williams (Libra, September 26, 1981) and Alexis Ohanian (Taurus, April 24, 1983) married in November 2017 in New Orleans. They have a daughter, Alexis Olympia. Alexis stepped down from Reddit\'s board in 2020, citing racism, and dedicated his time to advocating for Black founders. Serena announced her "evolution" away from professional tennis in 2022.',
     sections: [
       { heading: 'Libra and Taurus: Both Ruled by Venus', paragraphs: ['Libra and Taurus share a planetary ruler — both are Venus signs, which means both are oriented toward beauty, pleasure, quality, and the value of what is made and how it feels. Taurus\'s Venus is sensory and grounded; Libra\'s Venus is relational and aesthetic. The shared rulership creates a natural affinity around taste and the investment in what is beautiful.', 'Serena\'s Libra is in her game — the grace of her play, the aesthetics she has brought to tennis fashion, and the diplomatic intelligence she has navigated in a sport and culture that has not always treated her fairly. Alexis\'s Taurus is in Reddit (a platform he built from the ground up), in his investment in long-term projects, and in the consistent, low-drama presence he has maintained beside one of the most famous athletes alive.'] },
-      { heading: 'Air + Earth — 50/100', paragraphs: ['Air and Earth process the world differently — Air through ideas and social navigation; Earth through the tangible and durable. The 50/100 reflects real differences that require translation. What the shared Venus rulership offers is a common language around beauty, investment, and what is worth building — which can bridge elemental differences.', 'Alexis has been openly supportive of Serena in ways that are notably low-ego for a person with his own significant career: attending matches, managing logistics, stepping back from work commitments to be present for their daughter. That\'s Taurus expressing love through action and presence rather than declaration.' ],
+      { heading: 'Air + Earth — C tier', paragraphs: ['Air and Earth process the world differently — Air through ideas and social navigation; Earth through the tangible and durable. The C tier reflects real differences that require translation. What the shared Venus rulership offers is a common language around beauty, investment, and what is worth building — which can bridge elemental differences.', 'Alexis has been openly supportive of Serena in ways that are notably low-ego for a person with his own significant career: attending matches, managing logistics, stepping back from work commitments to be present for their daughter. That\'s Taurus expressing love through action and presence rather than declaration.' ],
       },
     ],
     faqs: [
       { question: 'What is Serena Williams\'s zodiac sign?', answer: 'Serena Williams is a Libra, born September 26, 1981. Libra is a Venus-ruled Air sign known for grace, aesthetic intelligence, diplomatic navigation of unfair conditions, and a commitment to excellence that is as much about how things look as how they perform.' },
       { question: 'What is Alexis Ohanian\'s zodiac sign?', answer: 'Alexis Ohanian is a Taurus, born April 24, 1983. Taurus is a Venus-ruled Earth sign known for building things that endure, loyalty expressed through consistent action, and a relationship with presence and support that doesn\'t require center stage.' },
-      { question: 'Are Serena Williams and Alexis Ohanian compatible?', answer: 'Libra + Taurus is an Air + Earth pairing that scores 50/100. The shared Venus rulership — both signs oriented toward beauty, quality, and the investment in what is worth building — provides a common foundation that bridges the elemental differences.' },
+      { question: 'Are Serena Williams and Alexis Ohanian compatible?', answer: 'Libra + Taurus is an Air + Earth pairing that rates C tier. The shared Venus rulership — both signs oriented toward beauty, quality, and the investment in what is worth building — provides a common foundation that bridges the elemental differences.' },
     ],
     related: ['libra-in-love', 'taurus-in-love', 'moon-sign-compatibility'],
   },
 
   'lebron-and-savannah-james': {
     title: 'LeBron James & Savannah James: A Capricorn and a Virgo Who Have Never Wavered',
-    description: 'LeBron James is a Capricorn. Savannah James is a Virgo. Earth + Earth scores 75/100 — high school sweethearts, married 2013, one of sports\' most quietly enduring marriages.',
+    description: 'LeBron James is a Capricorn. Savannah James is a Virgo. Earth + Earth rates A tier — high school sweethearts, married 2013, one of sports\' most quietly enduring marriages.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Virgo', sign2: 'Capricorn',
     compatLink: '/compatibility/virgo-and-capricorn',
     intro: 'LeBron James (Capricorn, December 30, 1984) and Savannah Brinson James (Virgo, August 27, 1986) have been together since they were teenagers in Akron, Ohio. They married in September 2013. They have three children. Savannah has been beside him through four NBA championships, three cities, and the full arc of one of the most extraordinary athletic careers in American sports history.',
     sections: [
       { heading: 'Two Earth Signs with One Foundation', paragraphs: ['Capricorn and Virgo are both Earth signs — both oriented toward the real, the durable, and the commitment that builds something over time rather than seeking the emotion of the moment. LeBron\'s Capricorn is total: the relentless work ethic, the business empire built alongside the basketball career, the long-term thinking about legacy, and the discipline to sustain peak performance across two decades.', 'Savannah\'s Virgo is in the steadiness — the deliberate choice to raise their family with intention, the 330 Foundation she co-founded to serve families in Akron, and the particular Virgo quality of being the person who makes the life run well without needing the spotlight for doing so.'] },
-      { heading: 'Earth + Earth — 75/100', paragraphs: ['Two Earth signs build something real. The 75/100 reflects the natural compatibility between two signs that share values around commitment, loyalty, and the work of building a life that is genuinely substantial. High school sweethearts who grow up alongside each other and choose each other at each stage have a foundation that no compatibility score can fully capture.', 'What\'s notable about their dynamic is how consistently Savannah has maintained her own identity — her design work, her philanthropy, her presence in Akron — rather than being defined entirely by LeBron\'s career. That\'s Virgo: the sign that doesn\'t disappear into someone else\'s story, even when that story is enormous.' ] },
+      { heading: 'Earth + Earth — A tier', paragraphs: ['Two Earth signs build something real. The A tier reflects the natural compatibility between two signs that share values around commitment, loyalty, and the work of building a life that is genuinely substantial. High school sweethearts who grow up alongside each other and choose each other at each stage have a foundation that no compatibility score can fully capture.', 'What\'s notable about their dynamic is how consistently Savannah has maintained her own identity — her design work, her philanthropy, her presence in Akron — rather than being defined entirely by LeBron\'s career. That\'s Virgo: the sign that doesn\'t disappear into someone else\'s story, even when that story is enormous.' ] },
     ],
     faqs: [
       { question: 'What is LeBron James\'s zodiac sign?', answer: 'LeBron James is a Capricorn, born December 30, 1984. Capricorn is an Earth sign known for disciplined ambition, long-term thinking, legacy-building, and the sustained commitment to excellence that produces careers that redefine what is possible.' },
       { question: 'What is Savannah James\'s zodiac sign?', answer: 'Savannah James is a Virgo, born August 27, 1986. Virgo is an Earth sign known for attentiveness, the ability to make a complex life run well without requiring recognition for doing so, and a commitment to community that shows up in concrete, practical ways.' },
-      { question: 'Are LeBron and Savannah James compatible?', answer: 'Virgo + Capricorn is an Earth + Earth pairing that scores 75/100. Two Earth signs who have chosen each other through every stage of a major life — from teenagers in Akron to the summit of professional sports — represent the most durable kind of compatibility.' },
+      { question: 'Are LeBron and Savannah James compatible?', answer: 'Virgo + Capricorn is an Earth + Earth pairing that rates A tier. Two Earth signs who have chosen each other through every stage of a major life — from teenagers in Akron to the summit of professional sports — represent the most durable kind of compatibility.' },
     ],
     related: ['capricorn-in-love', 'virgo-in-love', 'humphrey-bogart-and-lauren-bacall'],
   },
 
   'lionel-messi-and-antonela-roccuzzo': {
     title: 'Lionel Messi & Antonela Roccuzzo: A Cancer and a Pisces Who Go All the Way Back',
-    description: 'Lionel Messi is a Cancer. Antonela Roccuzzo is a Pisces. Water + Water scores 80/100 — childhood friends from Rosario, Argentina, married 2017.',
+    description: 'Lionel Messi is a Cancer. Antonela Roccuzzo is a Pisces. Water + Water rates A tier — childhood friends from Rosario, Argentina, married 2017.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Cancer', sign2: 'Pisces',
     compatLink: '/compatibility/cancer-and-pisces',
     intro: 'Lionel Messi (Cancer, June 24, 1987) and Antonela Roccuzzo (Pisces, February 26, 1988) have known each other since they were children in Rosario, Argentina — she was the cousin of his best friend. They married in June 2017. They have three sons. Their relationship has been private, stable, and entirely at odds with the scale of Messi\'s public fame.',
     sections: [
       { heading: 'Cancer and Pisces: Going Home', paragraphs: ['Cancer and Pisces are both Water signs that trine each other — 120 degrees apart, one of astrology\'s most naturally harmonious placements. Cancer builds a home; Pisces finds their depth in the people who feel safe. When these two signs are genuinely matched, the relationship tends to become, quite literally, a home — not a location but a person.', 'Messi\'s Cancer is in the attachment to origin: the difficulty of leaving Rosario (he left at 13 for Barcelona), the lifelong relationship with his childhood friend\'s cousin, and the reported homesickness that has followed him across his entire career. His greatest public moments — World Cup 2022, Copa América — have been paired with visible emotional releases that are completely Cancer: the crying, the relief, the sense that the triumph was for something larger than individual achievement.'] },
-      { heading: 'Water + Water — 80/100', paragraphs: ['Two Water signs together have an emotional resonance that comes from shared orientation rather than compromise. The 80/100 reflects that Cancer and Pisces naturally support each other: Cancer provides the protective structure; Pisces provides the empathic openness. Both benefit from the other\'s presence.', 'Their relationship has been remarkable in the context of elite football — a sport that destroys many marriages through its demands. Antonela has followed Messi across three countries (Argentina, Spain, France, now the United States), raising three sons in each context. That\'s Pisces adaptability in service of a Cancerian home that is defined not by location but by person.'] },
+      { heading: 'Water + Water — A tier', paragraphs: ['Two Water signs together have an emotional resonance that comes from shared orientation rather than compromise. The A tier reflects that Cancer and Pisces naturally support each other: Cancer provides the protective structure; Pisces provides the empathic openness. Both benefit from the other\'s presence.', 'Their relationship has been remarkable in the context of elite football — a sport that destroys many marriages through its demands. Antonela has followed Messi across three countries (Argentina, Spain, France, now the United States), raising three sons in each context. That\'s Pisces adaptability in service of a Cancerian home that is defined not by location but by person.'] },
     ],
     faqs: [
       { question: 'What is Lionel Messi\'s zodiac sign?', answer: 'Lionel Messi is a Cancer, born June 24, 1987. Cancer is a Water sign known for deep emotional attachment, the carrying of home as a feeling rather than a location, fierce loyalty to origin and family, and a competitive drive that is ultimately in service of something personal.' },
       { question: 'What is Antonela Roccuzzo\'s zodiac sign?', answer: 'Antonela Roccuzzo is a Pisces, born February 26, 1988. Pisces is a Water sign known for empathy, adaptability, the capacity to find depth and meaning in relationships rather than locations, and the ability to create safety for the people they love.' },
-      { question: 'Are Messi and Antonela compatible?', answer: 'Cancer + Pisces is a Water + Water pairing that scores 80/100. Childhood friends who choose each other as adults and build a life that crosses three countries and three decades: the compatibility is written in the history, not just the astrology.' },
+      { question: 'Are Messi and Antonela compatible?', answer: 'Cancer + Pisces is a Water + Water pairing that rates A tier. Childhood friends who choose each other as adults and build a life that crosses three countries and three decades: the compatibility is written in the history, not just the astrology.' },
     ],
     related: ['cancer-in-love', 'pisces-in-love', 'johnny-cash-and-june-carter-cash'],
   },
 
   'cristiano-ronaldo-and-georgina-rodriguez': {
     title: 'Cristiano Ronaldo & Georgina Rodríguez: Two Aquarians Building an Empire',
-    description: 'Cristiano Ronaldo is an Aquarius. Georgina Rodríguez is an Aquarius. Same sign, Air + Air scores 70/100 — together since 2016, parents of five children.',
+    description: 'Cristiano Ronaldo is an Aquarius. Georgina Rodríguez is an Aquarius. Same sign, Air + Air rates A tier — together since 2016, parents of five children.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Aquarius', sign2: 'Aquarius',
     compatLink: '/compatibility/aquarius-and-aquarius',
     intro: 'Cristiano Ronaldo (Aquarius, February 5, 1985) and Georgina Rodríguez (Aquarius, January 27, 1994) met in 2016 when she was working as a Gucci sales assistant in Madrid. They are not married but have been together for nearly a decade, have five children together, and Georgina has a Netflix documentary, I Am Georgina, charting her own journey from obscurity to global celebrity.',
     sections: [
       { heading: 'Two Aquarians: Fixed Air Recognizing Fixed Air', paragraphs: ['Aquarius is a fixed Air sign — which means the independence is not mutable but structural. Two Aquarians together share that fixed independence: both people have their own vision, their own goals, and their own sense of self that doesn\'t require the relationship to define it. The same-sign recognition can be immediate.', 'Cristiano\'s Aquarius is in the relentless innovation (the CR7 brand as a global enterprise, the social media mastery, the constant reinvention of what he is beyond footballer), the humanitarian commitments, and the individuality that has made him simultaneously one of the most universally followed people alive and genuinely difficult to categorize. Georgina\'s Aquarius is in her own trajectory — the deliberate construction of an independent platform from a position of zero name recognition.'] },
-      { heading: 'Air + Air — 70/100', paragraphs: ['Two Air signs share a natural fluency in the realm of ideas, communication, and social presence. The 70/100 reflects that same-sign Air pairings produce real rapport alongside the challenge of two fixed people in the same relationship — both can be stubborn, both can be resistant to changing their position.', 'The notable thing about their dynamic is how independently both have built their public presences while remaining deeply committed to each other and to their family. Georgina has spoken about the sacrifices she made in the early years; Ronaldo has spoken publicly about his commitment to her and their children. The Aquarian independence on both sides seems to have created a partnership where both people know who they are without needing the relationship to answer that question.' ] },
+      { heading: 'Air + Air — A tier', paragraphs: ['Two Air signs share a natural fluency in the realm of ideas, communication, and social presence. The A tier reflects that same-sign Air pairings produce real rapport alongside the challenge of two fixed people in the same relationship — both can be stubborn, both can be resistant to changing their position.', 'The notable thing about their dynamic is how independently both have built their public presences while remaining deeply committed to each other and to their family. Georgina has spoken about the sacrifices she made in the early years; Ronaldo has spoken publicly about his commitment to her and their children. The Aquarian independence on both sides seems to have created a partnership where both people know who they are without needing the relationship to answer that question.' ] },
     ],
     faqs: [
       { question: 'What is Cristiano Ronaldo\'s zodiac sign?', answer: 'Cristiano Ronaldo is an Aquarius, born February 5, 1985. Aquarius is an Air sign known for fixed independence, the construction of a personal brand and vision that is larger than any single context, humanitarian commitments, and the refusal to be limited by conventional categories.' },
       { question: 'What is Georgina Rodríguez\'s zodiac sign?', answer: 'Georgina Rodríguez is an Aquarius, born January 27, 1994. As a fellow Aquarius, she shares the fixed independence and the capacity to build her own identity from the ground up — which she has done, from retail sales to global celebrity, within the context of one of the most visible relationships in the world.' },
-      { question: 'Are Ronaldo and Georgina compatible?', answer: 'Aquarius + Aquarius is a same-sign Air + Air pairing that scores 70/100. The mutual independence and shared fixed nature produce a relationship where both people know who they are and choose each other from that knowing — which tends to be more stable than partnerships where identity requires the relationship to be legible.' },
+      { question: 'Are Ronaldo and Georgina compatible?', answer: 'Aquarius + Aquarius is a same-sign Air + Air pairing that rates A tier. The mutual independence and shared fixed nature produce a relationship where both people know who they are and choose each other from that knowing — which tends to be more stable than partnerships where identity requires the relationship to be legible.' },
     ],
     related: ['aquarius-in-love', 'ellen-degeners-and-portia-de-rossi', 'moon-sign-compatibility'],
   },
 
   'ellen-degeners-and-portia-de-rossi': {
     title: 'Ellen DeGeneres & Portia de Rossi: Two Aquarians, One Quiet Life',
-    description: 'Ellen DeGeneres is an Aquarius. Portia de Rossi is an Aquarius. Air + Air, same sign, 70/100 — married 2008, one of the longest marriages in Hollywood.',
+    description: 'Ellen DeGeneres is an Aquarius. Portia de Rossi is an Aquarius. Air + Air, same sign, A tier — married 2008, one of the longest marriages in Hollywood.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Aquarius', sign2: 'Aquarius',
     compatLink: '/compatibility/aquarius-and-aquarius',
     intro: 'Ellen DeGeneres (Aquarius, January 26, 1958) and Portia de Rossi (Aquarius, January 31, 1973) married on August 16, 2008 — three months after California first legalized same-sex marriage. They have been together since 2004. Ellen ended The Ellen DeGeneres Show in 2022 after 19 seasons. They live quietly in Santa Barbara.',
     sections: [
       { heading: 'Two Aquarians: Shared Independence, Shared Vision', paragraphs: ['Aquarius is the sign of the individual within the collective — the person who holds their independence as central while also caring deeply about humanity. Two Aquarians together share that orientation: both people bring their own vision to the partnership, and neither requires the other to be the source of their identity.', 'Ellen\'s Aquarius is in the comedy that was always about observation and humanity, the coming out in 1997 that was a genuinely consequential public act, and the television career that used visibility as a vehicle for inclusion. Portia\'s Aquarius is in the acting, in the honesty of her memoir Unbearable Lightness about eating disorders and coming out, and in the deliberate choice to build a life that is genuinely private despite existing beside one of the most recognized entertainers alive.'] },
-      { heading: 'Air + Air — 70/100', paragraphs: ['Two Air signs together produce a natural fluency in communication and a mutual respect for independence that can feel, to both people, like relief. The 70/100 reflects the genuine compatibility of same-sign Air alongside the challenge of two fixed Aquarians: both people can hold their positions firmly, and the same independence that makes the partnership functional can occasionally make mutual adaptation difficult.', 'They\'ve spent the years since The Ellen Show ended in what appears to be a genuinely quieter life — travel, their farm, less public documentation. That\'s two Aquarians choosing, together, to step back from the machinery of visibility when it no longer serves what they\'re building.' ] },
+      { heading: 'Air + Air — A tier', paragraphs: ['Two Air signs together produce a natural fluency in communication and a mutual respect for independence that can feel, to both people, like relief. The A tier reflects the genuine compatibility of same-sign Air alongside the challenge of two fixed Aquarians: both people can hold their positions firmly, and the same independence that makes the partnership functional can occasionally make mutual adaptation difficult.', 'They\'ve spent the years since The Ellen Show ended in what appears to be a genuinely quieter life — travel, their farm, less public documentation. That\'s two Aquarians choosing, together, to step back from the machinery of visibility when it no longer serves what they\'re building.' ] },
     ],
     faqs: [
       { question: 'What is Ellen DeGeneres\'s zodiac sign?', answer: 'Ellen DeGeneres is an Aquarius, born January 26, 1958. Aquarius is an Air sign known for humanitarian warmth, independence, the use of visibility for larger purposes, and a fixed nature that holds its positions — including the courage to come out in 1997 — with conviction.' },
       { question: 'What is Portia de Rossi\'s zodiac sign?', answer: 'Portia de Rossi is an Aquarius, born January 31, 1973. Aquarius is an Air sign known for honest self-examination, independence, the ability to build a life beside enormous public visibility while maintaining a genuine private center.' },
-      { question: 'Are Ellen and Portia compatible?', answer: 'Aquarius + Aquarius is a same-sign Air + Air pairing that scores 70/100. Two Aquarians who have chosen each other and built a life across 20 years represent one of the more durable expressions of what same-sign compatibility can look like when both people are genuinely committed to independence alongside partnership.' },
+      { question: 'Are Ellen and Portia compatible?', answer: 'Aquarius + Aquarius is a same-sign Air + Air pairing that rates A tier. Two Aquarians who have chosen each other and built a life across 20 years represent one of the more durable expressions of what same-sign compatibility can look like when both people are genuinely committed to independence alongside partnership.' },
     ],
     related: ['aquarius-in-love', 'cristiano-ronaldo-and-georgina-rodriguez', 'moon-sign-compatibility'],
   },
 
   'mila-kunis-and-ashton-kutcher': {
     title: 'Mila Kunis & Ashton Kutcher: A Leo and an Aquarius Who Were Friends First',
-    description: 'Mila Kunis is a Leo. Ashton Kutcher is an Aquarius. Fire + Air scores 65/100 — co-stars on That \'70s Show for years, they became a couple in 2012. Married 2015.',
+    description: 'Mila Kunis is a Leo. Ashton Kutcher is an Aquarius. Fire + Air rates S tier — co-stars on That \'70s Show for years, they became a couple in 2012. Married 2015.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Leo', sign2: 'Aquarius',
     compatLink: '/compatibility/leo-and-aquarius',
     intro: 'Mila Kunis (Leo, August 14, 1983) and Ashton Kutcher (Aquarius, February 7, 1978) played on-screen love interests on That \'70s Show for eight seasons (1998–2006). They began dating in 2012, married in July 2015, and have two children — Wyatt and Dimitri. He was her first kiss, on the show, when she was 14 and he was 20.',
     sections: [
       { heading: 'Leo and Aquarius: Opposite Signs, Natural Axis', paragraphs: ['Leo and Aquarius sit directly opposite each other in the zodiac — both are fixed signs, both are concerned with identity and expression, but they express it differently. Leo is personal: warmth, individual identity, the need to be genuinely seen. Aquarius is collective: the vision, the ideals, the individual as part of something larger than themselves.', 'Mila\'s Leo is in her screen presence and the warmth she brings to roles that require someone immediately likeable and genuine. Ashton\'s Aquarius is in the tech investments (he was an early investor in Airbnb, Skype, and others), the social media savvy, and the tendency to be ahead of the cultural conversation.'] },
-      { heading: 'Fire + Air — 65/100', paragraphs: ['Fire and Air are complementary elements — Air feeds Fire, which grows larger and brighter. The 65/100 reflects genuine compatibility between Leo and Aquarius despite the opposition: the shared fixed nature produces stability, and the elemental complementarity produces real energy.', 'Their eight years as work friends before becoming a couple gave them a foundation that most relationships don\'t have. By the time they were together romantically, both people knew who the other person actually was — not who they were performing on a first date. That kind of knowledge is harder to achieve than any compatibility score reflects.' ] },
+      { heading: 'Fire + Air — S tier', paragraphs: ['Fire and Air are complementary elements — Air feeds Fire, which grows larger and brighter. The S tier reflects genuine compatibility between Leo and Aquarius despite the opposition: the shared fixed nature produces stability, and the elemental complementarity produces real energy.', 'Their eight years as work friends before becoming a couple gave them a foundation that most relationships don\'t have. By the time they were together romantically, both people knew who the other person actually was — not who they were performing on a first date. That kind of knowledge is harder to achieve than any compatibility score reflects.' ] },
     ],
     faqs: [
       { question: 'What is Mila Kunis\'s zodiac sign?', answer: 'Mila Kunis is a Leo, born August 14, 1983. Leo is a Fire sign known for warmth, natural screen presence, genuine expressiveness, and the need for authentic recognition in relationships that matter.' },
       { question: 'What is Ashton Kutcher\'s zodiac sign?', answer: 'Ashton Kutcher is an Aquarius, born February 7, 1978. Aquarius is an Air sign known for visionary investment, ahead-of-the-curve cultural positioning, independence, and a warmth for people that operates at a collective rather than purely personal register.' },
-      { question: 'Are Mila Kunis and Ashton Kutcher compatible?', answer: 'Leo + Aquarius is an opposite-sign Fire + Air pairing that scores 65/100. Opposite signs share an axis and often have more in common than their differences suggest; the years of friendship before romance gave them a foundation that makes the opposition workable.' },
+      { question: 'Are Mila Kunis and Ashton Kutcher compatible?', answer: 'Leo + Aquarius is an opposite-sign Fire + Air pairing that rates S tier. Opposite signs share an axis and often have more in common than their differences suggest; the years of friendship before romance gave them a foundation that makes the opposition workable.' },
     ],
     related: ['leo-in-love', 'aquarius-in-love', 'jennifer-lopez-and-ben-affleck'],
   },
 
   'simone-biles-and-jonathan-owens': {
     title: 'Simone Biles & Jonathan Owens: A Pisces and a Cancer Who Chose Each Other',
-    description: 'Simone Biles is a Pisces. Jonathan Owens is a Cancer. Water + Water scores 80/100 — met during COVID, engaged 2022, married 2023.',
+    description: 'Simone Biles is a Pisces. Jonathan Owens is a Cancer. Water + Water rates A tier — met during COVID, engaged 2022, married 2023.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Cancer', sign2: 'Pisces',
     compatLink: '/compatibility/cancer-and-pisces',
     intro: 'Simone Biles (Pisces, March 14, 1997) and Jonathan Owens (Cancer, July 22, 1995) met through a dating app in 2020. He proposed in February 2022. They married in April 2023 in Houston, then again in May 2023 in Cabo San Lucas. She is the most decorated gymnast in history. He is an NFL safety.',
     sections: [
       { heading: 'Cancer and Pisces: Water Meeting Water', paragraphs: ['Cancer and Pisces are naturally harmonious Water signs — both emotionally attuned, both oriented toward home and safety, both capable of the kind of deep feeling that can sustain a relationship across difficulty. For Simone, whose 2020-2021 included the Tokyo Olympics withdrawal and the years of publicly processing the abuse she survived, finding someone who could hold that emotional weight without being overwhelmed by it was not a given.', 'Jonathan\'s Cancer is in the nurturing quality he has described publicly — the consistent support, the presence at every meet and event, the willingness to be the grounding presence for someone who is simultaneously managing the weight of being the greatest of all time. Cancer builds a home; Pisces needs one. When Cancer finds a Pisces worth anchoring, the attachment tends to be total.'] },
-      { heading: 'Water + Water — 80/100', paragraphs: ['The 80/100 reflects the natural resonance of these two signs. What\'s notable about their relationship is the speed at which it moved from "met through an app" to "engaged and married" — which is both very Water (the emotional conviction is fast once it arrives) and very Simone (the Pisces instinct for knowing what is real when it finally appears).', 'She has spoken about how grounded their relationship is — the normalcy of it, the way he sees her as a person rather than a symbol. That\'s Cancer: the sign that creates the experience of being seen for who you are rather than what you\'ve accomplished.' ] },
+      { heading: 'Water + Water — A tier', paragraphs: ['The A tier reflects the natural resonance of these two signs. What\'s notable about their relationship is the speed at which it moved from "met through an app" to "engaged and married" — which is both very Water (the emotional conviction is fast once it arrives) and very Simone (the Pisces instinct for knowing what is real when it finally appears).', 'She has spoken about how grounded their relationship is — the normalcy of it, the way he sees her as a person rather than a symbol. That\'s Cancer: the sign that creates the experience of being seen for who you are rather than what you\'ve accomplished.' ] },
     ],
     faqs: [
       { question: 'What is Simone Biles\'s zodiac sign?', answer: 'Simone Biles is a Pisces, born March 14, 1997. Pisces is a Water sign known for empathic depth, the capacity for greatness alongside genuine vulnerability, and the need for a safe emotional home as counterweight to an enormous public one.' },
       { question: 'What is Jonathan Owens\'s zodiac sign?', answer: 'Jonathan Owens is a Cancer, born July 22, 1995. Cancer is a Water sign known for nurturing presence, the ability to create a genuine sense of home for the people they love, and a protective loyalty that shows up in consistent action rather than declaration.' },
-      { question: 'Are Simone Biles and Jonathan Owens compatible?', answer: 'Cancer + Pisces is a Water + Water pairing that scores 80/100. The mutual attunement of these two signs — Cancer\'s protective grounding and Pisces\'s empathic depth — produces one of the most naturally harmonious configurations in astrology.' },
+      { question: 'Are Simone Biles and Jonathan Owens compatible?', answer: 'Cancer + Pisces is a Water + Water pairing that rates A tier. The mutual attunement of these two signs — Cancer\'s protective grounding and Pisces\'s empathic depth — produces one of the most naturally harmonious configurations in astrology.' },
     ],
     related: ['pisces-in-love', 'cancer-in-love', 'johnny-cash-and-june-carter-cash'],
   },
 
   'dwyane-wade-and-gabrielle-union': {
     title: 'Dwyane Wade & Gabrielle Union: A Capricorn and a Libra Who Built Something Real',
-    description: 'Dwyane Wade is a Capricorn. Gabrielle Union is a Libra. Earth + Air scores 50/100 — married 2014, they\'ve built a family and a public partnership defined by honesty.',
+    description: 'Dwyane Wade is a Capricorn. Gabrielle Union is a Libra. Earth + Air rates C tier — married 2014, they\'ve built a family and a public partnership defined by honesty.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Libra', sign2: 'Capricorn',
     compatLink: '/compatibility/libra-and-capricorn',
     intro: 'Dwyane Wade (Capricorn, January 17, 1982) and Gabrielle Union (Libra, October 29, 1972) married on August 30, 2014, after several years together that included a break during which Dwyane fathered a child with another woman. They navigated that publicly and chose to rebuild. They have a daughter, Kaavia James, via surrogate, and Dwyane has three children from previous relationships.',
     sections: [
       { heading: 'Capricorn and Libra: Structure Meets Grace', paragraphs: ['Capricorn builds — structures, careers, legacies, and the kind of sustained excellence that requires years of sustained commitment. Dwyane\'s Capricorn is in the basketball career (13 NBA seasons, three championships), the business interests, and the particular discipline required to maintain elite performance across decades.', 'Libra negotiates — harmony, fairness, the management of relationship as an ongoing project rather than a fixed state. Gabrielle\'s Libra is in the acting career, the beauty business, the public advocacy for equality in Hollywood and beyond, and the willingness to work through difficulty in the relationship rather than perform an easy version of it.'] },
-      { heading: 'Earth + Air — 50/100', paragraphs: ['Earth and Air are different in their primary orientations — Earth tangible, Air relational — which generates the 50/100 and requires ongoing translation. But Libra and Capricorn are both cardinal signs, which means both people are oriented toward action and initiation rather than waiting for things to happen.', 'Their public handling of the 2013 revelation about Dwyane\'s other child — the conversations, the decision to stay, the work they\'ve described doing in their relationship — is consistent with Libra\'s instinct toward equity and Capricorn\'s commitment to what has been built. Neither sign walks away easily from something they\'ve invested in.' ] },
+      { heading: 'Earth + Air — C tier', paragraphs: ['Earth and Air are different in their primary orientations — Earth tangible, Air relational — which generates the C tier and requires ongoing translation. But Libra and Capricorn are both cardinal signs, which means both people are oriented toward action and initiation rather than waiting for things to happen.', 'Their public handling of the 2013 revelation about Dwyane\'s other child — the conversations, the decision to stay, the work they\'ve described doing in their relationship — is consistent with Libra\'s instinct toward equity and Capricorn\'s commitment to what has been built. Neither sign walks away easily from something they\'ve invested in.' ] },
     ],
     faqs: [
       { question: 'What is Dwyane Wade\'s zodiac sign?', answer: 'Dwyane Wade is a Capricorn, born January 17, 1982. Capricorn is an Earth sign known for athletic discipline, commitment to excellence across a long career, the building of a legacy that extends beyond the primary achievement, and a loyalty to what has been built together.' },
       { question: 'What is Gabrielle Union\'s zodiac sign?', answer: 'Gabrielle Union is a Libra, born October 29, 1972. Libra is an Air sign known for grace, the active negotiation of fairness in relationship, a commitment to honesty about difficulty, and the capacity to rebuild something that has been damaged rather than simply abandoning it.' },
-      { question: 'Are Dwyane Wade and Gabrielle Union compatible?', answer: 'Libra + Capricorn is an Air + Earth pairing that scores 50/100. The shared cardinal quality — both signs action-oriented and forward-moving — provides common ground that elemental differences can bridge when both people are committed to what they\'ve built.' },
+      { question: 'Are Dwyane Wade and Gabrielle Union compatible?', answer: 'Libra + Capricorn is an Air + Earth pairing that rates C tier. The shared cardinal quality — both signs action-oriented and forward-moving — provides common ground that elemental differences can bridge when both people are committed to what they\'ve built.' },
     ],
     related: ['libra-in-love', 'capricorn-in-love', 'kim-kardashian-and-lewis-hamilton'],
   },
 
   'oprah-and-stedman-graham': {
     title: 'Oprah Winfrey & Stedman Graham: An Aquarius and a Pisces Who Chose Partnership Over Marriage',
-    description: 'Oprah Winfrey is an Aquarius. Stedman Graham is a Pisces. Air + Water scores 50/100 — together since 1986, engaged in 1992, never married. Their arrangement has outlasted most marriages in Hollywood.',
+    description: 'Oprah Winfrey is an Aquarius. Stedman Graham is a Pisces. Air + Water rates C tier — together since 1986, engaged in 1992, never married. Their arrangement has outlasted most marriages in Hollywood.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Aquarius', sign2: 'Pisces',
     compatLink: '/compatibility/aquarius-and-pisces',
     intro: 'Oprah Winfrey (Aquarius, January 29, 1954) and Stedman Graham (Pisces, March 6, 1951) have been together since 1986. He proposed in 1992. They chose not to marry, a decision Oprah has credited with preserving both the relationship and her sense of self. They have been together for nearly 40 years.',
     sections: [
       { heading: 'Aquarius Who Knows What She Needs', paragraphs: ['Aquarius values independence as a structural feature of identity — not as a refusal of relationship, but as a recognition that who they are doesn\'t fully live inside any role, including the role of spouse. Oprah\'s explanation for declining to marry has been consistent: she believed the dynamics of traditional marriage would change the relationship in ways that would damage it. That\'s Aquarius reasoning — clear-eyed, unconventional, and entirely committed to what actually works rather than what is expected to work.', 'Stedman\'s Pisces is in the particular quality of his presence in this relationship: supportive, consistent, private, and apparently unbothered by an arrangement that places him beside one of the most famous and powerful people alive without centering him. Pisces can inhabit the role of supportive presence without losing itself — and without requiring the spotlight that the other person\'s fame produces.'] },
-      { heading: 'Nearly 40 Years', paragraphs: ['The longevity of their partnership is its own argument. Whatever the 50/100 Air + Water score reflects in terms of elemental differences, what actually happened is 40 years of consistent choice to remain. That\'s not compatibility — it\'s commitment. The Aquarius decided this was the right form. The Pisces adapted and stayed. The result outlasted the institution it declined to formalize.'] },
+      { heading: 'Nearly 40 Years', paragraphs: ['The longevity of their partnership is its own argument. Whatever the C tier Air + Water score reflects in terms of elemental differences, what actually happened is 40 years of consistent choice to remain. That\'s not compatibility — it\'s commitment. The Aquarius decided this was the right form. The Pisces adapted and stayed. The result outlasted the institution it declined to formalize.'] },
     ],
     faqs: [
       { question: 'What is Oprah Winfrey\'s zodiac sign?', answer: 'Oprah Winfrey is an Aquarius, born January 29, 1954. Aquarius is an Air sign known for independence as a core value, unconventional choices made from clarity rather than rebellion, visionary intelligence, and the willingness to define relationships on their own terms rather than inherited templates.' },
       { question: 'What is Stedman Graham\'s zodiac sign?', answer: 'Stedman Graham is a Pisces, born March 6, 1951. Pisces is a Water sign known for adaptability, the ability to inhabit a supportive role without losing one\'s sense of self, and a consistency of presence that doesn\'t require the center stage.' },
-      { question: 'Are Oprah and Stedman compatible?', answer: 'Aquarius + Pisces is an Air + Water pairing that scores 50/100. The 50/100 reflects real elemental differences; the 40-year partnership is the more interesting data point. When the Aquarius defines the form and the Pisces can inhabit that form without needing it to change, the lower compatibility score becomes irrelevant.' },
+      { question: 'Are Oprah and Stedman compatible?', answer: 'Aquarius + Pisces is an Air + Water pairing that rates C tier. The C tier reflects real elemental differences; the 40-year partnership is the more interesting data point. When the Aquarius defines the form and the Pisces can inhabit that form without needing it to change, the lower compatibility score becomes irrelevant.' },
     ],
     related: ['aquarius-in-love', 'pisces-in-love', 'paul-newman-and-joanne-woodward'],
   },
 
   'julia-roberts-and-danny-moder': {
     title: 'Julia Roberts & Danny Moder: A Scorpio and a Capricorn Who Made It Last',
-    description: 'Julia Roberts is a Scorpio. Danny Moder is a Capricorn. Water + Earth scores 70/100 — married 2002, three children, one of Hollywood\'s longest marriages.',
+    description: 'Julia Roberts is a Scorpio. Danny Moder is a Capricorn. Water + Earth rates S tier — married 2002, three children, one of Hollywood\'s longest marriages.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Scorpio', sign2: 'Capricorn',
     compatLink: '/compatibility/scorpio-and-capricorn',
     intro: 'Julia Roberts (Scorpio, October 28, 1967) and Daniel Moder (Capricorn, January 31, 1969) met on the set of The Mexican in 2001 and married in July 2002. They have three children — twins Hazel and Phinnaeus, and Henry. Julia has been one of the most famous actresses in Hollywood history; Danny works as a cinematographer and has stayed largely private.',
     sections: [
-      { heading: 'Scorpio and Capricorn: Depth and Structure', paragraphs: ['Scorpio and Capricorn are both signs with tremendous staying power — Scorpio through emotional depth and loyalty, Capricorn through disciplined commitment to what has been built. The Water + Earth compatibility between them (70/100) reflects a pairing where depth meets structure, where the Scorpio\'s intensity has a Capricorn container, and where both people tend to stay in what they\'ve committed to.', 'Julia\'s Scorpio is in the intensity of her screen presence, the transformative range of her career, and the privacy she has maintained around her family despite her level of fame. Danny\'s Capricorn is in his craftsman relationship with cinematography — not a fame-seeking career but a quality-seeking one — and in the consistent, non-performative presence he has maintained in their marriage.'] },
+      { heading: 'Scorpio and Capricorn: Depth and Structure', paragraphs: ['Scorpio and Capricorn are both signs with tremendous staying power — Scorpio through emotional depth and loyalty, Capricorn through disciplined commitment to what has been built. The Water + Earth compatibility between them (S tier) reflects a pairing where depth meets structure, where the Scorpio\'s intensity has a Capricorn container, and where both people tend to stay in what they\'ve committed to.', 'Julia\'s Scorpio is in the intensity of her screen presence, the transformative range of her career, and the privacy she has maintained around her family despite her level of fame. Danny\'s Capricorn is in his craftsman relationship with cinematography — not a fame-seeking career but a quality-seeking one — and in the consistent, non-performative presence he has maintained in their marriage.'] },
       { heading: 'Twenty Years', paragraphs: ['They\'ve been married for over 20 years. That duration, in Hollywood, is itself significant. Scorpio commits fully when it commits, and takes commitment seriously as a value. Capricorn builds for the long term as a matter of character. Two signs that both, in different ways, don\'t leave easily have built something that hasn\'t required them to.' ] },
     ],
     faqs: [
       { question: 'What is Julia Roberts\'s zodiac sign?', answer: 'Julia Roberts is a Scorpio, born October 28, 1967. Scorpio is a Water sign known for intensity, emotional depth, the fierce protection of private life alongside a public presence, and a commitment that, once made, tends to hold.' },
       { question: 'What is Danny Moder\'s zodiac sign?', answer: 'Danny Moder is a Capricorn, born January 31, 1969. Capricorn is an Earth sign known for commitment to craft, a non-performative approach to career and relationship, and the kind of sustained presence that makes a long marriage possible.' },
-      { question: 'Are Julia Roberts and Danny Moder compatible?', answer: 'Scorpio + Capricorn is a Water + Earth pairing that scores 70/100. The natural complementarity of depth and structure — Scorpio providing emotional intensity and loyalty, Capricorn providing the discipline and patience to build something durable — makes this one of the more naturally workable combinations.' },
+      { question: 'Are Julia Roberts and Danny Moder compatible?', answer: 'Scorpio + Capricorn is a Water + Earth pairing that rates S tier. The natural complementarity of depth and structure — Scorpio providing emotional intensity and loyalty, Capricorn providing the discipline and patience to build something durable — makes this one of the more naturally workable combinations.' },
     ],
     related: ['scorpio-in-love', 'capricorn-in-love', 'katy-perry-and-orlando-bloom'],
   },
 
   'gwyneth-paltrow-and-brad-falchuk': {
     title: 'Gwyneth Paltrow & Brad Falchuk: A Virgo and a Sagittarius Who Live in Separate Houses',
-    description: 'Gwyneth Paltrow is a Virgo. Brad Falchuk is a Sagittarius. Earth + Fire scores 50/100 — married 2018, they famously keep separate residences several nights a week.',
+    description: 'Gwyneth Paltrow is a Virgo. Brad Falchuk is a Sagittarius. Earth + Fire rates B tier — married 2018, they famously keep separate residences several nights a week.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Virgo', sign2: 'Sagittarius',
     compatLink: '/compatibility/virgo-and-sagittarius',
     intro: 'Gwyneth Paltrow (Virgo, September 27, 1972) and Brad Falchuk (Sagittarius, November 20, 1971) met on the set of Glee around 2010. They married in September 2018, after four years together. Gwyneth has spoken publicly about their arrangement of maintaining separate residences several nights a week — a structure she said improved their relationship significantly.',
     sections: [
       { heading: 'Virgo and Sagittarius: Earth Looking for Space', paragraphs: ['Virgo and Sagittarius are in square aspect to each other — 90 degrees apart, which produces friction alongside the energy to grow. Virgo is precise, orderly, and tends to find meaning in the management of a well-run life. Sagittarius is expansive, philosophically minded, and genuinely needs freedom to function at its best.', 'The arrangement Gwyneth has described — separate residences several nights a week — is one of the more creative structural solutions to a Virgo-Sagittarius challenge. Virgo needs quality and control over its environment; Sagittarius needs space and autonomy. By giving both partners genuine time in their own spaces, the relationship gets the best of both orientations without either sign having to fully subordinate its default.'] },
-      { heading: 'Earth + Fire — 50/100', paragraphs: ['Earth and Fire are different enough that the 50/100 reflects real translation required. But Virgo and Sagittarius share a mutable quality — both are the mutable sign of their element, which means both are more adaptable than their fixed or cardinal counterparts. That mutability may be part of what made an unconventional arrangement possible.', 'Gwyneth has framed the separate-house arrangement as health-positive and relationship-positive, which is very Virgo: the optimization of structure in service of wellbeing. Brad\'s agreement to it is consistent with Sagittarius\'s appreciation for any arrangement that includes genuine autonomy.' ] },
+      { heading: 'Earth + Fire — B tier', paragraphs: ['Earth and Fire are different enough that the B tier reflects real translation required. But Virgo and Sagittarius share a mutable quality — both are the mutable sign of their element, which means both are more adaptable than their fixed or cardinal counterparts. That mutability may be part of what made an unconventional arrangement possible.', 'Gwyneth has framed the separate-house arrangement as health-positive and relationship-positive, which is very Virgo: the optimization of structure in service of wellbeing. Brad\'s agreement to it is consistent with Sagittarius\'s appreciation for any arrangement that includes genuine autonomy.' ] },
     ],
     faqs: [
       { question: 'What is Gwyneth Paltrow\'s zodiac sign?', answer: 'Gwyneth Paltrow is a Virgo, born September 27, 1972. Virgo is an Earth sign known for precision, the optimization of structure for wellbeing, attentiveness to quality, and the willingness to design unconventional solutions when conventional ones don\'t serve.' },
       { question: 'What is Brad Falchuk\'s zodiac sign?', answer: 'Brad Falchuk is a Sagittarius, born November 20, 1971. Sagittarius is a Fire sign known for philosophical expansiveness, the need for genuine freedom within commitment, and the ability to accept unconventional arrangements that honor that need.' },
-      { question: 'Are Gwyneth Paltrow and Brad Falchuk compatible?', answer: 'Virgo + Sagittarius is an Earth + Fire pairing that scores 50/100. The mutable quality shared by both signs makes this pairing more adaptable than the score suggests; their creative structural solution — separate residences — reflects exactly what mutability looks like in practice.' },
+      { question: 'Are Gwyneth Paltrow and Brad Falchuk compatible?', answer: 'Virgo + Sagittarius is an Earth + Fire pairing that rates B tier. The mutable quality shared by both signs makes this pairing more adaptable than the score suggests; their creative structural solution — separate residences — reflects exactly what mutability looks like in practice.' },
     ],
     related: ['virgo-in-love', 'sagittarius-in-love', 'beyonce-and-jay-z'],
   },
 
   'blake-shelton-and-gwen-stefani': {
     title: 'Blake Shelton & Gwen Stefani: A Gemini and a Libra Who Found Each Other Through Divorce',
-    description: 'Blake Shelton is a Gemini. Gwen Stefani is a Libra. Air + Air scores 75/100 — both came out of high-profile divorces in 2015, met on The Voice, married 2021.',
+    description: 'Blake Shelton is a Gemini. Gwen Stefani is a Libra. Air + Air rates A tier — both came out of high-profile divorces in 2015, met on The Voice, married 2021.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Gemini', sign2: 'Libra',
     compatLink: '/compatibility/gemini-and-libra',
     intro: 'Blake Shelton (Gemini, June 12, 1976) and Gwen Stefani (Libra, October 3, 1969) both went through high-profile divorces in 2015 — Blake from Miranda Lambert, Gwen from Gavin Rossdale. They met as coaches on The Voice. They began dating that fall. They married in July 2021 on his ranch in Oklahoma.',
     sections: [
       { heading: 'Two Air Signs Who Made Each Other Laugh', paragraphs: ['Gemini and Libra are both Air signs with strong social intelligence and a natural ease in communication. Both people tend to lead with charm, to connect through humor and conversation, and to be genuinely good in the social situations that public life requires. The pairing was, on paper, natural from the start.', 'Blake\'s Gemini is in the country music charisma — the irreverence, the humor, the ability to move between the authentic country boy persona and the polished television host without losing the thread of who he is. Gwen\'s Libra is in the aesthetic: No Doubt, the fashion, the beauty business, and the particular Libra grace of making everything she touches look considered.'] },
-      { heading: 'Air + Air — 75/100', paragraphs: ['Two Air signs produce genuine rapport in communication and shared social energy. The 75/100 reflects that this pairing works well at the level of connection, humor, and mutual enjoyment of the other person\'s company — which is, fundamentally, a good foundation.', 'They have spoken publicly about the role The Voice played in their connection — the proximity, the shared experience of difficult personal circumstances, and the laughter that apparently characterized their early friendship. A Gemini and a Libra finding each other through shared laughter is very much on-brand for both signs.' ] },
+      { heading: 'Air + Air — A tier', paragraphs: ['Two Air signs produce genuine rapport in communication and shared social energy. The A tier reflects that this pairing works well at the level of connection, humor, and mutual enjoyment of the other person\'s company — which is, fundamentally, a good foundation.', 'They have spoken publicly about the role The Voice played in their connection — the proximity, the shared experience of difficult personal circumstances, and the laughter that apparently characterized their early friendship. A Gemini and a Libra finding each other through shared laughter is very much on-brand for both signs.' ] },
     ],
     faqs: [
       { question: 'What is Blake Shelton\'s zodiac sign?', answer: 'Blake Shelton is a Gemini, born June 12, 1976. Gemini is an Air sign known for wit, social adaptability, the ease of moving between different registers of public and private life, and a genuine humor that connects rather than deflects.' },
       { question: 'What is Gwen Stefani\'s zodiac sign?', answer: 'Gwen Stefani is a Libra, born October 3, 1969. Libra is an Air sign known for aesthetic intelligence, social grace, the capacity to make beauty out of whatever context she\'s in, and a genuine warmth in partnership.' },
-      { question: 'Are Blake Shelton and Gwen Stefani compatible?', answer: 'Gemini + Libra is an Air + Air pairing that scores 75/100. Two signs with strong social intelligence, shared humor, and a genuine ease in each other\'s company produce a pairing that tends to stay because being together is genuinely fun — which is more durable than it sounds.' },
+      { question: 'Are Blake Shelton and Gwen Stefani compatible?', answer: 'Gemini + Libra is an Air + Air pairing that rates A tier. Two signs with strong social intelligence, shared humor, and a genuine ease in each other\'s company produce a pairing that tends to stay because being together is genuinely fun — which is more durable than it sounds.' },
     ],
     related: ['gemini-in-love', 'libra-in-love', 'marilyn-monroe-and-arthur-miller'],
   },
 
   'tom-hanks-and-rita-wilson': {
     title: 'Tom Hanks & Rita Wilson: A Cancer and a Libra Who Make Quiet Look Right',
-    description: 'Tom Hanks is a Cancer. Rita Wilson is a Libra. Water + Air scores 55/100 — married 1988, four children between them, one of Hollywood\'s most genuinely steady marriages.',
+    description: 'Tom Hanks is a Cancer. Rita Wilson is a Libra. Water + Air rates C tier — married 1988, four children between them, one of Hollywood\'s most genuinely steady marriages.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Cancer', sign2: 'Libra',
     compatLink: '/compatibility/cancer-and-libra',
@@ -2344,52 +2162,52 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Tom Hanks\'s zodiac sign?', answer: 'Tom Hanks is a Cancer, born July 9, 1956. Cancer is a Water sign known for warmth, emotional intelligence, the protection of interior life, and a genuine goodness that is difficult to perform convincingly and easier to read as simply being real.' },
       { question: 'What is Rita Wilson\'s zodiac sign?', answer: 'Rita Wilson is a Libra, born October 26, 1956. Libra is an Air sign known for grace, aesthetic investment, genuine partnership as a value, and the ability to manage public life with warmth and fairness that makes difficult things look effortless.' },
-      { question: 'Are Tom Hanks and Rita Wilson compatible?', answer: 'Cancer + Libra is a Water + Air pairing that scores 55/100. The 36-year marriage suggests the pairing is more workable than the score implies — Cancer\'s emotional depth and Libra\'s social grace, when both people genuinely commit to the interior of the relationship, produce something that simply continues.' },
+      { question: 'Are Tom Hanks and Rita Wilson compatible?', answer: 'Cancer + Libra is a Water + Air pairing that rates C tier. The 36-year marriage suggests the pairing is more workable than the score implies — Cancer\'s emotional depth and Libra\'s social grace, when both people genuinely commit to the interior of the relationship, produce something that simply continues.' },
     ],
     related: ['cancer-in-love', 'libra-in-love', 'goldie-hawn-and-kurt-russell'],
   },
 
   'chip-and-joanna-gaines': {
     title: 'Chip & Joanna Gaines: A Scorpio and an Aries Who Built an Empire From a Dream',
-    description: 'Chip Gaines is a Scorpio. Joanna Gaines is an Aries. Water + Fire scores 55/100 — married 2003, five children, Magnolia Network, Waco\'s most famous couple.',
+    description: 'Chip Gaines is a Scorpio. Joanna Gaines is an Aries. Water + Fire rates C tier — married 2003, five children, Magnolia Network, Waco\'s most famous couple.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Aries', sign2: 'Scorpio',
     compatLink: '/compatibility/aries-and-scorpio',
     intro: 'Chip Gaines (Scorpio, November 14, 1974) and Joanna Gaines (Aries, April 19, 1978) married in 2003 after meeting at her father\'s auto shop. They launched Fixer Upper on HGTV in 2013, became one of America\'s most popular television couples, expanded into the Magnolia brand (retail, media, real estate), and have five children. They are the best-known couple in the home renovation space.',
     sections: [
       { heading: 'Scorpio and Aries: Both Ruled by Mars', paragraphs: ['Before modern astrology, both Aries and Scorpio were ruled by Mars — the planet of drive, ambition, and decisive action. That shared Martian energy creates an unusual affinity between two signs that appear very different. Aries is direct, fast-moving, and animated by the new. Scorpio is deep, strategic, and animated by what is real beneath the surface.', 'Chip\'s Scorpio is in the persistence — the real estate deals that looked like gambles and weren\'t, the humor that is characteristic Scorpio dark wit, and the loyalty to the project they\'ve been building together across two decades. Joanna\'s Aries is in the design vision — the confidence, the willingness to begin, and the restless energy that keeps generating new directions for Magnolia.'] },
-      { heading: 'Fire + Water — 55/100', paragraphs: ['Fire and Water are attracted to each other and require each other\'s management. Aries\'s directness and momentum need Scorpio\'s depth and strategic patience; Scorpio\'s intensity needs Aries\'s forward motion and willingness to act. The 55/100 reflects the real friction alongside the genuine complementarity.', 'What\'s notable about Chip and Joanna is that their professional partnership is the engine — the television show, the brand, the network, the retail — and their marriage is the context. Two people who are genuinely good at making things together tend to have a durability in the relationship that comes from shared mission. Aries and Scorpio, both driven by Mars, can direct that drive toward a common project and sustain it for a very long time.' ] },
+      { heading: 'Fire + Water — C tier', paragraphs: ['Fire and Water are attracted to each other and require each other\'s management. Aries\'s directness and momentum need Scorpio\'s depth and strategic patience; Scorpio\'s intensity needs Aries\'s forward motion and willingness to act. The C tier reflects the real friction alongside the genuine complementarity.', 'What\'s notable about Chip and Joanna is that their professional partnership is the engine — the television show, the brand, the network, the retail — and their marriage is the context. Two people who are genuinely good at making things together tend to have a durability in the relationship that comes from shared mission. Aries and Scorpio, both driven by Mars, can direct that drive toward a common project and sustain it for a very long time.' ] },
     ],
     faqs: [
       { question: 'What is Chip Gaines\'s zodiac sign?', answer: 'Chip Gaines is a Scorpio, born November 14, 1974. Scorpio is a Water sign known for strategic depth, persistence, dark humor, loyalty to what\'s been built, and a drive that comes from a very different place than Aries but arrives at the same level of intensity.' },
       { question: 'What is Joanna Gaines\'s zodiac sign?', answer: 'Joanna Gaines is an Aries, born April 19, 1978. Aries is a Fire sign known for design confidence, the willingness to begin things before others see the possibility, directness, and the entrepreneurial instinct to keep generating new directions.' },
-      { question: 'Are Chip and Joanna Gaines compatible?', answer: 'Aries + Scorpio is a Fire + Water pairing that scores 55/100. Both signs are co-ruled by Mars, which creates a particular kind of shared intensity — when that intensity is directed toward a shared project rather than at each other, the result can be genuinely productive across a very long timeline.' },
+      { question: 'Are Chip and Joanna Gaines compatible?', answer: 'Aries + Scorpio is a Fire + Water pairing that rates C tier. Both signs are co-ruled by Mars, which creates a particular kind of shared intensity — when that intensity is directed toward a shared project rather than at each other, the result can be genuinely productive across a very long timeline.' },
     ],
     related: ['aries-in-love', 'scorpio-in-love', 'kourtney-kardashian-and-travis-barker'],
   },
 
   'elton-john-and-david-furnish': {
     title: 'Elton John & David Furnish: An Aries and a Scorpio Who Made History Together',
-    description: 'Elton John is an Aries. David Furnish is a Scorpio. Fire + Water scores 55/100 — civil partnered 2005, married 2014. Partners in music, family, and philanthropy for over 30 years.',
+    description: 'Elton John is an Aries. David Furnish is a Scorpio. Fire + Water rates C tier — civil partnered 2005, married 2014. Partners in music, family, and philanthropy for over 30 years.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Aries', sign2: 'Scorpio',
     compatLink: '/compatibility/aries-and-scorpio',
     intro: 'Elton John (Aries, March 25, 1947) and David Furnish (Scorpio, October 25, 1962) met at a dinner party in 1993. They entered a civil partnership in December 2005 — the first day the UK Civil Partnership Act allowed it — and legally married in December 2014. They have two sons via surrogate — Zachary and Elijah.',
     sections: [
-      { heading: 'Aries and Scorpio: Both Ruled by Mars', paragraphs: ['Aries and Scorpio share a planetary ruler — Mars — which creates an unusual resonance between two signs that otherwise operate very differently. Aries is the fire of Mars: immediate, expressive, forward. Scorpio is the depth of Mars: controlled, strategic, committed. Together, the shared intensity is real.', 'Elton\'s Aries is total — the career built on spectacular immediacy, the performative generosity, the 30-year retirement announcement that lasted three years, the complete refusal to be anything other than entirely himself in every context. David\'s Scorpio is in the film producing career, the directorial work on biographical films about Elton, and the consistent, private presence he has maintained beside one of the loudest personalities in music.' ] },
+      { heading: 'Aries and Scorpio: Both Tied to Mars', paragraphs: ['Aries and Scorpio share Mars, Aries’ ruler and Scorpio’s traditional one, which creates an unusual resonance between two signs that otherwise operate very differently. Aries is the fire of Mars: immediate, expressive, forward. Scorpio is the depth of Mars: controlled, strategic, committed. Together, the shared intensity is real.', 'Elton\'s Aries is total — the career built on spectacular immediacy, the performative generosity, the 30-year retirement announcement that lasted three years, the complete refusal to be anything other than entirely himself in every context. David\'s Scorpio is in the film producing career, the directorial work on biographical films about Elton, and the consistent, private presence he has maintained beside one of the loudest personalities in music.' ] },
       { heading: 'Thirty Years', paragraphs: ['They have been together since 1993 — 30 years. The Elton John AIDS Foundation, which David chairs, has raised over $600 million. Their public life has always been organized around the work alongside the relationship. An Aries who found a Scorpio willing to channel shared drive toward a common mission, and a Scorpio who found an Aries worth committing to fully: that\'s the long version.' ] },
     ],
     faqs: [
       { question: 'What is Elton John\'s zodiac sign?', answer: 'Elton John is an Aries, born March 25, 1947. Aries is a Fire sign known for expressive immediacy, performative generosity, the refusal to be contained, and an honesty about identity that has, over a 50-year career, never wavered.' },
       { question: 'What is David Furnish\'s zodiac sign?', answer: 'David Furnish is a Scorpio, born October 25, 1962. Scorpio is a Water sign known for strategic depth, commitment to shared mission, and the kind of loyalty that manifests in decades of consistent presence rather than declaration.' },
-      { question: 'Are Elton John and David Furnish compatible?', answer: 'Aries + Scorpio is a Fire + Water pairing that scores 55/100. Both signs share the Mars planetary ruler, which creates a shared intensity that can be directed toward a common mission — as their foundation work demonstrates across three decades.' },
+      { question: 'Are Elton John and David Furnish compatible?', answer: 'Aries + Scorpio is a Fire + Water pairing that rates C tier. Both signs share the Mars planetary ruler, which creates a shared intensity that can be directed toward a common mission — as their foundation work demonstrates across three decades.' },
     ],
     related: ['aries-in-love', 'scorpio-in-love', 'kourtney-kardashian-and-travis-barker'],
   },
 
   'pink-and-carey-hart': {
     title: 'Pink & Carey Hart: A Virgo and a Cancer Who Keep Choosing Each Other',
-    description: 'Pink is a Virgo. Carey Hart is a Cancer. Earth + Water scores 70/100 — married 2006, separated briefly, reconciled, two children. One of rock\'s most honest love stories.',
+    description: 'Pink is a Virgo. Carey Hart is a Cancer. Earth + Water rates S tier — married 2006, separated briefly, reconciled, two children. One of rock\'s most honest love stories.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Cancer', sign2: 'Virgo',
     compatLink: '/compatibility/cancer-and-virgo',
@@ -2401,14 +2219,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Pink\'s zodiac sign?', answer: 'Pink is a Virgo, born September 8, 1979. Virgo is an Earth sign known for precision, emotional directness expressed through craft, the belief that love requires ongoing work rather than original feeling, and a commitment that doesn\'t need to look easy to be real.' },
       { question: 'What is Carey Hart\'s zodiac sign?', answer: 'Carey Hart is a Cancer, born July 3, 1975. Cancer is a Water sign known for family loyalty, the desire to protect what matters, and a nurturing presence that shows up consistently over time.' },
-      { question: 'Are Pink and Carey Hart compatible?', answer: 'Cancer + Virgo is a Water + Earth pairing that scores 70/100. The natural compatibility of these signs — emotional depth meeting practical care — is reflected in a relationship that survived separation and chose to rebuild.' },
+      { question: 'Are Pink and Carey Hart compatible?', answer: 'Cancer + Virgo is a Water + Earth pairing that rates S tier. The natural compatibility of these signs — emotional depth meeting practical care — is reflected in a relationship that survived separation and chose to rebuild.' },
     ],
     related: ['virgo-in-love', 'cancer-in-love', 'priyanka-chopra-and-nick-jonas'],
   },
 
   'kristen-bell-and-dax-shepard': {
     title: 'Kristen Bell & Dax Shepard: A Cancer and a Capricorn Who Are Honest About All of It',
-    description: 'Kristen Bell is a Cancer. Dax Shepard is a Capricorn. Water + Earth scores 75/100 — married 2013, two daughters, and the most publicly honest marriage in Hollywood.',
+    description: 'Kristen Bell is a Cancer. Dax Shepard is a Capricorn. Water + Earth rates S tier — married 2013, two daughters, and the most publicly honest marriage in Hollywood.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Cancer', sign2: 'Capricorn',
     compatLink: '/compatibility/cancer-and-capricorn',
@@ -2419,14 +2237,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Kristen Bell\'s zodiac sign?', answer: 'Kristen Bell is a Cancer, born July 18, 1980. Cancer is a Water sign known for warmth, emotional honesty, the fierce protection of family, and an openness about vulnerability that makes the warmth feel genuine rather than performed.' },
       { question: 'What is Dax Shepard\'s zodiac sign?', answer: 'Dax Shepard is a Capricorn, born January 2, 1975. Capricorn is an Earth sign known for the long-term project of recovery and self-accountability, commitment to building something substantial, and the willingness to be publicly honest about failure as part of the larger work.' },
-      { question: 'Are Kristen Bell and Dax Shepard compatible?', answer: 'Cancer + Capricorn is a Water + Earth opposite-sign pairing that scores 75/100. Cancer and Capricorn opposites often produce the most grounded partnerships — each person offering what the other needs most.' },
+      { question: 'Are Kristen Bell and Dax Shepard compatible?', answer: 'Cancer + Capricorn is a Water + Earth opposite-sign pairing that rates S tier. Cancer and Capricorn opposites often produce the most grounded partnerships — each person offering what the other needs most.' },
     ],
     related: ['cancer-in-love', 'capricorn-in-love', 'kate-and-prince-william'],
   },
 
   'penelope-cruz-and-javier-bardem': {
     title: 'Penélope Cruz & Javier Bardem: A Taurus and a Pisces Who Found Each Other Late',
-    description: 'Penélope Cruz is a Taurus. Javier Bardem is a Pisces. Earth + Water scores 70/100 — they\'d known each other for years before falling in love. Married 2010.',
+    description: 'Penélope Cruz is a Taurus. Javier Bardem is a Pisces. Earth + Water rates S tier — they\'d known each other for years before falling in love. Married 2010.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Taurus', sign2: 'Pisces',
     compatLink: '/compatibility/taurus-and-pisces',
@@ -2437,14 +2255,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Penélope Cruz\'s zodiac sign?', answer: 'Penélope Cruz is a Taurus, born April 28, 1974. Taurus is an Earth sign known for commitment to craft, sensory intelligence, the steady accumulation of a career built on quality, and a loyalty in relationship that matches the loyalty to the work.' },
       { question: 'What is Javier Bardem\'s zodiac sign?', answer: 'Javier Bardem is a Pisces, born March 1, 1969. Pisces is a Water sign known for empathic range, the ability to disappear into a role, emotional depth, and the capacity to love with a fullness that doesn\'t require the love to be performed.' },
-      { question: 'Are Penélope Cruz and Javier Bardem compatible?', answer: 'Taurus + Pisces is an Earth + Water pairing that scores 70/100. Earth anchors Water; Water enriches Earth. Both signs committed to craft and to each other produces one of the quietly durable pairings in contemporary cinema.' },
+      { question: 'Are Penélope Cruz and Javier Bardem compatible?', answer: 'Taurus + Pisces is an Earth + Water pairing that rates S tier. Earth anchors Water; Water enriches Earth. Both signs committed to craft and to each other produces one of the quietly durable pairings in contemporary cinema.' },
     ],
     related: ['taurus-in-love', 'pisces-in-love', 'goldie-hawn-and-kurt-russell'],
   },
 
   'paul-mccartney-and-linda-mccartney': {
     title: 'Paul McCartney & Linda McCartney: A Gemini and a Libra Who Were Rarely Apart',
-    description: 'Paul McCartney is a Gemini. Linda McCartney was a Libra. Air + Air scores 75/100 — married 1969, never spent a night apart by choice. She died of cancer in 1998.',
+    description: 'Paul McCartney is a Gemini. Linda McCartney was a Libra. Air + Air rates A tier — married 1969, never spent a night apart by choice. She died of cancer in 1998.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Gemini', sign2: 'Libra',
     compatLink: '/compatibility/gemini-and-libra',
@@ -2456,14 +2274,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Paul McCartney\'s zodiac sign?', answer: 'Paul McCartney is a Gemini, born June 18, 1942. Gemini is an Air sign known for creative range, songwriting that can span genres and decades, the social ease that made the Beatles possible, and a genuine need for partnership in the creative process.' },
       { question: 'What is Linda McCartney\'s zodiac sign?', answer: 'Linda McCartney was a Libra, born September 24, 1941. Libra is an Air sign known for aesthetic vision, the creation of genuine creative partnership, and the deep investment in the shared world that made her choice to join Wings — despite not being a musician — a Libra act of total commitment.' },
-      { question: 'Were Paul and Linda McCartney compatible?', answer: 'Gemini + Libra is an Air + Air pairing that scores 75/100. Two Air signs who built one creative and personal world together and chose never to spend a night apart across 30 years: the score understates what was there.' },
+      { question: 'Were Paul and Linda McCartney compatible?', answer: 'Gemini + Libra is an Air + Air pairing that rates A tier. Two Air signs who built one creative and personal world together and chose never to spend a night apart across 30 years: the score understates what was there.' },
     ],
     related: ['gemini-in-love', 'libra-in-love', 'john-lennon-and-yoko-ono'],
   },
 
   'justin-timberlake-and-jessica-biel': {
     title: 'Justin Timberlake & Jessica Biel: An Aquarius and a Pisces',
-    description: 'Justin Timberlake is an Aquarius. Jessica Biel is a Pisces. Air + Water scores 50/100 — married 2012, one son, navigating the complications of public life.',
+    description: 'Justin Timberlake is an Aquarius. Jessica Biel is a Pisces. Air + Water rates C tier — married 2012, one son, navigating the complications of public life.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Aquarius', sign2: 'Pisces',
     compatLink: '/compatibility/aquarius-and-pisces',
@@ -2474,14 +2292,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Justin Timberlake\'s zodiac sign?', answer: 'Justin Timberlake is an Aquarius, born January 31, 1981. Aquarius is an Air sign known for creative independence, the construction of a multi-decade career through constant reinvention, social intelligence, and a self-definition that maintains its center regardless of external context.' },
       { question: 'What is Jessica Biel\'s zodiac sign?', answer: 'Jessica Biel is a Pisces, born March 3, 1982. Pisces is a Water sign known for emotional depth, the capacity to absorb and process difficulty without externalizing it, and a loyalty that tends to outlast the conditions that test it.' },
-      { question: 'Are Justin Timberlake and Jessica Biel compatible?', answer: 'Aquarius + Pisces is an Air + Water pairing that scores 50/100. The 50/100 reflects real elemental differences; the sustained partnership across 15 years of marriage suggests both people have found a workable center within those differences.' },
+      { question: 'Are Justin Timberlake and Jessica Biel compatible?', answer: 'Aquarius + Pisces is an Air + Water pairing that rates C tier. The C tier reflects real elemental differences; the sustained partnership across 15 years of marriage suggests both people have found a workable center within those differences.' },
     ],
     related: ['aquarius-in-love', 'pisces-in-love', 'harry-styles-and-olivia-wilde'],
   },
 
   'kanye-west-and-bianca-censori': {
     title: 'Kanye West & Bianca Censori: A Gemini and a Capricorn',
-    description: 'Kanye West is a Gemini. Bianca Censori is a Capricorn. Air + Earth scores 45/100 — they married in a private ceremony in January 2023, months after his divorce from Kim was finalized.',
+    description: 'Kanye West is a Gemini. Bianca Censori is a Capricorn. Air + Earth rates C tier — they married in a private ceremony in January 2023, months after his divorce from Kim was finalized.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Gemini', sign2: 'Capricorn',
     compatLink: '/compatibility/gemini-and-capricorn',
@@ -2492,14 +2310,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Kanye West\'s zodiac sign?', answer: 'Kanye West is a Gemini, born June 8, 1977. Gemini is an Air sign known for creative range, rapid movement between registers and personas, the multiplicity that makes him both one of music\'s most influential figures and one of its most difficult to categorize.' },
       { question: 'What is Bianca Censori\'s zodiac sign?', answer: 'Bianca Censori is a Capricorn, born January 5, 1995. Capricorn is an Earth sign known for architectural thinking, the preference for craft over celebrity, and a tendency to build and inhabit a world deliberately rather than reactively.' },
-      { question: 'Are Kanye and Bianca compatible?', answer: 'Gemini + Capricorn is an Air + Earth pairing that scores 45/100. The elemental difference is real; the relationship is too new and too privately held for a fuller astrological reading to be meaningful.' },
+      { question: 'Are Kanye and Bianca compatible?', answer: 'Gemini + Capricorn is an Air + Earth pairing that rates C tier. The elemental difference is real; the relationship is too new and too privately held for a fuller astrological reading to be meaningful.' },
     ],
     related: ['gemini-in-love', 'capricorn-in-love', 'kim-kardashian-and-kanye-west'],
   },
 
   'rafael-nadal-and-xisca-perello': {
     title: 'Rafael Nadal & Xisca Perelló: A Gemini and a Sagittarius',
-    description: 'Rafael Nadal is a Gemini. Xisca Perelló is a Sagittarius. Air + Fire scores 65/100 — together since 2005, married 2019, one son. She stayed out of the spotlight entirely.',
+    description: 'Rafael Nadal is a Gemini. Xisca Perelló is a Sagittarius. Air + Fire rates S tier — together since 2005, married 2019, one son. She stayed out of the spotlight entirely.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Gemini', sign2: 'Sagittarius',
     compatLink: '/compatibility/gemini-and-sagittarius',
@@ -2510,14 +2328,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Rafael Nadal\'s zodiac sign?', answer: 'Rafael Nadal is a Gemini, born June 3, 1986. Gemini is an Air sign known for mental adaptability, the ability to develop game for multiple surfaces, and the particular charm that comes from being both fiercely competitive and genuinely warm.' },
       { question: 'What is Xisca Perelló\'s zodiac sign?', answer: 'Xisca Perelló is a Sagittarius, born December 19, 1988. Sagittarius is a Fire sign known for philosophical independence, the willingness to build a life on their own terms, and the grounding directness that can be the quiet center of a high-pressure partnership.' },
-      { question: 'Are Rafael Nadal and Xisca Perelló compatible?', answer: 'Gemini + Sagittarius is an opposite-sign Air + Fire pairing that scores 65/100. The magnetic attraction of opposites — Gemini\'s range meeting Sagittarius\'s direction — and Xisca\'s deliberate choice to maintain her own independent life produced one of sport\'s most functional partnerships.' },
+      { question: 'Are Rafael Nadal and Xisca Perelló compatible?', answer: 'Gemini + Sagittarius is an opposite-sign Air + Fire pairing that rates S tier. The magnetic attraction of opposites — Gemini\'s range meeting Sagittarius\'s direction — and Xisca\'s deliberate choice to maintain her own independent life produced one of sport\'s most functional partnerships.' },
     ],
     related: ['gemini-in-love', 'sagittarius-in-love', 'marilyn-monroe-and-joe-dimaggio'],
   },
 
   'roger-federer-and-mirka-federer': {
     title: 'Roger Federer & Mirka Federer: A Leo and an Aries Who Won Together',
-    description: 'Roger Federer is a Leo. Mirka Federer is an Aries. Fire + Fire scores 65/100 — met at the 2000 Sydney Olympics, married 2009, four children. She was there for every match.',
+    description: 'Roger Federer is a Leo. Mirka Federer is an Aries. Fire + Fire rates A tier — met at the 2000 Sydney Olympics, married 2009, four children. She was there for every match.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Aries', sign2: 'Leo',
     compatLink: '/compatibility/aries-and-leo',
@@ -2528,33 +2346,33 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Roger Federer\'s zodiac sign?', answer: 'Roger Federer is a Leo, born August 8, 1981. Leo is a Fire sign known for grace under the spotlight, the expectation of excellence as a baseline, and a warmth that makes even a fiercely competitive person genuinely well-liked.' },
       { question: 'What is Mirka Federer\'s zodiac sign?', answer: 'Mirka Federer is an Aries, born April 1, 1978. Aries is a Fire sign known for drive, the willingness to commit to a vision fully, and the capacity to redirect ambition into new forms when the original form is no longer available.' },
-      { question: 'Are Roger and Mirka Federer compatible?', answer: 'Aries + Leo is a Fire + Fire pairing that scores 65/100. Two Fire signs with a shared understanding of elite sport, built from Mirka\'s own playing career, produced a partnership where both people brought their full intensity to the shared project.' },
+      { question: 'Are Roger and Mirka Federer compatible?', answer: 'Aries + Leo is a Fire + Fire pairing that rates A tier. Two Fire signs with a shared understanding of elite sport, built from Mirka\'s own playing career, produced a partnership where both people brought their full intensity to the shared project.' },
     ],
     related: ['leo-in-love', 'aries-in-love', 'steph-and-ayesha-curry'],
   },
 
   'king-charles-and-camilla': {
     title: 'King Charles III & Queen Camilla: A Scorpio and a Cancer Who Waited Decades',
-    description: 'King Charles is a Scorpio. Queen Camilla is a Cancer. Water + Water scores 80/100 — they met in 1970, have been in love for most of their adult lives, and finally married in 2005.',
+    description: 'King Charles is a Scorpio. Queen Camilla is a Cancer. Water + Water rates A tier — they met in 1970, have been in love for most of their adult lives, and finally married in 2005.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Cancer', sign2: 'Scorpio',
     compatLink: '/compatibility/cancer-and-scorpio',
     intro: 'King Charles III (Scorpio, November 14, 1948) and Queen Camilla (Cancer, July 17, 1947) met at a polo match in 1970. They have been linked for most of the intervening half-century, though both married others — Charles to Princess Diana in 1981, Camilla to Andrew Parker Bowles in 1973. They married each other on April 9, 2005. Their relationship was, for decades, one of the most scrutinized in the world.',
     sections: [
       { heading: 'Scorpio and Cancer: The Half-Century Love Story', paragraphs: ['Scorpio and Cancer are both Water signs — both emotionally deep, both oriented toward what is real beneath the surface, and both capable of long attachments that survive distance, circumstance, and decades of separation. The story of Charles and Camilla is, in astrological terms, a Water + Water story: the depth of the original connection never fully dissolved, even across marriages to other people.', 'Charles\'s Scorpio is in the particular quality of his devotion — private, sustained, and in no way diminished by public pressure or the expectations of others. Camilla\'s Cancer is in the warmth she has brought to her public role and in the steadiness of a woman who waited decades for a relationship that was always going to find its form eventually.' ] },
-      { heading: 'Water + Water — 80/100', paragraphs: ['Two Water signs who have genuinely loved each other across five decades represent one of astrology\'s clearest examples of what depth means when it\'s real. The 80/100 reflects the natural resonance of Cancer and Scorpio; the five decades reflect what that resonance looks like in practice, over time, against significant opposition.', 'The shadow of Princess Diana\'s marriage and death is part of this story\'s public meaning, and can\'t be separated from any honest account. Charles and Camilla have lived with that weight. What they\'ve built since 2005 — and particularly since the death of Queen Elizabeth and Charles\'s accession — appears to be a genuine partnership of both private life and public duty.' ] },
+      { heading: 'Water + Water — A tier', paragraphs: ['Two Water signs who have genuinely loved each other across five decades represent one of astrology\'s clearest examples of what depth means when it\'s real. The A tier reflects the natural resonance of Cancer and Scorpio; the five decades reflect what that resonance looks like in practice, over time, against significant opposition.', 'The shadow of Princess Diana\'s marriage and death is part of this story\'s public meaning, and can\'t be separated from any honest account. Charles and Camilla have lived with that weight. What they\'ve built since 2005 — and particularly since the death of Queen Elizabeth and Charles\'s accession — appears to be a genuine partnership of both private life and public duty.' ] },
     ],
     faqs: [
       { question: 'What is King Charles III\'s zodiac sign?', answer: 'King Charles III is a Scorpio, born November 14, 1948. Scorpio is a Water sign known for deep, private feeling; sustained attachment that doesn\'t require public validation; and the kind of loyalty that holds across decades and circumstances.' },
       { question: 'What is Queen Camilla\'s zodiac sign?', answer: 'Queen Camilla is a Cancer, born July 17, 1947. Cancer is a Water sign known for warmth, fierce loyalty, the capacity to wait for what is right rather than settling for what is available, and the ability to make any role feel genuinely inhabited rather than performed.' },
-      { question: 'Are Charles and Camilla compatible?', answer: 'Cancer + Scorpio is a Water + Water pairing that scores 80/100. Two people who have loved each other across 50 years, multiple other marriages, and sustained public opposition: the compatibility score is the smaller part of the story.' },
+      { question: 'Are Charles and Camilla compatible?', answer: 'Cancer + Scorpio is a Water + Water pairing that rates A tier. Two people who have loved each other across 50 years, multiple other marriages, and sustained public opposition: the compatibility score is the smaller part of the story.' },
     ],
     related: ['scorpio-in-love', 'cancer-in-love', 'princess-diana-and-prince-charles'],
   },
 
   'shawn-mendes-and-camila-cabello': {
     title: 'Shawn Mendes & Camila Cabello: A Leo and a Pisces in a Very Public Love Story',
-    description: 'Shawn Mendes is a Leo. Camila Cabello is a Pisces. Fire + Water scores 60/100 — friends for years before dating in 2019, broke up 2021, briefly reunited 2023.',
+    description: 'Shawn Mendes is a Leo. Camila Cabello is a Pisces. Fire + Water rates C tier — friends for years before dating in 2019, broke up 2021, briefly reunited 2023.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Leo', sign2: 'Pisces',
     compatLink: '/compatibility/leo-and-pisces',
@@ -2565,14 +2383,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Shawn Mendes\'s zodiac sign?', answer: 'Shawn Mendes is a Leo, born August 8, 1998. Leo is a Fire sign known for the need for genuine expression, the arena as a primary emotional context, warmth, and an authenticity in performance that comes from care rather than calculation.' },
       { question: 'What is Camila Cabello\'s zodiac sign?', answer: 'Camila Cabello is a Pisces, born March 3, 1997. Pisces is a Water sign known for autobiographical songwriting, emotional depth, empathic absorption of experience, and the tendency to process everything through the art eventually.' },
-      { question: 'Were Shawn Mendes and Camila Cabello compatible?', answer: 'Leo + Pisces is a Fire + Water pairing that scores 60/100. The genuine emotional connection between these two signs is real; the challenge of two high-demand careers at the same stage of explosive growth made the practical sustaining of the relationship difficult regardless of the compatibility.' },
+      { question: 'Were Shawn Mendes and Camila Cabello compatible?', answer: 'Leo + Pisces is a Fire + Water pairing that rates C tier. The genuine emotional connection between these two signs is real; the challenge of two high-demand careers at the same stage of explosive growth made the practical sustaining of the relationship difficult regardless of the compatibility.' },
     ],
     related: ['leo-in-love', 'pisces-in-love', 'joe-jonas-and-sophie-turner'],
   },
 
   'sabrina-carpenter-and-barry-keoghan': {
     title: 'Sabrina Carpenter & Barry Keoghan: An Aries and a Libra in Brief',
-    description: 'Sabrina Carpenter is an Aries. Barry Keoghan is a Libra. Fire + Air scores 65/100 — they dated through 2024, a high-visibility pairing in a year when both were having breakthrough cultural moments.',
+    description: 'Sabrina Carpenter is an Aries. Barry Keoghan is a Libra. Fire + Air rates S tier — they dated through 2024, a high-visibility pairing in a year when both were having breakthrough cultural moments.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Aries', sign2: 'Libra',
     compatLink: '/compatibility/aries-and-libra',
@@ -2583,14 +2401,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Sabrina Carpenter\'s zodiac sign?', answer: 'Sabrina Carpenter is an Aries, born April 11, 2000. Aries is a Fire sign known for directness, humor, comfort with visibility, and the particular energy of a person who knows who they are and doesn\'t modify it for context.' },
       { question: 'What is Barry Keoghan\'s zodiac sign?', answer: 'Barry Keoghan is a Libra, born October 18, 1992. Libra is an Air sign known for aesthetic intelligence, the capacity to inhabit very different roles with equal conviction, and a social grace that extends across contexts.' },
-      { question: 'Were Sabrina Carpenter and Barry Keoghan compatible?', answer: 'Aries + Libra is a Fire + Air opposite-sign pairing that scores 65/100. Opposite signs often have more in common than the difference suggests; a brief relationship between two people in the middle of significant career accelerations is its own kind of incompatibility regardless of sign.' },
+      { question: 'Were Sabrina Carpenter and Barry Keoghan compatible?', answer: 'Aries + Libra is a Fire + Air opposite-sign pairing that rates S tier. Opposite signs often have more in common than the difference suggests; a brief relationship between two people in the middle of significant career accelerations is its own kind of incompatibility regardless of sign.' },
     ],
     related: ['aries-in-love', 'libra-in-love', 'elton-john-and-david-furnish'],
   },
 
   'bill-clinton-and-hillary-clinton': {
     title: 'Bill Clinton & Hillary Clinton: A Leo and a Scorpio in the Longest Political Marriage',
-    description: 'Bill Clinton is a Leo. Hillary Clinton is a Scorpio. Fire + Water scores 60/100 — married 1975, survived impeachment, two presidential campaigns, and 50 years.',
+    description: 'Bill Clinton is a Leo. Hillary Clinton is a Scorpio. Fire + Water rates C tier — married 1975, survived impeachment, two presidential campaigns, and 50 years.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Leo', sign2: 'Scorpio',
     compatLink: '/compatibility/leo-and-scorpio',
@@ -2602,14 +2420,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Bill Clinton\'s zodiac sign?', answer: 'Bill Clinton is a Leo, born August 19, 1946. Leo is a Fire sign known for extraordinary performative charisma, natural political warmth, and a relationship with being seen that produces both the heights of political connection and its characteristic vulnerabilities.' },
       { question: 'What is Hillary Clinton\'s zodiac sign?', answer: 'Hillary Clinton is a Scorpio, born October 26, 1947. Scorpio is a Water sign known for strategic depth, extraordinary preparation, endurance through conditions that would break most people, and a commitment to mission that can sustain across decades of public difficulty.' },
-      { question: 'Are Bill and Hillary Clinton compatible?', answer: 'Leo + Scorpio is a Fire + Water pairing that scores 60/100. Two fixed signs with very different orientations — Leo\'s need for visibility and Scorpio\'s need for depth — can produce enormous friction and enormous productivity. Their 50-year partnership is both.' },
+      { question: 'Are Bill and Hillary Clinton compatible?', answer: 'Leo + Scorpio is a Fire + Water pairing that rates C tier. Two fixed signs with very different orientations — Leo\'s need for visibility and Scorpio\'s need for depth — can produce enormous friction and enormous productivity. Their 50-year partnership is both.' },
     ],
     related: ['leo-in-love', 'scorpio-in-love', 'barack-and-michelle-obama'],
   },
 
   'garth-brooks-and-trisha-yearwood': {
     title: 'Garth Brooks & Trisha Yearwood: An Aquarius and a Virgo Who Waited for the Right Time',
-    description: 'Garth Brooks is an Aquarius. Trisha Yearwood is a Virgo. Air + Earth scores 50/100 — friends and colleagues for a decade before falling in love. Married 2005.',
+    description: 'Garth Brooks is an Aquarius. Trisha Yearwood is a Virgo. Air + Earth rates C tier — friends and colleagues for a decade before falling in love. Married 2005.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Virgo', sign2: 'Aquarius',
     compatLink: '/compatibility/virgo-and-aquarius',
@@ -2620,33 +2438,33 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Garth Brooks\'s zodiac sign?', answer: 'Garth Brooks is an Aquarius, born February 7, 1962. Aquarius is an Air sign known for visionary scale, the willingness to make unconventional choices (including a decade-long retirement at the height of success), and genuine investment in his audience as a collective rather than an abstract market.' },
       { question: 'What is Trisha Yearwood\'s zodiac sign?', answer: 'Trisha Yearwood is a Virgo, born September 19, 1964. Virgo is an Earth sign known for technical precision, the craft-first approach to a career, and a consistency that doesn\'t require reinvention because the foundation is always solid.' },
-      { question: 'Are Garth Brooks and Trisha Yearwood compatible?', answer: 'Virgo + Aquarius is an Air + Earth pairing that scores 50/100. A decade of professional friendship before romance, mutual respect for each other\'s craft, and Garth\'s willingness to step back from his own career to support hers: these are the actual data points behind a pairing that works.' },
+      { question: 'Are Garth Brooks and Trisha Yearwood compatible?', answer: 'Virgo + Aquarius is an Air + Earth pairing that rates C tier. A decade of professional friendship before romance, mutual respect for each other\'s craft, and Garth\'s willingness to step back from his own career to support hers: these are the actual data points behind a pairing that works.' },
     ],
     related: ['aquarius-in-love', 'virgo-in-love', 'dolly-parton-and-carl-dean'],
   },
 
   'kurt-cobain-and-courtney-love': {
     title: 'Kurt Cobain & Courtney Love: A Pisces and a Cancer Who Burned at the Same Frequency',
-    description: 'Kurt Cobain was a Pisces. Courtney Love is a Cancer. Water + Water scores 80/100 — married 1992, daughter Frances Bean, Kurt died by suicide in April 1994.',
+    description: 'Kurt Cobain was a Pisces. Courtney Love is a Cancer. Water + Water rates A tier — married 1992, daughter Frances Bean, Kurt died by suicide in April 1994.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Cancer', sign2: 'Pisces',
     compatLink: '/compatibility/cancer-and-pisces',
     intro: 'Kurt Cobain (Pisces, February 20, 1967) and Courtney Love (Cancer, July 9, 1964) married on February 24, 1992, in Hawaii. They had a daughter, Frances Bean, in August 1992. Kurt died by suicide on April 5, 1994. He was 27. Their relationship — its love, its addiction, its creativity, and its tragedy — has been documented, debated, and mythologized in the years since.',
     sections: [
       { heading: 'Pisces and Cancer: Water at Full Intensity', paragraphs: ['Pisces is the sign that feels everything and has no natural off switch for the world\'s pain. Kurt\'s Pisces ran through Nirvana — the empathy in lyrics that described adolescent alienation with a precision that felt, to millions of listeners, like being finally understood. It also ran through the addiction and the depression: Pisces without adequate boundaries can absorb more of the world than any person is built to hold.', 'Cancer is the sign of fierce protectiveness — for family, for what it loves, for the people it has decided to keep close. Courtney\'s Cancer is in the music (Hole\'s Live Through This, released the week Kurt died, is one of the more remarkable coincidences in rock history), the ferocity of her public presence, and the lifelong protectiveness of Frances Bean.' ] },
-      { heading: 'Water + Water — 80/100', paragraphs: ['Two Water signs together have an emotional depth that most people only approximate. The 80/100 reflects the real resonance between Cancer and Pisces; the tragedy of their story is not a product of incompatibility but of a Pisces in a level of pain that love alone — even Cancer\'s fierce version of it — couldn\'t hold.', 'Courtney has spent the decades since Kurt\'s death in a public life of extraordinary complexity — the music, the legal battles over his estate, the care of their daughter. That\'s Cancer: the fierce protectiveness that continues even when the person it was directed toward is gone.' ] },
+      { heading: 'Water + Water — A tier', paragraphs: ['Two Water signs together have an emotional depth that most people only approximate. The A tier reflects the real resonance between Cancer and Pisces; the tragedy of their story is not a product of incompatibility but of a Pisces in a level of pain that love alone — even Cancer\'s fierce version of it — couldn\'t hold.', 'Courtney has spent the decades since Kurt\'s death in a public life of extraordinary complexity — the music, the legal battles over his estate, the care of their daughter. That\'s Cancer: the fierce protectiveness that continues even when the person it was directed toward is gone.' ] },
     ],
     faqs: [
       { question: 'What is Kurt Cobain\'s zodiac sign?', answer: 'Kurt Cobain was a Pisces, born February 20, 1967. Pisces is a Water sign known for extraordinary empathic range, creative sensitivity, the capacity to articulate collective feeling through art, and the particular vulnerability of a person who feels everything without adequate protection.' },
       { question: 'What is Courtney Love\'s zodiac sign?', answer: 'Courtney Love is a Cancer, born July 9, 1964. Cancer is a Water sign known for fierceness, protectiveness, a creative output that comes from deep personal experience, and the capacity to survive and continue even after the worst.' },
-      { question: 'Were Kurt Cobain and Courtney Love compatible?', answer: 'Cancer + Pisces is a Water + Water pairing that scores 80/100. The emotional resonance was real. The tragedy of their story is not a compatibility question but a human one — about pain, addiction, and the limits of what love can do in the face of illness.' },
+      { question: 'Were Kurt Cobain and Courtney Love compatible?', answer: 'Cancer + Pisces is a Water + Water pairing that rates A tier. The emotional resonance was real. The tragedy of their story is not a compatibility question but a human one — about pain, addiction, and the limits of what love can do in the face of illness.' },
     ],
     related: ['cancer-in-love', 'pisces-in-love', 'johnny-cash-and-june-carter-cash'],
   },
 
   'faith-hill-and-tim-mcgraw': {
     title: 'Faith Hill & Tim McGraw: A Virgo and a Taurus Who Are Country Music\'s Answer to Forever',
-    description: 'Faith Hill is a Virgo. Tim McGraw is a Taurus. Earth + Earth scores 75/100 — married 1996, three daughters, 30 years together and touring together.',
+    description: 'Faith Hill is a Virgo. Tim McGraw is a Taurus. Earth + Earth rates A tier — married 1996, three daughters, 30 years together and touring together.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Taurus', sign2: 'Virgo',
     compatLink: '/compatibility/taurus-and-virgo',
@@ -2657,14 +2475,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Faith Hill\'s zodiac sign?', answer: 'Faith Hill is a Virgo, born September 21, 1967. Virgo is an Earth sign known for vocal precision, the Virgo commitment to doing the work properly, and a sustained career built on consistency rather than reinvention.' },
       { question: 'What is Tim McGraw\'s zodiac sign?', answer: 'Tim McGraw is a Taurus, born May 1, 1967. Taurus is an Earth sign known for vocal richness, sustained excellence across a long career, physical presence, and the fixed commitment that makes 30 years of partnership unremarkable — in the best sense.' },
-      { question: 'Are Faith Hill and Tim McGraw compatible?', answer: 'Taurus + Virgo is an Earth + Earth trine pairing that scores 75/100. Two Earth signs who share a craft and a life, and have turned touring together into a 30-year ongoing project: the compatibility is written in the duration.' },
+      { question: 'Are Faith Hill and Tim McGraw compatible?', answer: 'Taurus + Virgo is an Earth + Earth trine pairing that rates A tier. Two Earth signs who share a craft and a life, and have turned touring together into a 30-year ongoing project: the compatibility is written in the duration.' },
     ],
     related: ['taurus-in-love', 'virgo-in-love', 'dolly-parton-and-carl-dean'],
   },
 
   'lucille-ball-and-desi-arnaz': {
     title: 'Lucille Ball & Desi Arnaz: A Leo and a Pisces Who Invented Television',
-    description: 'Lucille Ball was a Leo. Desi Arnaz was a Pisces. Fire + Water scores 60/100 — married 1940, divorced 1960, they created I Love Lucy and changed entertainment permanently.',
+    description: 'Lucille Ball was a Leo. Desi Arnaz was a Pisces. Fire + Water rates C tier — married 1940, divorced 1960, they created I Love Lucy and changed entertainment permanently.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Leo', sign2: 'Pisces',
     compatLink: '/compatibility/leo-and-pisces',
@@ -2676,14 +2494,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Lucille Ball\'s zodiac sign?', answer: 'Lucille Ball was a Leo, born August 6, 1911. Leo is a Fire sign known for physical comedy, the instinct for performance, the willingness to be seen in every register including the ridiculous, and the warmth that makes an audience love someone for decades.' },
       { question: 'What is Desi Arnaz\'s zodiac sign?', answer: 'Desi Arnaz was a Pisces, born March 2, 1917. Pisces is a Water sign known for musical empathy, creative intuition about what audiences want, the business intelligence that can come from understanding feeling, and a charm that is harder to analyze than to simply experience.' },
-      { question: 'Were Lucille Ball and Desi Arnaz compatible?', answer: 'Leo + Pisces is a Fire + Water pairing that scores 60/100. They created the infrastructure of modern television together and loved each other until the end of their lives; the divorce was the product of difficulty, not incompatibility.' },
+      { question: 'Were Lucille Ball and Desi Arnaz compatible?', answer: 'Leo + Pisces is a Fire + Water pairing that rates C tier. They created the infrastructure of modern television together and loved each other until the end of their lives; the divorce was the product of difficulty, not incompatibility.' },
     ],
     related: ['leo-in-love', 'pisces-in-love', 'jfk-and-jackie-kennedy'],
   },
 
   'chris-martin-and-dakota-johnson': {
     title: 'Chris Martin & Dakota Johnson: A Pisces and a Libra Who Found a Quiet Together',
-    description: 'Chris Martin is a Pisces. Dakota Johnson is a Libra. Water + Air scores 50/100 — together since 2017, private about it, maintaining parallel careers with apparent ease.',
+    description: 'Chris Martin is a Pisces. Dakota Johnson is a Libra. Water + Air rates C tier — together since 2017, private about it, maintaining parallel careers with apparent ease.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Libra', sign2: 'Pisces',
     compatLink: '/compatibility/libra-and-pisces',
@@ -2694,23 +2512,23 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Chris Martin\'s zodiac sign?', answer: 'Chris Martin is a Pisces, born March 2, 1977. Pisces is a Water sign known for emotionally transparent music, humanitarian investment, the capacity to fill stadiums while still feeling things with the same rawness as the first time, and a need for protected private space.' },
       { question: 'What is Dakota Johnson\'s zodiac sign?', answer: 'Dakota Johnson is a Libra, born October 4, 1989. Libra is an Air sign known for aesthetic intelligence, film choices that reflect genuine taste rather than commercial calculation, and a social grace that can inhabit both high-visibility and high-privacy contexts with equal ease.' },
-      { question: 'Are Chris Martin and Dakota Johnson compatible?', answer: 'Libra + Pisces is a Water + Air pairing that scores 50/100. Seven years of mutual privacy — from two very public people — suggests both have found something in the relationship worth protecting from the documentation that their careers otherwise require.' },
+      { question: 'Are Chris Martin and Dakota Johnson compatible?', answer: 'Libra + Pisces is a Water + Air pairing that rates C tier. Seven years of mutual privacy — from two very public people — suggests both have found something in the relationship worth protecting from the documentation that their careers otherwise require.' },
     ],
     related: ['pisces-in-love', 'libra-in-love', 'emily-blunt-and-john-krasinski'],
   },
 
   'kim-kardashian-and-pete-davidson': {
     title: 'Kim Kardashian & Pete Davidson: A Libra and a Scorpio Who Made Headlines',
-    description: 'Kim Kardashian is a Libra. Pete Davidson is a Scorpio. Air + Water scores 55/100 — they dated from late 2021 to August 2022. Nine months that fascinated the internet.',
+    description: 'Kim Kardashian is a Libra. Pete Davidson is a Scorpio. Air + Water rates C tier — they dated from late 2021 to August 2022. Nine months that fascinated the internet.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Libra', sign2: 'Scorpio',
     compatLink: '/compatibility/libra-and-scorpio',
     intro: 'Kim Kardashian (Libra, October 21, 1980) and Pete Davidson (Scorpio, November 16, 1993) began dating in November 2021, having met when Kim hosted Saturday Night Live. They dated for approximately nine months, broke up in August 2022, and have rarely spoken publicly about the relationship since.',
     sections: [
-      { heading: 'Libra and Scorpio: Adjacent Signs, Different Depths', paragraphs: ['Libra and Scorpio are adjacent in the zodiac — one sign apart — which creates a pairing with complementary qualities and real differences. Libra operates in the social world: image, aesthetics, balance, the management of public and private life through careful navigation. Scorpio operates in the emotional depths: the interior, the intense, the uncompromised feeling.', 'Kim\'s Libra brings the image-making intelligence that has built a global business; Pete\'s Scorpio brings the dark humor and emotional transparency that have made him one of comedy\'s most discussed figures. The attraction between these two orientations — the polished and the raw — is real. The sustained compatibility over time is where the 55/100 applies.' ] },
+      { heading: 'Libra and Scorpio: Adjacent Signs, Different Depths', paragraphs: ['Libra and Scorpio are adjacent in the zodiac — one sign apart — which creates a pairing with complementary qualities and real differences. Libra operates in the social world: image, aesthetics, balance, the management of public and private life through careful navigation. Scorpio operates in the emotional depths: the interior, the intense, the uncompromised feeling.', 'Kim\'s Libra brings the image-making intelligence that has built a global business; Pete\'s Scorpio brings the dark humor and emotional transparency that have made him one of comedy\'s most discussed figures. The attraction between these two orientations — the polished and the raw — is real. The sustained compatibility over time is where the C tier applies.' ] },
     ],
     faqs: [
-      { question: 'Are Kim Kardashian and Pete Davidson compatible?', answer: 'Libra + Scorpio is an Air + Water pairing that scores 55/100. Adjacent signs often have a complementary attraction — Libra\'s polish and Scorpio\'s rawness create a real dynamic. Nine months of a high-visibility relationship reflects both the attraction and its limits.' },
+      { question: 'Are Kim Kardashian and Pete Davidson compatible?', answer: 'Libra + Scorpio is an Air + Water pairing that rates C tier. Adjacent signs often have a complementary attraction — Libra\'s polish and Scorpio\'s rawness create a real dynamic. Nine months of a high-visibility relationship reflects both the attraction and its limits.' },
       { question: 'How long were Kim and Pete together?', answer: 'Approximately nine months, from November 2021 to August 2022.' },
       { question: 'What is Pete Davidson\'s zodiac sign?', answer: 'Pete Davidson is a Scorpio, born November 16, 1993. Scorpio is a Water sign known for emotional intensity, dark humor as a processing mechanism, a fierce loyalty to people they love, and attachments that can run very deep very quickly.' },
     ],
@@ -2719,7 +2537,7 @@ export const ARTICLES: Record<string, Article> = {
 
   'spencer-tracy-and-katharine-hepburn': {
     title: 'Spencer Tracy & Katharine Hepburn: An Aries and a Taurus Who Shared 26 Years',
-    description: 'Spencer Tracy was an Aries. Katharine Hepburn was a Taurus. Fire + Earth scores 55/100 — they never married (he was Catholic), but their relationship spanned 26 years, until his death in 1967.',
+    description: 'Spencer Tracy was an Aries. Katharine Hepburn was a Taurus. Fire + Earth rates B tier — they never married (he was Catholic), but their relationship spanned 26 years, until his death in 1967.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Aries', sign2: 'Taurus',
     compatLink: '/compatibility/aries-and-taurus',
@@ -2731,50 +2549,50 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Spencer Tracy\'s zodiac sign?', answer: 'Spencer Tracy was an Aries, born April 5, 1900. Aries is a Fire sign known for directness, physical presence, an acting style that looks like not-acting, and an honesty that doesn\'t know how to be otherwise.' },
       { question: 'What is Katharine Hepburn\'s zodiac sign?', answer: 'Katharine Hepburn was a Taurus, born May 12, 1907. Taurus is an Earth sign known for extraordinary sustained careers, the refusal to be defined by others\' expectations, loyalty to people and projects across decades, and the patience to stay in what is real even when it offers nothing official in return.' },
-      { question: 'Were Spencer Tracy and Katharine Hepburn compatible?', answer: 'Aries + Taurus is a Fire + Earth pairing that scores 55/100. They made nine films together and were together 26 years. The score reflects the adjacent-sign friction; the duration reflects what they actually were to each other.' },
+      { question: 'Were Spencer Tracy and Katharine Hepburn compatible?', answer: 'Aries + Taurus is a Fire + Earth pairing that rates B tier. They made nine films together and were together 26 years. The score reflects the adjacent-sign friction; the duration reflects what they actually were to each other.' },
     ],
     related: ['aries-in-love', 'taurus-in-love', 'paul-newman-and-joanne-woodward'],
   },
 
   'chris-pratt-and-katherine-schwarzenegger': {
     title: 'Chris Pratt & Katherine Schwarzenegger: A Cancer and a Sagittarius',
-    description: 'Chris Pratt is a Cancer. Katherine Schwarzenegger is a Sagittarius. Water + Fire scores 55/100 — married 2019, two daughters.',
+    description: 'Chris Pratt is a Cancer. Katherine Schwarzenegger is a Sagittarius. Water + Fire rates C tier — married 2019, two daughters.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Cancer', sign2: 'Sagittarius',
     compatLink: '/compatibility/cancer-and-sagittarius',
     intro: 'Chris Pratt (Cancer, June 21, 1979) and Katherine Schwarzenegger Pratt (Sagittarius, December 13, 1989) married in June 2019, after a brief public courtship. They have two daughters — Lyla and Eloise. Chris has spoken extensively about his faith, and Katherine has written books on personal growth and young adult wellness.',
     sections: [
-      { heading: 'Cancer and Sagittarius', paragraphs: ['Cancer wants home — the protective interior, the family structure, the reliable center. Sagittarius wants meaning and expansion — the philosophical quest, the freedom to grow. Chris\'s Cancer runs through his Marvel career (an actor who brings genuine warmth to roles that require likability) and his public faith. Katherine\'s Sagittarius is in the authorship and the advocacy work — expansive, directed toward others, philosophically grounded.', 'A Cancer who has built a stable family structure and a Sagittarius who has found purpose-driven work: when both people\'s needs are externally met, the internal dynamic tends to be more functional than the 55/100 would predict.'] },
+      { heading: 'Cancer and Sagittarius', paragraphs: ['Cancer wants home — the protective interior, the family structure, the reliable center. Sagittarius wants meaning and expansion — the philosophical quest, the freedom to grow. Chris\'s Cancer runs through his Marvel career (an actor who brings genuine warmth to roles that require likability) and his public faith. Katherine\'s Sagittarius is in the authorship and the advocacy work — expansive, directed toward others, philosophically grounded.', 'A Cancer who has built a stable family structure and a Sagittarius who has found purpose-driven work: when both people\'s needs are externally met, the internal dynamic tends to be more functional than the C tier would predict.'] },
     ],
     faqs: [
       { question: 'What is Chris Pratt\'s zodiac sign?', answer: 'Chris Pratt is a Cancer, born June 21, 1979. Cancer is a Water sign known for warmth, family-first orientation, and a screen presence built on genuine likability.' },
       { question: 'What is Katherine Schwarzenegger\'s zodiac sign?', answer: 'Katherine Schwarzenegger is a Sagittarius, born December 13, 1989. Sagittarius is a Fire sign known for philosophical orientation, the desire to be of service through ideas, and the natural warmth of a sign that wants to share what it has learned.' },
-      { question: 'Are Chris and Katherine compatible?', answer: 'Cancer + Sagittarius is a Water + Fire pairing that scores 55/100. Cancer\'s home-building instinct and Sagittarius\'s meaning-seeking can complement each other when both people have found what they individually need.' },
+      { question: 'Are Chris and Katherine compatible?', answer: 'Cancer + Sagittarius is a Water + Fire pairing that rates C tier. Cancer\'s home-building instinct and Sagittarius\'s meaning-seeking can complement each other when both people have found what they individually need.' },
     ],
     related: ['cancer-in-love', 'sagittarius-in-love', 'justin-and-hailey-bieber'],
   },
 
   'idris-elba-and-sabrina-dhowre': {
     title: 'Idris Elba & Sabrina Dhowre Elba: A Virgo and a Capricorn',
-    description: 'Idris Elba is a Virgo. Sabrina Dhowre is a Capricorn. Earth + Earth scores 75/100 — married 2019, a low-key, genuinely private partnership beside one of the most recognized actors in the world.',
+    description: 'Idris Elba is a Virgo. Sabrina Dhowre is a Capricorn. Earth + Earth rates A tier — married 2019, a low-key, genuinely private partnership beside one of the most recognized actors in the world.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Virgo', sign2: 'Capricorn',
     compatLink: '/compatibility/virgo-and-capricorn',
     intro: 'Idris Elba (Virgo, September 6, 1972) and Sabrina Dhowre Elba (Capricorn, February 16, 1989) married in April 2019 in Morocco. They met in 2017 when he was filming Molly\'s Game and she was an actress in Vancouver. She proposed to him publicly at a screening of his documentary. They have maintained a private, stable life beside the considerable visibility of Idris\'s career.',
     sections: [
-      { heading: 'Earth + Earth — 75/100', paragraphs: ['Virgo and Capricorn are a natural trine — both Earth signs, both oriented toward craft, commitment, and the building of something real. Idris\'s Virgo is in the acting precision that has made him one of the most respected British actors of his generation (The Wire, Luther, Beasts of No Nation) and the refusal to coast on his looks or his fame. Sabrina\'s Capricorn is in the stability she has brought to a partnership that began while both were navigating demanding careers.', 'She proposed to him. Idris, a Virgo who tends to be private and careful, was apparently moved. That reversal of the conventional dynamic is itself slightly Virgo: the person who accepts an act of love clearly offered, rather than engineering it.' ] },
+      { heading: 'Earth + Earth — A tier', paragraphs: ['Virgo and Capricorn are a natural trine — both Earth signs, both oriented toward craft, commitment, and the building of something real. Idris\'s Virgo is in the acting precision that has made him one of the most respected British actors of his generation (The Wire, Luther, Beasts of No Nation) and the refusal to coast on his looks or his fame. Sabrina\'s Capricorn is in the stability she has brought to a partnership that began while both were navigating demanding careers.', 'She proposed to him. Idris, a Virgo who tends to be private and careful, was apparently moved. That reversal of the conventional dynamic is itself slightly Virgo: the person who accepts an act of love clearly offered, rather than engineering it.' ] },
     ],
     faqs: [
       { question: 'What is Idris Elba\'s zodiac sign?', answer: 'Idris Elba is a Virgo, born September 6, 1972. Virgo is an Earth sign known for acting craft, precision, the commitment to quality that runs through every choice, and a privacy about personal life that matches the intensity of the public career.' },
       { question: 'What is Sabrina Dhowre\'s zodiac sign?', answer: 'Sabrina Dhowre Elba is a Capricorn, born February 16, 1989. Capricorn is an Earth sign known for stability, deliberateness, the willingness to commit clearly and publicly when the commitment is real.' },
-      { question: 'Are Idris and Sabrina compatible?', answer: 'Virgo + Capricorn is an Earth + Earth trine pairing that scores 75/100. Two Earth signs who both approach life and work with the same seriousness and care: the compatibility is in the shared values.' },
+      { question: 'Are Idris and Sabrina compatible?', answer: 'Virgo + Capricorn is an Earth + Earth trine pairing that rates A tier. Two Earth signs who both approach life and work with the same seriousness and care: the compatibility is in the shared values.' },
     ],
     related: ['virgo-in-love', 'capricorn-in-love', 'lebron-and-savannah-james'],
   },
 
   'kevin-hart-and-eniko-hart': {
     title: 'Kevin Hart & Eniko Parrish Hart: A Cancer and a Capricorn',
-    description: 'Kevin Hart is a Cancer. Eniko Hart is a Capricorn. Water + Earth scores 75/100 — married 2016, two children together, navigated infidelity publicly and chose to rebuild.',
+    description: 'Kevin Hart is a Cancer. Eniko Hart is a Capricorn. Water + Earth rates S tier — married 2016, two children together, navigated infidelity publicly and chose to rebuild.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Cancer', sign2: 'Capricorn',
     compatLink: '/compatibility/cancer-and-capricorn',
@@ -2785,14 +2603,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Kevin Hart\'s zodiac sign?', answer: 'Kevin Hart is a Cancer, born July 6, 1979. Cancer is a Water sign known for family-centered comedy, warmth, fierce loyalty to the people he loves, and a genuine vulnerability beneath the public persona that his best work reflects.' },
       { question: 'What is Eniko Hart\'s zodiac sign?', answer: 'Eniko Parrish Hart is a Capricorn, born January 18, 1984. Capricorn is an Earth sign known for deliberate commitment, the willingness to evaluate a situation honestly and decide what to build from it, and a long-term orientation that doesn\'t confuse the crisis with the answer.' },
-      { question: 'Are Kevin and Eniko Hart compatible?', answer: 'Cancer + Capricorn is a Water + Earth opposite-sign pairing that scores 75/100. Opposites on the home-achievement axis, when both people have decided the relationship is the thing they\'re building toward, tend to produce some of the most durable partnerships.' },
+      { question: 'Are Kevin and Eniko Hart compatible?', answer: 'Cancer + Capricorn is a Water + Earth opposite-sign pairing that rates S tier. Opposites on the home-achievement axis, when both people have decided the relationship is the thing they\'re building toward, tend to produce some of the most durable partnerships.' },
     ],
     related: ['cancer-in-love', 'capricorn-in-love', 'kristen-bell-and-dax-shepard'],
   },
 
   'tina-fey-and-jeff-richmond': {
     title: 'Tina Fey & Jeff Richmond: A Taurus and a Cancer Who Work Together',
-    description: 'Tina Fey is a Taurus. Jeff Richmond is a Cancer. Earth + Water scores 70/100 — married 2001, two daughters, he composes the music for almost everything she makes.',
+    description: 'Tina Fey is a Taurus. Jeff Richmond is a Cancer. Earth + Water rates S tier — married 2001, two daughters, he composes the music for almost everything she makes.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Taurus', sign2: 'Cancer',
     compatLink: '/compatibility/taurus-and-cancer',
@@ -2803,14 +2621,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Tina Fey\'s zodiac sign?', answer: 'Tina Fey is a Taurus, born May 18, 1970. Taurus is an Earth sign known for sustained creative excellence, the craft-first approach to comedy, and the fixed commitment to a creative standard that makes every project identifiably hers.' },
       { question: 'What is Jeff Richmond\'s zodiac sign?', answer: 'Jeff Richmond is a Cancer, born July 17, 1964. Cancer is a Water sign known for emotional attunement, the musical sensitivity that makes him an ideal composer for comedy (which requires precise tonal management), and a sustained care for the people and projects he is committed to.' },
-      { question: 'Are Tina Fey and Jeff Richmond compatible?', answer: 'Taurus + Cancer is an Earth + Water pairing that scores 70/100. Two people who have built both a home and a creative partnership across 30 years represent the pairing at its most durable.' },
+      { question: 'Are Tina Fey and Jeff Richmond compatible?', answer: 'Taurus + Cancer is an Earth + Water pairing that rates S tier. Two people who have built both a home and a creative partnership across 30 years represent the pairing at its most durable.' },
     ],
     related: ['taurus-in-love', 'cancer-in-love', 'chip-and-joanna-gaines'],
   },
 
   'sarah-jessica-parker-and-matthew-broderick': {
     title: 'Sarah Jessica Parker & Matthew Broderick: An Aries and a Pisces Who Have Lasted',
-    description: 'Sarah Jessica Parker is an Aries. Matthew Broderick is a Pisces. Fire + Water scores 55/100 — married 1997, three children, 28 years together and counting.',
+    description: 'Sarah Jessica Parker is an Aries. Matthew Broderick is a Pisces. Fire + Water rates C tier — married 1997, three children, 28 years together and counting.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Aries', sign2: 'Pisces',
     compatLink: '/compatibility/aries-and-pisces',
@@ -2821,14 +2639,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Sarah Jessica Parker\'s zodiac sign?', answer: 'Sarah Jessica Parker is an Aries, born March 25, 1965. Aries is a Fire sign known for career drive, a work ethic that appears to run on unlimited energy, and a willingness to be the engine of a creative project from beginning to end.' },
       { question: 'What is Matthew Broderick\'s zodiac sign?', answer: 'Matthew Broderick is a Pisces, born March 21, 1962. Pisces is a Water sign known for empathic acting, the ability to inhabit roles with genuine depth, a parallel career on Broadway that doesn\'t require the visibility of film to be meaningful.' },
-      { question: 'Are SJP and Matthew Broderick compatible?', answer: 'Aries + Pisces is a Fire + Water pairing that scores 55/100. Twenty-eight years of a quietly functional marriage beside extremely visible careers: the compatibility lives in the sustained choice more than any score.' },
+      { question: 'Are SJP and Matthew Broderick compatible?', answer: 'Aries + Pisces is a Fire + Water pairing that rates C tier. Twenty-eight years of a quietly functional marriage beside extremely visible careers: the compatibility lives in the sustained choice more than any score.' },
     ],
     related: ['aries-in-love', 'pisces-in-love', 'emily-blunt-and-john-krasinski'],
   },
 
   'ronald-reagan-and-nancy-reagan': {
     title: 'Ronald Reagan & Nancy Reagan: An Aquarius and a Cancer Who Were Everything to Each Other',
-    description: 'Ronald Reagan was an Aquarius. Nancy Reagan was a Cancer. Air + Water scores 50/100 — married 1952, 52 years, the love story of the American presidency.',
+    description: 'Ronald Reagan was an Aquarius. Nancy Reagan was a Cancer. Air + Water rates C tier — married 1952, 52 years, the love story of the American presidency.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Cancer', sign2: 'Aquarius',
     compatLink: '/compatibility/cancer-and-aquarius',
@@ -2840,33 +2658,33 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Ronald Reagan\'s zodiac sign?', answer: 'Ronald Reagan was an Aquarius, born February 6, 1911. Aquarius is an Air sign known for visionary political communication, the ability to make abstract ideals feel personally accessible to large audiences, and a warmth for humanity that coexists with genuine aloofness in the particular.' },
       { question: 'What is Nancy Reagan\'s zodiac sign?', answer: 'Nancy Reagan was a Cancer, born July 6, 1921. Cancer is a Water sign known for fierce loyalty to the people it has decided to protect, the prioritization of one person\'s wellbeing above all institutional considerations, and a love that makes the relationship the primary organizing fact of a life.' },
-      { question: 'Were Ronald and Nancy Reagan compatible?', answer: 'Aquarius + Cancer is an Air + Water pairing that scores 50/100. The love story of their 52 years together is one of the few in American political life where the private relationship was as notable as the public record. The 50/100 is the astrology; the letters are the evidence.' },
+      { question: 'Were Ronald and Nancy Reagan compatible?', answer: 'Aquarius + Cancer is an Air + Water pairing that rates C tier. The love story of their 52 years together is one of the few in American political life where the private relationship was as notable as the public record. The C tier is the astrology; the letters are the evidence.' },
     ],
     related: ['cancer-in-love', 'aquarius-in-love', 'martin-luther-king-and-coretta-scott-king'],
   },
 
   'jimmy-carter-and-rosalynn-carter': {
     title: 'Jimmy Carter & Rosalynn Carter: A Libra and a Leo in the Most Enduring Presidential Marriage',
-    description: 'Jimmy Carter was a Libra. Rosalynn Carter was a Leo. Air + Fire scores 65/100 — married 1946, 77 years together. The longest marriage in American presidential history.',
+    description: 'Jimmy Carter was a Libra. Rosalynn Carter was a Leo. Air + Fire rates S tier — married 1946, 77 years together. The longest marriage in American presidential history.',
     publishDate: '2026-05-08', readTime: '5 min read', category: 'couple',
     sign1: 'Leo', sign2: 'Libra',
     compatLink: '/compatibility/leo-and-libra',
     intro: 'Jimmy Carter (Libra, October 1, 1924) and Eleanor Rosalynn Smith Carter (Leo, August 18, 1927) married on July 7, 1946, three weeks after he graduated from the Naval Academy. They were together for 77 years. Rosalynn died in November 2023. Jimmy Carter died in December 2024, at 100 years old — the longest-lived American president. Their marriage was the longest in presidential history.',
     sections: [
-      { heading: 'Libra and Leo: The Partner and the Sovereign', paragraphs: ['Leo and Libra are signs that complement each other in the dimensions of leadership and grace. Leo leads from identity — the person who knows who they are and expresses it; Libra leads from partnership — the person who understands how to bring people together around a shared project. The 65/100 reflects genuine compatibility alongside the natural friction of Fire and Air.', 'Rosalynn\'s Leo is in the strength — the First Lady who attended Cabinet meetings (an unprecedented act), who co-founded the Carter Center\'s mental health advocacy, and who was described by those who worked with her as the more politically acute of the two. Jimmy\'s Libra is in the diplomacy, the fairness, the commitment to human rights as a governing principle, and the 40-year post-presidential career of Habitat for Humanity, election monitoring, and global health work.' ] },
+      { heading: 'Libra and Leo: The Partner and the Sovereign', paragraphs: ['Leo and Libra are signs that complement each other in the dimensions of leadership and grace. Leo leads from identity — the person who knows who they are and expresses it; Libra leads from partnership — the person who understands how to bring people together around a shared project. The S tier reflects genuine compatibility alongside the natural friction of Fire and Air.', 'Rosalynn\'s Leo is in the strength — the First Lady who attended Cabinet meetings (an unprecedented act), who co-founded the Carter Center\'s mental health advocacy, and who was described by those who worked with her as the more politically acute of the two. Jimmy\'s Libra is in the diplomacy, the fairness, the commitment to human rights as a governing principle, and the 40-year post-presidential career of Habitat for Humanity, election monitoring, and global health work.' ] },
       { heading: 'Seventy-Seven Years', paragraphs: ['They were together from 1946 until Rosalynn\'s death in 2023. Jimmy died the following year, at 100, having outlived her by 13 months. He said near the end that she was his greatest strength, that he would not have been the person he was without her, and that she was the most important person in his life. Rosalynn said the same of him.', 'A Libra and a Leo, across 77 years: the diplomatic and the sovereign, the partner and the leader, building something — the presidency, the center, the marriage — that neither could have built without the other.' ] },
     ],
     faqs: [
       { question: 'What is Jimmy Carter\'s zodiac sign?', answer: 'Jimmy Carter was a Libra, born October 1, 1924. Libra is an Air sign known for diplomacy, fairness, the commitment to justice as a governing principle, and a partnership orientation that made his post-presidential life an extension of a shared mission rather than a solo project.' },
       { question: 'What is Rosalynn Carter\'s zodiac sign?', answer: 'Rosalynn Carter was a Leo, born August 18, 1927. Leo is a Fire sign known for sovereign strength, the willingness to attend Cabinet meetings when no First Lady had before, the fierce advocacy for mental health, and a presence that was, by many accounts, the practical center of the Carter political operation.' },
-      { question: 'Were Jimmy and Rosalynn Carter compatible?', answer: 'Leo + Libra is a Fire + Air pairing that scores 65/100. Seventy-seven years, the longest marriage in American presidential history, a shared post-presidential mission that changed international election monitoring and global health: the score is the astrology; the duration is the answer.' },
+      { question: 'Were Jimmy and Rosalynn Carter compatible?', answer: 'Leo + Libra is a Fire + Air pairing that rates S tier. Seventy-seven years, the longest marriage in American presidential history, a shared post-presidential mission that changed international election monitoring and global health: the score is the astrology; the duration is the answer.' },
     ],
     related: ['libra-in-love', 'leo-in-love', 'barack-and-michelle-obama'],
   },
 
   'benedict-cumberbatch-and-sophie-hunter': {
     title: 'Benedict Cumberbatch & Sophie Hunter: A Cancer and a Pisces',
-    description: 'Benedict Cumberbatch is a Cancer. Sophie Hunter is a Pisces. Water + Water scores 80/100 — married 2015, three sons, a private life beside one of the most recognized actors of his generation.',
+    description: 'Benedict Cumberbatch is a Cancer. Sophie Hunter is a Pisces. Water + Water rates A tier — married 2015, three sons, a private life beside one of the most recognized actors of his generation.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Cancer', sign2: 'Pisces',
     compatLink: '/compatibility/cancer-and-pisces',
@@ -2877,14 +2695,14 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Benedict Cumberbatch\'s zodiac sign?', answer: 'Benedict Cumberbatch is a Cancer, born July 19, 1976. Cancer is a Water sign known for empathic range, the ability to inhabit interior lives across any surface, and a protectiveness about his own private life that is the inverse of his public exposure.' },
       { question: 'What is Sophie Hunter\'s zodiac sign?', answer: 'Sophie Hunter is a Pisces, born March 16, 1978. Pisces is a Water sign known for the directorial imagination that holds a complete invented world, the empathic attunement that guides performers, and the private nature that matches the public reserve of the Cancer she married.' },
-      { question: 'Are Benedict and Sophie compatible?', answer: 'Cancer + Pisces is a Water + Water pairing that scores 80/100. Two theater people, both oriented toward the emotional and imaginative dimensions of art, living a private life beside an extremely visible career: the Water + Water attunement runs through both the work and the home.' },
+      { question: 'Are Benedict and Sophie compatible?', answer: 'Cancer + Pisces is a Water + Water pairing that rates A tier. Two theater people, both oriented toward the emotional and imaginative dimensions of art, living a private life beside an extremely visible career: the Water + Water attunement runs through both the work and the home.' },
     ],
     related: ['cancer-in-love', 'pisces-in-love', 'johnny-cash-and-june-carter-cash'],
   },
 
   'zoe-saldana-and-marco-perego': {
     title: 'Zoë Saldana & Marco Perego: A Gemini and a Taurus',
-    description: 'Zoë Saldana is a Gemini. Marco Perego is a Taurus. Air + Earth scores 55/100 — married 2013, three sons, a notably private partnership beside one of the highest-grossing actresses in history.',
+    description: 'Zoë Saldana is a Gemini. Marco Perego is a Taurus. Air + Earth rates C tier — married 2013, three sons, a notably private partnership beside one of the highest-grossing actresses in history.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Taurus', sign2: 'Gemini',
     compatLink: '/compatibility/taurus-and-gemini',
@@ -2895,104 +2713,104 @@ export const ARTICLES: Record<string, Article> = {
     faqs: [
       { question: 'What is Zoë Saldana\'s zodiac sign?', answer: 'Zoë Saldana is a Gemini, born June 19, 1978. Gemini is an Air sign known for range, adaptability, the ability to inhabit completely different registers across multiple franchises, and a restless creative energy that keeps the work interesting.' },
       { question: 'What is Marco Perego\'s zodiac sign?', answer: 'Marco Perego is a Taurus, born May 1, 1979. Taurus is an Earth sign known for the patient craft of painting, the fixed commitment to what he has built, and the particular kind of confidence that can take his wife\'s surname without any sense of diminishment.' },
-      { question: 'Are Zoë and Marco compatible?', answer: 'Taurus + Gemini is an Earth + Air pairing that scores 55/100. The grounding Taurus and the range-seeking Gemini require translation; Marco\'s deliberate choice to inhabit the domestic and artistic space alongside Zoë\'s career rather than competing with it is the workable version of this combination.' },
+      { question: 'Are Zoë and Marco compatible?', answer: 'Taurus + Gemini is an Earth + Air pairing that rates C tier. The grounding Taurus and the range-seeking Gemini require translation; Marco\'s deliberate choice to inhabit the domestic and artistic space alongside Zoë\'s career rather than competing with it is the workable version of this combination.' },
     ],
     related: ['gemini-in-love', 'taurus-in-love', 'david-and-victoria-beckham'],
   },
 
   'maya-hawke-and-christian-lee-hutson': {
     title: 'Maya Hawke & Christian Lee Hutson: A Cancer and a Scorpio',
-    description: 'Maya Hawke is a Cancer. Christian Lee Hutson is a Scorpio. Water + Water scores 80/100 — they married on Valentine\'s Day 2026. An indie musician and a Stranger Things star who kept their relationship almost entirely private.',
+    description: 'Maya Hawke is a Cancer. Christian Lee Hutson is a Scorpio. Water + Water rates A tier — they married on Valentine\'s Day 2026. An indie musician and a Stranger Things star who kept their relationship almost entirely private.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Cancer', sign2: 'Scorpio',
     compatLink: '/compatibility/cancer-and-scorpio',
     intro: 'Maya Hawke (Cancer, July 8, 2000) and Christian Lee Hutson (Scorpio, November 5, 1990) married on Valentine\'s Day, February 14, 2026, in a ceremony that was announced after it had already taken place. They had been together for several years before the marriage, maintaining almost complete privacy despite both being recognizable public figures. Maya is the daughter of Uma Thurman and Ethan Hawke; Christian is an indie singer-songwriter from Kansas City.',
     sections: [
       { heading: 'Cancer and Scorpio: Water Recognizing Water', paragraphs: ['Cancer and Scorpio are a natural Water + Water trine — both signs emotionally deep, both valuing privacy and protection of what matters, both tending to build their most important relationships slowly and carefully. The immediate attunement that Cancer and Scorpio typically feel is often described as recognition: the sense of meeting someone who inhabits the same interior world.', 'Maya\'s Cancer is in the acting work that has required genuine emotional exposure — Stranger Things, her solo music, her theatrical roles — and in the quiet she has sought around her personal life despite very famous parents. Christian\'s Scorpio is in the songwriting: his albums are emotionally exacting, introspective, built on a level of feeling that Scorpio brings to art when it\'s working at full depth.'] },
-      { heading: 'Water + Water — 80/100', paragraphs: ['Two Water signs who have both built careers in the arts — one as an actor and musician, one as a songwriter — share a native understanding of creative vulnerability that most people never find. The 80/100 reflects the natural resonance between Cancer and Scorpio: depth meeting depth, emotional attunement meeting Scorpio\'s total loyalty when it has decided someone is worth it.', 'Their relationship was kept private for years, and their marriage was announced after the fact. That\'s very Cancer + Scorpio: both signs protect what is most important by not giving it to the public until there\'s nothing left to protect.' ] },
+      { heading: 'Water + Water — A tier', paragraphs: ['Two Water signs who have both built careers in the arts — one as an actor and musician, one as a songwriter — share a native understanding of creative vulnerability that most people never find. The A tier reflects the natural resonance between Cancer and Scorpio: depth meeting depth, emotional attunement meeting Scorpio\'s total loyalty when it has decided someone is worth it.', 'Their relationship was kept private for years, and their marriage was announced after the fact. That\'s very Cancer + Scorpio: both signs protect what is most important by not giving it to the public until there\'s nothing left to protect.' ] },
       { callout: 'A Cancer born in July and a Scorpio born in November: the trine between these two signs is one astrology returns to repeatedly when discussing emotional compatibility. When both people are also artists who process the world through their work, the resonance has more places to live.' },
     ],
     faqs: [
       { question: 'What is Maya Hawke\'s zodiac sign?', answer: 'Maya Hawke is a Cancer, born July 8, 2000. Cancer is a Water sign known for emotional depth, creative sensitivity, a fierce protectiveness of private life, and an attunement in performance that makes her work feel genuinely inhabited.' },
       { question: 'What is Christian Lee Hutson\'s zodiac sign?', answer: 'Christian Lee Hutson is a Scorpio, born November 5, 1990. Scorpio is a Water sign known for emotionally exacting songwriting, depth of feeling, protection of the private, and a loyalty that runs total once given.' },
-      { question: 'Are Maya Hawke and Christian Lee Hutson compatible?', answer: 'Cancer + Scorpio is a Water + Water trine pairing that scores 80/100. Two artists who both process experience through creative work, both protect their private lives fiercely, and both bring full emotional depth to what they do: the compatibility is both astrological and structural.' },
+      { question: 'Are Maya Hawke and Christian Lee Hutson compatible?', answer: 'Cancer + Scorpio is a Water + Water trine pairing that rates A tier. Two artists who both process experience through creative work, both protect their private lives fiercely, and both bring full emotional depth to what they do: the compatibility is both astrological and structural.' },
     ],
     related: ['cancer-in-love', 'scorpio-in-love', 'ariana-grande-and-ethan-slater'],
   },
 
   'aja-wilson-and-bam-adebayo': {
     title: 'A\'ja Wilson & Bam Adebayo: A Leo and a Cancer',
-    description: 'A\'ja Wilson is a Leo. Bam Adebayo is a Cancer. Fire + Water scores 60/100 — two of basketball\'s biggest stars, confirmed together in late 2025.',
+    description: 'A\'ja Wilson is a Leo. Bam Adebayo is a Cancer. Fire + Water rates C tier — two of basketball\'s biggest stars, confirmed together in late 2025.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Cancer', sign2: 'Leo',
     compatLink: '/compatibility/cancer-and-leo',
     intro: 'A\'ja Wilson (Leo, August 8, 1996) is the WNBA\'s most dominant player — four-time All-Star, two-time WNBA champion, two-time Finals MVP with the Las Vegas Aces, and Paris 2024 gold medalist. Bam Adebayo (Cancer, July 18, 1997) is the starting center for the Miami Heat and a multiple All-Star. They confirmed their relationship in late 2025, making them one of basketball\'s most high-profile couples across both leagues.',
     sections: [
       { heading: 'Leo and Cancer: The Radiant and the Devoted', paragraphs: ['Leo is the sign of sovereign presence — warmth, the natural authority of someone who occupies their arena completely. A\'ja\'s Leo is visible in everything she does on court: the emotional expressiveness, the charisma, the leadership of a franchise player who has won multiple championships and still plays like there\'s something to prove.', 'Cancer is the sign of deep care, fierce loyalty, and protectiveness. Bam\'s Cancer is in his locker-room reputation — one of the most universally respected players in the NBA not for his scoring but for who he is: the reliability, the investment in team over individual, the quiet presence that holds a franchise together.' ] },
-      { heading: 'Fire + Water — 60/100', paragraphs: ['Leo and Cancer are adjacent signs with natural warmth alongside real differences in orientation. Leo radiates outward; Cancer moves inward. The 60/100 reflects the complementarity alongside the navigation required.', 'Both people are at the peak of their athletic careers simultaneously — which is unusual for athlete couples and provides a shared context most don\'t have. Two people who understand what elite-level competition demands, who have both won championships, share a fundamental reference point that doesn\'t need to be explained.' ] },
+      { heading: 'Fire + Water — C tier', paragraphs: ['Leo and Cancer are adjacent signs with natural warmth alongside real differences in orientation. Leo radiates outward; Cancer moves inward. The C tier reflects the complementarity alongside the navigation required.', 'Both people are at the peak of their athletic careers simultaneously — which is unusual for athlete couples and provides a shared context most don\'t have. Two people who understand what elite-level competition demands, who have both won championships, share a fundamental reference point that doesn\'t need to be explained.' ] },
     ],
     faqs: [
       { question: 'What is A\'ja Wilson\'s zodiac sign?', answer: 'A\'ja Wilson is a Leo, born August 8, 1996. Leo is a Fire sign known for dominant arena presence, warmth, natural leadership, and the authority of someone who has won at the highest level and carries it quietly.' },
       { question: 'What is Bam Adebayo\'s zodiac sign?', answer: 'Bam Adebayo is a Cancer, born July 18, 1997. Cancer is a Water sign known for team-first loyalty, the reliability that makes teammates trust you completely, and a protective care that extends through every commitment.' },
-      { question: 'Are A\'ja Wilson and Bam Adebayo compatible?', answer: 'Leo + Cancer is a Fire + Water pairing that scores 60/100. Adjacent signs with genuine warmth — Leo radiating outward, Cancer protecting inward — produce real complementarity when both people are at the peak of their game and understand what that demands.' },
+      { question: 'Are A\'ja Wilson and Bam Adebayo compatible?', answer: 'Leo + Cancer is a Fire + Water pairing that rates C tier. Adjacent signs with genuine warmth — Leo radiating outward, Cancer protecting inward — produce real complementarity when both people are at the peak of their game and understand what that demands.' },
     ],
     related: ['leo-in-love', 'cancer-in-love', 'simone-biles-and-jonathan-owens'],
   },
 
   'kaia-gerber-and-lewis-pullman': {
     title: 'Kaia Gerber & Lewis Pullman: A Virgo and an Aquarius',
-    description: 'Kaia Gerber is a Virgo. Lewis Pullman is an Aquarius. Earth + Air scores 45/100 — they started dating in early 2025. The model-turned-actor and the Top Gun: Maverick breakout.',
+    description: 'Kaia Gerber is a Virgo. Lewis Pullman is an Aquarius. Earth + Air rates C tier — they started dating in early 2025. The model-turned-actor and the Top Gun: Maverick breakout.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Virgo', sign2: 'Aquarius',
     compatLink: '/compatibility/virgo-and-aquarius',
     intro: 'Kaia Gerber (Virgo, September 3, 2001) and Lewis Pullman (Aquarius, January 29, 1993) were first linked in early 2025. Kaia is the daughter of Cindy Crawford, and has built a career as both a model and an actress (American Horror Story, Bottoms). Lewis is the son of Bill Pullman, and broke through with Top Gun: Maverick before starring in Thunderbolts* in 2025. Both are children of very famous parents navigating the particular challenge of building their own identities alongside inherited visibility.',
     sections: [
       { heading: 'Virgo and Aquarius: Craft and Vision', paragraphs: ['Virgo is the sign of precision — the careful, attentive approach to whatever they do, the belief that the work matters and should be done with care. Kaia\'s Virgo is in the transition from modeling to acting she has navigated with deliberate seriousness — taking roles that require craft rather than platform, studying the work rather than assuming it comes naturally.', 'Aquarius is the sign of the visionary — independent, intellectually animated, interested in ideas that extend past conventional limits. Lewis\'s Aquarius is in the unconventional career choices (Thunderbolts* is genuinely strange film) and the quality of an actor more interested in character than in stardom.' ] },
-      { heading: 'Earth + Air — 45/100', paragraphs: ['Virgo and Aquarius are an inconjunct pair — different in element, modality, and polarity. The 45/100 reflects a pairing that requires ongoing translation between Earth\'s tangible precision and Air\'s principled possibility. What bridges the gap is the shared experience of building identity alongside very famous parents — a context that requires exactly the Virgo discipline and Aquarian independence both of them appear to have developed.' ] },
+      { heading: 'Earth + Air — C tier', paragraphs: ['Virgo and Aquarius are an inconjunct pair — different in element, modality, and polarity. The C tier reflects a pairing that requires ongoing translation between Earth\'s tangible precision and Air\'s principled possibility. What bridges the gap is the shared experience of building identity alongside very famous parents — a context that requires exactly the Virgo discipline and Aquarian independence both of them appear to have developed.' ] },
     ],
     faqs: [
       { question: 'What is Kaia Gerber\'s zodiac sign?', answer: 'Kaia Gerber is a Virgo, born September 3, 2001. Virgo is an Earth sign known for precision, the serious approach to craft, and a private nature that coexists with an extremely public career.' },
       { question: 'What is Lewis Pullman\'s zodiac sign?', answer: 'Lewis Pullman is an Aquarius, born January 29, 1993. Aquarius is an Air sign known for unconventional choices, intellectual independence, and approaching a career on its own terms.' },
-      { question: 'Are Kaia Gerber and Lewis Pullman compatible?', answer: 'Virgo + Aquarius is an Earth + Air pairing that scores 45/100. The elemental differences require translation; the shared experience of building identity beside very famous parents may provide common ground that makes the translation workable.' },
+      { question: 'Are Kaia Gerber and Lewis Pullman compatible?', answer: 'Virgo + Aquarius is an Earth + Air pairing that rates C tier. The elemental differences require translation; the shared experience of building identity beside very famous parents may provide common ground that makes the translation workable.' },
     ],
     related: ['virgo-in-love', 'aquarius-in-love', 'garth-brooks-and-trisha-yearwood'],
   },
 
   'madeleine-petsch-and-tyga': {
     title: 'Madeleine Petsch & Tyga: A Leo and a Scorpio',
-    description: 'Madeleine Petsch is a Leo. Tyga is a Scorpio. Fire + Water scores 55/100 — they confirmed their relationship in April 2025, two fixed signs with different orientations and a shared intensity.',
+    description: 'Madeleine Petsch is a Leo. Tyga is a Scorpio. Fire + Water rates C tier — they confirmed their relationship in April 2025, two fixed signs with different orientations and a shared intensity.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Leo', sign2: 'Scorpio',
     compatLink: '/compatibility/leo-and-scorpio',
     intro: 'Madeleine Petsch (Leo, August 18, 1994) is best known for playing Cheryl Blossom on Riverdale across seven seasons. Tyga (Scorpio, November 19, 1989) is a rapper and music entrepreneur. They confirmed their relationship in April 2025. Leo and Scorpio are both fixed signs — stubborn, intense, committed to their positions — which creates a pairing with real mutual respect alongside real friction.',
     sections: [
       { heading: 'Leo and Scorpio: Fixed Signs, Different Depths', paragraphs: ['Leo and Scorpio are both fixed signs — which means both people hold their positions with conviction, both tend toward intensity, and neither is easily redirected by the other. That shared fixity creates a particular quality: mutual respect for each other\'s strength, and the kind of standoff that only two fixed signs can produce when they disagree.', 'Madeleine\'s Leo is in the emotional range of a seven-season performance requiring camp comedy, genuine vulnerability, and physical presence across 110 episodes. Tyga\'s Scorpio is in the music\'s emotional intensity, the entrepreneurial depth (multiple fashion and business ventures), and the careful control of his own narrative.' ] },
-      { heading: 'Fire + Water — 55/100', paragraphs: ['Fire wants to shine outward; Water wants to go deep inward. The 55/100 reflects the real attraction alongside the fundamental difference in how each sign processes intensity — Leo through expression and performance; Scorpio through depth and internal stillness.', 'Fixed Fire + Fixed Water at its best produces a relationship where both people\'s strength is genuinely honored. At its most challenging, it produces two people who are both too stubborn to move. The direction it takes depends on how well each person can appreciate what the other\'s element offers.' ] },
+      { heading: 'Fire + Water — C tier', paragraphs: ['Fire wants to shine outward; Water wants to go deep inward. The C tier reflects the real attraction alongside the fundamental difference in how each sign processes intensity — Leo through expression and performance; Scorpio through depth and internal stillness.', 'Fixed Fire + Fixed Water at its best produces a relationship where both people\'s strength is genuinely honored. At its most challenging, it produces two people who are both too stubborn to move. The direction it takes depends on how well each person can appreciate what the other\'s element offers.' ] },
     ],
     faqs: [
       { question: 'What is Madeleine Petsch\'s zodiac sign?', answer: 'Madeleine Petsch is a Leo, born August 18, 1994. Leo is a Fire sign known for emotional range, the warmth and authority that made Cheryl Blossom compelling across seven seasons, and a fixed nature that holds what it commits to.' },
       { question: 'What is Tyga\'s zodiac sign?', answer: 'Tyga is a Scorpio, born November 19, 1989. Scorpio is a Water sign known for intensity, careful narrative control, entrepreneurial depth, and a fixed nature that means when he commits to something, he does it at full depth.' },
-      { question: 'Are Madeleine Petsch and Tyga compatible?', answer: 'Leo + Scorpio is a Fire + Water pairing of two fixed signs that scores 55/100. The shared fixity creates mutual respect for each other\'s strength; the elemental difference between Fire\'s expression and Water\'s depth is the ongoing navigation.' },
+      { question: 'Are Madeleine Petsch and Tyga compatible?', answer: 'Leo + Scorpio is a Fire + Water pairing of two fixed signs that rates C tier. The shared fixity creates mutual respect for each other\'s strength; the elemental difference between Fire\'s expression and Water\'s depth is the ongoing navigation.' },
     ],
     related: ['leo-in-love', 'scorpio-in-love', 'bill-clinton-and-hillary-clinton'],
   },
 
   'venus-williams-and-andrea-preti': {
     title: 'Venus Williams & Andrea Preti: Two Geminis',
-    description: 'Venus Williams is a Gemini. Andrea Preti is a Gemini. Same sign, Air + Air scores 70/100 — they made their public debut at the 2026 Met Gala. Two people who move at the speed of ideas.',
+    description: 'Venus Williams is a Gemini. Andrea Preti is a Gemini. Same sign, Air + Air rates A tier — they made their public debut at the 2026 Met Gala. Two people who move at the speed of ideas.',
     publishDate: '2026-05-08', readTime: '4 min read', category: 'couple',
     sign1: 'Gemini', sign2: 'Gemini',
     compatLink: '/compatibility/gemini-and-gemini',
     intro: 'Venus Williams (Gemini, June 17, 1980) and Andrea Preti (Gemini, June 6, 1988) made their public debut as a couple at the 2026 Met Gala. Venus is one of the greatest tennis players in history — seven Grand Slam singles titles, four Olympic gold medals — and has spent decades building fashion and interior design businesses alongside her athletic career. Andrea Preti is an Italian actor and model based in the United States. Both are Geminis, born twelve days and eight years apart.',
     sections: [
       { heading: 'Two Geminis: The Same Current', paragraphs: ['Gemini is the sign of multiplicity — the person who contains several versions of themselves simultaneously and moves between them with equal fluency. Venus\'s Gemini is total: the tennis champion and the fashion designer (EleVen by Venus) and the interior designer (V Starr) and the activist and the businesswoman, all running in parallel across four decades without any of them being reduced.', 'Two Geminis together recognize each other immediately — the same range, the same speed, the same willingness to hold multiple ideas simultaneously. The mental rapport is instant and sustained. What both people need is someone who can keep up, which is a genuinely rare requirement, and which another Gemini is uniquely positioned to meet.' ] },
-      { heading: 'Air + Air — 70/100', paragraphs: ['Two Geminis score 70/100 — the natural ease of same-element alongside the particular challenge of same-sign: both people share the same restlessness. A Gemini typically needs someone who can provide grounding when the range becomes too diffuse. When both partners are Gemini, that grounding has to come from outside the pairing — from shared work, shared mission, or the stability that two people who have each built serious careers bring to a relationship.' ] },
+      { heading: 'Air + Air — A tier', paragraphs: ['Two Geminis rate A tier — the natural ease of same-element alongside the particular challenge of same-sign: both people share the same restlessness. A Gemini typically needs someone who can provide grounding when the range becomes too diffuse. When both partners are Gemini, that grounding has to come from outside the pairing — from shared work, shared mission, or the stability that two people who have each built serious careers bring to a relationship.' ] },
       { callout: 'Venus Williams has built four businesses alongside one of the greatest tennis careers in history. She\'s not looking for someone to complete her — she\'s looking for someone who can keep up. Two Geminis who have both built serious, multi-dimensional careers understand what that means.' },
     ],
     faqs: [
       { question: 'What is Venus Williams\'s zodiac sign?', answer: 'Venus Williams is a Gemini, born June 17, 1980. Gemini is an Air sign known for the range that has allowed Venus to be simultaneously a Grand Slam champion, fashion designer, interior designer, activist, and entrepreneur — all at full intensity.' },
       { question: 'What is Andrea Preti\'s zodiac sign?', answer: 'Andrea Preti is a Gemini, born June 6, 1988. Gemini is an Air sign known for cross-disciplinary range, the ability to move between film, television, and modeling with equal fluency, and the particular speed of a mind that is always in motion.' },
-      { question: 'Are Venus Williams and Andrea Preti compatible?', answer: 'Gemini + Gemini is a same-sign Air + Air pairing that scores 70/100. The mental rapport between two Geminis is immediate and sustained; the challenge is that both people share the same restlessness, so the grounding for the relationship comes from shared mission rather than from the pairing itself.' },
+      { question: 'Are Venus Williams and Andrea Preti compatible?', answer: 'Gemini + Gemini is a same-sign Air + Air pairing that rates A tier. The mental rapport between two Geminis is immediate and sustained; the challenge is that both people share the same restlessness, so the grounding for the relationship comes from shared mission rather than from the pairing itself.' },
     ],
     related: ['gemini-in-love', 'mila-kunis-and-ashton-kutcher', 'moon-sign-compatibility'],
   },
@@ -3138,17 +2956,4 @@ export const ARTICLES: Record<string, Article> = {
     related: ['moon-sign-compatibility', 'scorpio-in-love', 'libra-in-love'],
   },
 
-  // Sign-in-love articles (generated from SIGN_LOVE data)
-  'aries-in-love': buildSignArticle('Aries'),
-  'taurus-in-love': buildSignArticle('Taurus'),
-  'gemini-in-love': buildSignArticle('Gemini'),
-  'cancer-in-love': buildSignArticle('Cancer'),
-  'leo-in-love': buildSignArticle('Leo'),
-  'virgo-in-love': buildSignArticle('Virgo'),
-  'libra-in-love': buildSignArticle('Libra'),
-  'scorpio-in-love': buildSignArticle('Scorpio'),
-  'sagittarius-in-love': buildSignArticle('Sagittarius'),
-  'capricorn-in-love': buildSignArticle('Capricorn'),
-  'aquarius-in-love': buildSignArticle('Aquarius'),
-  'pisces-in-love': buildSignArticle('Pisces'),
 }

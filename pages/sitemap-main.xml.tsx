@@ -49,12 +49,10 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const urls: Url[] = [
     // Hub + category index pages
     { url: baseUrl, changefreq: 'daily', priority: 1.0, lastmod: today },
-    { url: `${baseUrl}/horoscope`, changefreq: 'daily', priority: 1.0, lastmod: today },
     { url: `${baseUrl}/born-today`, changefreq: 'daily', priority: 0.9, lastmod: today },
     { url: `${baseUrl}/celebrity-birth-charts`, changefreq: 'weekly', priority: 0.95 },
     { url: `${baseUrl}/celebrity-birth-charts/rated-birth-times`, changefreq: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/love/celebrity-couples`, changefreq: 'weekly', priority: 0.85 },
-    { url: `${baseUrl}/love`, changefreq: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/glossary`, changefreq: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/reading-room`, changefreq: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/zodiac-signs`, changefreq: 'yearly', priority: 0.95 },
@@ -64,6 +62,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     { url: `${baseUrl}/astrology-interpretations`, changefreq: 'yearly', priority: 0.95 },
     { url: `${baseUrl}/compatibility`, changefreq: 'yearly', priority: 0.95 },
     { url: `${baseUrl}/chinese-zodiac`, changefreq: 'yearly', priority: 0.9 },
+    { url: `${baseUrl}/birth-chart`, changefreq: 'yearly', priority: 0.9 },
     { url: `${baseUrl}/calculators`, changefreq: 'yearly', priority: 0.9 },
     { url: `${baseUrl}/calculators/rising-sign`, changefreq: 'yearly', priority: 0.9 },
     { url: `${baseUrl}/calculators/sun-moon-rising`, changefreq: 'yearly', priority: 0.9 },
@@ -75,7 +74,6 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     { url: `${baseUrl}/about`, changefreq: 'yearly', priority: 0.5 },
     { url: `${baseUrl}/method`, changefreq: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/contact`, changefreq: 'yearly', priority: 0.5 },
-    { url: `${baseUrl}/feed.xml`, changefreq: 'daily', priority: 0.3, lastmod: today },
     { url: `${baseUrl}/privacy`, changefreq: 'yearly', priority: 0.3 },
     { url: `${baseUrl}/terms`, changefreq: 'yearly', priority: 0.3 },
   ]
@@ -85,7 +83,6 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   // - horoscope: rotates daily by design
   // - compatibility: interpretive evergreen
   signs.forEach(s => urls.push({ url: `${baseUrl}/zodiac-signs/${s}`, changefreq: 'yearly', priority: 0.9 }))
-  if (!NOINDEX_THIN.horoscopeSign) signs.forEach(s => urls.push({ url: `${baseUrl}/horoscope/${s}`, changefreq: 'daily', priority: 0.9, lastmod: today }))
   signs.forEach(s => urls.push({ url: `${baseUrl}/compatibility/${s}`, changefreq: 'yearly', priority: 0.85 }))
 
   // Planet pillars — interpretive evergreen
@@ -153,8 +150,6 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     'kourtney-kardashian-and-travis-barker', 'chrissy-teigen-and-john-legend', 'katy-perry-and-orlando-bloom',
     'priyanka-chopra-and-nick-jonas', 'will-smith-and-jada-pinkett-smith', 'tom-brady-and-gisele-bundchen',
     'megan-fox-and-machine-gun-kelly', 'johnny-cash-and-june-carter-cash', 'adele-and-rich-paul',
-    'scorpio-in-love', 'libra-in-love', 'sagittarius-in-love', 'virgo-in-love', 'cancer-in-love', 'leo-in-love',
-    'aries-in-love', 'taurus-in-love', 'gemini-in-love', 'capricorn-in-love', 'aquarius-in-love', 'pisces-in-love',
     'moon-sign-compatibility', 'red-flags-by-zodiac-sign',
   ]
   loveSlugs.forEach(s => urls.push({ url: `${baseUrl}/love/${s}`, changefreq: 'yearly', priority: 0.8 }))

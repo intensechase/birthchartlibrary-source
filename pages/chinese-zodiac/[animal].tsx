@@ -2,13 +2,17 @@ import Head from 'next/head'
 import Link from 'next/link'
 import AdminBreadcrumb from '@/components/AdminBreadcrumb'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { ANIMALS, ANIMAL_EMOJI, ANIMAL_DESCRIPTIONS, getAnimalElement, getYearsForAnimal, getChineseZodiac } from '@/lib/chinese-zodiac'
+import { ANIMALS, ANIMAL_CHAR, compatTiles, ANIMAL_EMOJI, ANIMAL_DESCRIPTIONS, CZ_ELEMENT_COLOR, czYearsSql, getAnimalElement, getYearsForAnimal, getChineseZodiac } from '@/lib/chinese-zodiac'
 import { breadcrumbSchema, faqSchema, jsonLd } from '@/lib/schema'
+import { redesignOn } from '@/lib/redesign'
+import type { HomePerson } from '@/lib/redesign/home-view'
+import { Facts, Fold, LearnHero, NextLinks, People, PrevNext, Prose, TileGrid } from '@/components/redesign/Learn'
 
 function capitalize(s: string) { return s.charAt(0).toUpperCase() + s.slice(1) }
 
 interface Props {
   animal: string
+  people?: HomePerson[]
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -22,10 +26,17 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
   if (!ANIMAL_DESCRIPTIONS[name]) {
     return { notFound: true }
   }
+  if (redesignOn('hubs')) {
+    // Famous people born in any of this animal's years, by the real New Year dates.
+    const { peopleWhere } = await import('@/lib/redesign/people')
+    let people: HomePerson[] = []
+    try { people = await peopleWhere(czYearsSql(getYearsForAnimal(name)), []) } catch { people = [] }
+    return { props: { animal, people } }
+  }
   return { props: { animal } }
 }
 
-export default function AnimalPage({ animal }: Props) {
+export default function AnimalPage({ animal, people }: Props) {
   const name = capitalize(animal)
   const info = ANIMAL_DESCRIPTIONS[name]
 
@@ -58,6 +69,56 @@ export default function AnimalPage({ animal }: Props) {
         { name: `The ${name}`, url: `https://birthchartlibrary.com/chinese-zodiac/${animal}` },
       ])) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(faqs)) }} />
+      {people ? (
+        <main className="rdp"><div className="lrn">
+          <LearnHero
+            crumbs={[{ label: 'Chinese zodiac', href: '/chinese-zodiac' }, { label: name }]}
+            disc={{ color: '#C3CBFF', text: ANIMAL_CHAR[name] }}
+            kicker="Chinese zodiac"
+            title={`The ${name}`}
+          >
+            <p>People born in {name} years tend to be {info.traits.toLowerCase()}. The {name} comes around every twelve years, each time with a different element.</p>
+          </LearnHero>
+
+          <Facts items={[
+            { label: 'Strengths', value: info.strengths },
+            { label: 'Challenges', value: info.challenges },
+            ...compatTiles(info.compatibility),
+          ]} />
+
+          <Prose title={`About the ${name}`} text={info.description} />
+
+          <section className="lsec">
+            <h2>{name} years</h2>
+            <p className="lede">Each year starts at Chinese New Year, in late January or February.</p>
+            <TileGrid items={years.map(y => { const { element } = getChineseZodiac(y); return { href: `/chinese-zodiac/year/${y}`, label: String(y), sub: element, dot: CZ_ELEMENT_COLOR[element] } })} />
+          </section>
+
+          <section className="lsec">
+            <h2>The {name} by element</h2>
+            <p className="lede">The element of your birth year changes how the {name} shows up. Open one to read it.</p>
+            {(['Wood', 'Fire', 'Earth', 'Metal', 'Water'] as const).map(element => (
+              <Fold key={element} title={`${element} ${name}`} disc={{ color: CZ_ELEMENT_COLOR[element], text: ANIMAL_CHAR[name] }}>
+                {getAnimalElement(name, element).split(/\n\s*\n/).map(t => t.trim()).filter(Boolean).map((t, i) => <p key={i}>{t}</p>)}
+              </Fold>
+            ))}
+          </section>
+
+          <People title={`Famous ${name}s`} lede={`Born in a ${name} year.`} people={people} />
+
+          <NextLinks links={[
+            { href: '/calculators/chinese-zodiac', title: 'Find your animal', sub: 'Your animal and element from any birth date.' },
+            { href: '/chinese-zodiac', title: 'All twelve animals', sub: 'The full cycle, Rat to Pig.' },
+            { href: '/birth-chart', title: 'Your Western birth chart', sub: 'Sun, Moon and rising from your birth time, free.' },
+            { href: '/compatibility', title: 'Sign compatibility', sub: 'How the twelve Western signs get along.' },
+          ]} />
+
+          <PrevNext
+            prev={{ href: `/chinese-zodiac/${prevAnimal.toLowerCase()}`, label: `The ${prevAnimal}` }}
+            next={{ href: `/chinese-zodiac/${nextAnimal.toLowerCase()}`, label: `The ${nextAnimal}` }}
+          />
+        </div></main>
+      ) : (
       <main className="max-w-3xl mx-auto px-4 py-12">
         <AdminBreadcrumb crumbs={[
           { label: 'Chinese Zodiac', href: '/chinese-zodiac' },
@@ -133,6 +194,8 @@ export default function AnimalPage({ animal }: Props) {
           </Link>
         </div>
       </main>
+      )}
     </>
   )
 }
+

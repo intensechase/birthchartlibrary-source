@@ -9,6 +9,8 @@ import { articleSchema, jsonLd } from '@/lib/schema'
 import BlogCTA from '@/components/BlogCTA'
 import Scallop from '@/components/Scallop'
 import { isNoindexBlogSlug } from '@/lib/thin-pages'
+import { redesignOn } from '@/lib/redesign'
+import { LearnHero, NextLinks } from '@/components/redesign/Learn'
 
 interface RelatedPost {
   title: string
@@ -130,6 +132,28 @@ export default function ArticlePage({ title, content, category, readTime, publis
       </Head>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema({ title, description, publishDate, slug, category })) }} />
+      {redesignOn('hubs') ? (
+        <main className="rdp"><div className="lrn">
+          <LearnHero crumbs={[{ label: 'Articles', href: '/blog' }, { label: category }]} title={title}>
+            <p className="meta">{dateStr}, {readTime}</p>
+          </LearnHero>
+          {isHtml ? (
+            <article className="art" dangerouslySetInnerHTML={{ __html: autoLinkContent(content, [title], celebLinks) }} />
+          ) : (
+            <article className="art">
+              {(() => {
+                const linkState = newAutoLinkState()
+                return content.replace(/\r\n/g, '\n').split('\n\n').filter((p: string) => p.trim()).map((paragraph: string, i: number) => (
+                  <p key={i} dangerouslySetInnerHTML={{ __html: autoLinkContent(paragraph.trim(), [title], celebLinks, linkState) }} />
+                ))
+              })()}
+            </article>
+          )}
+          <BlogCTA slug={slug} rd />
+          <NextLinks title={`More in ${category}`} links={related.map(r => ({ href: `/blog/${r.slug}`, title: r.title, sub: r.read_time }))} />
+        </div></main>
+      ) : (
+      <>
 
       {/* Hero band */}
       <section className="bg-[var(--band)]">
@@ -192,6 +216,8 @@ export default function ArticlePage({ title, content, category, readTime, publis
           </section>
         )}
       </main>
+      </>
+      )}
     </>
   )
 }

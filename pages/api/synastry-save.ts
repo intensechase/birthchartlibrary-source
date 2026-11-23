@@ -3,6 +3,8 @@ import crypto from 'crypto'
 import { getUser } from '@/lib/auth'
 import { query as dbQuery } from '@/lib/db'
 import { apiHandler } from '@/lib/apiHandler'
+import { rateLimit } from '@/lib/rate-limit'
+import { checkChartFields, saveChart } from '@/lib/save-chart'
 
 function generateHash(): string {
   return crypto.randomBytes(6).toString('hex')
@@ -43,5 +45,16 @@ export default apiHandler(async function handler(req: NextApiRequest, res: NextA
     ]
   )
 
-  return res.status(200).json({ hash, url: `/synastry/${hash}` })
+  // "Also save {name}'s chart to my library": a person typed in by hand on the
+  // compare page, saved as one of the reader's charts for next time. Shares
+  // the chart form's per-account limit; a failure here never loses the reading.
+  let savedChartId: string | null = null
+  const saveB = req.body.saveB
+  if (saveB && typeof saveB === 'object' && !checkChartFields(saveB) && await rateLimit(`chart:${user.id}`, 20, 3600000)) {
+    try {
+      savedChartId = await saveChart(user, { ...saveB, isForSelf: false })
+    } catch { /* reading is saved; chart can be added from the chart form */ }
+  }
+
+  return res.status(200).json({ hash, url: `/synastry/${hash}`, savedChartId })
 })

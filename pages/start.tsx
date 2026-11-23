@@ -61,7 +61,7 @@ export default function StartPage() {
           <div className="grid sm:grid-cols-3 gap-4">
             <Link href="/calculators/rising-sign" className="card p-5 hover:border-slate-400 transition-colors group text-center">
               <p className="text-xl mb-2">↑</p>
-              <p className="font-medium text-sm group-hover:text-slate-900 transition-colors">Find Your Rising Sign</p>
+              <p className="font-medium text-sm group-hover:text-slate-900 transition-colors">Find your rising sign</p>
               <p className="text-xs text-slate-400 mt-1">Requires birth time</p>
             </Link>
             <Link href="/calculators/sun-moon-rising" className="card p-5 hover:border-slate-400 transition-colors group text-center">
@@ -71,7 +71,7 @@ export default function StartPage() {
             </Link>
             <Link href="/calculators/chinese-zodiac" className="card p-5 hover:border-slate-400 transition-colors group text-center">
               <p className="text-xl mb-2">🐉</p>
-              <p className="font-medium text-sm group-hover:text-slate-900 transition-colors">Chinese Zodiac</p>
+              <p className="font-medium text-sm group-hover:text-slate-900 transition-colors">Chinese zodiac</p>
               <p className="text-xs text-slate-400 mt-1">Year-based animal sign</p>
             </Link>
           </div>
@@ -85,10 +85,10 @@ export default function StartPage() {
             <p className="text-slate-500 text-sm">A complete natal chart maps all 12 planetary positions at the exact moment you were born. It&apos;s free, personalized, and includes full interpretations.</p>
           </div>
           <div className="text-center">
-            <Link href="/signup" className="btn-primary text-lg px-8 py-3 inline-block">
-              Create Your Free Chart
+            <Link href="/birth-chart" className="btn-primary text-lg px-8 py-3 inline-block">
+              Create your free chart
             </Link>
-            <p className="text-xs text-slate-400 mt-3">Free forever... no subscription required.</p>
+            <p className="text-xs text-slate-400 mt-3">Free. No account needed.</p>
           </div>
         </div>
 
@@ -101,11 +101,11 @@ export default function StartPage() {
               <p className="text-xs text-slate-400 mt-1">The complete beginner&apos;s guide</p>
             </Link>
             <Link href="/celebrity-birth-charts" className="card p-4 hover:border-slate-400 transition-colors group">
-              <p className="font-medium text-sm group-hover:text-slate-900 transition-colors">Celebrity Birth Charts</p>
+              <p className="font-medium text-sm group-hover:text-slate-900 transition-colors">Celebrity birth charts</p>
               <p className="text-xs text-slate-400 mt-1">See charts for 550+ famous people</p>
             </Link>
             <Link href="/astrology-interpretations" className="card p-4 hover:border-slate-400 transition-colors group">
-              <p className="font-medium text-sm group-hover:text-slate-900 transition-colors">Interpretation Library</p>
+              <p className="font-medium text-sm group-hover:text-slate-900 transition-colors">Interpretation library</p>
               <p className="text-xs text-slate-400 mt-1">Look up any planet, sign, or house combination</p>
             </Link>
             <Link href="/reading-room" className="card p-4 hover:border-slate-400 transition-colors group">

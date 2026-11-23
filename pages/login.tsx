@@ -2,12 +2,14 @@ import { useState, useRef } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { safeSessionGet } from '@/lib/safe-storage'
+import { PENDING_COMPARE_KEY, PENDING_KEY, readKept } from '@/lib/kept-chart'
+import { safeNext } from '@/lib/safe-next'
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 
 export default function LoginPage() {
   const router = useRouter()
-  const rawRedirect = (router.query.redirectTo as string) ?? '/daily-horoscope'
-  const redirectTo = (rawRedirect.startsWith('/') && !rawRedirect.startsWith('//')) ? rawRedirect : '/daily-horoscope'
+  const redirectTo = safeNext(router.query.redirectTo) ?? '/birth-chart'
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -42,7 +44,15 @@ export default function LoginPage() {
       return
     }
 
-    window.location.href = redirectTo
+    // Back where they were, by way of anything made before signing in: a
+    // comparison or chart they pressed Save on, or their chart kept on this device.
+    const compare = safeSessionGet(PENDING_COMPARE_KEY) !== null
+    const dest = compare ? '/calculators/synastry?saving=1' : redirectTo
+    const pressed = safeSessionGet(PENDING_KEY) !== null
+    if (pressed || readKept()) {
+      const on = compare || (!pressed && dest !== '/birth-chart') ? `&next=${encodeURIComponent(dest)}` : ''
+      window.location.href = `/birth-chart?save=1${on}`
+    } else window.location.href = dest
   }
 
   function handleTurnstileExpire() {
@@ -74,7 +84,7 @@ export default function LoginPage() {
       </Head>
       <main className="min-h-screen flex items-center justify-center px-4">
         <div className="card w-full max-w-md">
-          <h1 className="font-display text-3xl md:text-4xl tracking-wide mb-6 text-center">Sign In</h1>
+          <h1 className="font-display text-3xl md:text-4xl tracking-wide mb-6 text-center">Sign in</h1>
 
           {passwordReset && (
             <div className="mb-4 p-3 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-lg text-sm text-emerald-700 dark:text-emerald-300">
@@ -183,7 +193,7 @@ export default function LoginPage() {
               Forgot password?
             </Link>
             <p className="text-sm text-slate-500 dark:text-slate-400">
-              <Link href="/signup" className="text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100">
+              <Link href={router.query.redirectTo ? `/signup?next=${encodeURIComponent(redirectTo)}` : '/signup'} className="text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100">
                 Sign up
               </Link>
             </p>

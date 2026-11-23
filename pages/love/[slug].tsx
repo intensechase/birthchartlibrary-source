@@ -5,6 +5,15 @@ import { getElementColor } from '@/lib/zodiac-colors'
 import { SignGlyph } from '@/components/Glyph'
 import { breadcrumbSchema, faqSchema, articleSchema, jsonLd } from '@/lib/schema'
 import { ARTICLES, type Article } from '@/lib/love-articles'
+import { SIGNS } from '@/lib/interpretations/signs'
+import { redesignOn } from '@/lib/redesign'
+import { GROUP_COLOR, signIcon } from '@/lib/redesign/astro'
+import { Fold, LearnHero, NextLinks } from '@/components/redesign/Learn'
+import { COUPLE_ARTICLES } from '@/lib/couple-articles'
+import { getServedCelebritySlugs } from '@/lib/celebrities'
+
+// Article slug -> its compare page pair (the compare page links back here).
+const COMPARE_OF: Record<string, string> = Object.fromEntries(Object.entries(COUPLE_ARTICLES).map(([pair, a]) => [a.slug, pair]))
 
 // ─── Static generation ────────────────────────────────────────────────────────
 
@@ -17,12 +26,23 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug as string
   const article = ARTICLES[slug]
   if (!article) return { notFound: true }
-  return { props: { article, slug } }
+  // A couple story links to the two charts compared, when both pages are public
+  // (the compare page 404s otherwise). Internal links to the sitemap's 90 compare pages.
+  let comparePair: string | null = null
+  const pair = COMPARE_OF[slug]
+  if (pair) {
+    try {
+      const served = await getServedCelebritySlugs()
+      const i = pair.lastIndexOf('-vs-')
+      if (served.has(pair.slice(0, i)) && served.has(pair.slice(i + 4))) comparePair = pair
+    } catch { /* no DB: leave the link out */ }
+  }
+  return { props: { article, slug, comparePair }, revalidate: 604800 }
 }
 
 // ─── Render ───────────────────────────────────────────────────────────────────
 
-interface PageProps { article: Article; slug: string }
+interface PageProps { article: Article; slug: string; comparePair?: string | null }
 
 const CATEGORY_LABEL = { couple: 'Couple Deep-Dive', sign: 'Sign Profile', guide: 'Guide' }
 const CATEGORY_COLOR = {
@@ -31,7 +51,7 @@ const CATEGORY_COLOR = {
   guide: 'bg-slate-100 text-slate-500 dark:bg-slate-700 dark:text-slate-400',
 }
 
-export default function LoveArticlePage({ article, slug }: PageProps) {
+export default function LoveArticlePage({ article, slug, comparePair }: PageProps) {
   const canonicalUrl = `https://birthchartlibrary.com/love/${slug}`
   const ec1 = article.sign1 ? getElementColor(article.sign1) : null
   const ec2 = article.sign2 ? getElementColor(article.sign2) : null
@@ -68,6 +88,44 @@ export default function LoveArticlePage({ article, slug }: PageProps) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(article.faqs)) }} />
       )}
 
+      {redesignOn('hubs') ? (() => {
+        const couple = article.category === 'couple'
+        const sd = (s: string) => ({ color: GROUP_COLOR[SIGNS[s]?.element ?? 'Fire'], icon: signIcon(s) })
+        const discs = article.sign1 && article.sign2 ? [sd(article.sign1), sd(article.sign2)] : article.sign1 ? sd(article.sign1) : undefined
+        const cta = article.compatLink
+          ? { href: article.compatLink, title: article.sign1 && article.sign2 ? `${article.sign1} and ${article.sign2}` : `${article.sign1} compatibility`, sub: 'How the two signs get along, in full.' }
+          : { href: '/calculators/synastry', title: 'Compare two full charts', sub: 'Sun signs are only the start. Synastry compares every planet.' }
+        return (
+          <main className="rdp"><div className="lrn">
+            <LearnHero crumbs={couple ? [{ label: 'Famous couples', href: '/love/celebrity-couples' }, { label: article.title }] : [{ label: 'Compatibility', href: '/compatibility' }, { label: article.title }]} disc={discs} title={article.title}>
+              <p className="meta">{article.readTime}</p>
+            </LearnHero>
+            <article className="art">
+              {article.intro ? <p>{article.intro}</p> : null}
+              {article.sections.map((section, i) => (
+                <div key={i}>
+                  {section.heading ? <h2>{section.heading}</h2> : null}
+                  {section.paragraphs?.map((p, j) => <p key={j}>{p}</p>)}
+                  {section.bullets?.length ? <ul>{section.bullets.map((b, j) => <li key={j}>{b}</li>)}</ul> : null}
+                  {section.signBullets?.length ? <ul>{section.signBullets.map((b, j) => <li key={j}><b>{b.sign}:</b> {b.text}</li>)}</ul> : null}
+                  {section.callout ? <blockquote>{section.callout}</blockquote> : null}
+                </div>
+              ))}
+            </article>
+            {article.faqs?.length ? (
+              <section className="lsec">
+                <h2>Common questions</h2>
+                {article.faqs.map(f => <Fold key={f.question} title={f.question}><p>{f.answer}</p></Fold>)}
+              </section>
+            ) : null}
+            <div className="nexts cta">
+              {comparePair ? <Link className="nx" href={`/celebrity-birth-charts/compare/${comparePair}`}><b>How their two charts meet</b><small>Every planet in one chart against the other, with a match letter.</small></Link> : null}
+              <Link className="nx" href={cta.href}><b>{cta.title}</b><small>{cta.sub}</small></Link>
+            </div>
+            <NextLinks title="Related" links={relatedArticles.map(r => ({ href: `/love/${r.slug}`, title: r.title }))} />
+          </div></main>
+        )
+      })() : (
       <main className="max-w-3xl mx-auto px-4 py-12">
         <nav className="text-sm text-slate-400 mb-8">
           <Link href="/love" className="hover:text-slate-600 dark:hover:text-slate-300">Love &amp; Astrology</Link>
@@ -179,7 +237,7 @@ export default function LoveArticlePage({ article, slug }: PageProps) {
                     <p className="text-slate-500 dark:text-slate-400 text-xs mt-0.5">Free birth chart — Sun, Moon, Rising, and 1,700+ interpretations.</p>
                   </div>
                   <Link href="/birth-chart?ref=love-mid" className="btn-primary text-sm px-5 py-2 whitespace-nowrap shrink-0">
-                    Get Mine Free
+                    Get mine free
                   </Link>
                 </div>
               )}
@@ -190,7 +248,7 @@ export default function LoveArticlePage({ article, slug }: PageProps) {
         {/* FAQ */}
         {article.faqs && article.faqs.length > 0 && (
           <div className="mt-12 border-t border-slate-200 dark:border-slate-700 pt-10">
-            <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-6">Common Questions</h2>
+            <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-6">Common questions</h2>
             <div className="space-y-4">
               {article.faqs.map((faq, i) => (
                 <div key={i} className="card">
@@ -207,8 +265,8 @@ export default function LoveArticlePage({ article, slug }: PageProps) {
           <h3 className="font-semibold text-slate-800 dark:text-slate-100 mb-2">Go deeper than Sun signs</h3>
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-5 max-w-sm mx-auto">A full synastry reading compares Moon signs, Venus placements, Mars, and every other planet in both charts. That\'s where the real picture is.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/calculators/synastry" className="btn-primary text-sm px-6 py-2.5">Compare Full Charts</Link>
-            <Link href="/birth-chart" className="btn-outline text-sm px-6 py-2.5">Get My Birth Chart</Link>
+            <Link href="/calculators/synastry" className="btn-primary text-sm px-6 py-2.5">Compare full charts</Link>
+            <Link href="/birth-chart" className="btn-outline text-sm px-6 py-2.5">Get my birth chart</Link>
           </div>
         </div>
 
@@ -230,10 +288,11 @@ export default function LoveArticlePage({ article, slug }: PageProps) {
         {/* Back + explore */}
         <div className="mt-10 border-t border-slate-200 dark:border-slate-700 pt-8 flex flex-wrap gap-3">
           <Link href="/love" className="text-sm text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">← Love &amp; Astrology</Link>
-          <Link href="/compatibility" className="text-sm text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">Compatibility Guide</Link>
-          <Link href="/love/celebrity-couples" className="text-sm text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">Celebrity Couples</Link>
+          <Link href="/compatibility" className="text-sm text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">Compatibility guide</Link>
+          <Link href="/love/celebrity-couples" className="text-sm text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">Celebrity couples</Link>
         </div>
       </main>
+      )}
     </>
   )
 }

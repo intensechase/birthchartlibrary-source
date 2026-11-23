@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { TextPage } from '@/components/redesign/Learn'
 
 export default function TermsOfServicePage() {
   return (
@@ -7,9 +8,7 @@ export default function TermsOfServicePage() {
         <title>Terms of Service | Birth Chart Library</title>
         <meta name="description" content="Terms of Service for Birth Chart Library." />
       </Head>
-      <main className="max-w-2xl mx-auto px-4 py-12">
-        <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-2">Terms of Service</h1>
-        <p className="text-slate-500 mb-10">Last updated: November 10, 2026</p>
+      <TextPage title="Terms of Service" lead={<>Last updated: November 10, 2026</>}>
 
         <div className="space-y-8 text-slate-500 leading-relaxed">
           <section>
@@ -64,7 +63,7 @@ export default function TermsOfServicePage() {
             <p>Questions about these terms may be directed to{' '}<a href="mailto:librarian@birthchartlibrary.com" className="text-slate-600 hover:text-slate-800 transition-colors">librarian@birthchartlibrary.com</a>.</p>
           </section>
         </div>
-      </main>
+      </TextPage>
     </>
   )
 }

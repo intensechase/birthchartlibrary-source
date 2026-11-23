@@ -855,6 +855,10 @@ const TRANSIT_PAIRS: Record<string, Record<string, string>> = {
   },
 }
 
+// "the Moon" starts a sentence as "The Moon"; after "your natal" the "the" goes.
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
+const noThe = (s: string) => s.replace(/^the /, '')
+
 export function describeTransit(t: Transit): string {
   const transitName = PLANET_NAMES[t.transitPlanet] || t.transitPlanet
   const natalName = PLANET_NAMES[t.natalPlanet] || t.natalPlanet
@@ -863,7 +867,7 @@ export function describeTransit(t: Transit): string {
   const natalEnergy = PLANET_ENERGY[t.natalPlanet] || ''
   const transitEnergy = PLANET_ENERGY[t.transitPlanet] || ''
 
-  const opening = `${transitName} in ${t.transitSign} is currently ${aspectPhrase} your natal ${natalName} in ${t.natalSign}.`
+  const opening = `${cap(transitName)} in ${t.transitSign} is currently ${aspectPhrase} your natal ${noThe(natalName)} in ${t.natalSign}.`
 
   // Try specific transit pair description first
   const pairKey = `${t.transitPlanet}_${t.natalPlanet}`
@@ -877,9 +881,9 @@ export function describeTransit(t: Transit): string {
   if (t.aspect === 'conjunct') {
     body = `This is a powerful alignment... ${transitEnergy} and ${natalEnergy} are fusing together in the area of ${houseTheme}. You may feel this as a heightened awareness or intensity around these themes.`
   } else if (t.aspect === 'trine' || t.aspect === 'sextile') {
-    body = `This is a supportive aspect... ${transitEnergy} flows easily into your ${natalEnergy}, opening doors in the area of ${houseTheme}. Notice what feels effortless right now and lean into it.`
+    body = `This is a supportive aspect... ${transitEnergy} flow easily into your ${natalEnergy}, opening doors in the area of ${houseTheme}. Notice what feels effortless right now and lean into it.`
   } else if (t.aspect === 'square') {
-    body = `This creates productive tension... ${transitEnergy} is pushing against your ${natalEnergy}, asking for adjustment in the area of ${houseTheme}. The friction you feel is an invitation to grow.`
+    body = `This creates productive tension... ${transitEnergy} are pushing against your ${natalEnergy}, asking for adjustment in the area of ${houseTheme}. The friction you feel is an invitation to grow.`
   } else if (t.aspect === 'opposite') {
     body = `This creates a pull between two poles... ${transitEnergy} and your ${natalEnergy} are in dialogue across the axis of ${houseTheme}. Balance comes from honoring both sides rather than choosing one.`
   }

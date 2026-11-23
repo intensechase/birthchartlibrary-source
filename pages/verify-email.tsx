@@ -62,7 +62,7 @@ export default function VerifyEmailPage() {
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <main className="max-w-md mx-auto px-4 py-20 text-center">
-        <h1 className="font-display text-3xl tracking-wide mb-4">Verify Your Email</h1>
+        <h1 className="font-display text-3xl tracking-wide mb-4">Verify your email</h1>
         {state.status === 'loading' && (
           <p className="text-slate-500">Verifying…</p>
         )}

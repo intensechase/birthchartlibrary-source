@@ -2,8 +2,11 @@ import Head from 'next/head'
 import Link from 'next/link'
 import BigThreeCalculator from '@/components/calculators/BigThreeCalculator'
 import { breadcrumbSchema, toolSchema, howToSchema, jsonLd } from '@/lib/schema'
+import { redesignOn } from '@/lib/redesign'
+import ChartTool, { ToolDoors } from '@/components/redesign/ChartTool'
+import { Crumbs, Prose, NextLinks } from '@/components/redesign/Learn'
 
-export default function SunMoonRisingPage() {
+function LegacySunMoonRisingPage() {
   return (
     <>
       <Head>
@@ -75,4 +78,79 @@ export default function SunMoonRisingPage() {
       </main>
     </>
   )
+}
+
+// ---------------------------------------------------------------------
+// Stage 'tools': the chart form itself; the Big Three lead the result.
+// ---------------------------------------------------------------------
+const URL = 'https://birthchartlibrary.com/calculators/sun-moon-rising'
+
+const TOOL_HEAD = (
+  <>
+    <Head>
+      <title>Sun, Moon and Rising Calculator: your Big Three free | Birth Chart Library</title>
+      <meta name="description" content="Find your Sun, Moon and rising signs free. Enter the birth date, time and place and see your Big Three at the top of your whole birth chart, read plainly." />
+      <link rel="canonical" href={URL} />
+      <meta property="og:title" content="Sun, Moon and Rising Calculator: your Big Three free" />
+      <meta property="og:description" content="Your Sun, Moon and rising signs at the top of your whole birth chart, read plainly." />
+      <meta property="og:url" content={URL} />
+      <meta name="twitter:card" content="summary" />
+    </Head>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema([
+      { name: 'Home', url: 'https://birthchartlibrary.com' },
+      { name: 'Calculators', url: 'https://birthchartlibrary.com/calculators' },
+      { name: 'Sun, Moon and Rising Calculator', url: URL },
+    ])) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(toolSchema({
+      name: 'Sun, Moon and Rising Calculator',
+      description: 'Free Big Three calculator. Enter the birth date, time and place to find the Sun, Moon and rising signs and see the full birth chart.',
+      url: URL,
+      keywords: 'big three calculator, sun moon rising calculator, moon sign calculator, rising sign calculator, free birth chart',
+    })) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(howToSchema({
+      name: 'How to Find Your Sun, Moon and Rising Signs',
+      description: 'Find your Big Three from the birth date, birth time and birth place.',
+      totalTime: 'PT2M',
+      url: URL,
+      steps: [
+        { name: 'Enter the birth date', text: 'The date gives the Sun sign and usually the Moon sign.' },
+        { name: 'Enter the birth time', text: 'The time gives the rising sign, and settles the Moon on days it changes sign.' },
+        { name: 'Pick the birth place', text: 'Type the city and choose it from the list.' },
+        { name: 'See the chart', text: 'The Sun, Moon and rising signs lead the chart, with every planet and house below them.' },
+      ],
+    })) }} />
+  </>
+)
+
+function BigThreeTool() {
+  return (
+    <ChartTool
+      head={TOOL_HEAD}
+      top={<Crumbs items={[{ label: 'Calculators', href: '/calculators' }, { label: 'Sun, Moon and rising' }]} />}
+      title="Your Sun, Moon and rising"
+      sub="The three signs people mean by your Big Three, at the top of your whole chart. Free, no account."
+      submitText="Find my Big Three"
+      saveRef="calc-big-three"
+      focus="big3"
+      after={
+        <>
+          <Prose id="what" title="What each one needs">
+            <p>The Sun sign comes from the date alone. It is the sign most people already know.</p>
+            <p>The Moon changes sign about every two and a half days, so the date usually settles it. On a day it changes sign, the birth time decides which one.</p>
+            <p>The rising sign needs the time and the place. It changes about every two hours. Without a time you still get the Sun, the Moon and every planet by sign, and the rising sign is left out rather than guessed.</p>
+          </Prose>
+          <NextLinks title="Read more" links={[
+            { href: '/blog/the-big-three-astrology-sun-moon-rising', title: 'The Big Three, explained', sub: 'How the Sun, Moon and rising work together' },
+            { href: '/blog/what-your-moon-sign-says-about-your-emotional-life', title: 'Your Moon sign', sub: 'What it says about how you feel things' },
+            { href: '/celebrity-birth-charts', title: 'Celebrity birth charts', sub: 'Real charts with sourced birth times' },
+          ]} />
+          <ToolDoors skip="/calculators/sun-moon-rising" />
+        </>
+      }
+    />
+  )
+}
+
+export default function SunMoonRisingPage() {
+  return redesignOn('tools') ? <BigThreeTool /> : <LegacySunMoonRisingPage />
 }

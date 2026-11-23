@@ -88,7 +88,7 @@ export default function EmbedBirthChart() {
     setForm({ birthDate: '', birthTime: '', birthCity: '', birthLat: 0, birthLng: 0 })
   }
 
-  const wrapperClass = `min-h-screen flex flex-col font-sans ${dark ? 'bg-slate-950 text-slate-100' : 'bg-white text-slate-800'}`
+  const wrapperClass = `min-h-screen flex flex-col font-sans ${dark ? 'bg-slate-950 text-slate-100' : 'embed-light bg-white text-slate-800'}`
   const cardClass = `flex-1 flex flex-col justify-between px-6 py-5`
   const inputClass = `w-full px-3 py-2 text-sm rounded-lg border focus:outline-none focus:ring-1 transition-colors ${dark ? 'bg-slate-900 border-slate-700 text-slate-100 placeholder-slate-500 focus:ring-amber-400 focus:border-amber-400' : 'bg-white border-slate-200 text-slate-800 placeholder-slate-400 focus:ring-slate-400 focus:border-slate-400'}`
   const labelClass = `block text-xs font-medium mb-1 ${dark ? 'text-slate-400' : 'text-slate-500'}`
@@ -108,7 +108,7 @@ export default function EmbedBirthChart() {
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div>
               <p className={`text-xs font-semibold uppercase tracking-widest mb-0.5 ${dark ? 'text-amber-400' : 'text-slate-400'}`}>✦ Free</p>
-              <h1 className={`text-xl font-bold ${dark ? 'text-slate-100' : 'text-slate-800'}`}>Your Birth Chart</h1>
+              <h1 className={`text-xl font-bold ${dark ? 'text-slate-100' : 'text-slate-800'}`}>Your birth chart</h1>
               <p className={`text-xs mt-0.5 ${dark ? 'text-slate-500' : 'text-slate-400'}`}>Discover your Sun, Moon &amp; Rising sign</p>
             </div>
 
@@ -138,7 +138,7 @@ export default function EmbedBirthChart() {
           <div className="flex flex-col gap-4">
             <div>
               <p className={`text-xs font-semibold uppercase tracking-widest mb-0.5 ${dark ? 'text-amber-400' : 'text-slate-400'}`}>✦ Your Big Three</p>
-              <h1 className={`text-xl font-bold ${dark ? 'text-slate-100' : 'text-slate-800'}`}>Birth Chart</h1>
+              <h1 className={`text-xl font-bold ${dark ? 'text-slate-100' : 'text-slate-800'}`}>Birth chart</h1>
             </div>
 
             <div className={`rounded-xl border divide-y ${dark ? 'border-slate-800 divide-slate-800' : 'border-slate-100 divide-slate-100'}`}>

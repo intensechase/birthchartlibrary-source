@@ -1,9 +1,13 @@
 // The wheel's scalloped edge, used where one colored band meets another.
 // `top` fills the space between the circles (the band above); the element's
 // own background shows below them. Each use needs its own pattern id.
+import { REDESIGN_ANY } from '@/lib/redesign'
+
 const RING = ['#E8591D', '#3F9D4F', '#F2B632', '#2B8FD0']
 
 export default function Scallop({ id, top, className }: { id: string; top: string; className: string }) {
+  // Owner 11/20: the four-color strip goes everywhere once the redesign is on.
+  if (REDESIGN_ANY) return null
   return (
     <svg aria-hidden="true" className={`block w-full h-6 ${className}`}>
       <defs>

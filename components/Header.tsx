@@ -5,6 +5,8 @@ import Link from 'next/link'
 import MobileNav from '@/components/MobileNav'
 import SiteSearch from '@/components/SiteSearch'
 import { useTheme } from '@/lib/theme'
+import { REDESIGN_ANY } from '@/lib/redesign'
+import { useRouter } from 'next/router'
 import { safeSessionGet, safeSessionSet, safeSessionRemove } from '@/lib/safe-storage'
 
 function SunIcon() {
@@ -77,7 +79,8 @@ export default function Header() {
   const [accountOpen, setAccountOpen] = useState(false)
   const [myChartId, setMyChartId] = useState<string | null>(null)
   const accountRef = useRef<HTMLDivElement>(null)
-  const { theme, toggleTheme } = useTheme()
+  const { theme, toggleTheme, canToggle } = useTheme()
+  const isHome = useRouter().pathname === '/'
 
   useEffect(() => {
     const hasAuth = document.cookie.split(';').some(c => c.trim().startsWith('bcl_logged_in='))
@@ -121,13 +124,13 @@ export default function Header() {
         {/* Left — Logo */}
         <Link href="/" className="flex items-center gap-2 min-w-0 sm:shrink-0 group" aria-label="Birth Chart Library home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.svg" alt="" width={34} height={34} className="shrink-0 transition-transform group-hover:rotate-12" />
+          <img src={REDESIGN_ANY ? (isHome ? '/brand/logo-orbit.svg' : '/brand/logo.svg') : '/logo.svg'} alt="" width={34} height={34} className="shrink-0 transition-transform group-hover:rotate-12" />
           <span className="font-display text-lg sm:text-2xl leading-tight text-slate-800 dark:text-slate-100">Birth Chart Library</span>
         </Link>
 
         {/* Center — Primary nav (desktop only) */}
         <nav className="hidden min-[1180px]:flex items-center gap-5 text-sm">
-          <Link href={isLoggedIn ? '/daily-horoscope' : '/horoscope'} className="font-bold text-slate-800 dark:text-slate-100 hover:text-[color:var(--accent)] transition-colors">
+          <Link href={isLoggedIn ? '/daily-horoscope' : '/signup?ref=nav-horoscope'} className="font-bold text-slate-800 dark:text-slate-100 hover:text-[color:var(--accent)] transition-colors">
             Horoscope
           </Link>
 
@@ -144,7 +147,6 @@ export default function Header() {
           <NavDropdown
             label="Love"
             items={[
-              { href: '/love', label: 'Love & Astrology' },
               { href: '/compatibility', label: 'Compatibility' },
               { href: '/love/celebrity-couples', label: 'Celebrity Couples' },
               { href: '/calculators/synastry', label: 'Synastry Calculator' },
@@ -181,20 +183,20 @@ export default function Header() {
         <div className="flex items-center gap-0 sm:gap-2 shrink-0">
           <SiteSearch />
 
-          {/* Theme toggle */}
-          <button
+          {/* Theme toggle (hidden while the redesign is dark only) */}
+          {canToggle && <button
             onClick={toggleTheme}
             className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center text-slate-800 dark:text-slate-100 hover:text-[color:var(--accent)] transition-colors rounded-lg"
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
-          </button>
+          </button>}
 
           <nav className="hidden min-[1180px]:flex items-center gap-3 text-sm">
             {isLoggedIn ? (
               <>
                 <Link href="/birth-chart" className="btn-primary text-sm py-1.5">
-                  New Chart
+                  New chart
                 </Link>
                 {/* Account dropdown */}
                 <div ref={accountRef} className="relative">
@@ -214,7 +216,7 @@ export default function Header() {
                   {accountOpen && (
                     <div className="absolute top-full right-0 mt-2 w-48 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg shadow-lg py-1 z-50">
                       <Link href={myChartId ? `/birth-chart/${myChartId}` : '/account'} onClick={() => setAccountOpen(false)} className="block px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-800 dark:hover:text-slate-100">
-                        My Chart
+                        My chart
                       </Link>
                       <Link href="/account" onClick={() => setAccountOpen(false)} className="block px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-800 dark:hover:text-slate-100">
                         Settings
@@ -222,7 +224,7 @@ export default function Header() {
                       <div className="border-t border-slate-100 dark:border-slate-700 my-1" />
                       <form action="/api/auth/signout" method="POST">
                         <button type="submit" className="w-full text-left px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
-                          Sign Out
+                          Sign out
                         </button>
                       </form>
                     </div>
@@ -232,10 +234,10 @@ export default function Header() {
             ) : (
               <>
                 <Link href="/login" className="font-bold text-slate-800 dark:text-slate-100 hover:text-[color:var(--accent)] transition-colors">
-                  Sign In
+                  Sign in
                 </Link>
                 <Link href="/signup" className="btn-primary text-sm py-1.5">
-                  Sign Up
+                  Sign up
                 </Link>
               </>
             )}

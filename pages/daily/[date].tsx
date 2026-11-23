@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import AdminBreadcrumb from '@/components/AdminBreadcrumb'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { getListableCelebrities } from '@/lib/celebrities'
+import { FRONT_PAGE_OK_SQL, getListableCelebrities } from '@/lib/celebrities'
 import { getDailySky, type DailySky } from '@/lib/swisseph/daily-sky'
 import { MOON_REFLECTIONS, MOON_WEATHER, RETROGRADE_DESCRIPTIONS, SUN_SEASON } from '@/lib/interpretations/daily'
 import { getElementColor, SIGN_SYMBOLS } from '@/lib/zodiac-colors'
@@ -29,6 +29,8 @@ interface Props {
   isFuture: boolean
 }
 
+const FIRST_DAY = Date.UTC(2026, 0, 1)
+
 function parseDate(dateStr: string): { year: number; month: number; day: number } | null {
   const match = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})$/)
   if (!match) return null
@@ -36,7 +38,11 @@ function parseDate(dateStr: string): { year: number; month: number; day: number 
   const month = parseInt(match[2], 10)
   const day = parseInt(match[3], 10)
   if (month < 1 || month > 12 || day < 1 || day > 31) return null
-  if (year < 1900 || year > 2100) return null
+  // Real calendar dates only, from the first archived day to a week ahead.
+  // (Was 1900-2100: ~73,000 noindexed pages a crawler could walk via prev/next.)
+  const t = Date.UTC(year, month - 1, day)
+  if (new Date(t).getUTCDate() !== day) return null
+  if (t < FIRST_DAY || t > Date.now() + 7 * 86400000) return null
   return { year, month, day }
 }
 
@@ -47,7 +53,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async (context) => {
   const date = context.params?.date as string
   const parsed = parseDate(date)
-  if (!parsed) return { notFound: true }
+  if (!parsed) return { notFound: true, revalidate: 86400 }
 
   const { year, month, day } = parsed
   try {
@@ -58,7 +64,7 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
   // Celebrity of the day
   const [celebRow] = await getListableCelebrities<{ name: string; slug: string; birth_date: string; birth_city: string; category: string | null; sun_sign: string | null }>({
     columns: 'name, slug, birth_date, birth_city, category, sun_sign',
-    where: 'EXTRACT(MONTH FROM birth_date) = $1 AND EXTRACT(DAY FROM birth_date) = $2',
+    where: `EXTRACT(MONTH FROM birth_date) = $1 AND EXTRACT(DAY FROM birth_date) = $2 AND ${FRONT_PAGE_OK_SQL}`,
     params: [month, day],
     orderBy: 'name',
     limit: 1,
@@ -168,7 +174,7 @@ export default function DailyArchivePage({ date, dateStr, sky, celeb, prevDate, 
         <section className="mb-8">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-xl">☉</span>
-            <h2 className="font-display text-xl tracking-wide">The Sky</h2>
+            <h2 className="font-display text-xl tracking-wide">The sky</h2>
             <span className={`text-xs px-2 py-0.5 rounded-full ${sunEc.bg} ${sunEc.text}`}>
               {sunSign} Season
             </span>
@@ -197,7 +203,7 @@ export default function DailyArchivePage({ date, dateStr, sky, celeb, prevDate, 
             <div className="flex items-center gap-2 mb-3">
               <span className="text-xl">℞</span>
               <h2 className="font-display text-xl tracking-wide">Retrogrades</h2>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">{retrogrades.length} active</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">{retrogrades.length} active</span>
             </div>
             <div className="space-y-3">
               {retrogrades.map(r => {
@@ -222,7 +228,7 @@ export default function DailyArchivePage({ date, dateStr, sky, celeb, prevDate, 
           <section className="mb-8">
             <div className="flex items-center gap-2 mb-3">
               <span className="text-xl">⭐</span>
-              <h2 className="font-display text-xl tracking-wide">Celebrity Birthday</h2>
+              <h2 className="font-display text-xl tracking-wide">Celebrity birthday</h2>
             </div>
             <Link href={`/celebrity-birth-charts/${celeb.slug}`} className="card block hover:border-slate-400 transition-colors group">
               <p className="font-display text-2xl tracking-wide group-hover:text-slate-600 transition-colors">{celeb.name}</p>
@@ -247,9 +253,9 @@ export default function DailyArchivePage({ date, dateStr, sky, celeb, prevDate, 
 
         {/* Prev / Next navigation */}
         <div className="flex justify-between mt-10 pt-6 border-t border-slate-200 dark:border-slate-700">
-          <Link href={`/daily/${prevDate}`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
+          {date > '2026-01-01' && <Link href={`/daily/${prevDate}`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
             ← Previous day
-          </Link>
+          </Link>}
           {!isFuture && (
             <Link href={`/daily/${nextDate}`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
               Next day →

@@ -55,21 +55,21 @@
 .chart-wheel { background: var(--w-bg); }
 .dark {
   --band: #1D2C54;
-  --w-bg: #14203F; --w-field: #1D2C54; --w-line: #F2E6C8; --w-soft: #3B4C7D; --w-text: #D5DBEC; --w-outline: #0A0E1E;
+  --w-bg: #14203F; --w-field: #1D2C54; --w-line: #EEF0FA; --w-soft: #3B4C7D; --w-text: #E6E9F5; --w-outline: #0A0E1E;
   --w-tone-0: #F0651F; --w-tone-1: #49AE5A; --w-tone-2: #F4BE3C; --w-tone-3: #3A9ADB;
   --w-shade-0: #B9400F; --w-shade-1: #2B7A3B; --w-shade-2: #C98A12; --w-shade-3: #1F6CA6;
 }
 
 .dark {
   --background: #14203F;
-  --foreground: #D5DBEC;
+  --foreground: #E6E9F5;
   --surface: #26376A;
   --outline: #0A0E1E;
   --accent: #F4BE3C;
   --gold: #F4BE3C;
-  --prose-body: #D5DBEC;
-  --prose-heading: #F2E6C8;
-  --prose-muted: #B4BEDA;
+  --prose-body: #E6E9F5;
+  --prose-heading: #EEF0FA;
+  --prose-muted: #A3AACB;
   --prose-rule: #4A5C90;
   --s-50: 255 249 234; --s-100: 242 230 200; --s-150: 234 220 188; --s-200: 227 220 203;
   --s-300: 213 219 236; --s-400: 180 190 218; --s-500: 152 164 200; --s-600: 74 92 144;
@@ -92,6 +92,99 @@ h1, h2 {
   line-height: 1.1;
   text-wrap: balance;
 }
+
+/* ---- Redesign (Planisphere). Tailwind names: rd-* (see tailwind.config.ts).
+   RGB triplets so opacity classes work. Values from the approved boards.
+   DARK ONLY for now (owner, 11/19): while a stage is on, the whole site is
+   dark and the theme toggle is hidden (lib/theme.tsx). A light set can be
+   added later from the board's Light mode row. */
+:root {
+  --rd-sky: 15 19 40; --rd-base: 21 26 56; --rd-dome: 31 38 80;
+  --rd-panel: 28 34 69; --rd-panel2: 37 44 88; --rd-rule: 46 54 99;
+  --rd-dark: 18 22 46;
+  --rd-fg: 238 240 250; --rd-ink: 230 233 245; --rd-sub: 163 170 203;
+  --rd-link: 154 168 255; --rd-linkhi: 195 203 255;
+  --rd-fire: 255 138 101; --rd-earth: 143 203 143; --rd-air: 242 209 107; --rd-water: 95 168 240;
+}
+
+/* Owner's rules, on once any redesign stage is on (html.rd, set in
+   pages/_document.tsx from lib/redesign.ts):
+   no single word left alone on a heading's last line, and scroll bars never
+   visible while scrolling still works (wheel, touch, keyboard). */
+/* Redesign type: Outfit headings, Figtree text; weight steps down with size. */
+/* Owner 11/20: Outfit headings, Figtree text on every page while a stage is on. */
+.rd body { font-family: var(--font-body), 'Segoe UI', Arial, sans-serif; }
+.rd h1, .rd h2, .rd h3 { font-family: var(--font-heading), 'Segoe UI', sans-serif; letter-spacing: -0.02em; }
+/* Older pages style headlines, quotes and buttons with .font-display (Bricolage);
+   owner 11/20: those move to Outfit too, so no Bricolage shows while a stage is on. */
+.rd .font-display.font-display { font-family: var(--font-heading), 'Segoe UI', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+.rd h1 { font-weight: 700; }
+.rd h2 { font-weight: 650; }
+.rd h3 { font-weight: 600; }
+.rd h3, .rd h4 {
+  text-wrap: balance;
+}
+.rd p, .rd li {
+  text-wrap: pretty;
+}
+.rd, .rd * {
+  scrollbar-width: none;
+}
+.rd::-webkit-scrollbar, .rd *::-webkit-scrollbar {
+  display: none;
+}
+
+/* Colour pass (owner OK 11/20): pages not rebuilt yet take the redesign's one night
+   palette instead of the old navy, cream and gold. One action colour (periwinkle),
+   thin borders, no hard "sticker" shadows. The four element colours stay, softened,
+   as small accents; a sign takes its element's colour instead of its own. */
+html.rd.dark {
+  --background: #0F1328; --foreground: #E6E9F5; --surface: #1C2245; --outline: #2E3663;
+  --accent: #C3CBFF; --gold: #C3CBFF; --band: #151A38;
+  --prose-body: #E6E9F5; --prose-heading: #EEF0FA; --prose-muted: #A3AACB; --prose-rule: #2E3663;
+  --s-50: 238 240 250; --s-100: 230 233 245; --s-150: 218 222 240; --s-200: 203 208 232;
+  --s-300: 184 190 220; --s-400: 163 170 203; --s-500: 138 146 184; --s-600: 70 80 132;
+  --s-700: 46 54 99; --s-800: 37 44 88; --s-900: 28 34 69; --s-950: 21 26 56;
+  --w-bg: #0F1328; --w-field: #151A38; --w-line: #C3CBFF; --w-soft: #2E3663; --w-text: #E6E9F5; --w-paper: #1C2245; --w-outline: #2E3663;
+  --w-tone-0: #FF8A65; --w-tone-1: #8FCB8F; --w-tone-2: #F2D16B; --w-tone-3: #5FA8F0;
+  --w-shade-0: #C8664A; --w-shade-1: #6A9E6A; --w-shade-2: #BFA352; --w-shade-3: #4683BD;
+  --sign-aries: #FF8A65; --sign-leo: #FF8A65; --sign-sagittarius: #FF8A65;
+  --sign-taurus: #8FCB8F; --sign-virgo: #8FCB8F; --sign-capricorn: #8FCB8F;
+  --sign-gemini: #F2D16B; --sign-libra: #F2D16B; --sign-aquarius: #F2D16B;
+  --sign-cancer: #5FA8F0; --sign-scorpio: #5FA8F0; --sign-pisces: #5FA8F0;
+}
+html.rd .btn-primary, html.rd .btn-outline {
+  border: 1px solid var(--outline); box-shadow: none; border-radius: 999px; font-weight: 650; min-height: 48px;
+}
+html.rd .btn-primary:hover, html.rd .btn-outline:hover, html.rd .btn-primary:active, html.rd .btn-outline:active { transform: none; box-shadow: none; }
+html.rd .btn-primary { background-color: #C3CBFF; border-color: #C3CBFF; color: #12162E; }
+html.rd .btn-primary:hover { background-color: #EEF0FA; border-color: #EEF0FA; }
+html.rd .btn-outline { background-color: transparent; color: #E6E9F5; }
+html.rd .btn-outline:hover { border-color: #9AA8FF; }
+html.rd [class*="shadow-[0_"] { box-shadow: none !important; }
+html.rd .border-\[3px\], html.rd .border-\[2\.5px\], html.rd .border-\[4px\], html.rd .border-2 { border-width: 1px; }
+html.rd .border-t-\[3px\] { border-top-width: 1px; }
+html.rd .border-\[\#1A1622\] { border-color: #2E3663; }
+/* Cream glyph medallions (sign, planet, interpretation heroes): night panel, periwinkle glyph. */
+html.rd .bg-\[\#FFF9EA\] { background-color: #1C2245; color: #C3CBFF; }
+html.rd .bg-\[\#FFF9EA\] .text-\[\#1A1622\], html.rd .bg-\[\#FFF9EA\].text-\[\#1A1622\] { color: #C3CBFF; }
+html.rd .bg-\[\#FFF9EA\] path[stroke="#1A1622"] { stroke: #C3CBFF; }
+/* The gold call-to-action band on sign pages becomes a quiet panel. */
+html.rd .dark\:border-slate-100 { border-color: rgb(70 80 132); }
+html.rd .dark\:bg-\[\#F4BE3C\] { background-color: #151A38; color: #EEF0FA; }
+html.rd .dark\:bg-\[\#F4BE3C\] .text-\[\#1A1622\], html.rd .dark\:bg-\[\#F4BE3C\].text-\[\#1A1622\] { color: #EEF0FA; }
+
+/* Type pass (owner OK 11/20): older pages drop the old habits. Regular body weight
+   instead of 500, no shouting caps labels, no 900 weights, one body font. */
+html.rd body { font-weight: 400; }
+html.rd .font-body { font-family: var(--font-body), 'Segoe UI', Arial, sans-serif; }
+/* The font variables live on the app wrapper (pages/_app.tsx), not on body, so
+   body's var(--font-body) never resolved and older pages fell back to Segoe UI.
+   Set the reading font where the variables exist. */
+html.rd .fontroot { font-family: var(--font-body), 'Segoe UI', Arial, sans-serif; }
+html.rd .uppercase { text-transform: none; }
+html.rd [class*="tracking-wid"] { letter-spacing: 0; }
+html.rd .font-black, html.rd .font-extrabold { font-weight: 700; }
 
 /* Older headings were sized and spaced for a narrow all-caps font. */
 .font-display.font-display {
@@ -163,14 +256,14 @@ h1, h2, h3, h4 {
 }
 
 .dark .btn-outline {
-  color: #F2E6C8;
+  color: #EEF0FA;
 }
 .dark .input {
-  border-color: #4A5C90;
-  color: #F2E6C8;
+  border-color: #2E3663;
+  color: #EEF0FA;
 }
 .dark .input::placeholder {
-  color: #B4BEDA;
+  color: #A3AACB;
 }
 .dark .card {
   border-color: #34467C;
@@ -178,17 +271,17 @@ h1, h2, h3, h4 {
 
 /* Centralized dark mode contrast — text inside dark cards.
    Specificity (0,3,0) beats Tailwind utilities (0,1,0) so these win without !important. */
-.dark .card .text-slate-800 { color: #F2E6C8; }
-.dark .card .text-slate-700 { color: #D5DBEC; }
-.dark .card .text-slate-600 { color: #B4BEDA; }
-.dark .card .text-slate-500 { color: #B4BEDA; }
-.dark .card table { border-color: #4A5C90; }
-.dark .card th, .dark .card td { border-color: #4A5C90; }
+.dark .card .text-slate-800 { color: #EEF0FA; }
+.dark .card .text-slate-700 { color: #E6E9F5; }
+.dark .card .text-slate-600 { color: #A3AACB; }
+.dark .card .text-slate-500 { color: #A3AACB; }
+.dark .card table { border-color: #2E3663; }
+.dark .card th, .dark .card td { border-color: #2E3663; }
 /* Summary/description text that sits outside of cards but uses dark foreground colors */
 .dark p.text-slate-800, .dark span.text-slate-800, .dark h1.text-slate-800,
-.dark h2.text-slate-800, .dark h3.text-slate-800 { color: #F2E6C8; }
-.dark p.text-slate-700, .dark span.text-slate-700 { color: #D5DBEC; }
-.dark p.text-slate-600, .dark span.text-slate-600 { color: #B4BEDA; }
+.dark h2.text-slate-800, .dark h3.text-slate-800 { color: #EEF0FA; }
+.dark p.text-slate-700, .dark span.text-slate-700 { color: #E6E9F5; }
+.dark p.text-slate-600, .dark span.text-slate-600 { color: #A3AACB; }
 
 /* Many older classes name one color for both modes. These give them a readable value in
    the other mode. :where() keeps the weight low, so an explicit dark: class still wins. */
@@ -196,12 +289,67 @@ h1, h2, h3, h4 {
 :where(html:not(.dark)) .text-amber-500, :where(html:not(.dark)) .text-amber-600 { color: #8F4E06; }
 :where(html:not(.dark)) .text-emerald-600 { color: #1F6B33; }
 :where(html:not(.dark)) .text-rose-500, :where(html:not(.dark)) .text-rose-600 { color: #9F1239; }
-:where(.dark) .text-slate-600, :where(.dark) .text-slate-700 { color: #D5DBEC; }
-:where(.dark) .text-slate-800 { color: #F2E6C8; }
-:where(.dark) .bg-white.text-slate-900 { color: #F2E6C8; }
+:where(.dark) .text-slate-600, :where(.dark) .text-slate-700 { color: #E6E9F5; }
+:where(.dark) .text-slate-800 { color: #EEF0FA; }
+:where(.dark) .bg-white.text-slate-900 { color: #EEF0FA; }
 :where(.dark) .bg-slate-50 { background-color: rgb(var(--s-900)); }
 :where(.dark) .bg-slate-100 { background-color: rgb(var(--s-800)); }
 :where(.dark) .bg-slate-200 { background-color: rgb(var(--s-700)); }
 :where(.dark) .text-amber-500, :where(.dark) .text-amber-600 { color: #F4BE3C; }
 :where(.dark) .text-emerald-600 { color: #6EE7B7; }
 :where(.dark) .text-rose-500, :where(.dark) .text-rose-600 { color: #FDA4AF; }
+
+/* Form pass (owner OK 11/20): every older form (compare two charts, sign in,
+   sign up, contact, calculators) is built from .card and .input; restyle them
+   to match the redesigned birth chart form, and drop the old cream text. */
+html.rd .card { background-color: #151A38; border: 1px solid #2E3663; border-radius: 24px; }
+html.rd .input { min-height: 52px; border: 1px solid #2E3663; border-radius: 14px; background-color: #1C2245; color: #EEF0FA; color-scheme: dark; }
+html.rd .input::placeholder { color: #A3AACB; }
+html.rd .input:focus { outline: none; box-shadow: none; border-color: #9AA8FF; }
+html.rd .card .text-slate-800, html.rd p.text-slate-800, html.rd span.text-slate-800, html.rd h1.text-slate-800,
+html.rd h2.text-slate-800, html.rd h3.text-slate-800 { color: #EEF0FA; }
+html.rd .card .text-slate-700, html.rd p.text-slate-700, html.rd span.text-slate-700 { color: #E6E9F5; }
+html.rd .card .text-slate-600, html.rd .card .text-slate-500, html.rd p.text-slate-600, html.rd span.text-slate-600 { color: #A3AACB; }
+html.rd .card table, html.rd .card th, html.rd .card td { border-color: #2E3663; }
+/* City search list (shared component; light by default). */
+html.rd ul[role="listbox"].bg-white, html.rd .absolute.bg-white { background: #252C58; border-color: #2E3663; color: #EEF0FA; }
+html.rd ul[role="listbox"] button { border-color: #2E3663; }
+html.rd ul[role="listbox"] button:hover { background: #1C2245; }
+
+/* The embed widget's light theme sits on other people's white pages. */
+html.rd .embed-light :is(h1, p, span).text-slate-800 { color: #1E293B; }
+html.rd .embed-light :is(p, span).text-slate-600 { color: #475569; }
+html.rd .embed-light :is(.text-slate-300, .text-slate-400, .text-slate-500) { color: #5B6780; }
+html.rd .embed-light .input { min-height: 0; border: 1px solid #CBD5E1; border-radius: 8px; background-color: #FFFFFF; color: #1E293B; color-scheme: light; }
+html.rd .embed-light .input::placeholder { color: #5B6780; }
+html.rd .embed-light .input:focus { border-color: #64748B; }
+html.rd .embed-light ul[role="listbox"].bg-white, html.rd .embed-light .absolute.bg-white { background: #FFFFFF; border-color: #CBD5E1; color: #1E293B; }
+html.rd .embed-light ul[role="listbox"] button { border-color: #E2E8F0; color: #1E293B; }
+html.rd .embed-light ul[role="listbox"] button:hover { background: #F1F5F9; }
+
+/* Account and admin pages. */
+html.rd .acct details, html.rd .acct .border-slate-100 { border-color: #2E3663; }
+html.rd .acct .card:hover { border-color: #4A5590; }
+html.rd .dash-nav a { color: #A3AACB; }
+html.rd .dash-nav a:hover { color: #EEF0FA; text-decoration: underline; }
+/* Pale boxes and pills left from the light theme (the text color was already
+   switched for dark, the background was not). Account and admin only, so the
+   celebrity pages stay exactly as they are (Google test). */
+html.rd :is(.acct, .dash) :is(.divide-slate-100, .divide-slate-200) > * + * { border-color: #2E3663; }
+html.rd :is(.acct, .dash) .border-slate-100 { border-color: #2E3663; }
+html.rd :is(.acct, .dash) :is(.bg-green-50, .bg-emerald-50, .bg-green-100, .bg-emerald-100) { background-color: #16352F; border-color: #2C6A58; color: #8FE8C8; }
+html.rd :is(.acct, .dash) :is(.bg-amber-50, .bg-amber-100) { background-color: #3A2F14; border-color: #7A6224; color: #F4CF6E; }
+html.rd :is(.acct, .dash) :is(.bg-red-50, .bg-red-100, .bg-rose-50, .bg-rose-100) { background-color: #3D1C2A; border-color: #84384F; color: #FFB3BE; }
+html.rd :is(.acct, .dash) :is(.bg-blue-50, .bg-sky-50, .bg-violet-50) { background-color: #252C58; border-color: #2E3663; color: #C3CBFF; }
+html.rd :is(.acct, .dash) :is(.bg-red-50, .bg-rose-50) :is(p, span, label) { color: #FFB3BE; }
+html.rd .acct .bg-green-500 { background-color: #4FBF95; }
+html.rd .acct .bg-slate-300 { background-color: #4A5590; }
+html.rd .acct .card .rounded-full > .bg-white { background-color: #EEF0FA; }
+html.rd .acct .card .border-t { border-color: #2E3663; }
+html.rd .dash summary, html.rd .dash summary:hover { color: #C3CBFF; font-size: .95rem; }
+html.rd .acct .card .text-xs, html.rd .acct .text-\[10px\] { font-size: .9rem; }
+html.rd .acct .card button, html.rd .acct > * .text-xs:is(button) { min-height: 40px; }
+html.rd .acct .text-red-400, html.rd .acct .text-red-500 { color: #FFB3BE; }
+html.rd .save-err { background: rgba(253,164,175,.08); border-color: rgba(253,164,175,.35); color: #FDA4AF; }
+html.rd .save-skip { color: #A3AACB; }
+html.rd .save-skip:hover { color: #EEF0FA; }

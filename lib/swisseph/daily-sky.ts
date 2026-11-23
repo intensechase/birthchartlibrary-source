@@ -40,8 +40,9 @@ export async function getDailySky(dateOverride?: string): Promise<DailySky> {
     const moonSign = chart.planets.find(p => p.planet === 'MOON')?.sign || 'Unknown'
     const sunSign = chart.planets.find(p => p.planet === 'SUN')?.sign || 'Unknown'
 
+    // Lilith is a point, not a planet, and has no retrograde text: left out.
     const retrogrades = chart.planets
-      .filter(p => p.retrograde && p.planet !== 'NORTH_NODE')
+      .filter(p => p.retrograde && p.planet !== 'NORTH_NODE' && p.planet !== 'LILITH')
       .map(p => ({ planet: PLANET_LABELS[p.planet] || p.planet, sign: p.sign }))
 
     const result: DailySky = {

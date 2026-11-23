@@ -4,6 +4,10 @@ import Head from 'next/head'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { ASPECTS, ASPECT_ORDER } from '@/lib/interpretations/aspects'
 import { breadcrumbSchema, faqSchema, jsonLd } from '@/lib/schema'
+import { redesignOn } from '@/lib/redesign'
+import { DISC } from '@/lib/redesign/astro'
+import type { IconName } from '@/lib/icons/paths'
+import { Facts, Fold, LearnHero, NextLinks, PrevNext, Prose } from '@/components/redesign/Learn'
 
 const NATURE_COLORS: Record<string, { bg: string; text: string; border: string }> = {
   harmonious: { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-300' },
@@ -68,7 +72,7 @@ export default function AspectDetailPage({ slug, prevSlug, prevName, nextSlug, n
   ]
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-12">
+    <>
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -79,6 +83,44 @@ export default function AspectDetailPage({ slug, prevSlug, prevName, nextSlug, n
         { name: info.name, url: `https://birthchartlibrary.com/astrology-aspects/${slug}` },
       ])) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(aspectFaqs)) }} />
+      {redesignOn('hubs') ? (
+        <main className="rdp"><div className="lrn">
+          <LearnHero crumbs={[{ label: 'Aspects', href: '/astrology-aspects' }, { label: info.name }]} disc={{ color: DISC.RISING, icon: slug as IconName }} kicker="Astrology aspect" title={info.name}>
+            <p>Two planets {info.degree}&deg; apart. A {info.nature} aspect, known for {info.keywords.slice(0, 2).join(' and ').toLowerCase()}.</p>
+          </LearnHero>
+
+          <Facts items={[
+            { label: 'Angle', value: `${info.degree}\u00b0` },
+            { label: 'Orb', value: `Up to ${info.orb}\u00b0` },
+            { label: 'Nature', value: info.nature.charAt(0).toUpperCase() + info.nature.slice(1) },
+            { label: 'Known for', value: info.keywords.slice(2, 4).join(', ') },
+          ]} />
+
+          <Prose title={`What a ${info.name.toLowerCase()} means`} text={info.description} />
+          <Prose title="In your chart" text={info.inYourChart} />
+          <Prose title="Working with it" text={info.workingWithIt} />
+
+          <section className="lsec">
+            <h2>Planet pairs</h2>
+            <p className="lede">How the {info.name.toLowerCase()} plays out between particular planets. Open one to read it.</p>
+            {info.planetPairs.map(pair => (
+              <Fold key={pair.planets} title={pair.planets.replace('\u2013', ' and ')}>
+                {pair.interpretation.split(/\n\s*\n/).map((t, i) => <p key={i}>{t.trim()}</p>)}
+              </Fold>
+            ))}
+          </section>
+
+          <NextLinks links={[
+            { href: '/birth-chart?ref=aspect-page', title: 'Your free birth chart', sub: `See every ${info.name.toLowerCase()} in your own chart.` },
+            { href: '/calculators/synastry', title: 'Compare two charts', sub: 'The aspects between one chart and another.' },
+            { href: '/astrology-planets', title: 'The planets', sub: 'What each planet brings to an aspect.' },
+            { href: '/astrology-interpretations', title: 'Interpretation library', sub: 'Every planet in every sign and house.' },
+          ]} />
+
+          <PrevNext prev={prevSlug && prevName ? { href: `/astrology-aspects/${prevSlug}`, label: prevName } : null} next={nextSlug && nextName ? { href: `/astrology-aspects/${nextSlug}`, label: nextName } : null} />
+        </div></main>
+      ) : (
+      <main className="max-w-3xl mx-auto px-4 py-12">
 
       {/* Breadcrumb */}
       <AdminBreadcrumb crumbs={[
@@ -151,11 +193,11 @@ export default function AspectDetailPage({ slug, prevSlug, prevName, nextSlug, n
           <p className="text-xs text-slate-400 mt-0.5">Aspects drive sign compatibility</p>
         </Link>
         <Link href="/astrology-interpretations" className="card hover:border-slate-400 transition-colors group">
-          <p className="font-medium text-sm group-hover:text-slate-600">Interpretation Library</p>
+          <p className="font-medium text-sm group-hover:text-slate-600">Interpretation library</p>
           <p className="text-xs text-slate-400 mt-0.5">Every planet-sign-house combo</p>
         </Link>
         <Link href="/calculators/synastry" className="card hover:border-slate-400 transition-colors group">
-          <p className="font-medium text-sm group-hover:text-slate-600">Synastry Calculator</p>
+          <p className="font-medium text-sm group-hover:text-slate-600">Synastry calculator</p>
           <p className="text-xs text-slate-400 mt-0.5">See these aspects between two real charts</p>
         </Link>
         <Link href="/love" className="card hover:border-slate-400 transition-colors group">
@@ -178,5 +220,7 @@ export default function AspectDetailPage({ slug, prevSlug, prevName, nextSlug, n
         ) : <span />}
       </div>
     </main>
+      )}
+    </>
   )
 }

@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import { TextPage } from '@/components/redesign/Learn'
+import { redesignOn } from '@/lib/redesign'
 
 const DESCRIPTION = 'Birth Chart Library is a free natal chart calculator and celebrity chart archive that shows where each birth time came from. Run by one independent developer.'
 
@@ -21,9 +23,7 @@ export default function AboutPage() {
         <meta name="twitter:title" content="About Birth Chart Library" />
         <meta name="twitter:description" content={DESCRIPTION} />
       </Head>
-      <main className="max-w-2xl mx-auto px-4 py-12">
-        <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-2">About Birth Chart Library</h1>
-        <p className="text-slate-500 mb-10">A free birth chart calculator, and a celebrity chart archive that shows its sources.</p>
+      <TextPage title="About Birth Chart Library" lead={<>A free birth chart calculator, and a celebrity chart archive that shows its sources.</>} after={<div className="nexts cta"><Link className="nx" href="/birth-chart?ref=about"><b>Make your birth chart</b><small>Free, and it shows its sources.</small></Link></div>}>
 
         <div className="space-y-8 text-slate-500 leading-relaxed">
           <section>
@@ -82,12 +82,12 @@ export default function AboutPage() {
             </p>
           </section>
 
-          <div className="flex flex-wrap gap-3 pt-2">
-            <Link href="/birth-chart?ref=about" className="btn-primary">Calculate My Chart</Link>
+          {!redesignOn('hubs') && <div className="flex flex-wrap gap-3 pt-2">
+            <Link href="/birth-chart?ref=about" className="btn-primary">Calculate my chart</Link>
             <Link href="/contact" className="btn-outline">Contact</Link>
-          </div>
+          </div>}
         </div>
-      </main>
+      </TextPage>
     </>
   )
 }

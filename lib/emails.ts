@@ -40,7 +40,7 @@ function emailLayout(body: string, options?: { subtitle?: string; manageUrl?: st
       </div>
       ${body}
       <div style="text-align: center; padding: 16px 0; color: #A0AEC0; font-size: 11px;">
-        <p>Birth Chart Library · Free forever, supported by ads</p>
+        <p>Birth Chart Library · Free · Open source · Ad supported</p>
         ${options?.manageUrl ? `<p style="margin-top: 4px;"><a href="${options.manageUrl}" style="color: #A0AEC0;">Manage email preferences</a></p>` : ''}
       </div>
     </div>
@@ -231,7 +231,9 @@ export async function sendGuestDailyHoroscopeEmail(
   showUpgradeCta: boolean,
 ): Promise<boolean> {
   const unsubUrl = `https://birthchartlibrary.com/api/guest-unsubscribe?token=${unsubscribeToken}`
-  const horoscopeUrl = `https://birthchartlibrary.com/horoscope/${sunSign.toLowerCase()}`
+  // Sun-sign horoscope pages were retired 2026-11-20; the email's content (the
+  // day's Moon and reflection) matches the home page, so the button goes there.
+  const todayUrl = 'https://birthchartlibrary.com/'
   const body = `
     <div style="display:none;max-height:0;overflow:hidden;">${sunSign} | Moon in ${moonSign} today... ${reflection.slice(0, 70)}</div>
     <div style="padding: 24px 0;">
@@ -243,7 +245,7 @@ export async function sendGuestDailyHoroscopeEmail(
       <p style="font-style: italic; color: #4A5568; font-size: 15px; line-height: 1.5; margin: 0;">"${reflection}"</p>
     </div>
     <div style="text-align: center; padding: 16px 0; border-top: 1px solid #E2E8F0;">
-      <a href="${horoscopeUrl}" style="display: inline-block; background: #1A202C; color: #fff; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600;">${sunSign} Horoscope \u2192</a>
+      <a href="${todayUrl}" style="display: inline-block; background: #1A202C; color: #fff; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600;">Today's sky \u2192</a>
     </div>
     ${showUpgradeCta ? `
     <div style="text-align: center; padding: 16px 0; border-top: 1px solid #E2E8F0;">

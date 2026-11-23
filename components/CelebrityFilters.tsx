@@ -7,6 +7,7 @@ import { CelebFace, cleanCelebName } from '@/components/FeaturedCelebs'
 import { SIGN_LIST, CELEBRITY_CATEGORIES } from '@/lib/constants'
 import { VERIFIED_RATINGS } from '@/lib/birth-time-source'
 import { formatBirthDate } from '@/lib/format-birth'
+import { safeSessionGet, safeSessionSet } from '@/lib/safe-storage'
 
 interface Celebrity {
   id: string
@@ -22,6 +23,7 @@ interface Celebrity {
 }
 
 const PAGE_SIZE = 12
+const MAX_SHOWN = 48
 
 const INK = 'text-slate-800 dark:text-slate-100'
 const MUTED = 'text-slate-500 dark:text-slate-400'
@@ -40,13 +42,32 @@ function FilterRow({ label, children }: { label: React.ReactNode; children: Reac
   )
 }
 
+// The filters stay set while the tab is open. This loads in the browser only, so
+// the first render can read them; anything not on the lists is ignored.
+interface Saved { category: string; rating: string; sun: string[]; moon: string[]; rising: string[]; q: string; shown: number }
+function readSaved(): Saved {
+  let s: Partial<Saved> = {}
+  try { s = JSON.parse(safeSessionGet('bcl-f:library') ?? '{}') ?? {} } catch { /* ignore */ }
+  const signs = (v: unknown) => (Array.isArray(v) ? v.filter((x): x is string => (SIGN_LIST as readonly string[]).includes(x)) : [])
+  return {
+    category: (CELEBRITY_CATEGORIES as readonly string[]).includes(s.category as string) ? s.category! : 'All',
+    rating: (VERIFIED_RATINGS as readonly string[]).includes(s.rating as string) ? s.rating! : 'Any',
+    sun: signs(s.sun), moon: signs(s.moon), rising: signs(s.rising),
+    q: typeof s.q === 'string' ? s.q.slice(0, 64) : '',
+    shown: Math.min(MAX_SHOWN, Math.max(PAGE_SIZE, Number(s.shown) || 0)),
+  }
+}
+
 export default function CelebrityFilters() {
-  const [category, setCategory] = useState('All')
-  const [rating, setRating] = useState('Any')
-  const [sunSigns, setSunSigns] = useState<string[]>([])
-  const [moonSigns, setMoonSigns] = useState<string[]>([])
-  const [risingSigns, setRisingSigns] = useState<string[]>([])
-  const [searchQuery, setSearchQuery] = useState('')
+  const [saved] = useState(readSaved)
+  const [category, setCategory] = useState(saved.category)
+  const [rating, setRating] = useState(saved.rating)
+  const [sunSigns, setSunSigns] = useState<string[]>(saved.sun)
+  const [moonSigns, setMoonSigns] = useState<string[]>(saved.moon)
+  const [risingSigns, setRisingSigns] = useState<string[]>(saved.rising)
+  const [searchQuery, setSearchQuery] = useState(saved.q)
+  const first = useRef(true) // the first load shows as many as before
+  const remember = (shown: number) => safeSessionSet('bcl-f:library', JSON.stringify({ category, rating, sun: sunSigns, moon: moonSigns, rising: risingSigns, q: searchQuery, shown }))
   const [celebrities, setCelebrities] = useState<Celebrity[]>([])
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(true)
@@ -70,16 +91,20 @@ export default function CelebrityFilters() {
   }
 
   useEffect(() => {
+    // Saved at once, not when results arrive: the reader may leave first.
+    remember(first.current ? saved.shown : PAGE_SIZE)
     if (debounceRef.current) clearTimeout(debounceRef.current)
     debounceRef.current = setTimeout(async () => {
       setLoading(true)
       try {
         const params = buildFilterParams()
-        params.set('limit', String(PAGE_SIZE))
+        params.set('limit', String(first.current ? saved.shown : PAGE_SIZE))
         params.set('offset', '0')
         const res = await fetch(`/api/celebrities?${params}`)
         if (res.ok) {
           const data = await res.json()
+          first.current = false
+          remember(data.rows.length)
           setCelebrities(data.rows)
           setTotal(data.total)
         }
@@ -100,6 +125,7 @@ export default function CelebrityFilters() {
       const res = await fetch(`/api/celebrities?${params}`)
       if (res.ok) {
         const data = await res.json()
+        remember(celebrities.length + data.rows.length)
         setCelebrities(prev => [...prev, ...data.rows])
         setTotal(data.total)
       }

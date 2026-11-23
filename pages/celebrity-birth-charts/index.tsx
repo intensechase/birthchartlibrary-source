@@ -19,6 +19,10 @@ import { SIGN_LIST } from '@/lib/constants'
 import { formatBirthDate } from '@/lib/format-birth'
 import { PHOTO_CREDIT_COLUMNS, toPhotoCredit, type PhotoCredit as PhotoCreditData } from '@/lib/photo-credit'
 import PhotoCredit from '@/components/PhotoCredit'
+import { redesignOn } from '@/lib/redesign'
+import { query } from '@/lib/db'
+import { QUALITY_BIO_SQL } from '@/lib/celebrities'
+import LibraryPage, { type LibraryView } from '@/components/redesign/LibraryPage'
 
 interface SpotlightPlanet {
   planet: string
@@ -57,10 +61,22 @@ interface SpotlightData {
 interface Props {
   spotlight: SpotlightData | null
   featuredCelebs: FeaturedCeleb[]
+  library?: LibraryView | null
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const now = new Date()
+  // Stage 'library': search, shelves, Sun signs, birthdays this week, most read.
+  if (redesignOn('library')) {
+    const { buildHomeView } = await import('@/lib/redesign/home-view')
+    const [home, featuredCelebs, [{ n }]] = await Promise.all([
+      buildHomeView(now),
+      getFeaturedCelebrities(),
+      query<{ n: number }>(`SELECT count(*)::int AS n FROM celebrities WHERE ${QUALITY_BIO_SQL}`),
+    ])
+    const library: LibraryView = { total: n, shelves: home.shelves, week: home.weekAll, weekLabel: home.weekLabel, popular: featuredCelebs }
+    return { props: JSON.parse(JSON.stringify({ spotlight: null, featuredCelebs, library })), revalidate: 21600 }
+  }
   const month = now.getUTCMonth() + 1
   const day = now.getUTCDate()
 
@@ -345,11 +361,11 @@ function Spotlight({ s }: { s: SpotlightData }) {
   )
 }
 
-export default function CelebrityPage({ spotlight, featuredCelebs }: Props) {
+export default function CelebrityPage({ spotlight, featuredCelebs, library }: Props) {
   const router = useRouter()
   const hasFilters = Object.keys(router.query).length > 0
 
-  return (
+  const head = (
     <>
       <Head>
         <title>Celebrity Birth Charts — 550+ Researched Natal Charts</title>
@@ -360,11 +376,18 @@ export default function CelebrityPage({ spotlight, featuredCelebs }: Props) {
         {hasFilters && <meta name="robots" content="noindex, follow" />}
       </Head>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(itemListSchema(featuredCelebs.map(c => ({ name: c.name, url: `https://birthchartlibrary.com/celebrity-birth-charts/${c.slug}` })))) }} />
+    </>
+  )
+  if (library) return <>{head}<main className="rdp"><LibraryPage view={library} /></main></>
+
+  return (
+    <>
+      {head}
 
       {/* Hero band */}
       <section className="bg-[var(--band)]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-10">
-          <h1 className="text-[clamp(2.6rem,6.6vw,4.5rem)] leading-[1.02] mb-2.5">Celebrity Birth Charts</h1>
+          <h1 className="text-[clamp(2.6rem,6.6vw,4.5rem)] leading-[1.02] mb-2.5">Celebrity birth charts</h1>
           <p className={`text-[19px] max-w-[34em] ${INK} mb-8`}>
             Sun, Moon, and Rising signs and full natal charts for actors, musicians, athletes, and public figures.
           </p>
@@ -394,7 +417,7 @@ export default function CelebrityPage({ spotlight, featuredCelebs }: Props) {
       <main className="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-16">
         {featuredCelebs.length > 0 && (
           <section className="mb-14">
-            <h2 className="text-3xl sm:text-[38px] mb-7">Popular Charts</h2>
+            <h2 className="text-3xl sm:text-[38px] mb-7">Popular charts</h2>
             <FeaturedCelebs celebs={featuredCelebs} />
             <p className={`mt-7 ${INK}`}>
               Want to see where the birth time came from?{' '}

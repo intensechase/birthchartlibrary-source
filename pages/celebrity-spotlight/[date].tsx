@@ -4,19 +4,20 @@ import Image from 'next/image'
 import AdminBreadcrumb from '@/components/AdminBreadcrumb'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { parseJsonb } from '@/lib/db'
-import { getListableCelebrities } from '@/lib/celebrities'
+import { FRONT_PAGE_OK_SQL, getListableCelebrities } from '@/lib/celebrities'
 import type { BirthChartData } from '@/lib/swisseph/calculate'
 import { generateCelebrityBio } from '@/lib/interpretations/biography'
 import { getCombinedInterpretation, getPlanetInfo } from '@/lib/interpretations'
 import { getElementColor } from '@/lib/zodiac-colors'
 import { SignGlyph } from '@/components/Glyph'
+import { formatBirthDate } from '@/lib/format-birth'
 import { NOINDEX_THIN } from '@/lib/thin-pages'
 
 interface PlanetData {
   planet: string
   sign: string
   signDegree: number
-  house: number
+  house: number | null
   retrograde: boolean
   // Resolved in getStaticProps so the interpretation library stays out of the client bundle
   name: string
@@ -59,9 +60,9 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
   const year = parseInt(match[1])
   try {
 
-  const withPhotos = await getListableCelebrities<{ name: string; slug: string; birth_date: string; birth_city: string; category: string | null; image_url: string | null; chart_data: unknown }>({
-    columns: 'name, slug, birth_date, birth_city, category, image_url, chart_data',
-    where: 'EXTRACT(MONTH FROM birth_date) = $1 AND EXTRACT(DAY FROM birth_date) = $2',
+  const withPhotos = await getListableCelebrities<{ name: string; slug: string; birth_date: string; birth_city: string; birth_time: string | null; category: string | null; image_url: string | null; chart_data: unknown }>({
+    columns: 'name, slug, birth_date::text, birth_time, birth_city, category, image_url, chart_data',
+    where: `EXTRACT(MONTH FROM birth_date) = $1 AND EXTRACT(DAY FROM birth_date) = $2 AND ${FRONT_PAGE_OK_SQL}`,
     params: [month, day],
     orderBy: 'name',
     limit: 10,
@@ -72,21 +73,23 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
     : null
 
   const chartData = celeb ? (parseJsonb<BirthChartData | null>(celeb.chart_data)) : null
-  const bio = chartData && celeb ? generateCelebrityBio(celeb.name, chartData) : ''
+  // Without a birth time there is no rising sign and no houses to name.
+  const hasTime = !!celeb?.birth_time
+  const bio = chartData && celeb ? generateCelebrityBio(celeb.name, chartData, { hasBirthTime: hasTime, category: celeb.category ?? undefined }) : ''
   const planets: PlanetData[] = (chartData?.planets ?? []).map(p => {
     const info = getPlanetInfo(p.planet)
     return {
       planet: p.planet,
       sign: p.sign,
       signDegree: p.signDegree,
-      house: p.house,
+      house: hasTime ? p.house : null,
       retrograde: p.retrograde,
       name: info?.name ?? '',
       symbol: info?.symbol ?? '',
-      interp: getCombinedInterpretation(p.planet, p.sign, p.house),
+      interp: hasTime ? getCombinedInterpretation(p.planet, p.sign, p.house) : '',
     }
   })
-  const ascendantSign = chartData?.ascendantSign ?? null
+  const ascendantSign = hasTime ? chartData?.ascendantSign ?? null : null
 
   const d = new Date(Date.UTC(year, month - 1, day))
   const dateStr = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
@@ -166,7 +169,7 @@ export default function SpotlightArchivePage({ date, dateStr, celeb, bio, planet
       </Head>
       <main className="max-w-3xl mx-auto px-4 py-12">
         <nav className="text-xs text-slate-400 mb-6">
-          <Link href="/celebrity-birth-charts" className="hover:text-slate-800 transition-colors">Celebrity Charts</Link>
+          <Link href="/celebrity-birth-charts" className="hover:text-slate-800 transition-colors">Celebrity charts</Link>
           <span className="mx-2">›</span>
           <span className="text-slate-800">Spotlight — {dateStr}</span>
         </nav>
@@ -186,7 +189,7 @@ export default function SpotlightArchivePage({ date, dateStr, celeb, bio, planet
               <h1 className="font-display text-3xl sm:text-4xl tracking-wide group-hover:text-slate-600 transition-colors">{celeb.name}</h1>
             </Link>
             <p className="text-slate-500 text-sm mt-1">
-              Born {celeb.birth_date} · {celeb.birth_city}
+              Born {formatBirthDate(celeb.birth_date)} · {celeb.birth_city}
               {celeb.category && <span className="text-slate-400"> · {celeb.category}</span>}
             </p>
             <div className="flex flex-wrap gap-2 mt-3">
@@ -216,7 +219,7 @@ export default function SpotlightArchivePage({ date, dateStr, celeb, bio, planet
           <>
             {/* All planet positions */}
             <div className="mb-8">
-              <h2 className="font-display text-2xl tracking-wide mb-4">Planetary Positions</h2>
+              <h2 className="font-display text-2xl tracking-wide mb-4">Planetary positions</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {planets.map(p => {
                   const ec = getElementColor(p.sign)
@@ -227,7 +230,7 @@ export default function SpotlightArchivePage({ date, dateStr, celeb, bio, planet
                         <span className="text-xs text-slate-400 uppercase tracking-wider">{p.name || p.planet.replace('_', ' ')}</span>
                       </div>
                       <p className={`font-medium ${ec.text}`}><SignGlyph sign={p.sign} decorative /> {p.sign}</p>
-                      <p className="text-xs text-slate-400 mt-0.5">{Math.floor(p.signDegree)}° · House {p.house}{p.retrograde ? <span className="text-amber-500 ml-1">℞</span> : ''}</p>
+                      <p className="text-xs text-slate-400 mt-0.5">{Math.floor(p.signDegree)}° {p.house ? ` · House ${p.house}` : ''}{p.retrograde ? <span className="text-amber-500 ml-1">℞</span> : ''}</p>
                     </div>
                   )
                 })}
@@ -236,7 +239,7 @@ export default function SpotlightArchivePage({ date, dateStr, celeb, bio, planet
 
             {/* Full interpretations */}
             <div className="mb-8">
-              <h2 className="font-display text-2xl tracking-wide mb-4">Chart Interpretations</h2>
+              {planets.some(p => p.interp) ? <h2 className="font-display text-2xl tracking-wide mb-4">Chart interpretations</h2> : null}
               <div className="space-y-4">
                 {planets.map(p => {
                   const ec = getElementColor(p.sign)
@@ -245,7 +248,7 @@ export default function SpotlightArchivePage({ date, dateStr, celeb, bio, planet
                     <div key={p.planet} className={`card border-l-4 ${ec.border}`}>
                       <div className="flex items-center gap-2 mb-2">
                         <span className={`${ec.text}`}>{p.symbol}</span>
-                        <h3 className="font-medium">{p.name || p.planet} in {p.sign} in House {p.house}</h3>
+                        <h3 className="font-medium">{p.name || p.planet} in {p.sign}{p.house ? ` in House ${p.house}` : ''}</h3>
                         {p.retrograde && <span className="text-amber-500 text-xs">℞</span>}
                       </div>
                       <p className="text-slate-600 text-sm leading-relaxed">{p.interp}</p>

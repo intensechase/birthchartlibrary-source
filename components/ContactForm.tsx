@@ -31,22 +31,22 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="card space-y-4">
       <div>
-        <label className="block text-sm mb-1 text-slate-500">Your Name</label>
+        <label className="block text-sm mb-1 text-slate-500">Your name</label>
         <input name="name" required value={form.name} onChange={handleChange} className="input" placeholder="Jane Smith" />
       </div>
       <div>
-        <label className="block text-sm mb-1 text-slate-500">Email Address</label>
+        <label className="block text-sm mb-1 text-slate-500">Email address</label>
         <input type="email" name="email" required autoComplete="email" autoCapitalize="none" autoCorrect="off" inputMode="email" value={form.email} onChange={handleChange} className="input" placeholder="you@example.com" />
       </div>
       <div>
         <label className="block text-sm mb-1 text-slate-500">Subject</label>
         <select name="subject" value={form.subject} onChange={handleChange} className="input">
           <option value="">Select a topic</option>
-          <option value="General Question">General Question</option>
-          <option value="Bug Report">Bug Report</option>
-          <option value="Celebrity Chart Request">Celebrity Chart Request</option>
-          <option value="Interpretation Feedback">Interpretation Feedback</option>
-          <option value="Account Issue">Account Issue</option>
+          <option value="General Question">General question</option>
+          <option value="Bug Report">Bug report</option>
+          <option value="Celebrity Chart Request">Celebrity chart request</option>
+          <option value="Interpretation Feedback">Interpretation feedback</option>
+          <option value="Account Issue">Account issue</option>
           <option value="Other">Other</option>
         </select>
       </div>
@@ -61,7 +61,7 @@ export default function ContactForm() {
           placeholder="Tell us what&apos;s on your mind..."
         />
       </div>
-      <button type="submit" className="btn-primary w-full">Send Message</button>
+      <button type="submit" className="btn-primary w-full">Send message</button>
     </form>
   )
 }

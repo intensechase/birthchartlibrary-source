@@ -1,3 +1,5 @@
+import { formatBirthDate } from '@/lib/format-birth'
+import type { HouseOverlay } from '@/lib/swisseph/overlays'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
@@ -7,10 +9,18 @@ import { Turnstile } from '@marsidev/react-turnstile'
 import CityAutocomplete from '@/components/CityAutocomplete'
 import { faqSchema, breadcrumbSchema, howToSchema, jsonLd } from '@/lib/schema'
 import type { SynastryAspect, RelationshipType } from '@/lib/swisseph/synastry'
-import { ASPECT_SYMBOLS } from '@/lib/swisseph/synastry'
+import { ASPECT_SYMBOLS } from '@/lib/swisseph/synastry-symbols'
+import SynastryText from '@/components/SynastryText'
+import { type SynastryScoreV2 } from '@/lib/swisseph/synastry-score'
+import SynastryScoreCard from '@/components/SynastryScoreCard'
 import { safeSessionGet, safeSessionSet, safeSessionRemove } from '@/lib/safe-storage'
+import { PENDING_COMPARE_KEY, TAB_COMPARE_KEY, readKept } from '@/lib/kept-chart'
+import { track } from '@/lib/track'
 import { PlanetGlyph } from '@/components/Glyph'
 import type { BirthChartData } from '@/lib/swisseph/calculate'
+import { redesignOn } from '@/lib/redesign'
+import SynastryView, { type SynSide } from '@/components/redesign/SynastryView'
+import { LearnHero, NextLinks } from '@/components/redesign/Learn'
 
 const SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!
 
@@ -64,7 +74,8 @@ interface Results {
   chartA: BirthChartData
   chartB: BirthChartData
   aspects: SynastryAspect[]
-  score: { label: string; score: number }
+  overlays?: HouseOverlay[]
+  score: SynastryScoreV2
   relationshipType: RelationshipType
 }
 
@@ -132,17 +143,17 @@ function ManualForm({
         <input type="text" name="name" value={form.name} onChange={onChange} placeholder={label} className="input w-full" />
       </div>
       <div>
-        <label className="block text-xs text-slate-500 mb-1">Birth Date</label>
+        <label className="block text-xs text-slate-500 mb-1">Birth date</label>
         <input type="date" name="birthDate" value={form.birthDate} onChange={onChange} required className="input w-full" />
       </div>
       <div>
         <label className="block text-xs text-slate-500 mb-1">
-          Birth Time <span className="text-slate-400">(optional but improves accuracy)</span>
+          Birth time <span className="text-slate-400">(optional but improves accuracy)</span>
         </label>
         <input type="time" name="birthTime" value={form.birthTime} onChange={onChange} className="input w-full" />
       </div>
       <div>
-        <label className="block text-xs text-slate-500 mb-1">Birth City</label>
+        <label className="block text-xs text-slate-500 mb-1">Birth city</label>
         <CityAutocomplete value={form.birthCity} onChange={onCitySelect} />
       </div>
     </div>
@@ -240,21 +251,23 @@ function CelebrityPicker({
   )
 }
 
-function AspectRow({ aspect }: { aspect: SynastryAspect }) {
+const pName = (p: string) => p.charAt(0) + p.slice(1).toLowerCase()
+
+function AspectRow({ aspect, nameA, nameB }: { aspect: SynastryAspect; nameA: string; nameB: string }) {
   const sym = ASPECT_SYMBOLS[aspect.aspectType]
   const harmColor = aspect.isHarmonic ? 'text-emerald-600' : 'text-rose-500'
   return (
     <div className="border border-slate-100 rounded-xl p-4">
       <div className="flex items-center gap-2 mb-2 flex-wrap">
         <PlanetGlyph planet={aspect.planet1} decorative className="font-mono text-base text-slate-700" />
-        <span className="text-xs text-slate-400 capitalize">{aspect.planet1.toLowerCase()}</span>
+        <span className="text-xs text-slate-500">{nameA}&apos;s {pName(aspect.planet1)}</span>
         <span className={`text-lg font-bold ${harmColor}`}>{sym}</span>
         <span className="text-xs text-slate-400 capitalize">{aspect.aspectType}</span>
         <PlanetGlyph planet={aspect.planet2} decorative className="font-mono text-base text-slate-700" />
-        <span className="text-xs text-slate-400 capitalize">{aspect.planet2.toLowerCase()}</span>
+        <span className="text-xs text-slate-500">{nameB}&apos;s {pName(aspect.planet2)}</span>
         <span className="ml-auto text-xs text-slate-400">{aspect.orb}° orb</span>
       </div>
-      <p className="text-sm text-slate-600 leading-relaxed">{aspect.interpretation}</p>
+      <SynastryText text={aspect.interpretation} className="text-slate-600" />
     </div>
   )
 }
@@ -277,21 +290,68 @@ function SunMoonLine({ chart, name }: { chart: BirthChartData; name: string }) {
 const FAQ_ITEMS = [
   {
     question: 'What is synastry?',
-    answer: 'Synastry is the astrology of relationships. It compares two birth charts to identify aspects — angular relationships — between one person\'s planets and another\'s. These aspects reveal attraction, friction, communication patterns, and growth potential between two people.',
+    answer: 'Synastry is the astrology of relationships. It compares two birth charts and finds the aspects, or angles, between one person\'s planets and the other\'s. Those aspects describe attraction, friction, communication and room to grow between two people. It\'s for entertainment, so please don\'t make big decisions from it.',
   },
   {
     question: 'What aspects does the synastry calculator look for?',
-    answer: 'The calculator checks for the five major aspects between all personal and social planets: conjunction (0°), sextile (60°), square (90°), trine (120°), and opposition (180°). Harmonious aspects (conjunction, trine, sextile) tend to create ease and flow. Tense aspects (square, opposition) create friction and growth edges.',
+    answer: 'The calculator checks for the five major aspects between all personal and social planets: conjunction (0°), sextile (60°), square (90°), trine (120°), and opposition (180°). Trines and sextiles tend to bring ease; squares and oppositions bring friction and growth edges. A conjunction depends on the two planets: Venus on Jupiter is easy, Mars on Saturn is not. We follow William Lilly\'s Christian Astrology (1647) for which pairs help and which strain.',
   },
   {
     question: 'Do I need birth time for synastry?',
-    answer: 'Birth time improves accuracy — especially for Moon placement (which moves every 2–2.5 days) and house positions. But even without exact times, a synastry reading of Sun, Mercury, Venus, Mars, Jupiter, and Saturn placements gives meaningful insight into the relationship dynamic.',
+    answer: 'Birth time improves accuracy, especially for the Moon (which changes sign every two to two and a half days) and the rising sign. But even without exact times, a synastry reading of Sun, Mercury, Venus, Mars, Jupiter, and Saturn placements gives meaningful insight into the relationship dynamic.',
   },
   {
     question: 'What is the most important aspect in synastry?',
-    answer: 'Sun–Moon aspects are often considered the most important indicator of compatibility. Venus–Mars aspects reveal romantic and physical attraction. Sun–Venus shows appreciation and admiration. Moon–Moon aspects show emotional attunement. No single aspect tells the whole story.',
+    answer: 'Lilly calls the Sun of one person on the Moon of the other the surest sign of unity, so Sun and Moon contacts lead. Venus and Mars show attraction, Sun and Venus admiration, Moon and Moon emotional attunement. No single aspect tells the whole story.',
   },
 ]
+
+// Stage 'compare': celebrity search for one side of the comparison.
+function CelebSearch({ onPick }: { onPick: (slug: string) => void }) {
+  const [q, setQ] = useState('')
+  const [list, setList] = useState<CelebResult[]>([])
+  const [busy, setBusy] = useState(false)
+  const timer = useRef<ReturnType<typeof setTimeout>>(null)
+  const search = (v: string) => {
+    setQ(v)
+    if (timer.current) clearTimeout(timer.current)
+    if (v.trim().length < 2) { setList([]); return }
+    timer.current = setTimeout(async () => {
+      setBusy(true)
+      try { const r = await fetch(`/api/search/celebrities?q=${encodeURIComponent(v)}`); setList(r.ok ? await r.json() : []) } catch { setList([]) } finally { setBusy(false) }
+    }, 200)
+  }
+  return (
+    <div className="field">
+      <span>Search the library</span>
+      <input value={q} onChange={e => search(e.target.value)} placeholder="Type a name" autoComplete="off" />
+      {list.length ? (
+        <div className="synlist">
+          {list.slice(0, 8).map(c => <button key={c.slug} type="button" onClick={() => { onPick(c.slug); setQ(''); setList([]) }}><b>{c.name}</b></button>)}
+        </div>
+      ) : q.trim().length >= 2 && !busy ? <p className="hint">Nobody by that name in the library yet.</p> : null}
+    </div>
+  )
+}
+
+// A finished comparison, held in the tab (and, when Save is pressed without an
+// account, waiting for one). Nothing is sent anywhere until it is saved.
+interface HeldCompare {
+  formA: PersonForm; formB: PersonForm; modeB: Mode
+  celebNameB: string | null; celebHasBirthTime: boolean | null
+  relationshipType: RelationshipType; results: Results; savedUrl?: string | null
+}
+const hold = (h: HeldCompare) => safeSessionSet(TAB_COMPARE_KEY, JSON.stringify(h))
+function readCompare(key: string): HeldCompare | null {
+  const raw = safeSessionGet(key)
+  if (!raw) return null
+  try {
+    const h = JSON.parse(raw) as HeldCompare
+    if (h.results?.chartA && h.results.chartB && Array.isArray(h.results.aspects) && h.results.score && h.formA && h.formB) return h
+  } catch { /* fall through */ }
+  safeSessionRemove(key)
+  return null
+}
 
 // ── Main page ────────────────────────────────────────────────────────────────
 
@@ -320,20 +380,66 @@ export default function SynastryPage() {
 
   const [saving, setSaving] = useState(false)
   const [savedUrl, setSavedUrl] = useState<string | null>(null)
-  const [saveBoth, setSaveBoth] = useState(false)
+  const [saveBoth, setSaveBoth] = useState(true)
+  const [saveError, setSaveError] = useState<string | null>(null)
+  const [stillHere, setStillHere] = useState(false) // a comparison from earlier in this tab
+  const restored = useRef(false)
+
+  function restore(h: HeldCompare) {
+    setFormA(h.formA); setFormB(h.formB); setModeB(h.modeB)
+    setSelectedA(true); setSelectedB(true)
+    setCelebNameB(h.celebNameB); setCelebHasBirthTime(h.celebHasBirthTime)
+    setRelationshipType(h.relationshipType); setResults(h.results); setSavedUrl(h.savedUrl ?? null)
+  }
+
+  // A comparison lasts while the tab is open: ?result=1 brings it back after a
+  // refresh or Back, and one waiting to be saved saves now that there is an account.
+  useEffect(() => {
+    if (!router.isReady) return
+    const loggedIn = document.cookie.includes('bcl_logged_in=1')
+    const waiting = loggedIn ? readCompare(PENDING_COMPARE_KEY) : null
+    if (waiting) {
+      safeSessionRemove(PENDING_COMPARE_KEY)
+      restored.current = true
+      restore(waiting)
+      saveCompare(waiting, null)
+      router.replace({ pathname: router.pathname, query: { result: 1 } }, undefined, { shallow: true, scroll: false })
+      return
+    }
+    const tab = readCompare(TAB_COMPARE_KEY)
+    if (tab && router.query.result) { restored.current = true; restore(tab); setStillHere(false) }
+    else {
+      if (!router.query.result && restored.current) { restored.current = false; setResults(null) }
+      setStillHere(!!tab)
+    }
+  }, [router.isReady, router.query.result]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Detect login + load user charts
   useEffect(() => {
     const loggedIn = document.cookie.includes('bcl_logged_in=1')
     setIsLoggedIn(loggedIn)
-    if (!loggedIn) return
+    if (!loggedIn) {
+      // No account, but their own chart is on this device: it goes first.
+      const own = readKept()
+      if (own && !new URLSearchParams(window.location.search).has('result')) {
+        setFormA({ name: 'You', birthDate: own.form.birthDate, birthTime: own.form.birthTime, birthCity: own.form.birthCity, birthLat: own.form.birthLat, birthLng: own.form.birthLng })
+        setSelectedA(true)
+      }
+      return
+    }
 
     fetch('/api/user-charts')
       .then(r => r.ok ? r.json() : [])
       .then((charts: SavedChart[]) => {
         setUserCharts(charts)
-        // Auto-preload Person A with primary chart
-        const primary = charts.find(c => c.isPrimary) ?? charts[0]
+        if (restored.current) return // a finished comparison is on screen
+        // Person A: the chart the reader came from (?chart=id, from "Compare
+        // with someone" on a chart page), else their own chart.
+        const fromChart = typeof router.query.chart === 'string' ? charts.find(c => c.id === router.query.chart) : undefined
+        const mine = charts.find(c => c.isPrimary)
+        // "Compare" on someone else's chart means with me: me first, them second.
+        const them = fromChart && mine && fromChart.id !== mine.id && !router.query.celebrity ? fromChart : undefined
+        const primary = them ? mine : fromChart ?? mine ?? charts[0]
         if (primary) {
           setFormA({
             name: primary.subjectName || primary.label,
@@ -345,6 +451,13 @@ export default function SynastryPage() {
           })
           setModeA('library')
           setSelectedA(true)
+        }
+        // Second person: their saved people first, when there are any. A
+        // celebrity link (?celebrity=) keeps its own choice.
+        if (!router.query.celebrity && charts.length > 1) setModeB('library')
+        if (them) {
+          setFormB({ name: them.subjectName || them.label, birthDate: them.birthDate, birthTime: them.birthTime || '', birthCity: them.birthCity, birthLat: them.birthLat, birthLng: them.birthLng })
+          setSelectedB(true)
         }
       })
   }, [])
@@ -373,19 +486,6 @@ export default function SynastryPage() {
       })
       .finally(() => setCelebLoading(false))
   }, [router.query.celebrity])
-
-  // Restore from sessionStorage after signup redirect
-  useEffect(() => {
-    const stored = safeSessionGet('synastry_pending')
-    if (!stored) return
-    safeSessionRemove('synastry_pending')
-    try {
-      const { fA, fB, relType } = JSON.parse(stored)
-      setFormA(fA)
-      setFormB(fB)
-      setRelationshipType(relType)
-    } catch {}
-  }, [])
 
   function makeHandler(setter: React.Dispatch<React.SetStateAction<PersonForm>>) {
     return (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -453,6 +553,13 @@ export default function SynastryPage() {
       const data = await res.json()
       if (!res.ok) { setError(data.error ?? 'Something went wrong'); return }
       setResults(data)
+      setStillHere(false)
+      setSavedUrl(null)
+      safeSessionRemove(PENDING_COMPARE_KEY)
+      restored.current = true
+      hold({ formA, formB, modeB, celebNameB, celebHasBirthTime, relationshipType, results: data })
+      router.replace({ pathname: router.pathname, query: { result: 1 } }, undefined, { shallow: true, scroll: false })
+      window.scrollTo(0, 0)
     } catch {
       setError('Network error... please try again')
     } finally {
@@ -460,35 +567,48 @@ export default function SynastryPage() {
     }
   }
 
-  async function handleSave() {
-    if (!results) return
-    if (!isLoggedIn) {
-      // Store form data and redirect to signup
-      safeSessionSet('synastry_pending', JSON.stringify({ fA: formA, fB: formB, relType: relationshipType }))
-      router.push('/auth/signup?return=/calculators/synastry')
-      return
-    }
-
-    setSaving(true)
+  // Sends one comparison to the account. saveB = the second person's chart too.
+  async function saveCompare(h: HeldCompare, saveB: object | null) {
+    setSaving(true); setSaveError(null)
     try {
       const res = await fetch('/api/synastry-save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          personA: { name: formA.name, birthDate: formA.birthDate, birthCity: formA.birthCity },
-          personB: { name: formB.name, birthDate: formB.birthDate, birthCity: formB.birthCity },
-          chartA: results.chartA,
-          chartB: results.chartB,
-          aspects: results.aspects,
-          score: results.score,
-          relationshipType,
+          personA: { name: h.formA.name, birthDate: h.formA.birthDate, birthCity: h.formA.birthCity },
+          personB: { name: h.formB.name, birthDate: h.formB.birthDate, birthCity: h.formB.birthCity },
+          saveB,
+          chartA: h.results.chartA,
+          chartB: h.results.chartB,
+          aspects: h.results.aspects,
+          score: h.results.score,
+          relationshipType: h.relationshipType,
         }),
       })
       const data = await res.json()
-      if (res.ok) setSavedUrl(data.url)
+      if (!res.ok) throw new Error()
+      setSavedUrl(data.url)
+      hold({ ...h, savedUrl: data.url })
+    } catch {
+      setSaveError('That did not save. Try again in a moment.')
     } finally {
       setSaving(false)
     }
+  }
+
+  async function handleSave() {
+    if (!results) return
+    track('save_pressed', 'comparison')
+    const h: HeldCompare = { formA, formB, modeB, celebNameB, celebHasBirthTime, relationshipType, results }
+    if (!isLoggedIn) {
+      // Saved by this page after sign up or sign in.
+      safeSessionSet(PENDING_COMPARE_KEY, JSON.stringify(h))
+      router.push('/signup?ref=synastry&next=/calculators/synastry')
+      return
+    }
+    await saveCompare(h, saveBoth && modeB === 'manual' && formB.name
+      ? { subjectName: formB.name, birthDate: formB.birthDate, birthTime: formB.birthTime || null, birthCity: formB.birthCity, birthLat: formB.birthLat, birthLng: formB.birthLng }
+      : null)
   }
 
   function resetAll() {
@@ -503,6 +623,12 @@ export default function SynastryPage() {
     setCelebHasBirthTime(null)
     setTurnstileToken(null)
     setSavedUrl(null)
+    setSaveError(null)
+    setStillHere(false)
+    restored.current = false
+    safeSessionRemove(TAB_COMPARE_KEY)
+    safeSessionRemove(PENDING_COMPARE_KEY)
+    if (router.query.result) router.replace(router.pathname, undefined, { shallow: true, scroll: false })
   }
 
   const harmonious = results?.aspects.filter(a => a.isHarmonic) ?? []
@@ -576,8 +702,7 @@ export default function SynastryPage() {
     )
   }
 
-  return (
-    <>
+  const head = (
       <Head>
         <title>Synastry Calculator — Free Birth Chart Compatibility</title>
         <meta name="description" content="Free synastry calculator. Compare two birth charts to reveal relationship aspects, compatibility patterns, and growth edges. No account needed." />
@@ -609,14 +734,148 @@ export default function SynastryPage() {
           ],
         })) }} />
       </Head>
+  )
 
+  // ── Stage 'compare': the same state and handlers, the redesign layout ──
+  if (redesignOn('compare')) {
+    const signOf = (c: BirthChartData, id: string) => c.planets.find(p => p.planet === id)?.sign ?? null
+    const sideOf = (c: BirthChartData, f: PersonForm, fallback: string): SynSide => ({
+      name: f.name || fallback, sun: signOf(c, 'SUN'), moon: signOf(c, 'MOON'),
+      rising: f.birthTime ? c.ascendantSign ?? null : null, city: f.birthCity || null,
+    })
+    const relLabel = RELATIONSHIP_TYPES.find(t => t.value === relationshipType)?.label ?? 'Romantic'
+    const sunPair = (() => {
+      if (!results) return null
+      const s1 = signOf(results.chartA, 'SUN'), s2 = signOf(results.chartB, 'SUN')
+      if (!s1 || !s2) return null
+      const [x, y] = [s1.toLowerCase(), s2.toLowerCase()].sort()
+      return { href: `/compatibility/${x}-and-${y}`, title: `${s1} and ${s2}`, }
+    })()
+
+    const panel = (
+      side: 'A' | 'B', mode: Mode, setMode: React.Dispatch<React.SetStateAction<Mode>>,
+      form: PersonForm, setForm: React.Dispatch<React.SetStateAction<PersonForm>>,
+      selected: boolean, setSelected: React.Dispatch<React.SetStateAction<boolean>>,
+    ) => {
+      const isB = side === 'B'
+      const title = isB ? 'Second person' : 'First person'
+      const pick = (m: Mode) => { setMode(m); setSelected(false); if (isB && m !== 'celebrity') { setCelebNameB(null); setCelebHasBirthTime(null) } }
+      const modes: [Mode, string][] = [['manual', 'Type it in'], ...(isLoggedIn && userCharts.length ? [['library', 'My charts'] as [Mode, string]] : []), ['celebrity', 'A celebrity']]
+      const set = (k: keyof PersonForm) => (e: React.ChangeEvent<HTMLInputElement>) => setForm(p => ({ ...p, [k]: e.target.value }))
+      return (
+        <fieldset className="synside">
+          <legend>{title}</legend>
+          <div className={`seg n${modes.length}`} role="radiogroup" aria-label={`How to add the ${title.toLowerCase()}`}>
+            {modes.map(([m, l]) => <button key={m} type="button" role="radio" aria-checked={mode === m} onClick={() => pick(m)}>{l}</button>)}
+          </div>
+          {selected ? (
+            <div className="synsel">
+              <span><b>{form.name || title}</b><small>{[form.birthDate && formatBirthDate(form.birthDate), form.birthCity].filter(Boolean).join(', ')}</small></span>
+              <button type="button" className="more" onClick={() => { setSelected(false); setForm(emptyForm()); if (isB) { setCelebNameB(null); setCelebHasBirthTime(null) } }}>Change</button>
+            </div>
+          ) : mode === 'library' ? (
+            <div className="synlist">
+              {userCharts.map(c => (
+                <button key={c.id} type="button" onClick={() => applyChart(c, setForm, setSelected)}><b>{c.subjectName || c.label}</b><small>{formatBirthDate(c.birthDate)}{c.birthCity ? `, ${c.birthCity}` : ''}</small></button>
+              ))}
+            </div>
+          ) : mode === 'celebrity' ? (
+            celebLoading && isB ? <p className="hint">Loading the chart…</p> : <CelebSearch onPick={slug => applyCeleb(slug, setMode, setForm, setSelected, isB)} />
+          ) : (
+            <>
+              <label className="field"><span>Name</span><input value={form.name} onChange={set('name')} placeholder={isB ? 'Sam, Mom, a new crush' : 'You, or anyone'} autoComplete="off" /></label>
+              <div className="two">
+                <label className="field"><span>Birth date</span><input type="date" value={form.birthDate} onChange={set('birthDate')} required /></label>
+                <label className="field"><span>Birth time</span><input type="time" value={form.birthTime} onChange={set('birthTime')} /></label>
+              </div>
+              <p className="hint">The time is optional. Without it the Moon can be a little off and the rising sign is left out.</p>
+              <div className="field"><span>Birth place</span><CityAutocomplete value={form.birthCity} onChange={makeCityHandler(setForm)} /></div>
+            </>
+          )}
+        </fieldset>
+      )
+    }
+
+    return (
+      <>
+        {head}
+        <main className="rdp"><div className="lrn">
+          {results ? (
+            <>
+              <SynastryView
+                a={sideOf(results.chartA, formA, 'First person')} b={sideOf(results.chartB, formB, 'Second person')}
+                score={results.score} aspects={results.aspects} overlays={results.overlays}
+                crumbs={[{ label: 'Calculators', href: '/calculators' }, { label: 'Compare two charts', href: '/calculators/synastry' }]}
+                kicker={`${relLabel} comparison`}
+              >
+                {celebHasBirthTime === false ? <p className="synnote">No verified birth time for {celebNameB}, so the rising sign and houses are left out. Every planet aspect still counts.</p> : null}
+                <div className="mbar">
+                  {savedUrl ? (
+                    <>
+                      <div><b>Saved. Anyone with this link can see it:</b><span>{`birthchartlibrary.com${savedUrl}`}</span></div>
+                      <button type="button" className="btn" onClick={() => navigator.clipboard.writeText(`https://birthchartlibrary.com${savedUrl}`)}>Copy link</button>
+                    </>
+                  ) : (
+                    <>
+                      <div>
+                        <b>Save this comparison</b>
+                        <span>{isLoggedIn ? 'Keep it in your account, with a link you can share.' : 'Here until you close this tab. Save it free to keep it, with a link you can share.'}</span>
+                        {saveError ? <span role="alert">{saveError}</span> : null}
+                        {isLoggedIn && modeB === 'manual' && formB.name ? (
+                          <label className="check"><input type="checkbox" checked={saveBoth} onChange={e => setSaveBoth(e.target.checked)} /><span>Also save {formB.name}’s chart</span></label>
+                        ) : null}
+                      </div>
+                      <button type="button" className="btn" onClick={handleSave} disabled={saving}>{saving ? 'Saving…' : isLoggedIn ? 'Save' : 'Save it free'}</button>
+                    </>
+                  )}
+                </div>
+              </SynastryView>
+              <NextLinks id="next" links={[
+                ...(sunPair ? [{ href: sunPair.href, title: `${sunPair.title}`, sub: 'The two Sun signs together' }] : []),
+                { href: '/love/celebrity-couples', title: 'Famous couples', sub: 'Real couples, scored the same way' },
+              ]} />
+              <p className="synreset"><button type="button" className="more" onClick={resetAll}>Compare two different charts</button></p>
+            </>
+          ) : (
+            <>
+              <LearnHero crumbs={[{ label: 'Calculators', href: '/calculators' }, { label: 'Compare two charts' }]} title="Compare two charts">
+                <p>Two birth charts side by side: a match letter from S to D, what helps, what strains, and every contact between the two read plainly.{isLoggedIn ? '' : ' Free, no account.'}</p>
+              </LearnHero>
+              {stillHere ? <p className="hint still">Your last comparison is still open in this tab. <Link className="tlink" href="/calculators/synastry?result=1" shallow>Open it</Link></p> : null}
+              <form className="mform synform" onSubmit={handleSubmit}>
+                <div className="chips filt" role="group" aria-label="What kind of relationship">
+                  {RELATIONSHIP_TYPES.map(t => <button key={t.value} type="button" className="chip" aria-pressed={relationshipType === t.value} onClick={() => setRelationshipType(t.value)}>{t.label}</button>)}
+                </div>
+                <div className="synsides">
+                  {panel('A', modeA, setModeA, formA, setFormA, selectedA, setSelectedA)}
+                  {panel('B', modeB, setModeB, formB, setFormB, selectedB, setSelectedB)}
+                </div>
+                {celebHasBirthTime === false ? <p className="hint">No verified birth time for {celebNameB}: the rising sign and houses are left out, every planet aspect still counts.</p> : null}
+                {error ? <p className="err" role="alert">{error}</p> : null}
+                <div className="ts"><Turnstile siteKey={SITE_KEY} onSuccess={setTurnstileToken} options={{ theme: 'dark' }} /></div>
+                <button type="submit" className="btn wide" disabled={loading || !turnstileToken}>{loading ? 'Working out the sky…' : 'Compare the charts'}</button>
+              </form>
+            </>
+          )}
+          <section className="lsec" id="about">
+            <h2>About comparing charts</h2>
+            {FAQ_ITEMS.map((f, i) => <div key={i}><h3>{f.question}</h3><p>{f.answer}</p></div>)}
+          </section>
+        </div></main>
+      </>
+    )
+  }
+
+  return (
+    <>
+      {head}
       <main className="max-w-3xl mx-auto px-4 py-12">
         <AdminBreadcrumb crumbs={[
           { label: 'Calculators', href: '/calculators' },
           { label: 'Synastry' },
         ]} />
 
-        <h1 className="font-display text-4xl tracking-wide mb-2">Synastry Calculator</h1>
+        <h1 className="font-display text-4xl tracking-wide mb-2">Synastry calculator</h1>
         <p className="text-slate-500 mb-6">Compare two birth charts to see how your planets interact... no account needed.</p>
 
         {/* Relationship type selector */}
@@ -667,7 +926,7 @@ export default function SynastryPage() {
                 disabled={loading || !turnstileToken}
                 className="btn-primary w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {loading ? 'Calculating...' : 'Compare Charts'}
+                {loading ? 'Working out the sky…' : 'Compare charts'}
               </button>
             </div>
           </form>
@@ -684,12 +943,11 @@ export default function SynastryPage() {
                 <SunMoonLine chart={results.chartB} name={nameB} />
               </div>
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 text-sm">
-                <span className="font-semibold text-slate-800">{results.score.label}</span>
-                <span className="text-slate-400">·</span>
                 <span className="text-slate-500">{harmonious.length} harmonious · {tense.length} tense</span>
                 <span className="text-slate-400">·</span>
                 <span className="text-slate-500 capitalize">{results.relationshipType}</span>
               </div>
+              <div className="mt-6 max-w-md mx-auto"><SynastryScoreCard score={results.score} nameA={nameA} nameB={nameB} /></div>
 
               {(() => {
                 const sunA = results.chartA.planets.find(p => p.planet === 'SUN')
@@ -717,10 +975,10 @@ export default function SynastryPage() {
             {harmonious.length > 0 && (
               <div>
                 <h2 className="text-lg font-semibold text-slate-800 mb-3 flex items-center gap-2">
-                  <span className="text-emerald-500">△</span> Harmonious Aspects
+                  <span className="text-emerald-500">△</span> Harmonious aspects
                 </h2>
                 <div className="space-y-3">
-                  {harmonious.map((a, i) => <AspectRow key={i} aspect={a} />)}
+                  {harmonious.map((a, i) => <AspectRow key={i} aspect={a} nameA={nameA} nameB={nameB} />)}
                 </div>
               </div>
             )}
@@ -729,11 +987,11 @@ export default function SynastryPage() {
             {tense.length > 0 && (
               <div>
                 <h2 className="text-lg font-semibold text-slate-800 mb-3 flex items-center gap-2">
-                  <span className="text-rose-400">□</span> Growth Edges
+                  <span className="text-rose-400">□</span> Growth edges
                 </h2>
-                <p className="text-xs text-slate-400 mb-3">Tense aspects aren&apos;t &ldquo;bad&rdquo; — they create the friction that drives growth and keeps relationships dynamic.</p>
+                <p className="text-xs text-slate-400 mb-3">Tense aspects aren&apos;t &ldquo;bad.&rdquo; They&apos;re the friction that drives growth and keeps a relationship alive.</p>
                 <div className="space-y-3">
-                  {tense.map((a, i) => <AspectRow key={i} aspect={a} />)}
+                  {tense.map((a, i) => <AspectRow key={i} aspect={a} nameA={nameA} nameB={nameB} />)}
                 </div>
               </div>
             )}
@@ -785,7 +1043,7 @@ export default function SynastryPage() {
                   </div>
 
                   {/* Optional: save Person B to library */}
-                  {isLoggedIn && modeB !== 'library' && formB.name && (
+                  {isLoggedIn && modeB === 'manual' && formB.name && (
                     <label className="flex items-center gap-2 text-xs text-slate-500 cursor-pointer">
                       <input
                         type="checkbox"
@@ -816,7 +1074,7 @@ export default function SynastryPage() {
                 Synastry shows planet-to-planet connections. A full composite chart reveals the relationship as its own entity.
               </p>
               <Link href="/birth-chart" className="btn-primary text-sm">
-                Create Your Free Birth Chart
+                Create your free birth chart
               </Link>
             </div>
           </div>
@@ -825,7 +1083,7 @@ export default function SynastryPage() {
         {/* Love section cross-link */}
         <div className="mt-10 grid sm:grid-cols-2 gap-3">
           <Link href="/love/celebrity-couples" className="card hover:border-slate-400 dark:hover:border-slate-500 transition-colors group">
-            <p className="font-medium text-sm text-slate-800 dark:text-slate-100 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">Celebrity Couples</p>
+            <p className="font-medium text-sm text-slate-800 dark:text-slate-100 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">Celebrity couples</p>
             <p className="text-xs text-slate-400 mt-0.5">101 real couples with element compatibility scores</p>
           </Link>
           <Link href="/love" className="card hover:border-slate-400 dark:hover:border-slate-500 transition-colors group">
@@ -836,7 +1094,7 @@ export default function SynastryPage() {
 
         {/* FAQ */}
         <div className="mt-16 border-t border-slate-200 pt-10">
-          <h2 className="text-lg font-semibold mb-6">About Synastry</h2>
+          <h2 className="text-lg font-semibold mb-6">About synastry</h2>
           <div className="space-y-5">
             {FAQ_ITEMS.map((item, i) => (
               <div key={i}>

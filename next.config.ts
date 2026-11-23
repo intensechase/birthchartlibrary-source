@@ -1,18 +1,22 @@
 import type { NextConfig } from 'next'
 import { withSentryConfig } from '@sentry/nextjs/config'
 
+// Zodiac order, matching SIGN_ORDER in the compatibility pages.
+const COMPAT_SIGNS = ['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces']
+
 // One CSP for the whole site; only frame-ancestors differs between the
 // widget (/embed/*) and every other page.
 function csp(frameAncestors: string): string {
   return [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com https://challenges.cloudflare.com https://pagead2.googlesyndication.com https://adservice.google.com https://www.googleadservices.com https://tpc.googlesyndication.com https://*.adtrafficquality.google",
+    // next dev needs eval for fast refresh; production never gets it.
+    `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ''} https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com https://challenges.cloudflare.com https://pagead2.googlesyndication.com https://adservice.google.com https://www.googleadservices.com https://tpc.googlesyndication.com https://*.adtrafficquality.google https://fundingchoicesmessages.google.com`,
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "font-src 'self' https://fonts.gstatic.com",
-    "img-src 'self' data: https://upload.wikimedia.org https://www.google-analytics.com https://covers.openlibrary.org https://*.archive.org https://m.media-amazon.com https://images-na.ssl-images-amazon.com https://pagead2.googlesyndication.com https://www.google.com https://googleads.g.doubleclick.net https://*.adtrafficquality.google",
-    "connect-src 'self' https://nominatim.openstreetmap.org https://www.google-analytics.com https://analytics.google.com https://cloudflareinsights.com https://challenges.cloudflare.com https://pagead2.googlesyndication.com https://adservice.google.com https://*.adtrafficquality.google https://*.sentry.io",
+    "img-src 'self' data: https://upload.wikimedia.org https://www.google-analytics.com https://www.googletagmanager.com https://covers.openlibrary.org https://*.archive.org https://m.media-amazon.com https://images-na.ssl-images-amazon.com https://pagead2.googlesyndication.com https://www.google.com https://googleads.g.doubleclick.net https://*.adtrafficquality.google",
+    "connect-src 'self' https://nominatim.openstreetmap.org https://www.google-analytics.com https://analytics.google.com https://cloudflareinsights.com https://challenges.cloudflare.com https://pagead2.googlesyndication.com https://adservice.google.com https://*.adtrafficquality.google https://*.sentry.io https://fundingchoicesmessages.google.com",
     "worker-src blob:",
-    "frame-src 'self' https://challenges.cloudflare.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://*.adtrafficquality.google",
+    "frame-src 'self' https://challenges.cloudflare.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://*.adtrafficquality.google https://fundingchoicesmessages.google.com",
     `frame-ancestors ${frameAncestors}`,
     "base-uri 'self'",
     "form-action 'self'",
@@ -113,18 +117,35 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Sign pair pages exist only in zodiac order (leo-and-scorpio). People
+      // search and link both ways, so the reversed order redirects instead of 404.
+      ...COMPAT_SIGNS.flatMap((a, i) => COMPAT_SIGNS.slice(i + 1).map(b => ({
+        source: `/compatibility/${b}-and-${a}`, destination: `/compatibility/${a}-and-${b}`, permanent: true,
+      }))),
       {
         source: '/:path*',
         has: [{ type: 'host', value: 'www.birthchartlibrary.com' }],
         destination: 'https://birthchartlibrary.com/:path*',
         permanent: true,
       },
+      // Crawlers ask for /favicon.ico by default; the brand icons live in /brand.
+      { source: '/favicon.ico', destination: '/brand/favicon.ico', permanent: true },
       { source: '/chart', destination: '/birth-chart', permanent: true },
       { source: '/library', destination: '/astrology-interpretations', permanent: true },
       // /astrologers-corner discontinued 2026-05-21 (no further monthly posts planned).
       // DB tables (guest_readings, astrologers) kept; only the route is gone. Reversible.
       { source: '/astrologers-corner', destination: '/blog', permanent: true },
       { source: '/astrologers-corner/:path*', destination: '/blog', permanent: true },
+      // Sun-sign horoscopes retired 2026-11-20 (12 near-identical pages). Signed in
+      // readers get their own transits; guests land on the sign pages.
+      { source: '/horoscope/:sign', destination: '/zodiac-signs/:sign', permanent: true },
+      { source: '/horoscope', has: [{ type: 'cookie', key: 'bcl_session' }], destination: '/daily-horoscope', permanent: false },
+      { source: '/horoscope', destination: '/zodiac-signs', permanent: false },
+      // Love hub + sign-in-love templates folded into compatibility.
+      { source: '/love', destination: '/compatibility', permanent: true },
+      { source: '/love/:sign(aries|taurus|gemini|cancer|leo|virgo|libra|scorpio|sagittarius|capricorn|aquarius|pisces)-in-love', destination: '/compatibility/:sign', permanent: true },
+      // The 12 short "Year of the X" posts repeated the Chinese zodiac animal pages.
+      { source: '/blog/year-of-the-:animal(rat|ox|tiger|rabbit|dragon|snake|horse|goat|monkey|rooster|dog|pig)-traits-and-meaning', destination: '/chinese-zodiac/:animal', permanent: true },
       // AdSense + general convention: /privacy and /terms are the canonical legal-page URLs.
       // Renamed from /privacy-policy and /terms-of-service on 2026-05-17. Keep old paths as 308 for any inbound links.
       { source: '/privacy-policy', destination: '/privacy', permanent: true },

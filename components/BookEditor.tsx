@@ -134,7 +134,7 @@ export default function BookEditor({ book }: Props) {
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">Featured Month</label>
+          <label className="block text-sm font-medium text-slate-700 mb-1">Featured month</label>
           <select value={featuredMonth} onChange={e => setFeaturedMonth(e.target.value)} className="input w-full">
             {READING_ROOM_MONTHS.map(m => <option key={m.value} value={m.value}>{m.label}</option>)}
           </select>
@@ -142,7 +142,7 @@ export default function BookEditor({ book }: Props) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">Relevant Signs <span className="text-slate-400 font-normal">(for contextual placement)</span></label>
+        <label className="block text-sm font-medium text-slate-700 mb-2">Relevant signs <span className="text-slate-400 font-normal">(for contextual placement)</span></label>
         <div className="flex flex-wrap gap-2">
           {SIGN_LIST_LOWER.map(sign => (
             <button key={sign} type="button" onClick={() => toggleSign(sign)}
@@ -154,7 +154,7 @@ export default function BookEditor({ book }: Props) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">Relevant Planets <span className="text-slate-400 font-normal">(for contextual placement)</span></label>
+        <label className="block text-sm font-medium text-slate-700 mb-2">Relevant planets <span className="text-slate-400 font-normal">(for contextual placement)</span></label>
         <div className="flex flex-wrap gap-2">
           {PLANET_LIST_LOWER.map(planet => (
             <button key={planet} type="button" onClick={() => togglePlanet(planet)}
@@ -167,7 +167,7 @@ export default function BookEditor({ book }: Props) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">Sort Order</label>
+          <label className="block text-sm font-medium text-slate-700 mb-1">Sort order</label>
           <input type="number" value={sortOrder} onChange={e => setSortOrder(parseInt(e.target.value) || 0)} className="input w-full" />
           <p className="text-xs text-slate-400 mt-1">Lower numbers appear first</p>
         </div>

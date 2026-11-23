@@ -137,7 +137,7 @@ export default function CelebrityChart({ chartData, planetInfos, placements, has
                 Placidus
               </button>
               <button type="button" role="radio" aria-checked={houseSystem === 'whole-sign'} onClick={() => setHouseSystem('whole-sign')} className={toggleClass(houseSystem === 'whole-sign')}>
-                Whole Sign
+                Whole sign
               </button>
               {wsLoading && <span className={`text-xs ${MUTED} ml-1`}>loading…</span>}
             </div>

@@ -29,10 +29,11 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     for (let h = 1; h <= 12; h++) urls.push(`${baseUrl}/interpretations/${planet}-in-house-${h}`)
   }
 
-  // Matrix B shipped 2026-06-17 — lastmod tells Bing the content changed and
-  // is worth a fresh crawl. Priority raised to 0.8: these are unique calibrated
-  // entries, not templated content.
-  const MATRIX_B_DATE = '2026-06-17'
+  // The last real change to these pages: text (house v2 11/14) or the page
+  // itself (redesign rebuild 11/20). Bump it whenever the text or page changes;
+  // a true lastmod is how Google and Bing decide what to recrawl.
+  // Priority 0.8: these are unique calibrated entries, not templated content.
+  const MATRIX_B_DATE = '2026-11-20'
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

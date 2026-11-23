@@ -23,6 +23,9 @@ RUN npm ci
 COPY . .
 ARG NEXT_PUBLIC_TURNSTILE_SITE_KEY
 ARG NEXT_PUBLIC_APP_URL
+# Redesign stages (lib/redesign.ts). Unset on the live site; "all" on the preview.
+ARG NEXT_PUBLIC_REDESIGN=""
+ENV NEXT_PUBLIC_REDESIGN=$NEXT_PUBLIC_REDESIGN
 RUN --mount=type=secret,id=bcl_env,required=true \
     DATABASE_URL="$(sed -n 's/^DATABASE_URL=//p' /run/secrets/bcl_env)" \
     npm run build

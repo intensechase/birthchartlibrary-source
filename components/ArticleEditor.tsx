@@ -154,11 +154,11 @@ export default function ArticleEditor({ article }: Props) {
           </select>
         </div>
         <div>
-          <label className="block text-sm mb-1 text-slate-500">Read Time</label>
+          <label className="block text-sm mb-1 text-slate-500">Read time</label>
           <input name="read_time" value={form.read_time} onChange={handleChange} className="input" placeholder="5 min" />
         </div>
         <div>
-          <label className="block text-sm mb-1 text-slate-500">Publish Date</label>
+          <label className="block text-sm mb-1 text-slate-500">Publish date</label>
           <input type="date" name="publish_date" value={form.publish_date} onChange={handleChange} className="input" />
         </div>
         <div className="flex items-end pb-2">

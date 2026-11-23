@@ -4,6 +4,7 @@ import { PAIRS, ELEMENT_COMPAT, MODALITY_COMPAT } from '@/lib/interpretations/co
 import { SIGNS } from '@/lib/interpretations/signs'
 import { SIGN_SYMBOLS } from '@/lib/zodiac-colors'
 import { apiHandler } from '@/lib/apiHandler'
+import { compatTier } from '@/lib/tier'
 
 export default apiHandler(async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { sign1, sign2 } = req.query
@@ -42,6 +43,8 @@ export default apiHandler(async function handler(req: NextApiRequest, res: NextA
     sign2: { name: s2, symbol: SIGN_SYMBOLS[s2], element: info2.element, modality: info2.modality, ruledBy: info2.ruledBy },
     compatibility: {
       score,
+      // tier: S (best) to D, the scale shown on the site; scoreLabel kept for old callers.
+      tier: compatTier(score),
       scoreLabel: score >= 80 ? 'Excellent' : score >= 70 ? 'High' : score >= 55 ? 'Good' : score >= 45 ? 'Moderate' : 'Challenging',
       summary: pairData.summary,
       dynamic: pairData.dynamic,

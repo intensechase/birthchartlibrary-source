@@ -1,12 +1,14 @@
 'use client'
 
 import { useState } from 'react'
+import { clearTab } from '@/lib/kept-chart'
 
 export default function SignOutButton() {
   const [confirming, setConfirming] = useState(false)
 
   async function handleSignOut() {
     await fetch('/api/auth/signout', { method: 'POST' })
+    clearTab()
     window.location.href = '/'
   }
 
@@ -34,7 +36,7 @@ export default function SignOutButton() {
       onClick={() => setConfirming(true)}
       className="text-xs text-slate-400 hover:text-slate-800 transition-colors border border-slate-200 rounded-lg px-3 py-1.5"
     >
-      Sign Out
+      Sign out
     </button>
   )
 }

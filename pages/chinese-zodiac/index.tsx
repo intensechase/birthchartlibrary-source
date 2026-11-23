@@ -1,7 +1,10 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { ANIMALS, ANIMAL_EMOJI, ANIMAL_DESCRIPTIONS, getChineseZodiac } from '@/lib/chinese-zodiac'
+import { ANIMALS, ANIMAL_CHAR, ANIMAL_EMOJI, ANIMAL_DESCRIPTIONS, CZ_ELEMENT_COLOR, getChineseZodiac } from '@/lib/chinese-zodiac'
 import { breadcrumbSchema, itemListSchema, jsonLd } from '@/lib/schema'
+import { redesignOn } from '@/lib/redesign'
+import { Disc } from '@/components/redesign/Disc'
+import { LearnHero, NextLinks, TileGrid } from '@/components/redesign/Learn'
 
 export default function ChineseZodiacPage() {
   // Recent and upcoming years for quick reference
@@ -27,8 +30,40 @@ export default function ChineseZodiacPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(itemListSchema(
         ANIMALS.map(a => ({ name: `The ${a}`, url: `https://birthchartlibrary.com/chinese-zodiac/${a.toLowerCase()}` }))
       )) }} />
+      {redesignOn('hubs') ? (
+        <main className="rdp"><div className="lrn">
+          <LearnHero kicker="Learn" title="Chinese zodiac">
+            <p>The Chinese zodiac gives each year one of twelve animals and one of five elements, in a cycle that repeats every sixty years. Your animal is the core of your personality in this system; your element adds the shading.</p>
+          </LearnHero>
+
+          <section className="lsec">
+            <h2>The twelve animals</h2>
+            <ul className="popgrid">
+              {ANIMALS.map(a => (
+                <li key={a}>
+                  <Link href={`/chinese-zodiac/${a.toLowerCase()}`}>
+                    <Disc disc={{ color: '#C3CBFF', text: ANIMAL_CHAR[a] }} size={44} />
+                    <span><b>{a}</b><small>{ANIMAL_DESCRIPTIONS[a].traits}</small></span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="lsec">
+            <h2>Years at a glance</h2>
+            <p className="lede">Each year starts at Chinese New Year, in late January or February.</p>
+            <TileGrid items={recentYears.map(y => { const { animal, element } = getChineseZodiac(y); return { href: `/chinese-zodiac/year/${y}`, label: String(y), sub: `${element} ${animal}`, dot: CZ_ELEMENT_COLOR[element] } })} />
+          </section>
+
+          <NextLinks links={[
+            { href: '/calculators/chinese-zodiac', title: 'Find your animal', sub: 'Your animal and element from any birth date.' },
+            { href: '/birth-chart', title: 'Your Western birth chart', sub: 'Sun, Moon and rising from your birth time, free.' },
+          ]} />
+        </div></main>
+      ) : (
       <main className="max-w-4xl mx-auto px-4 py-12">
-        <h1 className="font-display text-4xl tracking-wide mb-2">Chinese Zodiac</h1>
+        <h1 className="font-display text-4xl tracking-wide mb-2">Chinese zodiac</h1>
         <p className="text-slate-500 mb-10 max-w-2xl">
           The Chinese zodiac assigns one of 12 animals and one of 5 elements to each year in a 60-year cycle. Your animal reveals your core personality archetype... your element adds nuance and depth.
         </p>
@@ -36,7 +71,7 @@ export default function ChineseZodiacPage() {
         {/* Calculator link */}
         <div className="card mb-10 text-center">
           <p className="text-slate-600 mb-3">Know your birth year? Find your animal and element instantly.</p>
-          <Link href="/calculators/chinese-zodiac" className="btn-primary">Chinese Zodiac Calculator</Link>
+          <Link href="/calculators/chinese-zodiac" className="btn-primary">Chinese zodiac calculator</Link>
         </div>
 
         {/* 12 Animals */}
@@ -84,9 +119,10 @@ export default function ChineseZodiacPage() {
         <div className="p-6 bg-slate-50 border border-slate-200 rounded-xl text-center">
           <p className="font-display text-xl tracking-wide mb-2">Discover what the rest of your chart reveals</p>
           <p className="text-slate-500 text-sm mb-4">Your Chinese zodiac is just the beginning... generate your full Western birth chart for a complete picture.</p>
-          <Link href="/signup" className="btn-primary">Create Your Free Chart</Link>
+          <Link href="/signup" className="btn-primary">Create your free chart</Link>
         </div>
       </main>
+      )}
     </>
   )
 }

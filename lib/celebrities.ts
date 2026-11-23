@@ -32,6 +32,10 @@ export const MERGED_CELEB_SLUGS = ['charles-iii', 'prince-charles', 'steph-curry
 // rule so nothing links to a person whose page can't render a chart.
 export const QUALITY_BIO_SQL = `(bio_source IN ('${QUALITY_BIO_SOURCES.join("','")}') AND chart_data IS NOT NULL AND slug NOT IN ('${MERGED_CELEB_SLUGS.join("','")}'))`
 
+// Never put forward on a front page slot: chart of the day, born today, spotlight
+// (owner, 11/19). Their own pages and every other list stay neutral.
+export const FRONT_PAGE_OK_SQL = `COALESCE(metadata->>'front_page_skip', '') <> 'true'`
+
 // Whether a celebrity row gets a public page. Same test as QUALITY_BIO_SQL.
 export function isServedCelebrity(row: { bio_source: string | null; chart_data: unknown }): boolean {
   return row.chart_data != null && hasQualityBio(row.bio_source)
@@ -105,22 +109,32 @@ const CHART_JSON = `(CASE WHEN jsonb_typeof(chart_data) = 'string' THEN (chart_d
 // noon, and the Moon moves about 13 degrees a day, so its noon sign can be off
 // by up to about 6.5 degrees; such Moons only count when 7+ degrees from either
 // edge of the sign.
-export function getCelebritiesWithPlacement(
-  planetKey: string,
-  placement: { sign: string } | { house: number },
-  limit = 8
-): Promise<PlacementCeleb[]> {
+// WHERE clause for "people whose own chart has this placement" ($1 planet, $2 sign or house).
+// Houses need a birth time; a Moon sign without one counts only away from the sign edges.
+export function placementWhere(planetKey: string, placement: { sign: string } | { house: number }): { where: string; params: string[] } {
   const isHouse = 'house' in placement
   const match = isHouse
     ? `birth_time IS NOT NULL AND p->>'house' = $2`
     : `p->>'sign' = $2 AND (p->>'planet' <> 'MOON' OR birth_time IS NOT NULL OR (p->>'signDegree')::float BETWEEN 7 AND 23)`
-  return getListableCelebrities<PlacementCeleb>({
-    columns: 'name, slug, sun_sign, image_url',
+  return {
     where: `chart_data IS NOT NULL AND EXISTS (
       SELECT 1 FROM jsonb_array_elements(${CHART_JSON}->'planets') p
       WHERE p->>'planet' = $1 AND ${match}
     )`,
     params: [planetKey, isHouse ? String(placement.house) : placement.sign],
+  }
+}
+
+export function getCelebritiesWithPlacement(
+  planetKey: string,
+  placement: { sign: string } | { house: number },
+  limit = 8
+): Promise<PlacementCeleb[]> {
+  const { where, params } = placementWhere(planetKey, placement)
+  return getListableCelebrities<PlacementCeleb>({
+    columns: 'name, slug, sun_sign, image_url',
+    where,
+    params,
     orderBy: 'RANDOM()',
     limit,
   })

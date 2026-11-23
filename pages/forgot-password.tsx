@@ -39,7 +39,7 @@ export default function ForgotPasswordPage() {
         <main className="min-h-screen flex items-center justify-center px-4">
           <div className="card w-full max-w-md text-center py-10">
             <div className="text-4xl mb-4">{'\u2726'}</div>
-            <h1 className="font-display text-2xl tracking-wide mb-2">Check Your Inbox</h1>
+            <h1 className="font-display text-2xl tracking-wide mb-2">Check your inbox</h1>
             <p className="text-slate-500 text-sm">
               A password reset link has been sent to{' '}
               <span className="font-medium text-slate-700">{email}</span>.
@@ -62,7 +62,7 @@ export default function ForgotPasswordPage() {
       </Head>
       <main className="min-h-screen flex items-center justify-center px-4">
         <div className="card w-full max-w-md">
-          <h1 className="font-display text-2xl tracking-wide mb-2 text-center">Reset Password</h1>
+          <h1 className="font-display text-2xl tracking-wide mb-2 text-center">Reset password</h1>
           <p className="text-slate-500 text-sm text-center mb-6">Enter your email and we&apos;ll send you a reset link.</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">

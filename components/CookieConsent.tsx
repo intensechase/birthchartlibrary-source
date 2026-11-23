@@ -1,27 +1,44 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { safeLocalGet, safeLocalSet } from '@/lib/safe-storage'
+import { safeLocalGet } from '@/lib/safe-storage'
+import { COOKIE_CHOICE_KEY, setCookieChoice } from '@/lib/cookie-choice'
+import { REDESIGN_ANY } from '@/lib/redesign'
 
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    const consent = safeLocalGet('cookie-consent')
+    const consent = safeLocalGet(COOKIE_CHOICE_KEY)
     if (!consent) setVisible(true)
   }, [])
 
   function accept() {
-    safeLocalSet('cookie-consent', 'accepted')
+    setCookieChoice('accepted')
     setVisible(false)
   }
 
   function decline() {
-    safeLocalSet('cookie-consent', 'declined')
+    setCookieChoice('declined')
     setVisible(false)
   }
 
   if (!visible) return null
+
+  // Redesign look: a small panel at the bottom, same night colours as the page.
+  if (REDESIGN_ANY) {
+    return (
+      <div className="rdp rdp-cookie" role="region" aria-label="Cookie choice">
+        <div className="in">
+          <p>We use cookies for analytics and for the ads that keep this site free. <a href="/privacy">Privacy policy</a></p>
+          <div className="btns">
+            <button onClick={decline} className="ghost">Decline</button>
+            <button onClick={accept} className="btn">Accept</button>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 bg-white border-t border-slate-200 shadow-lg">

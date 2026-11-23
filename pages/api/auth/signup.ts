@@ -11,11 +11,15 @@ import { apiHandler } from '@/lib/apiHandler'
 import { env } from '@/lib/env'
 import { CONFIG } from '@/lib/config'
 import { logAuthEvent } from '@/lib/audit'
+import { checkChartFields, saveChart, type ChartFields } from '@/lib/save-chart'
 
 export default apiHandler(async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
   const { email, password, turnstileToken, signup_source, signup_ref } = req.body
+  // Optional: the chart the reader just made, saved in the same step so they
+  // land on it signed in (no second screen, no second captcha).
+  const chart: ChartFields | null = req.body.chart && typeof req.body.chart === 'object' ? req.body.chart : null
   if (!email || typeof email !== 'string' || !password || typeof password !== 'string') {
     return res.status(400).json({ error: 'Email and password required' })
   }
@@ -26,10 +30,18 @@ export default apiHandler(async function handler(req: NextApiRequest, res: NextA
     return res.status(429).json({ error: 'Too many signup attempts. Please wait before trying again.' })
   }
 
-  if (turnstileToken) {
-    const captchaOk = await verifyTurnstile(turnstileToken as string)
-    if (!captchaOk) return res.status(403).json({ error: 'Captcha verification failed... please try again.' })
+  if (chart) {
+    const fieldError = checkChartFields(chart)
+    if (fieldError) return res.status(400).json({ error: fieldError })
   }
+
+  // Always required: the sign up page always sends one, so only scripts that
+  // skip the page are turned away (it used to be checked only when present).
+  if (!turnstileToken || typeof turnstileToken !== 'string') {
+    return res.status(400).json({ error: 'Please complete the security check.' })
+  }
+  const captchaOk = await verifyTurnstile(turnstileToken)
+  if (!captchaOk) return res.status(403).json({ error: 'Captcha verification failed... please try again.' })
 
   const passwordError = validatePassword(password)
   if (passwordError) return res.status(400).json({ error: passwordError })
@@ -65,5 +77,16 @@ export default apiHandler(async function handler(req: NextApiRequest, res: NextA
     Sentry.captureException(err, { tags: { email: 'verification', user_id: userId } })
   })
 
-  return res.status(201).json({ user: { id: userId, email: normalized } })
+  // The account exists either way; if the chart fails to save, the client
+  // falls back to the save screen with the chart still held in the browser.
+  let chartId: string | null = null
+  if (chart) {
+    try {
+      chartId = await saveChart({ id: userId, email: normalized }, chart)
+    } catch (err) {
+      Sentry.captureException(err, { tags: { step: 'signup-chart', user_id: userId } })
+    }
+  }
+
+  return res.status(201).json({ user: { id: userId, email: normalized }, chartId })
 })

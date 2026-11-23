@@ -4,7 +4,9 @@ import { rateLimit } from '@/lib/rate-limit'
 import { validateCoordinates } from '@/lib/validate'
 import { getClientIp } from '@/lib/request'
 import { calculateBirthChart, toJulianDay } from '@/lib/swisseph/calculate'
-import { computeSynastryAspects, synastryScore, type RelationshipType } from '@/lib/swisseph/synastry'
+import { computeSynastryAspects, type RelationshipType } from '@/lib/swisseph/synastry'
+import { computeHouseOverlays } from '@/lib/swisseph/overlays'
+import { scoreSynastry } from '@/lib/swisseph/synastry-score'
 import { apiHandler } from '@/lib/apiHandler'
 import tzlookup from 'tz-lookup'
 import { fromZonedTime } from 'date-fns-tz'
@@ -70,12 +72,15 @@ export default apiHandler(async function handler(req: NextApiRequest, res: NextA
   ])
 
   const aspects = computeSynastryAspects(chartA, chartB, relType)
-  const score = synastryScore(aspects)
+  const score = scoreSynastry(chartA, chartB, { relationshipType: relType, timeKnownA: !!personA.birthTime, timeKnownB: !!personB.birthTime })
+
+  const overlays = computeHouseOverlays(chartA, chartB, { timeKnownA: !!personA.birthTime, timeKnownB: !!personB.birthTime })
 
   return res.status(200).json({
     chartA,
     chartB,
     aspects,
+    overlays,
     score,
     relationshipType: relType,
   })

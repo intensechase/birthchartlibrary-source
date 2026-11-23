@@ -196,7 +196,7 @@ export default function ChartDetail({ chartData, label, birthDate, birthTime, bi
 
       {/* Summary */}
       <div className={`bg-gradient-to-br ${sunEc.gradient} border ${sunEc.border} rounded-xl p-6 mb-8`}>
-        <h2 className="text-sm uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-3">Your Cosmic Blueprint</h2>
+        <h2 className="text-sm uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-3">Your cosmic blueprint</h2>
         <p className="text-slate-700 dark:text-slate-200 leading-relaxed">{summary}</p>
       </div>
 
@@ -226,7 +226,7 @@ export default function ChartDetail({ chartData, label, birthDate, birthTime, bi
                 : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
             }`}
           >
-            Whole Sign
+            Whole sign
           </button>
         </div>
       </div>
@@ -525,7 +525,7 @@ export default function ChartDetail({ chartData, label, birthDate, birthTime, bi
             ]
             return (
               <>
-                <h3 className="font-display text-lg tracking-wide text-slate-500 dark:text-slate-400 mt-6 mb-1">Chart Angles</h3>
+                <h3 className="font-display text-lg tracking-wide text-slate-500 dark:text-slate-400 mt-6 mb-1">Chart angles</h3>
                 {angles.map(a => {
                   const ec = getElementColor(a.sign)
                   const isOpen = openPlanets.has(a.key)
@@ -661,7 +661,7 @@ export default function ChartDetail({ chartData, label, birthDate, birthTime, bi
           <div className="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="font-semibold text-slate-800 dark:text-slate-100">Further Reading</h2>
+                <h2 className="font-semibold text-slate-800 dark:text-slate-100">Further reading</h2>
                 <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">Picked for your {sunSign} Sun</p>
               </div>
               <a href="/reading-room" className="text-xs text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">

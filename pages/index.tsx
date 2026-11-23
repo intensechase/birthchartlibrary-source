@@ -5,11 +5,11 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import { query, queryOne, parseJsonb } from '@/lib/db'
-import { getFeaturedCelebrities, getListableCelebrities, type FeaturedCeleb } from '@/lib/celebrities'
+import { FRONT_PAGE_OK_SQL, getFeaturedCelebrities, getListableCelebrities, type FeaturedCeleb } from '@/lib/celebrities'
 import { getDailySky } from '@/lib/swisseph/daily-sky'
 import type { BirthChartData } from '@/lib/swisseph/calculate'
 import { MOON_REFLECTIONS, MOON_WEATHER } from '@/lib/interpretations/daily'
-import { websiteSchema, jsonLd } from '@/lib/schema'
+import { websiteSchema, organizationSchema, jsonLd } from '@/lib/schema'
 import GuestHoroscopeSignup from '@/components/GuestHoroscopeSignup'
 import PlanetOrbit from '@/components/PlanetOrbit'
 import NatalChartWheel, { PLANET_PATHS, toneOf } from '@/components/NatalChartWheel'
@@ -17,6 +17,9 @@ import Scallop from '@/components/Scallop'
 import FeaturedCelebs, { cleanCelebName } from '@/components/FeaturedCelebs'
 import { SIGN_LIST } from '@/lib/constants'
 import { NOINDEX_BLOG_SQL } from '@/lib/thin-pages'
+import { redesignOn } from '@/lib/redesign'
+import RedesignHome from '@/components/redesign/HomePage'
+import type { HomeView } from '@/lib/redesign/home-view'
 
 const SKY_PLANETS = ['SUN', 'MOON', 'MERCURY', 'VENUS', 'MARS', 'JUPITER', 'SATURN', 'URANUS', 'NEPTUNE', 'PLUTO']
 // The chart drawn in the hero. Its page is one of the detailed profiles.
@@ -61,10 +64,20 @@ interface HomeProps {
   latestArticles: BlogTeaser[]
   featuredCelebs: FeaturedCeleb[]
   hero: HeroChart | null
+  homeView?: HomeView | null
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const now = new Date()
+  // Redesign home (Issue 17): the app screen replaces the old hero wheel and sections.
+  if (redesignOn('home')) {
+    const { buildHomeView } = await import('@/lib/redesign/home-view')
+    const homeView = await buildHomeView(now)
+    return {
+      props: JSON.parse(JSON.stringify({ todayCeleb: null, moonSign: '', planets: [], dateStr: '', todayISO: '', latestArticles: [], featuredCelebs: [], hero: null, homeView })),
+      revalidate: 21600,
+    }
+  }
   const month = now.getUTCMonth() + 1
   const day = now.getUTCDate()
 
@@ -72,7 +85,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const [todayCelebs, sky, articleRows, featuredCelebs, heroRow] = await Promise.all([
     getListableCelebrities<CelebRow>({
       columns: 'name, slug, sun_sign, category, image_url',
-      where: 'EXTRACT(MONTH FROM birth_date) = $1 AND EXTRACT(DAY FROM birth_date) = $2',
+      where: `EXTRACT(MONTH FROM birth_date) = $1 AND EXTRACT(DAY FROM birth_date) = $2 AND ${FRONT_PAGE_OK_SQL}`,
       params: [month, day],
       orderBy: 'name',
       limit: 1,
@@ -158,7 +171,32 @@ function GlyphIcon({ path, size = 15, color }: { path: string; size?: number; co
   )
 }
 
-export default function HomePage({ todayCeleb, moonSign, planets, dateStr, todayISO, latestArticles, featuredCelebs, hero }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Index(props: InferGetStaticPropsType<typeof getStaticProps>) {
+  if (props.homeView) {
+    return (
+      <>
+        <Head>
+          <title>Birth Chart Library: celebrity birth charts, read plainly</title>
+          <meta name="description" content="Real people's birth charts with sourced birth times, explained in plain words. Find anyone, see today's sky, then make your own chart free." />
+          <meta property="og:title" content="Birth Chart Library" />
+          <meta property="og:description" content="Real people's charts, read plainly. Then yours." />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content="https://birthchartlibrary.com" />
+          <meta property="og:site_name" content="Birth Chart Library" />
+          <meta property="og:image" content="https://birthchartlibrary.com/api/og" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:image" content="https://birthchartlibrary.com/api/og" />
+        </Head>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(websiteSchema()) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(organizationSchema()) }} />
+        <main className="rdp"><RedesignHome view={props.homeView} /></main>
+      </>
+    )
+  }
+  return <OldHomePage {...props} />
+}
+
+function OldHomePage({ todayCeleb, moonSign, planets, dateStr, todayISO, latestArticles, featuredCelebs, hero }: InferGetStaticPropsType<typeof getStaticProps>) {
   const skyPlanets = SKY_PLANETS.flatMap(id => planets.find(p => p.planet === id) ?? [])
   const router = useRouter()
   const [showUnsubscribed, setShowUnsubscribed] = useState(false)
@@ -194,6 +232,7 @@ export default function HomePage({ todayCeleb, moonSign, planets, dateStr, today
         <meta name="twitter:image" content="https://birthchartlibrary.com/api/og" />
       </Head>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(websiteSchema()) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(organizationSchema()) }} />
 
       {/* Hero */}
       <section className="bg-[var(--band)]">
@@ -212,14 +251,14 @@ export default function HomePage({ todayCeleb, moonSign, planets, dateStr, today
               </p>
               <div className="flex flex-wrap gap-3.5 mb-5">
                 <Link href="/birth-chart?ref=home-hero" className="btn-primary px-6 py-3 text-base">
-                  Read My Chart
+                  Read my chart
                 </Link>
                 <Link href="/celebrity-birth-charts" className="btn-outline px-6 py-3 text-base">
                   Browse the Library
                 </Link>
               </div>
               <p className={`text-sm ${MUTED}`}>
-                550+ celebrity charts &middot; 1,700+ interpretations &middot; Free forever
+                550+ celebrity charts &middot; 1,700+ interpretations &middot; Free
               </p>
             </div>
             <figure className="flex-[1_1_400px] min-w-0 text-center">
@@ -304,7 +343,7 @@ export default function HomePage({ todayCeleb, moonSign, planets, dateStr, today
               <p>Your personalized horoscope, updated every day based on your exact placements.</p>
             </div>
             <Link href="/birth-chart?ref=home-sky" className="btn-primary px-6 py-3 whitespace-nowrap">
-              Get My Free Chart
+              Get my free chart
             </Link>
           </div>
         </div>
@@ -337,7 +376,7 @@ export default function HomePage({ todayCeleb, moonSign, planets, dateStr, today
           <section className="bg-[var(--band)] border-y-[3px] border-[var(--outline)]">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-[52px]">
               <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 mb-7">
-                <h2 className="text-3xl sm:text-[38px]">Popular Celebrity Charts</h2>
+                <h2 className="text-3xl sm:text-[38px]">Popular celebrity charts</h2>
                 <Link href="/celebrity-birth-charts" className={ACCENT_LINK}>View the library →</Link>
               </div>
               <FeaturedCelebs celebs={featuredCelebs} />

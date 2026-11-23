@@ -8,6 +8,10 @@ import { getElementColor } from '@/lib/zodiac-colors'
 import { SignGlyph } from '@/components/Glyph'
 import { breadcrumbSchema, faqSchema, jsonLd } from '@/lib/schema'
 import { SIGN_LIST, PLANET_KEYS } from '@/lib/constants'
+import { SIGNS } from '@/lib/interpretations/signs'
+import { redesignOn } from '@/lib/redesign'
+import { BODY_ICON, DISC, HOUSE_KEYS } from '@/lib/redesign/astro'
+import { Facts, Fold, LearnHero, NextLinks, PrevNext, Prose } from '@/components/redesign/Learn'
 
 const naturalSigns = SIGN_LIST
 
@@ -74,7 +78,7 @@ export default function HouseDetailPage({ house, num, houseName, title, descript
   ]
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-12">
+    <>
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -92,6 +96,64 @@ export default function HouseDetailPage({ house, num, houseName, title, descript
       </Head>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema([{ name: 'Home', url: 'https://birthchartlibrary.com' }, { name: 'Houses', url: 'https://birthchartlibrary.com/astrology-houses' }, { name: info.name, url: `https://birthchartlibrary.com/astrology-houses/${house}` }])) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(faqs)) }} />
+      {redesignOn('hubs') ? (() => {
+        const ord = ordinal(num)
+        const opp = num <= 6 ? num + 6 : num - 6
+        const keys = HOUSE_KEYS[num].split(', ')
+        const ruler = (SIGNS[naturalRuler]?.ruledBy ?? '').split(' (')[0]
+        const kind = num % 3 === 1 ? 'Angular' : num % 3 === 2 ? 'Succedent' : 'Cadent'
+        const love = [5, 7, 8].includes(num)
+        return (
+          <main className="rdp"><div className="lrn">
+            <LearnHero crumbs={[{ label: 'Houses', href: '/astrology-houses' }, { label: `The ${ord} house` }]} disc={{ color: '#C9CFEA', text: String(num) }} kicker="Astrology house" title={`The ${ord} house`}>
+              <p>The house of {keys.slice(0, -1).join(', ')} and {keys[keys.length - 1]}.</p>
+            </LearnHero>
+
+            <Facts items={[
+              { label: 'Natural sign', value: naturalRuler, href: `/zodiac-signs/${naturalRuler.toLowerCase()}` },
+              { label: 'Natural ruler', value: ruler, href: `/astrology-planets/${ruler.toLowerCase()}` },
+              { label: 'Opposite house', value: `The ${ordinal(opp)}`, href: `/astrology-houses/${opp}` },
+              { label: 'Kind', value: kind },
+            ]} />
+
+            <Prose title={`About the ${ord} house`} text={info.description} />
+            <Prose title="In depth" text={info.inDepth} />
+            <Prose title={`The ${ord} and ${ordinal(opp)} house axis`} text={info.oppositeAxis} />
+            <Prose title={`An empty ${ord} house`} text={info.emptyHouse} />
+
+            <section className="lsec">
+              <h2>Planets in the {ord} house</h2>
+              <p className="lede">What each planet brings when it sits here. Open one to read it.</p>
+              {PLANET_KEYS.map(key => {
+                const text = PLANET_IN_HOUSE[`${key}_H${num}`]
+                const planet = PLANETS[key]
+                if (!text || !planet) return null
+                return (
+                  <Fold key={key} title={`${planet.name} in the ${ord} house`} disc={{ color: DISC[key] ?? DISC.RISING, icon: BODY_ICON[key] }}>
+                    {text.split(/\n\s*\n/).map((t, i) => <p key={i}>{t.trim()}</p>)}
+                    <Link className="go" href={`/astrology-planets/${key.toLowerCase()}`}>All about {planet.name === 'Sun' || planet.name === 'Moon' ? `the ${planet.name}` : planet.name}</Link>
+                  </Fold>
+                )
+              })}
+            </section>
+
+            <NextLinks links={[
+              { href: '/astrology-interpretations', title: 'Interpretation library', sub: 'Every planet in every house and sign.' },
+              ...(love ? [
+                { href: '/calculators/synastry', title: 'Compare two charts', sub: 'Where one person\'s planets land in the other\'s houses.' },
+                { href: num === 7 ? '/compatibility' : '/love/celebrity-couples', title: num === 7 ? 'Sign compatibility' : 'Famous couples', sub: num === 7 ? 'How the twelve signs get along.' : 'Real couples, read chart by chart.' },
+              ] : [
+                { href: `/zodiac-signs/${naturalRuler.toLowerCase()}`, title: naturalRuler, sub: `The sign that naturally fits the ${ord} house.` },
+                { href: '/astrology-houses', title: 'All twelve houses', sub: 'The full wheel, self to the hidden.' },
+              ]),
+              { href: '/birth-chart?ref=house-page', title: 'Your free birth chart', sub: 'Needs a birth time to place the houses.' },
+            ]} />
+
+            <PrevNext prev={{ href: `/astrology-houses/${prev}`, label: `The ${ordinal(prev)} house` }} next={{ href: `/astrology-houses/${next}`, label: `The ${ordinal(next)} house` }} />
+          </div></main>
+        )
+      })() : (
+      <main className="max-w-3xl mx-auto px-4 py-12">
       {/* Breadcrumb */}
       <AdminBreadcrumb crumbs={[
         { label: 'Houses', href: '/astrology-houses' },
@@ -152,7 +214,7 @@ export default function HouseDetailPage({ house, num, houseName, title, descript
         >
           <span className="text-lg">📖</span>
           <div>
-            <p className="font-medium text-sm group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">Interpretation Library</p>
+            <p className="font-medium text-sm group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">Interpretation library</p>
             <p className="text-xs text-slate-400">Every planet in every house — look up yours</p>
           </div>
         </Link>
@@ -212,5 +274,7 @@ export default function HouseDetailPage({ house, num, houseName, title, descript
         </Link>
       </div>
     </main>
+      )}
+    </>
   )
 }

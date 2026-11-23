@@ -42,7 +42,7 @@ export default function ResetPasswordPage() {
         </Head>
         <main className="min-h-screen flex items-center justify-center px-4">
           <div className="card w-full max-w-md text-center py-10">
-            <h1 className="font-display text-2xl tracking-wide mb-2">Invalid Link</h1>
+            <h1 className="font-display text-2xl tracking-wide mb-2">Invalid link</h1>
             <p className="text-slate-500 text-sm mb-4">This reset link is missing or invalid.</p>
             <Link href="/forgot-password" className="btn-outline text-sm">Request a New Link</Link>
           </div>
@@ -63,7 +63,7 @@ export default function ResetPasswordPage() {
           <h1 className="font-display text-2xl tracking-wide mb-2 text-center">Choose a New Password</h1>
           <form onSubmit={handleSubmit} className="space-y-4 mt-6">
             <div>
-              <label className="block text-sm mb-1 text-slate-500">New Password</label>
+              <label className="block text-sm mb-1 text-slate-500">New password</label>
               <input
                 type="password"
                 required

@@ -3,10 +3,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import AdminBreadcrumb from '@/components/AdminBreadcrumb'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { ANIMAL_EMOJI, ANIMAL_DESCRIPTIONS, getAnimalElement, getChineseZodiac, formatCNYStart, formatCNYEnd } from '@/lib/chinese-zodiac'
+import { ANIMAL_CHAR, compatTiles, ANIMAL_EMOJI, ANIMAL_DESCRIPTIONS, CNY_DATES, CZ_ELEMENT_COLOR, getAnimalElement, getChineseZodiac, formatCNYStart, formatCNYEnd } from '@/lib/chinese-zodiac'
 import { getListableCelebrities } from '@/lib/celebrities'
 import { breadcrumbSchema, faqSchema, jsonLd } from '@/lib/schema'
 import { NOINDEX_THIN } from '@/lib/thin-pages'
+import { redesignOn } from '@/lib/redesign'
+import type { HomePerson } from '@/lib/redesign/home-view'
+import { Facts, LearnHero, NextLinks, People, PrevNext, Prose } from '@/components/redesign/Learn'
 
 interface Celebrity {
   name: string
@@ -33,6 +36,7 @@ interface Props {
   nextAnimal: string | null
   nextElement: string | null
   celebrities: Celebrity[]
+  people?: HomePerson[]
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -57,6 +61,29 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
   const nextYear = y < 2047 ? y + 1 : null
   const prev = prevYear ? getChineseZodiac(prevYear) : null
   const next = nextYear ? getChineseZodiac(nextYear) : null
+
+  // Rebuilt page: people born inside this zodiac year (Chinese New Year to the day
+  // before the next one), not the calendar year, which would wrongly include
+  // January births from the previous animal.
+  if (redesignOn('hubs')) {
+    const { peopleWhere } = await import('@/lib/redesign/people')
+    const s = CNY_DATES[y], e = CNY_DATES[y + 1]
+    let people: HomePerson[] = []
+    try {
+      people = s && e
+        ? await peopleWhere('birth_date >= make_date($1, $2, $3) AND birth_date < make_date($4, $5, $6)', [y, s[0], s[1], y + 1, e[0], e[1]])
+        : await peopleWhere('EXTRACT(YEAR FROM birth_date)::int = $1', [y])
+    } catch { people = [] }
+    return {
+      props: {
+        year: y, animal, element, traits: info.traits, strengths: info.strengths, challenges: info.challenges,
+        compatibility: info.compatibility, description: info.description, elementDesc,
+        cnyStart: formatCNYStart(y), cnyEnd: formatCNYEnd(y), prevYear, nextYear,
+        prevAnimal: prev?.animal ?? null, prevElement: prev?.element ?? null, nextAnimal: next?.animal ?? null, nextElement: next?.element ?? null,
+        celebrities: people.map(p => ({ name: p.name, slug: p.slug, image_url: null })), people,
+      },
+    }
+  }
 
   let celebrities: Celebrity[] = []
   try {
@@ -97,7 +124,7 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
 
 export default function YearPage({
   year: y, animal, element, traits, strengths, challenges, compatibility, description, elementDesc,
-  cnyStart, cnyEnd, prevYear, nextYear, prevAnimal, prevElement, nextAnimal, nextElement, celebrities,
+  cnyStart, cnyEnd, prevYear, nextYear, prevAnimal, prevElement, nextAnimal, nextElement, celebrities, people,
 }: Props) {
   const faqs = [
     { question: `What Chinese zodiac animal is ${y}?`, answer: `${y} is the Year of the ${element} ${animal} in the Chinese zodiac.${cnyStart ? ` The Chinese New Year began on ${cnyStart}.` : ''}` },
@@ -125,6 +152,55 @@ export default function YearPage({
         { name: String(y), url: `https://birthchartlibrary.com/chinese-zodiac/year/${y}` },
       ])) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(faqs)) }} />
+      {people ? (
+        <main className="rdp"><div className="lrn">
+          <LearnHero
+            crumbs={[{ label: 'Chinese zodiac', href: '/chinese-zodiac' }, { label: animal, href: `/chinese-zodiac/${animal.toLowerCase()}` }, { label: String(y) }]}
+            disc={{ color: CZ_ELEMENT_COLOR[element] ?? '#C3CBFF', text: ANIMAL_CHAR[animal] }}
+            kicker="Chinese zodiac"
+            title={`${y}: Year of the ${element} ${animal}`}
+          >
+            <p>
+              {cnyStart
+                ? `If you were born ${cnyEnd ? `between ${cnyStart} and ${cnyEnd}` : `on or after ${cnyStart}`}, your Chinese zodiac sign is the ${element} ${animal}.${prevAnimal && prevElement ? ` Born earlier in ${y}? You belong to the ${prevElement} ${prevAnimal} year instead.` : ''}`
+                : `If you were born in ${y}, your Chinese zodiac sign is the ${element} ${animal}, the ${element.toLowerCase()} version of the ${animal} that comes around once every sixty years.`}
+            </p>
+            <p>{element} {animal}s tend to be {traits.toLowerCase()}.</p>
+          </LearnHero>
+
+          <Facts items={[
+            { label: 'Animal', value: animal, href: `/chinese-zodiac/${animal.toLowerCase()}` },
+            { label: 'Element', value: element },
+            ...(cnyStart ? [{ label: 'Year starts', value: cnyStart }] : []),
+            ...(cnyEnd ? [{ label: 'Year ends', value: cnyEnd }] : []),
+            ...compatTiles(compatibility),
+          ]} />
+
+          <Prose title={`The ${animal}`} text={description}>
+            <p><b>Strengths:</b> {strengths}.</p>
+            <p><b>Challenges:</b> {challenges}.</p>
+          </Prose>
+          <Prose title={`The ${element} ${animal}`} text={elementDesc} />
+
+          <People
+            title={`Famous ${element} ${animal}s`}
+            lede={cnyStart && cnyEnd ? `Born between ${cnyStart} and ${cnyEnd}.` : `Born in ${y}.`}
+            people={people}
+          />
+
+          <NextLinks links={[
+            { href: `/chinese-zodiac/${animal.toLowerCase()}`, title: `More about the ${animal}`, sub: `Every ${animal} year and what changes with each element.` },
+            { href: '/calculators/chinese-zodiac', title: 'Find another year', sub: 'Your animal and element from any birth date.' },
+            { href: '/birth-chart', title: 'Your Western birth chart', sub: 'Sun, Moon and rising from your birth time, free.' },
+            { href: '/chinese-zodiac', title: 'All twelve animals', sub: 'The full cycle, Rat to Pig.' },
+          ]} />
+
+          <PrevNext
+            prev={prevYear && prevAnimal && prevElement ? { href: `/chinese-zodiac/year/${prevYear}`, label: `${prevYear}, ${prevElement} ${prevAnimal}` } : null}
+            next={nextYear && nextAnimal && nextElement ? { href: `/chinese-zodiac/year/${nextYear}`, label: `${nextYear}, ${nextElement} ${nextAnimal}` } : null}
+          />
+        </div></main>
+      ) : (
       <main className="max-w-3xl mx-auto px-4 py-12">
         <AdminBreadcrumb crumbs={[
           { label: 'Chinese Zodiac', href: '/chinese-zodiac' },
@@ -136,7 +212,7 @@ export default function YearPage({
         <div className="text-center mb-8">
           <span className="text-6xl block mb-3">{ANIMAL_EMOJI[animal]}</span>
           <h1 className="font-display text-4xl tracking-wide mb-2">{y}: Year of the {element} {animal}</h1>
-          <p className="text-slate-500">Chinese Zodiac</p>
+          <p className="text-slate-500">Chinese zodiac</p>
         </div>
 
         {/* Born-in intro — direct answer to search intent; unique per year via CNY date + element */}
@@ -240,7 +316,7 @@ export default function YearPage({
         <div className="p-6 bg-slate-50 border border-slate-200 rounded-xl text-center mb-8">
           <p className="font-display text-xl tracking-wide mb-2">Discover what the rest of your chart reveals</p>
           <p className="text-slate-500 text-sm mb-4">Your Chinese zodiac is just the beginning... generate your full Western birth chart for a complete picture.</p>
-          <Link href="/signup" className="btn-primary">Create Your Free Chart</Link>
+          <Link href="/signup" className="btn-primary">Create your free chart</Link>
         </div>
 
         {/* Prev / Next */}
@@ -257,6 +333,8 @@ export default function YearPage({
           ) : <span />}
         </div>
       </main>
+      )}
     </>
   )
 }
+

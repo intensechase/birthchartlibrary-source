@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { ChartCoverage } from '@/lib/celebrities'
 import { RATING_MEANINGS } from '@/lib/birth-time-source'
+import { TextPage } from '@/components/redesign/Learn'
 
 const headingClass = 'font-display text-2xl tracking-wide text-slate-800 dark:text-slate-100 mb-3'
 const linkClass = 'underline hover:text-slate-800 dark:hover:text-slate-100 transition-colors'
@@ -23,12 +24,8 @@ function CoverageRow({ label, detail, count, total, fill }: { label: string; det
 
 export default function MethodContent({ coverage }: { coverage: ChartCoverage }) {
   return (
-    <main className="max-w-2xl mx-auto px-4 py-12">
-      <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-3">How We Check Our Charts</h1>
-      <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-10">
-        A birth chart is only as good as the birth time behind it, and a lot of what gets repeated online has no traceable
-        source. This page shows where our data comes from, how much of it has been checked, and what we&apos;ve had to fix.
-      </p>
+    <TextPage title="How we check our charts" lead={<>A birth chart is only as good as the birth time behind it, and a lot of what gets repeated online has no traceable
+        source. This page shows where our data comes from, how much of it has been checked, and what we&apos;ve had to fix.</>}>
 
       <section className="mb-12" aria-labelledby="coverage">
         <h2 id="coverage" className={headingClass}>Our featured charts, today</h2>
@@ -144,6 +141,6 @@ export default function MethodContent({ coverage }: { coverage: ChartCoverage })
           </p>
         </section>
       </div>
-    </main>
+    </TextPage>
   )
 }
