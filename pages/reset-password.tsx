@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
+import AuthShell from '@/components/redesign/AuthShell'
 import { useRouter } from 'next/router'
 
 export default function ResetPasswordPage() {
@@ -40,13 +41,7 @@ export default function ResetPasswordPage() {
           <meta name="description" content="Reset your Birth Chart Library account password." />
           <meta name="robots" content="noindex" />
         </Head>
-        <main className="min-h-screen flex items-center justify-center px-4">
-          <div className="card w-full max-w-md text-center py-10">
-            <h1 className="font-display text-2xl tracking-wide mb-2">Invalid link</h1>
-            <p className="text-slate-500 text-sm mb-4">This reset link is missing or invalid.</p>
-            <Link href="/forgot-password" className="btn-outline text-sm">Request a New Link</Link>
-          </div>
-        </main>
+        <AuthShell title="This link does not work" sub="It is missing a piece or has been used already." after={<p><Link className="btn" href="/forgot-password">Get a new link</Link></p>} />
       </>
     )
   }
@@ -58,29 +53,16 @@ export default function ResetPasswordPage() {
         <meta name="description" content="Set a new password for your Birth Chart Library account." />
         <meta name="robots" content="noindex" />
       </Head>
-      <main className="min-h-screen flex items-center justify-center px-4">
-        <div className="card w-full max-w-md">
-          <h1 className="font-display text-2xl tracking-wide mb-2 text-center">Choose a New Password</h1>
-          <form onSubmit={handleSubmit} className="space-y-4 mt-6">
-            <div>
-              <label className="block text-sm mb-1 text-slate-500">New password</label>
-              <input
-                type="password"
-                required
-                minLength={8}
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                className="input"
-                placeholder="At least 8 characters"
-              />
-            </div>
-            {error && <p className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-lg px-3 py-2">{error}</p>}
-            <button type="submit" disabled={loading || password.length < 8} className="btn-primary w-full">
-              {loading ? 'Resetting...' : 'Reset Password'}
-            </button>
-          </form>
-        </div>
-      </main>
+      <AuthShell title="Choose a new password">
+        <form className="mform" onSubmit={handleSubmit}>
+          <label className="field">
+            <span>New password</span>
+            <input type="password" required minLength={8} autoComplete="new-password" value={password} onChange={e => setPassword(e.target.value)} placeholder="At least 8 characters" />
+          </label>
+          {error ? <p className="err" role="alert">{error}</p> : null}
+          <button type="submit" className="btn wide" disabled={loading || password.length < 8}>{loading ? 'Saving…' : 'Save the new password'}</button>
+        </form>
+      </AuthShell>
     </>
   )
 }

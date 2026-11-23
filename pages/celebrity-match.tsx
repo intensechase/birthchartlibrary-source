@@ -1,308 +1,214 @@
-import { useState, useEffect } from 'react'
-import { safeSessionGet, safeSessionSet } from '@/lib/safe-storage'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import Image from 'next/image'
 import type { GetServerSideProps } from 'next'
 import { getUser } from '@/lib/auth'
 import { queryOne } from '@/lib/db'
 import { breadcrumbSchema, jsonLd } from '@/lib/schema'
-import { SIGN_SYMBOLS } from '@/lib/zodiac-colors'
 import { SIGN_LIST } from '@/lib/constants'
-import { SignGlyph } from '@/components/Glyph'
+import { isSignedIn, readKept } from '@/lib/kept-chart'
+import { safeSessionGet, safeSessionSet } from '@/lib/safe-storage'
+import { LearnHero, NextLinks } from '@/components/redesign/Learn'
+import { Face, SignChip } from '@/components/redesign/HomePage'
 
-interface ChartPlanet {
-  planet: string
-  sign: string
-}
+interface Signs { sun: string; moon: string; rising: string; venus?: string; mars?: string; mercury?: string }
+interface Match { name: string; slug: string; sun: string; moon: string; rising: string | null; big: number; shares: string[] }
+interface Props { own: Signs | null }
 
-interface MatchResult {
-  name: string
-  slug: string
-  image_url: string | null
-  sun_sign: string | null
-  moon_sign: string | null
-  rising_sign: string | null
-  score: number
-  maxScore: number
-  percentage: number
-  matches: string[]
-}
+const KEY = 'bcl-f:match'
+const isSign = (v: unknown): v is string => typeof v === 'string' && SIGN_LIST.includes(v)
+const list = (a: string[]) => (a.length < 2 ? a.join('') : `${a.slice(0, -1).join(', ')} and ${a[a.length - 1]}`)
+const GROUPS: [big: number, title: string][] = [[3, 'All three'], [2, 'Two of three'], [1, 'One of three']]
 
-interface Props {
-  initialSun: string | null
-  initialMoon: string | null
-  initialRising: string | null
-  initialVenus: string | null
-  initialMars: string | null
-  initialMercury: string | null
-  isLoggedIn: boolean
-  hasChart: boolean
-}
-
-export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+export const getServerSideProps: GetServerSideProps<Props> = async context => {
   const user = await getUser(context)
-  const defaults: Props = {
-    initialSun: null, initialMoon: null, initialRising: null,
-    initialVenus: null, initialMars: null, initialMercury: null,
-    isLoggedIn: false, hasChart: false,
-  }
-
-  if (!user) return { props: defaults }
-
-  const chart = await queryOne<{ chart_data: { planets?: ChartPlanet[]; ascendantSign?: string } }>(
-    'SELECT chart_data FROM birth_charts WHERE user_id = $1 AND is_primary = true',
-    [user.id]
+  if (!user) return { props: { own: null } }
+  const row = await queryOne<{ timed: boolean; chart_data: { planets?: { planet: string; sign: string }[]; ascendantSign?: string } }>(
+    'SELECT (birth_time_enc IS NOT NULL OR birth_time IS NOT NULL) AS timed, chart_data FROM birth_charts WHERE user_id = $1 AND is_primary = true',
+    [user.id],
   )
-
-  if (!chart?.chart_data?.planets) return { props: { ...defaults, isLoggedIn: true } }
-
-  const planets = chart.chart_data.planets
-  const findSign = (name: string) => planets.find(p => p.planet === name)?.sign ?? null
-
+  const sign = (id: string) => row?.chart_data?.planets?.find(p => p.planet === id)?.sign ?? ''
+  if (!sign('SUN') || !sign('MOON')) return { props: { own: null } }
   return {
     props: {
-      initialSun: findSign('SUN'),
-      initialMoon: findSign('MOON'),
-      initialRising: chart.chart_data.ascendantSign ?? null,
-      initialVenus: findSign('VENUS'),
-      initialMars: findSign('MARS'),
-      initialMercury: findSign('MERCURY'),
-      isLoggedIn: true,
-      hasChart: true,
+      own: {
+        sun: sign('SUN'), moon: sign('MOON'), rising: row?.timed ? row.chart_data.ascendantSign ?? '' : '',
+        venus: sign('VENUS'), mars: sign('MARS'), mercury: sign('MERCURY'),
+      },
     },
   }
 }
 
-export default function CelebrityMatchPage({ initialSun, initialMoon, initialRising, initialVenus, initialMars, initialMercury, isLoggedIn, hasChart }: Props) {
-  const [sun, setSun] = useState(initialSun || '')
-  const [moon, setMoon] = useState(initialMoon || '')
-  const [rising, setRising] = useState(initialRising || '')
-  const [results, setResults] = useState<MatchResult[] | null>(null)
-  const [loading, setLoading] = useState(false)
-  const [autoSearched, setAutoSearched] = useState(false)
+export default function CelebrityMatchPage({ own }: Props) {
+  const [mode, setMode] = useState<'date' | 'signs'>('date')
+  const [date, setDate] = useState('')
+  const [pick, setPick] = useState<Signs>({ sun: '', moon: '', rising: '' })
+  const [shown, setShown] = useState<Signs | null>(null)
+  const [other, setOther] = useState<{ sun?: string; moon?: string }>({})
+  const [mine, setMine] = useState<Signs | null>(own)
+  const [results, setResults] = useState<Match[] | null>(null)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const run = useRef(0)
+  const isMineRef = useRef(false)
 
-  // Auto-search for logged-in users with a chart
-  useEffect(() => {
-    if (autoSearched) return
-    // The last signs searched in this tab, else the reader's own chart.
-    let last: { sun: string; moon: string; rising: string } | null = null
-    try { last = JSON.parse(safeSessionGet('bcl-f:match') ?? 'null') } catch { /* ignore */ }
-    if (last && [last.sun, last.moon, last.rising].every(x => (SIGN_LIST as readonly string[]).includes(x))) {
-      setAutoSearched(true)
-      setSun(last.sun); setMoon(last.moon); setRising(last.rising)
-      doSearch(last.sun, last.moon, last.rising)
-    } else if (hasChart && initialSun && initialMoon && initialRising) {
-      setAutoSearched(true)
-      doSearch(initialSun, initialMoon, initialRising)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  async function doSearch(sun: string, moon: string, rising: string) {
-    if (!sun || !moon || !rising) return
-    safeSessionSet('bcl-f:match', JSON.stringify({ sun, moon, rising }))
-    setLoading(true)
+  async function find(s: Signs, alt: { sun?: string; moon?: string } = {}) {
+    const n = ++run.current
+    setBusy(true); setError(null); setPick(s); setOther(alt)
+    safeSessionSet(KEY, JSON.stringify({ sun: s.sun, moon: s.moon, rising: s.rising }))
     try {
-      const body: Record<string, string> = { sun, moon, rising }
-      if (initialVenus) body.venus = initialVenus
-      if (initialMars) body.mars = initialMars
-      if (initialMercury) body.mercury = initialMercury
-      const res = await fetch('/api/celebrity-match', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      })
-      const data = await res.json()
-      setResults(data.results || [])
+      const r = await fetch('/api/celebrity-match', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(s) })
+      if (!r.ok) throw new Error()
+      const d = await r.json()
+      if (n !== run.current) return
+      setResults(d.results ?? []); setShown(s)
+      // The form moves above a lookup, so start the page from the top.
+      if (isMineRef.current) window.scrollTo({ top: 0 })
     } catch {
-      setResults([])
+      if (n === run.current) setError('That did not work. Try again in a moment.')
     } finally {
-      setLoading(false)
+      if (n === run.current) setBusy(false)
     }
   }
 
-  const title = 'Which Celebrity Shares Your Chart? — Birth Chart Library'
-  const description = 'Find out which celebrities share your astrological placements. Enter your Sun, Moon, and Rising signs to discover your celebrity chart twins.'
+  // The last signs looked up in this tab, else the reader's own chart: from the
+  // account, or the one kept on this device.
+  useEffect(() => {
+    let me = own
+    if (!me && !isSignedIn()) {
+      const v = readKept()?.chart.view
+      const big = (id: string) => v?.bodies.find(b => b.id === id)?.sign ?? ''
+      if (v && big('SUN') && big('MOON')) me = { sun: big('SUN'), moon: big('MOON'), rising: v.hasTime ? v.risingSign ?? '' : '', venus: big('VENUS'), mars: big('MARS'), mercury: big('MERCURY') }
+    }
+    setMine(me)
+    let last: Partial<Signs> | null = null
+    try { last = JSON.parse(safeSessionGet(KEY) ?? 'null') } catch { /* ignore */ }
+    if (last && isSign(last.sun) && isSign(last.moon)) {
+      const s = { sun: last.sun, moon: last.moon, rising: isSign(last.rising) ? last.rising : '' }
+      const same = me && me.sun === s.sun && me.moon === s.moon && me.rising === s.rising
+      find(same ? me! : s)
+      if (!same) setMode('signs')
+    } else if (me) find(me)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  async function byDate(e: FormEvent) {
+    e.preventDefault()
+    if (!date) return
+    setError(null); setBusy(true)
+    try {
+      const r = await fetch(`/api/twins?date=${encodeURIComponent(date)}`)
+      if (!r.ok) throw new Error()
+      const t = await r.json() as { sun: string; suns: string[]; moon: string; moons: string[] }
+      await find({ sun: t.sun, moon: t.moon, rising: '' }, { sun: t.suns.find(x => x !== t.sun), moon: t.moons.find(x => x !== t.moon) })
+    } catch {
+      setBusy(false); setError('That date did not work. Check it and try again.')
+    }
+  }
+
+  const isMine = !!mine && !!shown && mine.sun === shown.sun && mine.moon === shown.moon && mine.rising === shown.rising
+  useEffect(() => { isMineRef.current = isMine }, [isMine])
+  const select = (key: 'sun' | 'moon' | 'rising', label: string, empty: string) => (
+    <label className="field">
+      <span>{label}</span>
+      <select value={pick[key]} onChange={e => setPick({ sun: pick.sun, moon: pick.moon, rising: pick.rising, [key]: e.target.value })} required={key !== 'rising'}>
+        <option value="">{empty}</option>
+        {SIGN_LIST.map(s => <option key={s} value={s}>{s}</option>)}
+      </select>
+    </label>
+  )
+
+  // The reader's own matches come before the form; a lookup comes under it.
+  const form = (
+    <div className="mform">
+      <div className="seg" role="radiogroup" aria-label="How to look">
+        {([['date', 'By birth date'], ['signs', 'I know my signs']] as const).map(([k, label]) => (
+          <button key={k} type="button" role="radio" aria-checked={mode === k} onClick={() => setMode(k)}>{label}</button>
+        ))}
+      </div>
+      {mode === 'date' ? (
+        <form className="fstack" onSubmit={byDate}>
+          <label className="field"><span>Birth date</span><input type="date" value={date} onChange={e => setDate(e.target.value)} required /></label>
+          <button type="submit" className="btn wide" disabled={busy || !date}>{busy ? 'Looking…' : 'Find my twins'}</button>
+        </form>
+      ) : (
+        <form className="fstack" onSubmit={e => { e.preventDefault(); if (pick.sun && pick.moon) find(mine && mine.sun === pick.sun && mine.moon === pick.moon && mine.rising === pick.rising ? mine : { sun: pick.sun, moon: pick.moon, rising: pick.rising }) }}>
+          <div className="three">{select('sun', 'Sun sign', 'Pick one')}{select('moon', 'Moon sign', 'Pick one')}{select('rising', 'Rising sign', 'Not sure')}</div>
+          <button type="submit" className="btn wide" disabled={busy || !pick.sun || !pick.moon}>{busy ? 'Looking…' : 'Find my twins'}</button>
+        </form>
+      )}
+      {error ? <p className="err" role="alert">{error}</p> : null}
+    </div>
+  )
+  const matches = shown && results ? (
+      <section className="lsec" aria-live="polite">
+        <h2>{isMine ? 'Your celebrity twins' : 'Celebrity twins'}</h2>
+        <p className="chips"><SignChip sign={shown.sun} role="Sun" /><SignChip sign={shown.moon} role="Moon" />{shown.rising ? <SignChip sign={shown.rising} role="rising" /> : null}</p>
+        {other.moon ? <p className="disclose">The Moon changed sign around that day, so it could be {other.moon}. <button type="button" className="tlink" onClick={() => find({ ...shown, moon: other.moon! }, { ...other, moon: shown.moon })}>Use {other.moon}</button></p> : null}
+        {other.sun ? <p className="disclose">The Sun changed sign around that day, so it could be {other.sun}. <button type="button" className="tlink" onClick={() => find({ ...shown, sun: other.sun! }, { ...other, sun: shown.sun })}>Use {other.sun}</button></p> : null}
+        {mine && !isMine ? <p><button type="button" className="tlink" onClick={() => find(mine)}>Back to your own chart</button></p> : null}
+        {GROUPS.map(([n, title]) => {
+          const people = results.filter(r => r.big === n)
+          if (!people.length) return null
+          return (
+            <div key={n}>
+              <h3>{shown.rising ? title : n === 2 ? 'Sun and Moon' : 'Sun or Moon'}</h3>
+              <div className="matches">
+                {people.map(p => (
+                  <Link key={p.slug} href={`/celebrity-birth-charts/${p.slug}`}>
+                    <Face name={p.name} slug={p.slug} sign={p.sun} size={44} />
+                    <span><b>{p.name}</b><small>Same {list(p.shares)}</small></span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )
+        })}
+        {!results.length ? <p>No one in the library shares these signs yet.</p> : null}
+      </section>
+    ) : null
 
   return (
     <>
       <Head>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-      </Head>
-      <main className="max-w-3xl mx-auto px-4 py-12">
+        <title>Which Celebrity Shares Your Chart? | Birth Chart Library</title>
+        <meta name="description" content="Enter your birth date, or your Sun, Moon and rising signs, and see which famous people share your chart. Free, no account." />
+        <link rel="canonical" key="canonical" href="https://birthchartlibrary.com/celebrity-match" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema([
           { name: 'Home', url: 'https://birthchartlibrary.com' },
-          { name: 'Celebrity Match', url: 'https://birthchartlibrary.com/celebrity-match' },
+          { name: 'Celebrity twins', url: 'https://birthchartlibrary.com/celebrity-match' },
         ])) }} />
+      </Head>
+      <main className="rdp"><div className="lrn twins">
+        <LearnHero crumbs={[{ label: 'Library', href: '/celebrity-birth-charts' }, { label: 'Celebrity twins' }]} title="Which celebrity shares your chart?">
+          <p>{mine ? 'The famous people whose signs match yours.' : 'Your birth date gives your Sun and Moon. Add your rising sign if you know it.'}</p>
+        </LearnHero>
 
-        <h1 className="font-display text-4xl md:text-5xl tracking-wide mb-2">Which celebrity shares your chart?</h1>
-        <p className="text-slate-500 mb-8 max-w-2xl">
-          {hasChart
-            ? 'We matched your birth chart against 550+ researched celebrity charts. Here are your closest cosmic twins.'
-            : 'Enter your Big Three to find out which celebrities share your astrological DNA.'}
-        </p>
+        {isMine ? matches : null}
+        {isMine ? <h2 className="another">Look up someone else</h2> : null}
+        {form}
+        {isMine ? null : matches}
 
-        {/* Sign selector for guests (or anyone who wants to change) */}
-        <div className="card mb-8">
-          <div className="grid grid-cols-3 gap-3 mb-4">
-            <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1">Sun sign</label>
-              <select
-                value={sun}
-                onChange={e => { setSun(e.target.value); setResults(null) }}
-                className="input w-full text-sm"
-              >
-                <option value="">Select...</option>
-                {SIGN_LIST.map(s => <option key={s} value={s}>{SIGN_SYMBOLS[s]} {s}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1">Moon sign</label>
-              <select
-                value={moon}
-                onChange={e => { setMoon(e.target.value); setResults(null) }}
-                className="input w-full text-sm"
-              >
-                <option value="">Select...</option>
-                {SIGN_LIST.map(s => <option key={s} value={s}>{SIGN_SYMBOLS[s]} {s}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1">Rising sign</label>
-              <select
-                value={rising}
-                onChange={e => { setRising(e.target.value); setResults(null) }}
-                className="input w-full text-sm"
-              >
-                <option value="">Select...</option>
-                {SIGN_LIST.map(s => <option key={s} value={s}>{SIGN_SYMBOLS[s]} {s}</option>)}
-              </select>
-            </div>
-          </div>
+        {!mine ? (
+          <section className="lsec">
+            <h2>Get your rising sign too</h2>
+            <p>Make your chart with your birth time and place. Your twins then match on your rising sign, Venus, Mars and Mercury as well.</p>
+            <p><Link className="btn" href="/birth-chart?ref=match">Make your chart</Link></p>
+          </section>
+        ) : null}
 
-          {hasChart && (
-            <p className="text-xs text-slate-400 mb-3">
-              Auto-filled from your chart. {initialVenus && initialMars && initialMercury && 'Venus, Mars, and Mercury are also factored in for deeper matching.'}
-            </p>
-          )}
+        <section className="lsec">
+          <h2>How matching works</h2>
+          <p>Everyone in the library with a written profile is checked. Sharing all three of Sun, Moon and rising comes first, then two, then one. A rising sign only counts for people whose birth time is known.</p>
+        </section>
 
-          <button
-            onClick={() => doSearch(sun, moon, rising)}
-            disabled={!sun || !moon || !rising || loading}
-            className="btn-primary w-full text-sm"
-          >
-            {loading ? 'Searching...' : 'Find My Celebrity Twins'}
-          </button>
-
-          {!isLoggedIn && (
-            <p className="text-xs text-slate-400 mt-3 text-center">
-              <Link href="/signup" className="text-slate-600 hover:text-slate-800 transition-colors">Create a free account</Link>
-              {' '}to get deeper matching with Venus, Mars, and Mercury.
-            </p>
-          )}
-
-          {isLoggedIn && !hasChart && (
-            <p className="text-xs text-slate-400 mt-3 text-center">
-              <Link href="/birth-chart" className="text-slate-600 hover:text-slate-800 transition-colors">Create your birth chart</Link>
-              {' '}for automatic matching with all your placements.
-            </p>
-          )}
-        </div>
-
-        {/* Don't know your signs? */}
-        {!hasChart && (
-          <div className="text-center mb-8">
-            <p className="text-sm text-slate-500">
-              Don&apos;t know your Moon or Rising sign?{' '}
-              <Link href="/calculators/sun-moon-rising" className="text-slate-700 hover:text-slate-900 transition-colors underline underline-offset-2">
-                Find out here
-              </Link>
-            </p>
-          </div>
-        )}
-
-        {/* Results */}
-        {results && results.length > 0 && (
-          <div>
-            <h2 className="text-xl font-semibold mb-4">Your celebrity chart twins</h2>
-            <div className="space-y-3">
-              {results.map((r, i) => (
-                <Link
-                  key={r.slug}
-                  href={`/celebrity-birth-charts/${r.slug}`}
-                  className="card flex items-center gap-4 hover:border-slate-400 transition-colors group"
-                >
-                  {/* Rank */}
-                  <span className="text-lg font-bold text-slate-300 w-6 text-center shrink-0">
-                    {i + 1}
-                  </span>
-
-                  {/* Photo */}
-                  {r.image_url ? (
-                    <Image
-                      src={`/api/img/${r.slug}`}
-                      alt={r.name}
-                      width={48}
-                      height={48}
-                      className="w-12 h-12 rounded-full object-cover border border-slate-200 shrink-0"
-                    />
-                  ) : (
-                    <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-lg shrink-0">
-                      {r.sun_sign ? <SignGlyph sign={r.sun_sign} decorative /> : '?'}
-                    </div>
-                  )}
-
-                  {/* Info */}
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-sm group-hover:text-slate-600 transition-colors truncate">{r.name}</p>
-                    <div className="flex flex-wrap gap-1.5 mt-1">
-                      {r.matches.map(m => (
-                        <span key={m} className="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700">
-                          {m}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Match percentage */}
-                  <div className="text-right shrink-0">
-                    <span className="text-lg font-bold text-slate-800">{r.percentage}%</span>
-                    <p className="text-[10px] text-slate-400">match</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {results && results.length === 0 && (
-          <div className="card text-center py-10">
-            <p className="text-slate-500 text-sm">No matches found with that combination. Try adjusting your signs.</p>
-          </div>
-        )}
-
-        {/* How it works */}
-        {!results && !loading && (
-          <div className="mt-4">
-            <h2 className="text-xl font-semibold mb-4">How it works</h2>
-            <div className="card">
-              <div className="space-y-3 text-sm text-slate-600 leading-relaxed">
-                <p>
-                  We compare your chart placements against 550+ researched celebrity birth charts to find the closest matches.
-                </p>
-                <p>
-                  <strong className="text-slate-800">Sun sign</strong> and <strong className="text-slate-800">Moon sign</strong> matches carry the most weight, followed by your <strong className="text-slate-800">Rising sign</strong>. If you have a full chart on file, we also factor in <strong className="text-slate-800">Venus</strong>, <strong className="text-slate-800">Mars</strong>, and <strong className="text-slate-800">Mercury</strong> for deeper matching.
-                </p>
-                <p>
-                  A 100% match means every compared placement is in the same sign... true cosmic twins.
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-      </main>
+        <NextLinks title="Keep going" links={[
+          { href: '/calculators/synastry', title: 'Compare two charts', sub: 'You and anyone, planet by planet' },
+          { href: '/love/celebrity-couples', title: 'Famous couples', sub: 'How their charts fit together' },
+          { href: '/born-today', title: 'Born today', sub: 'Who shares today’s date' },
+          { href: '/celebrity-birth-charts', title: 'The library', sub: 'Every chart' },
+        ]} />
+      </div></main>
     </>
   )
 }

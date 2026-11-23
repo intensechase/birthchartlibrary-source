@@ -448,6 +448,45 @@ html.rd body:has(.rdp) { background: rgb(var(--rd-sky)); }
 .rdp .btn.wide { width: 100%; min-height: 52px; font-size: 16px; }
 .rdp .btn:disabled { opacity: .45; cursor: not-allowed; }
 .rdp .ts { min-height: 65px; }
+/* Account pages (AuthShell): sign in, sign up, password and email links. */
+.rdp .mine.auth { max-width: 480px; padding-bottom: 64px; }
+.rdp .auth .sub b { color: var(--fg); font-weight: 600; overflow-wrap: anywhere; }
+.rdp .auth .field > label { font-size: 14px; font-weight: 600; color: var(--ink); }
+.rdp .auth .note { margin-top: 6px; font-size: 14px; color: var(--sub); }
+.rdp .auth .err a { text-decoration: underline; text-underline-offset: 2px; }
+.rdp .auth .okbox { margin-top: 16px; padding: 12px 14px; border-radius: 14px; background: #16352F; color: #8FE8C8; font-size: 15px; }
+.rdp .auth .mform .hint.center { margin-top: -6px; }
+.rdp .auth .tlink { display: inline-flex; align-items: center; min-height: 44px; }
+.rdp .auth .hp { position: absolute; left: -9999px; }
+.rdp .pwrules { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 14px; color: var(--sub); }
+.rdp .pwrules li { display: inline-flex; align-items: center; gap: 6px; }
+.rdp .pwrules li.met { color: #8FE8C8; }
+.rdp .authafter { margin-top: 12px; font-size: 15px; color: var(--ink); }
+.rdp .authafter .acts { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-top: 12px; }
+.rdp .authafter > p > .btn { margin-top: 12px; }
+.rdp .authafter .lockline { display: flex; align-items: flex-start; gap: 8px; margin-top: 4px; font-size: 14px; color: var(--sub); }
+.rdp .authafter .lockline svg { flex: none; margin-top: 3px; }
+.rdp .authafter .fine { margin-top: 12px; font-size: 14px; color: var(--sub); }
+/* Celebrity twins and search. */
+.rdp .mform .field select { width: 100%; min-height: 52px; padding: 0 12px; border-radius: 14px; border: 1px solid var(--rule); background: var(--panel); color: var(--fg); color-scheme: dark; font-size: 16px; }
+.rdp .mform .field select:focus { outline: none; border-color: var(--link); }
+.rdp .lrn .another { margin-top: 40px; font-size: 24px; font-weight: 650; }
+.rdp .fstack { display: flex; flex-direction: column; gap: 16px; }
+.rdp .fstack .three { display: grid; gap: 12px; }
+@media (min-width: 640px) { .rdp .fstack .three { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.rdp .lrn .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.rdp .lrn .matches { display: grid; gap: 6px; margin-top: 10px; }
+.rdp .lrn .matches a { min-width: 0; }
+@media (min-width: 640px) { .rdp .lrn .matches { grid-template-columns: 1fr 1fr; } }
+.rdp .lsec .disclose .tlink, .rdp .twins p > button.tlink { display: inline-flex; align-items: center; min-height: 44px; }
+/* Start page: sign tiles carry the dates. */
+.rdp .lrn .signgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 640px) { .rdp .lrn .signgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.rdp .signtile small { display: block; font-size: 13px; font-weight: 400; color: var(--sub); }
+.rdp .steps .btnrow .tlink { display: inline-flex; align-items: center; min-height: 44px; }
+.rdp .steps .btnrow .disclose { margin: 0; font-size: 14px; }
+.rdp .steps .stepn { font-size: 14px; font-weight: 600; color: var(--link); }
+.rdp .steps .btnrow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 14px; }
 /* City search list (shared component, light by default) */
 .rdp .mform ul[role="listbox"], .rdp .mform .absolute.bg-white { background: var(--panel2); border-color: var(--rule); color: var(--fg); }
 .rdp .mform ul[role="listbox"] button { border-color: var(--rule); color: var(--fg); }

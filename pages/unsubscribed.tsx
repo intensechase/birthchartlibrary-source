@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import AuthShell from '@/components/redesign/AuthShell'
 import Link from 'next/link'
 
 export default function UnsubscribedPage() {
@@ -8,17 +9,11 @@ export default function UnsubscribedPage() {
         <title>Unsubscribed | Birth Chart Library</title>
         <meta name="robots" content="noindex" />
       </Head>
-      <main className="max-w-md mx-auto px-4 py-24 text-center">
-        <p className="text-4xl mb-6">☽</p>
-        <h1 className="font-display text-3xl tracking-wide mb-3">You&apos;re unsubscribed</h1>
-        <p className="text-slate-500 leading-relaxed mb-8">
-          You won&apos;t receive any more daily horoscope emails from us. If you change your mind, you can sign up again any time.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Link href="/zodiac-signs" className="btn-outline text-sm px-6 py-2.5">Browse zodiac signs</Link>
-          <Link href="/" className="btn-primary text-sm px-6 py-2.5">Back to Home</Link>
-        </div>
-      </main>
+      <AuthShell
+        title="You are unsubscribed"
+        sub="No more daily horoscope emails from us. You can sign up again any time."
+        after={<p className="acts"><Link className="btn" href="/">Home</Link><Link className="tlink" href="/zodiac-signs">Read about the signs</Link></p>}
+      />
     </>
   )
 }

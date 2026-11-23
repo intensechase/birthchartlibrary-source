@@ -94,7 +94,7 @@ export const PENDING_COMPARE_KEY = 'synastry_pending'
 
 /** Signing out: nothing made in this tab is left for the next person. */
 export function clearTab() {
-  for (const k of [PENDING_KEY, PENDING_COMPARE_KEY, TAB_COMPARE_KEY]) safeSessionRemove(k)
+  for (const k of [PENDING_KEY, PENDING_COMPARE_KEY, TAB_COMPARE_KEY, 'bcl-f:match']) safeSessionRemove(k)
   dropTab()
 }
 

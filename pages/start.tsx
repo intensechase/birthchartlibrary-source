@@ -1,120 +1,97 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { getElementColor } from '@/lib/zodiac-colors'
-import { SignGlyph } from '@/components/Glyph'
+import Icon from '@/components/Icon'
+import { Disc } from '@/components/redesign/Disc'
+import { LearnHero, NextLinks } from '@/components/redesign/Learn'
+import { DISC, ELEMENT_OF, signIcon } from '@/lib/redesign/astro'
+import type { VDisc } from '@/lib/redesign/celeb-view'
 
-const SIGNS = [
-  { name: 'Aries', dates: 'Mar 21 – Apr 19', slug: 'aries' },
-  { name: 'Taurus', dates: 'Apr 20 – May 20', slug: 'taurus' },
-  { name: 'Gemini', dates: 'May 21 – Jun 20', slug: 'gemini' },
-  { name: 'Cancer', dates: 'Jun 21 – Jul 22', slug: 'cancer' },
-  { name: 'Leo', dates: 'Jul 23 – Aug 22', slug: 'leo' },
-  { name: 'Virgo', dates: 'Aug 23 – Sep 22', slug: 'virgo' },
-  { name: 'Libra', dates: 'Sep 23 – Oct 22', slug: 'libra' },
-  { name: 'Scorpio', dates: 'Oct 23 – Nov 21', slug: 'scorpio' },
-  { name: 'Sagittarius', dates: 'Nov 22 – Dec 21', slug: 'sagittarius' },
-  { name: 'Capricorn', dates: 'Dec 22 – Jan 19', slug: 'capricorn' },
-  { name: 'Aquarius', dates: 'Jan 20 – Feb 18', slug: 'aquarius' },
-  { name: 'Pisces', dates: 'Feb 19 – Mar 20', slug: 'pisces' },
+// Learn's front door (owner, 11/19): the start of the beginner path. Your sign,
+// your chart, the four parts, then a real person's chart.
+const SIGNS: [name: string, dates: string][] = [
+  ['Aries', 'Mar 21 to Apr 19'], ['Taurus', 'Apr 20 to May 20'], ['Gemini', 'May 21 to Jun 20'], ['Cancer', 'Jun 21 to Jul 22'],
+  ['Leo', 'Jul 23 to Aug 22'], ['Virgo', 'Aug 23 to Sep 22'], ['Libra', 'Sep 23 to Oct 22'], ['Scorpio', 'Oct 23 to Nov 21'],
+  ['Sagittarius', 'Nov 22 to Dec 21'], ['Capricorn', 'Dec 22 to Jan 19'], ['Aquarius', 'Jan 20 to Feb 18'], ['Pisces', 'Feb 19 to Mar 20'],
+]
+
+const PARTS: { href: string; title: string; sub: string; disc: VDisc }[] = [
+  { href: '/astrology-planets', title: 'Planets', sub: 'What is acting: the Sun, the Moon and the rest', disc: { color: DISC.SUN, icon: 'sun' } },
+  { href: '/zodiac-signs', title: 'Signs', sub: 'How it acts: the twelve styles', disc: { color: DISC.VENUS, icon: 'taurus' } },
+  { href: '/astrology-houses', title: 'Houses', sub: 'Where in life it shows up', disc: { color: DISC.MOON, text: '10' } },
+  { href: '/astrology-aspects', title: 'Aspects', sub: 'How two planets get along', disc: { color: DISC.NEPTUNE, icon: 'trine' } },
 ]
 
 export default function StartPage() {
   return (
     <>
       <Head>
-        <title>Start Here — Your Astrology Journey | Birth Chart Library</title>
-        <meta name="description" content="New to astrology? Start here. Find your zodiac sign, learn what it means, and create your free birth chart." />
+        <title>Learn Astrology: Start Here | Birth Chart Library</title>
+        <meta name="description" content="New to astrology? Find your sign, make your birth chart free, learn the four parts of a chart, then read a real person’s chart." />
         <link rel="canonical" key="canonical" href="https://birthchartlibrary.com/start" />
       </Head>
-      <main className="max-w-3xl mx-auto px-4 py-12">
-        {/* Step 1 */}
-        <div className="text-center mb-10">
-          <p className="text-xs uppercase tracking-widest text-slate-400 mb-2">Step 1 of 3</p>
-          <h1 className="font-display text-3xl sm:text-4xl tracking-wide mb-3">What&apos;s your sign?</h1>
-          <p className="text-slate-500">Find your Sun sign below based on your birthday. This is where your astrology journey begins.</p>
-        </div>
+      <main className="rdp"><div className="lrn steps">
+        <LearnHero kicker="Start here" title="Learn to read a birth chart">
+          <p>A birth chart is the sky at one moment, seen from one place. Four steps and you can read one.</p>
+        </LearnHero>
 
-        <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 mb-12">
-          {SIGNS.map(sign => {
-            const ec = getElementColor(sign.name)
-            return (
-              <Link
-                key={sign.slug}
-                href={`/zodiac-signs/${sign.slug}`}
-                className={`card flex flex-col items-center text-center p-4 hover:border-slate-400 transition-all group`}
-              >
-                <SignGlyph sign={sign.name} decorative className={`text-2xl mb-1 w-12 h-12 rounded-full ${ec.bg} ${ec.text} flex items-center justify-center`} />
-                <span className="text-sm font-medium text-slate-700 group-hover:text-slate-900 transition-colors">{sign.name}</span>
-                <span className="text-[10px] text-slate-400">{sign.dates}</span>
+        <section className="lsec">
+          <p className="stepn">Step 1</p>
+          <h2>Find your sign</h2>
+          <p>The sign you already know is your Sun sign. Pick yours.</p>
+          <div className="signgrid">
+            {SIGNS.map(([s, dates]) => (
+              <Link key={s} className="signtile" href={`/zodiac-signs/${s.toLowerCase()}`}>
+                <span className={`el-${ELEMENT_OF[s]}`}><Icon name={signIcon(s)} size={22} /></span>
+                <span>{s}<small>{dates}</small></span>
               </Link>
-            )
-          })}
-        </div>
+            ))}
+          </div>
+          <p className="disclose">The day the Sun changes sign moves a little from year to year. Born on an edge? Your chart settles it.</p>
+        </section>
 
-        {/* Step 2 */}
-        <div className="border-t border-slate-200 pt-10 mb-10">
-          <div className="text-center mb-6">
-            <p className="text-xs uppercase tracking-widest text-slate-400 mb-2">Step 2</p>
-            <h2 className="font-display text-2xl tracking-wide mb-2">Go beyond your Sun sign</h2>
-            <p className="text-slate-500 text-sm">Your Sun sign is just the beginning. A full birth chart reveals your Moon sign (emotions), Rising sign (how others see you), and 10 more planetary placements.</p>
+        <section className="lsec">
+          <p className="stepn">Step 2</p>
+          <h2>Make your chart</h2>
+          <p>Your Sun is one of three signs to know first. The Moon is how you feel, and the rising sign is how you come across. Enter your birth date, time and place to see all three, and everything after them.</p>
+          <div className="btnrow">
+            <Link className="btn" href="/birth-chart?ref=start">Make your chart</Link>
+            <span className="disclose">Free. No account needed.</span>
           </div>
-          <div className="grid sm:grid-cols-3 gap-4">
-            <Link href="/calculators/rising-sign" className="card p-5 hover:border-slate-400 transition-colors group text-center">
-              <p className="text-xl mb-2">↑</p>
-              <p className="font-medium text-sm group-hover:text-slate-900 transition-colors">Find your rising sign</p>
-              <p className="text-xs text-slate-400 mt-1">Requires birth time</p>
-            </Link>
-            <Link href="/calculators/sun-moon-rising" className="card p-5 hover:border-slate-400 transition-colors group text-center">
-              <p className="text-xl mb-2">☉ ☽ ↑</p>
-              <p className="font-medium text-sm group-hover:text-slate-900 transition-colors">Your Big Three</p>
-              <p className="text-xs text-slate-400 mt-1">Sun + Moon + Rising</p>
-            </Link>
-            <Link href="/calculators/chinese-zodiac" className="card p-5 hover:border-slate-400 transition-colors group text-center">
-              <p className="text-xl mb-2">🐉</p>
-              <p className="font-medium text-sm group-hover:text-slate-900 transition-colors">Chinese zodiac</p>
-              <p className="text-xs text-slate-400 mt-1">Year-based animal sign</p>
-            </Link>
-          </div>
-        </div>
+        </section>
 
-        {/* Step 3 */}
-        <div className="border-t border-slate-200 pt-10 mb-10">
-          <div className="text-center mb-6">
-            <p className="text-xs uppercase tracking-widest text-slate-400 mb-2">Step 3</p>
-            <h2 className="font-display text-2xl tracking-wide mb-2">Create your full birth chart</h2>
-            <p className="text-slate-500 text-sm">A complete natal chart maps all 12 planetary positions at the exact moment you were born. It&apos;s free, personalized, and includes full interpretations.</p>
+        <section className="lsec doors">
+          <p className="stepn">Step 3</p>
+          <h2>Learn the four parts</h2>
+          <p>Every line in a chart is one planet, in one sign, in one house. Aspects say how two planets meet.</p>
+          <div className="dgrid">
+            {PARTS.map(d => (
+              <Link key={d.href} href={d.href} className="door">
+                <Disc disc={d.disc} size={44} iconSize={24} />
+                <span><b>{d.title}</b><small>{d.sub}</small></span>
+              </Link>
+            ))}
           </div>
-          <div className="text-center">
-            <Link href="/birth-chart" className="btn-primary text-lg px-8 py-3 inline-block">
-              Create your free chart
-            </Link>
-            <p className="text-xs text-slate-400 mt-3">Free. No account needed.</p>
-          </div>
-        </div>
+        </section>
 
-        {/* Explore more */}
-        <div className="border-t border-slate-200 pt-10">
-          <h2 className="text-lg font-semibold mb-4 text-center">Keep exploring</h2>
-          <div className="grid sm:grid-cols-2 gap-3">
-            <Link href="/blog/what-is-a-birth-chart" className="card p-4 hover:border-slate-400 transition-colors group">
-              <p className="font-medium text-sm group-hover:text-slate-900 transition-colors">What Is a Birth Chart?</p>
-              <p className="text-xs text-slate-400 mt-1">The complete beginner&apos;s guide</p>
-            </Link>
-            <Link href="/celebrity-birth-charts" className="card p-4 hover:border-slate-400 transition-colors group">
-              <p className="font-medium text-sm group-hover:text-slate-900 transition-colors">Celebrity birth charts</p>
-              <p className="text-xs text-slate-400 mt-1">See charts for 550+ famous people</p>
-            </Link>
-            <Link href="/astrology-interpretations" className="card p-4 hover:border-slate-400 transition-colors group">
-              <p className="font-medium text-sm group-hover:text-slate-900 transition-colors">Interpretation library</p>
-              <p className="text-xs text-slate-400 mt-1">Look up any planet, sign, or house combination</p>
-            </Link>
-            <Link href="/reading-room" className="card p-4 hover:border-slate-400 transition-colors group">
-              <p className="font-medium text-sm group-hover:text-slate-900 transition-colors">The Reading Room</p>
-              <p className="text-xs text-slate-400 mt-1">Curated astrology books for your journey</p>
-            </Link>
+        <section className="lsec">
+          <p className="stepn">Step 4</p>
+          <h2>Read a real person’s chart</h2>
+          <p>Pick someone you know well. It is easier to see what a placement means when you already know the person.</p>
+          <div className="btnrow">
+            <Link className="btn" href="/celebrity-birth-charts">Browse the library</Link>
+            <Link className="tlink" href="/celebrity-match">Find your celebrity twins</Link>
           </div>
-        </div>
-      </main>
+        </section>
+
+        <NextLinks title="Keep going" links={[
+          { href: '/blog/what-is-a-birth-chart', title: 'What is a birth chart?', sub: 'The longer answer' },
+          { href: '/compatibility', title: 'Sign compatibility', sub: 'How two signs get along' },
+          { href: '/chinese-zodiac', title: 'Chinese zodiac', sub: 'Your animal and element' },
+          { href: '/glossary', title: 'Glossary', sub: 'Every term in plain words' },
+          { href: '/reading-room', title: 'The reading room', sub: 'Astrology books worth owning' },
+          { href: '/method', title: 'How charts are made', sub: 'Where the numbers come from' },
+        ]} />
+      </div></main>
     </>
   )
 }

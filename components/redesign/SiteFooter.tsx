@@ -18,7 +18,7 @@ export default function SiteFooter() {
             <ul>{c.links.map(([href, label]) => <li key={href}><Link href={href}>{label}</Link></li>)}</ul>
           </div>
         ))}
-        <p className="fine">Birth Chart Library. Charts from the Swiss Ephemeris; birth data from public records and published sources. Readings are for entertainment, not medical, legal or financial advice.</p>
+        <p className="fine">Birth Chart Library. Charts from the Swiss Ephemeris; birth data from public records and published sources. Readings are for entertainment, not medical, legal or financial advice. <a className="tlink" href="https://github.com/intensechase/birthchartlibrary-source" target="_blank" rel="noopener noreferrer">Source code</a> under AGPL-3.0.</p>
       </div>
     </footer>
   )

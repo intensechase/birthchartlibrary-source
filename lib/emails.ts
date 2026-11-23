@@ -70,7 +70,7 @@ export async function sendWelcomeEmail(email: string) {
   await sendEmail(email, '✦ Welcome to Birth Chart Library', emailLayout(body))
 }
 
-export async function sendChartCreatedEmail(email: string, sunSign: string, moonSign: string, risingSign: string) {
+export async function sendChartCreatedEmail(email: string, sunSign: string, moonSign: string, risingSign: string | null) {
   const body = `
     <div style="padding: 32px 0; text-align: center;">
       <h2 style="font-size: 22px; margin: 0 0 8px;">Your Chart is Ready</h2>
@@ -78,7 +78,7 @@ export async function sendChartCreatedEmail(email: string, sunSign: string, moon
       <div style="background: #F8F9FC; border-radius: 12px; padding: 24px; display: inline-block; text-align: center;">
         <p style="font-size: 15px; margin: 4px 0; color: #2D3748;">☉ Sun in <strong>${sunSign}</strong></p>
         <p style="font-size: 15px; margin: 4px 0; color: #2D3748;">☽ Moon in <strong>${moonSign}</strong></p>
-        <p style="font-size: 15px; margin: 4px 0; color: #2D3748;">↑ Rising: <strong>${risingSign}</strong></p>
+        ${risingSign ? `<p style="font-size: 15px; margin: 4px 0; color: #2D3748;">↑ Rising: <strong>${risingSign}</strong></p>` : ''}
       </div>
     </div>
     <div style="padding: 8px 0 24px;">
@@ -90,7 +90,7 @@ export async function sendChartCreatedEmail(email: string, sunSign: string, moon
       <a href="https://birthchartlibrary.com/daily-horoscope" style="display: inline-block; background: #1A202C; color: #fff; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-size: 15px; font-weight: 600;">View Your Daily Horoscope</a>
     </div>
   `
-  await sendEmail(email, `☉ Your Chart: ${sunSign} Sun, ${moonSign} Moon, ${risingSign} Rising`, emailLayout(body))
+  await sendEmail(email, `☉ Your Chart: ${sunSign} Sun, ${moonSign} Moon${risingSign ? `, ${risingSign} Rising` : ''}`, emailLayout(body))
 }
 
 export async function sendPasswordResetEmail(email: string, resetUrl: string) {

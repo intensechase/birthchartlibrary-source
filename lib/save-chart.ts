@@ -90,7 +90,7 @@ export async function saveChart(user: { id: string; email?: string | null }, f: 
   if (shouldBePrimary && user.email) {
     const sunSign = chartData.planets.find((p: { planet: string }) => p.planet === 'SUN')?.sign || 'Unknown'
     const moonSign = chartData.planets.find((p: { planet: string }) => p.planet === 'MOON')?.sign || 'Unknown'
-    const risingSign = chartData.ascendantSign || 'Unknown'
+    const risingSign = birthTime ? chartData.ascendantSign : null // no birth time, no rising sign
     sendChartCreatedEmail(user.email, sunSign, moonSign, risingSign).catch(() => {})
   }
   return chart.id

@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import AuthShell from '@/components/redesign/AuthShell'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -15,6 +16,15 @@ type State =
   | { status: 'expired' }
   | { status: 'error' }
   | { status: 'no-token' }
+
+const SAYS: Record<State['status'], string> = {
+  loading: 'One moment…',
+  success: 'Taking you to your account…',
+  invalid: 'This link does not work, or it was used already.',
+  expired: 'This link is too old. Sign in and ask for a new one.',
+  error: 'Something went wrong. Try the link again in a moment.',
+  'no-token': 'The link is missing a piece. Open it again from your email.',
+}
 
 export default function VerifyEmailPage() {
   const router = useRouter()
@@ -58,39 +68,14 @@ export default function VerifyEmailPage() {
   return (
     <>
       <Head>
-        <title>Verify Email — Birth Chart Library</title>
+        <title>Verify your email | Birth Chart Library</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <main className="max-w-md mx-auto px-4 py-20 text-center">
-        <h1 className="font-display text-3xl tracking-wide mb-4">Verify your email</h1>
-        {state.status === 'loading' && (
-          <p className="text-slate-500">Verifying…</p>
-        )}
-        {state.status === 'success' && (
-          <p className="text-slate-700 dark:text-slate-200">Your email is verified. Redirecting…</p>
-        )}
-        {state.status === 'invalid' && (
-          <>
-            <p className="text-slate-700 dark:text-slate-200 mb-4">This verification link is invalid or has already been used.</p>
-            <Link href="/account" className="text-sm text-slate-500 hover:text-slate-800 transition-colors">Go to your account →</Link>
-          </>
-        )}
-        {state.status === 'expired' && (
-          <>
-            <p className="text-slate-700 dark:text-slate-200 mb-4">This verification link has expired. Sign in and request a new one.</p>
-            <Link href="/account" className="text-sm text-slate-500 hover:text-slate-800 transition-colors">Go to your account →</Link>
-          </>
-        )}
-        {state.status === 'no-token' && (
-          <p className="text-slate-700 dark:text-slate-200">Missing verification token. Check the link in your email.</p>
-        )}
-        {state.status === 'error' && (
-          <>
-            <p className="text-slate-700 dark:text-slate-200 mb-4">Something went wrong while verifying. Please try again.</p>
-            <Link href="/account" className="text-sm text-slate-500 hover:text-slate-800 transition-colors">Go to your account →</Link>
-          </>
-        )}
-      </main>
+      <AuthShell
+        title={state.status === 'success' ? 'Your email is verified' : 'Verify your email'}
+        sub={<span role="status">{SAYS[state.status]}</span>}
+        after={['invalid', 'expired', 'error'].includes(state.status) ? <p><Link className="btn" href="/account">Go to your account</Link></p> : null}
+      />
     </>
   )
 }

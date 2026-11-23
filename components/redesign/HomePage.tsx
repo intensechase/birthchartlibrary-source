@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import Link from 'next/link'
 import Icon from '@/components/Icon'
+import { safeSessionSet } from '@/lib/safe-storage'
 import type { HomeView, HomePerson } from '@/lib/redesign/home-view'
 import { DISC, ELEMENT_OF, signIcon, BODY_ICON, HOUSE_KEYS, SIGN_NAMES } from '@/lib/redesign/astro'
 import SkyDiagram from './SkyDiagram'
@@ -125,7 +126,7 @@ function WhoShares() {
             </Link>
           ))}
           {!t.people.length ? <p className="lede">No one in the library shares both yet.</p> : null}
-          {t.total > 3 ? <Link className="more" href="/celebrity-match">See all {t.total}</Link> : null}
+          {t.total > 3 ? <Link className="more" href="/celebrity-match" onClick={() => safeSessionSet('bcl-f:match', JSON.stringify({ sun: t.sun, moon: t.moon, rising: '' }))}>See all {t.total}</Link> : null}
         </div>
       ) : null}
     </>
